@@ -1,0 +1,2 @@
+ErrorDocument 404 http://localhost/qrc-mgr-ekoders/error_page/error404.html
+ErrorDocument 500 http://localhost/qrc-mgr-ekoders/error_page/error404.html
