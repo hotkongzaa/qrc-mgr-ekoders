@@ -200,28 +200,9 @@ if (empty($_SESSION['username'])) {
 
                             <!-- BEGIN CHARTS DROPDOWN -->
                             <li class="panel">
-                                <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#charts">
-                                    <i class="fa fa-sitemap"></i> Report (รายงาน) <span class="fa arrow"></span>
+                                <a href="#" >
+                                    <i class="fa fa-sitemap"></i> Report (รายงาน)
                                 </a>
-                                <ul class="collapse nav" id="charts">
-                                    <li>
-                                        <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#team_report">
-                                            <i class="fa fa-angle-double-right"></i> Team Report <span class="fa arrow"></span>
-                                        </a>
-                                        <ul class="collapse nav" id="team_report">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-angle-double-right"></i> Team Summary 
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-angle-double-right"></i> Team Growth Rate 
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </li>
                         </ul><!-- /.side-nav -->                                              
                     </div><!-- /.navbar-collapse -->
@@ -417,26 +398,26 @@ if (empty($_SESSION['username'])) {
 
         <script type="text/javascript">
             var createOrEditState = "Save";
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $(".search_date").datepicker();
                 $("#create_edit_panel").hide();
                 $("#loading_project").load("inspection_table_result.php");
                 $("#search_project").load("inspection_search_page.php");
-                $("#create_new_ins_btn").click(function() {
-                    $("#loading_ce_form").load("create-edit_form.php", function() {
+                $("#create_new_ins_btn").click(function () {
+                    $("#loading_ce_form").load("create-edit_form.php", function () {
                         $("#create_edit_panel").show("fast");
                         $("#create_new_ins_btn").hide("fast");
                     });
                 });
-                $("#reset_search").click(function() {
+                $("#reset_search").click(function () {
                     $("#search_project").load("inspection_search_page.php");
                     $("#loading_project").load("inspection_table_result.php");
                 });
-                $("#cancel_form").click(function() {
+                $("#cancel_form").click(function () {
                     $("#create_edit_panel").hide("fast");
                     $("#create_new_ins_btn").show("fast");
                 });
-                $("#search_ins_button").click(function() {
+                $("#search_ins_button").click(function () {
                     var ins_project_name = $("#inspection_project_name_search").val();
                     var ins_document_no = $("#inspection_document_no_search").val();
                     var ins_ins_no = $("#inspection_no_search").val();
@@ -453,18 +434,18 @@ if (empty($_SESSION['username'])) {
                             $.trim(ins_date).length !== 0 ||
                             ins_ins_ordertype !== 0) {
                         var inspection_condition_condition = CryptoJS.MD5("Condition").toString();
-                        $("#loading_project").load("inspection_table_result.php?searchCondition=" + inspection_condition_condition + "&" + data, function() {
+                        $("#loading_project").load("inspection_table_result.php?searchCondition=" + inspection_condition_condition + "&" + data, function () {
                             //$(".spinner").hide();
                             $('html,body').animate({scrollTop: $('#inspection_table_result').offset().top}, 'slow');
                         });
                     } else {
-                        $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function() {
+                        $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function () {
                             //$(".spinner").hide();
                             $('html,body').animate({scrollTop: $('#inspection_table_result').offset().top}, 'slow');
                         });
                     }
                 });
-                $("#save_create_panel").click(function() {
+                $("#save_create_panel").click(function () {
                     if ($("#inspection_project_name_form").val() == "") {
 //                        $().toastmessage('showWarningToast', "Please select Project name (ชื่อโครงการ)");
                         alert("Please select Project name (ชื่อโครงการ)");
@@ -486,10 +467,10 @@ if (empty($_SESSION['username'])) {
                         if (createOrEditState == "Save") {
                             //alert(data);
                             var jqxhr = $.post("../model/SavingInspection.php?" + data);
-                            jqxhr.success(function(resp) {
+                            jqxhr.success(function (resp) {
                                 //alert(resp);
                                 if (resp == 1) {
-                                    $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function() {
+                                    $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function () {
                                         $(".spinner").hide();
                                         $("#create_edit_panel").hide();
                                         $("#loading_ce_form").empty();
@@ -512,10 +493,10 @@ if (empty($_SESSION['username'])) {
                                 var insIDD = $("#insID").val();
 
                                 var jqxhr = $.post("../model/UpdateInsWithDifferImage.php?INS_ID=" + insIDD + "&" + data);
-                                jqxhr.success(function(resp) {
+                                jqxhr.success(function (resp) {
                                     // alert(resp);
                                     //window.location.assign("index.php")
-                                    $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function() {
+                                    $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function () {
                                         $(".spinner").hide();
                                         $("#create_edit_panel").hide();
                                         $("#loading_ce_form").empty();
@@ -536,11 +517,11 @@ if (empty($_SESSION['username'])) {
                 {
                     // blockPage();
                     var jqxhr = $.post("../model/DeleteInspection.php?INS_ID=" + INS_ID);
-                    jqxhr.success(function(data) {
-                        setTimeout(function()
+                    jqxhr.success(function (data) {
+                        setTimeout(function ()
                         {
                             if (data == 1) {
-                                $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function() {
+                                $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function () {
                                     $(".spinner").hide();
                                     $("#create_edit_panel").hide();
                                     $("#loading_ce_form").empty();
@@ -557,7 +538,7 @@ if (empty($_SESSION['username'])) {
                         }
                         , 300);
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 }
@@ -571,21 +552,21 @@ if (empty($_SESSION['username'])) {
                 $("#create_edit_panel").show();
                 $("#spinnerCE").show();
                 var jqxhr = $.post("create-edit_form.php?isEdit=Edit");
-                jqxhr.success(function(cedata) {
+                jqxhr.success(function (cedata) {
                     $("#loading_ce_form").html(cedata);
                     $("#spinnerCE").hide();
                     $('html,body').animate({scrollTop: $('#create_edit_panel').offset().top}, 'slow');
                 });
-                jqxhr.error(function(result) {
+                jqxhr.error(function (result) {
                     $().toastmessage('showWarningToast', "Cannot connect server with: " + result);
                 });
                 var millisecondsToWait = 500;
-                setTimeout(function() {
+                setTimeout(function () {
                     $("#insID").val(ins_id);
                     $("#uploadWarning").html("Leave it for no change");
                     createOrEditState = "Edit";
                     var jqxhr = $.post("../model/GetInspectionByID.php?ins_id=" + ins_id);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         obj = JSON.parse(data);
                         $("#inspection_no_form").val(obj.INS_INSPECTION_NO);
                         $("#inspection_date_form").val(obj.INS_DATE);
@@ -594,7 +575,7 @@ if (empty($_SESSION['username'])) {
 
                         $("#inspection_project_name_form").val(obj.project_code);
                         var jqxhr = $.post("../model/GetAllProjectForEdit.php?project_code=" + obj.project_code);
-                        jqxhr.success(function(data) {
+                        jqxhr.success(function (data) {
                             obj = JSON.parse(data);
                             $("#inspection_project_code_form").val(obj.project_code);
                             $("#inspection_project_manager_form").val(obj.project_manager);
@@ -603,9 +584,9 @@ if (empty($_SESSION['username'])) {
                         });
 
                         var jqxhr = $.post("../model/GetPoDocumentByProjectID.php?project_code=" + obj.project_code);
-                        jqxhr.success(function(data2) {
+                        jqxhr.success(function (data2) {
                             $("#inspection_document_no_form").html(data2);
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 $("#inspection_document_no_form").val(obj.PO_ID);
                             }, 100);
                         });
@@ -613,7 +594,7 @@ if (empty($_SESSION['username'])) {
 
 
                         var jqxhr = $.post("../model/GetPoByIDForEdit.php?po_id=" + obj.PO_ID);
-                        jqxhr.success(function(resp) {
+                        jqxhr.success(function (resp) {
                             obj = JSON.parse(resp);
                             $("#inspection_home_plan_form").val(obj.PO_HOME_PLAN);
                             $("#inspection_home_plot_form").val(obj.PO_HOME_PLOT);
@@ -625,11 +606,11 @@ if (empty($_SESSION['username'])) {
                         });
 
                         var jqxhrCkImage = $.post("../model/GetINSIMGByID.php?po_id=" + ins_id);
-                        jqxhrCkImage.success(function(imgData) {
+                        jqxhrCkImage.success(function (imgData) {
                             $("#edit_image").html(imgData);
                         });
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
 
@@ -639,9 +620,9 @@ if (empty($_SESSION['username'])) {
                 if (confirm("Are you sure?"))
                 {
                     var jqxhr = $.post("../model/DelINSImageByID.php?imageID=" + imageID + "&img_name=" + img_name);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         if (data == 200) {
-                            $("#edit_image").load("../model/GetINSIMGByID.php?po_id=" + po_id, function() {
+                            $("#edit_image").load("../model/GetINSIMGByID.php?po_id=" + po_id, function () {
 
                             });
                         } else {

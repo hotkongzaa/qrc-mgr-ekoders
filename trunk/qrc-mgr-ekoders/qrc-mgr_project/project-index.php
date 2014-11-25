@@ -200,28 +200,9 @@ if (empty($_SESSION['username'])) {
 
                             <!-- BEGIN CHARTS DROPDOWN -->
                             <li class="panel">
-                                <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#charts">
-                                    <i class="fa fa-sitemap"></i> Report (รายงาน) <span class="fa arrow"></span>
+                                <a href="#" >
+                                    <i class="fa fa-sitemap"></i> Report (รายงาน)
                                 </a>
-                                <ul class="collapse nav" id="charts">
-                                    <li>
-                                        <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#team_report">
-                                            <i class="fa fa-angle-double-right"></i> Team Report <span class="fa arrow"></span>
-                                        </a>
-                                        <ul class="collapse nav" id="team_report">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-angle-double-right"></i> Team Summary 
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-angle-double-right"></i> Team Growth Rate 
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </li>
                         </ul><!-- /.side-nav -->                                              
                     </div><!-- /.navbar-collapse -->
@@ -409,39 +390,39 @@ if (empty($_SESSION['username'])) {
         <script src="../assets/js/qrc-mgr_configuration.js"></script>
         <script type="text/javascript">
             var createOrEditState = "Create";
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $("#create_edit_panel").hide();
                 var jqxhr = $.post("project_table_result.php?search_condition=search_all");
-                jqxhr.success(function(data) {
+                jqxhr.success(function (data) {
                     $("#loading_project").html(data);
                     $(".spinner").hide();
                 });
-                jqxhr.error(function() {
+                jqxhr.error(function () {
                     alert("Cannot load page");
                 });
                 var jqxhr = $.post("project_search_page.php");
-                jqxhr.success(function(data) {
+                jqxhr.success(function (data) {
                     $("#search_project").html(data);
                 });
-                jqxhr.error(function() {
+                jqxhr.error(function () {
                     alert("Cannot load page");
                 });
-                $("#cancel_form").click(function() {
+                $("#cancel_form").click(function () {
                     $("#create_edit_panel").hide();
                     $("#loading_ce_form").empty();
                     $("#create_new_project_btn").show();
                 });
-                $("#create_new_project_btn").click(function() {
+                $("#create_new_project_btn").click(function () {
                     createOrEditState = "Create";
                     $("#create_edit_panel").show("fast");
                     var jqxhr = $.post("create-edit_form.php");
-                    jqxhr.success(function(cedata) {
+                    jqxhr.success(function (cedata) {
                         $("#loading_ce_form").html(cedata);
                         $("#create_new_project_btn").hide();
                         $('html,body').animate({scrollTop: $('#create_new_project_btn').offset().top}, 'slow');
                     });
                 });
-                $("#search_project_button").click(function() {
+                $("#search_project_button").click(function () {
 
                     var projectCodeSearch = $("#project_code_search").val();
                     var projectNameSearch = $("#project_name_search").val();
@@ -462,7 +443,7 @@ if (empty($_SESSION['username'])) {
                             !$.trim(endSearchDate).length &&
                             searchLimit == 100) {
 
-                        $("#loading_project").load("project_table_result.php?search_condition=search_all", function() {
+                        $("#loading_project").load("project_table_result.php?search_condition=search_all", function () {
 
                         });
                     } else {
@@ -478,7 +459,7 @@ if (empty($_SESSION['username'])) {
                         else {
                             var dateAr = endSearchDate.split('-');
                             endSearchDate = dateAr[0] + '-' + dateAr[1] + '-' + (parseInt(dateAr[2]) + 1);
-                            $("#loading_project").load("project_table_result.php?search_condition=search_criteria&projectCodeSearch=" + projectCodeSearch + "&projectNameSearch=" + projectNameSearch + "&projectTypeSearch=" + projectTypeSearch + "&projectStatusSearch=" + projectStatusSearch + "&projectOwnerSearch=" + projectOwnerSearch + "&projectCustomerSearch=" + projectCustomerSearch + "&startSearchDate=" + startSearchDate + "&endSearchDate=" + endSearchDate + "&searchLimit=" + searchLimit, function() {
+                            $("#loading_project").load("project_table_result.php?search_condition=search_criteria&projectCodeSearch=" + projectCodeSearch + "&projectNameSearch=" + projectNameSearch + "&projectTypeSearch=" + projectTypeSearch + "&projectStatusSearch=" + projectStatusSearch + "&projectOwnerSearch=" + projectOwnerSearch + "&projectCustomerSearch=" + projectCustomerSearch + "&startSearchDate=" + startSearchDate + "&endSearchDate=" + endSearchDate + "&searchLimit=" + searchLimit, function () {
 
                             });
 
@@ -487,7 +468,7 @@ if (empty($_SESSION['username'])) {
 
 
                 });
-                $("#save_create_panel").click(function() {
+                $("#save_create_panel").click(function () {
                     if ($("#project_name").val() == "") {
                         $("#project_name_div").addClass("has-error");
                     } else {
@@ -537,13 +518,13 @@ if (empty($_SESSION['username'])) {
                         if (createOrEditState == "Create") {
 
                             var jqxhr = $.post("../model/SavingProject.php" + data);
-                            jqxhr.success(function(reslut) {
+                            jqxhr.success(function (reslut) {
                                 if (reslut == 1) {
                                     clearProjectInsertFields();
                                     //$('html,body').animate({scrollTop: $('#project_tbl_content').offset().top}, 'slow');
                                     $("#create_edit_panel").hide();
                                     $(".spinner").show();
-                                    $("#loading_project").load("project_table_result.php?search_condition=search_all", function() {
+                                    $("#loading_project").load("project_table_result.php?search_condition=search_all", function () {
                                         $("#create_new_project_btn").show();
                                     });
                                     //$().toastmessage('showSuccessToast', 'บันทึกเรียบร้อยแล้ว');
@@ -552,7 +533,7 @@ if (empty($_SESSION['username'])) {
                                     //$().toastmessage('showErrorToast', 'ไม่สามารถบันทึกได้');
                                 }
                             });
-                            jqxhr.error(function(resultFail) {
+                            jqxhr.error(function (resultFail) {
                                 //$().toastmessage('showWarningToast', "Cannot connect server with: " + resultFail);
                                 alert("Cannot connect server with: " + resultFail);
                             });
@@ -562,11 +543,11 @@ if (empty($_SESSION['username'])) {
                                 alert('กรุณาใส่ Remark');
                             } else {
                                 var jqxhr = $.post("../model/EditProject.php" + data);
-                                jqxhr.success(function(result) {
+                                jqxhr.success(function (result) {
                                     if (result == 1) {
                                         clearProjectInsertFields();
                                         $("#create_edit_panel").hide();
-                                        $("#loading_project").load("project_table_result.php?search_condition=search_all", function() {
+                                        $("#loading_project").load("project_table_result.php?search_condition=search_all", function () {
                                             $("#create_new_project_btn").show();
                                         });
                                         //$().toastmessage('showSuccessToast', 'แก้ไขเรียบร้อยแล้ว');
@@ -578,7 +559,7 @@ if (empty($_SESSION['username'])) {
                                         //alert("Cannot Edit Project");
                                     }
                                 });
-                                jqxhr.error(function(resultFail) {
+                                jqxhr.error(function (resultFail) {
 //                                    $().toastmessage('showWarningToast', "Cannot connect server with: " + resultFail);
                                     alert("Cannot connect server with: " + resultFail);
                                 });
@@ -594,12 +575,12 @@ if (empty($_SESSION['username'])) {
                 {
                     $(".spinner").show();
                     var jqxhr = $.post("../model/DeleteProject.php?project_code=" + projectCode);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         if (data == 1) {
-                            setTimeout(function()
+                            setTimeout(function ()
                             {
                                 //$('html,body').animate({scrollTop: $('#project_tbl_content').offset().top}, 'slow');
-                                $("#loading_project").load("project_table_result.php?search_condition=search_all", function() {
+                                $("#loading_project").load("project_table_result.php?search_condition=search_all", function () {
 
                                 });
                                 $().toastmessage('showSuccessToast', 'ลบข้อมูลเรียบร้อยแล้ว');
@@ -609,7 +590,7 @@ if (empty($_SESSION['username'])) {
                             $().toastmessage('showErrorToast', 'ไม่สามารถลบข้อมูลได้');
                         }
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         $().toastmessage('showWarningToast', "Cannot connect server with: " + data);
                     });
                 }
@@ -641,14 +622,14 @@ if (empty($_SESSION['username'])) {
                 $("#create_new_project_btn").hide();
                 createOrEditState = "Edit";
                 $("#create_edit_panel").show();
-                $("#loading_ce_form").load("create-edit_form.php", function() {
+                $("#loading_ce_form").load("create-edit_form.php", function () {
                     $("#spinnerCE").hide();
                     $('html,body').animate({scrollTop: $('#create_edit_panel').offset().top}, 'slow');
                 });
                 var millisecondsToWait = 500;
-                setTimeout(function() {
+                setTimeout(function () {
                     var jqxhr = $.post("../model/GetAllProjectForEdit.php?project_code=" + projectCode);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         obj = JSON.parse(data);
                         $("#projectCodeShowForEdit").html(obj.project_code);
                         $("#projectCode").hide();
@@ -668,7 +649,7 @@ if (empty($_SESSION['username'])) {
                         $("#last_update").val(obj.updated_date_time);
                         $("#address_location").val(obj.address_location);
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 }, millisecondsToWait);
