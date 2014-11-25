@@ -10,6 +10,7 @@ if (empty($_SESSION['username'])) {
     } else {
         require '../model-db-connection/config.php';
         $config = require '../model-db-connection/qrc_conf.properties.php';
+        $searchCondition = $_GET['search_condition'];
     }
 }
 ?>
@@ -47,11 +48,35 @@ if (empty($_SESSION['username'])) {
         <tbody>
             <?php
             $ryearThai = date('Y') + 543;
-            $sqlSelectAllProjectRecord = "select *"
-                    . " from QRC_INVOICE qi"
-                    . " LEFT JOIN QRC_CUSTOMER_NAME qc on qc.customer_id = qi.customer_id"
-                    . " LEFT JOIN QRC_TYPE_OF_SERVICE qt on qi.order_type = qt.service_id"
-                    . " LEFT JOIN QRC_INVOICE_STATUS qis on qi.invoice_status = qis.inv_staus_id";
+            if ($searchCondition == "Condition") {
+                $invId = $_GET['invoice_id_search'];
+                $checkINV_ID = !empty($invId) ? " AND INV_ID LIKE '$invId'" : "";
+                $customer_search = $_GET['customer_search'];
+                $checkCustomer = !empty($customer_search) ? " AND customer_id LIKE '$customer_search'" : "";
+                $startSearchDate = $_GET['start_search_date'];
+                $endSearchDate = $_GET['end_search_date'];
+                $checkDate = !empty($startSearchDate) ? " AND create_date_time BETWEEN '$startSearchDate' AND '$endSearchDate'" : "";
+                $invoiceStatus = $_GET['invoice_status_search'];
+                $checkInvStatus = !empty($invoiceStatus) ? " AND INVOICE_STATUS LIKE '$invoiceStatus'" : "";
+                $sqlSelectAllProjectRecord = "select *"
+                        . " from QRC_INVOICE qi"
+                        . " LEFT JOIN QRC_CUSTOMER_NAME qc on qc.customer_id = qi.customer_id"
+                        . " LEFT JOIN QRC_TYPE_OF_SERVICE qt on qi.order_type = qt.service_id"
+                        . " LEFT JOIN QRC_INVOICE_STATUS qis on qi.invoice_status = qis.inv_staus_id"
+                        . " WHERE 1=1"
+                        . $checkINV_ID
+                        . $checkCustomer
+                        . $checkDate
+                        . $checkInvStatus
+                        . " ORDER BY create_date_time DESC;";
+            } else {
+                $sqlSelectAllProjectRecord = "select *"
+                        . " from QRC_INVOICE qi"
+                        . " LEFT JOIN QRC_CUSTOMER_NAME qc on qc.customer_id = qi.customer_id"
+                        . " LEFT JOIN QRC_TYPE_OF_SERVICE qt on qi.order_type = qt.service_id"
+                        . " LEFT JOIN QRC_INVOICE_STATUS qis on qi.invoice_status = qis.inv_staus_id"
+                        . " ORDER BY create_date_time DESC;";
+            }
             $sqlGetAllData = mysql_query($sqlSelectAllProjectRecord);
             if (mysql_num_rows($sqlGetAllData) >= 1) {
                 while ($row = mysql_fetch_assoc($sqlGetAllData)) {
@@ -92,7 +117,7 @@ if (empty($_SESSION['username'])) {
         </tbody>
     </table>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#dialog").hide();
             $.fn.editable.defaults.mode = 'inline';
         });
@@ -112,17 +137,17 @@ if (empty($_SESSION['username'])) {
         function viewClick(invId, custId, create_receipt) {
 
             var jqxhr = $.post("AjaxViewContent.php?inv_id=" + invId + "&customer_id=" + custId + "&create_receipt=" + create_receipt);
-            jqxhr.success(function(data) {
+            jqxhr.success(function (data) {
                 $("#dialog_Content").html(data);
                 var millisecondsToWait = 200;
-                setTimeout(function() {
+                setTimeout(function () {
                     $("#dialog").removeClass("hide").dialog({
                         height: 350,
                         width: 600
                     });
                 }, millisecondsToWait);
             });
-            jqxhr.error(function() {
+            jqxhr.error(function () {
                 alert("ไม่สามารถติดต่อกับ Server ได้");
             });
 
