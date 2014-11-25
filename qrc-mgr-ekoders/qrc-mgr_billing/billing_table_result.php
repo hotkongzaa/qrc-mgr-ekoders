@@ -50,14 +50,14 @@ if (empty($_SESSION['username'])) {
             $ryearThai = date('Y') + 543;
             if ($searchCondition == "Condition") {
                 $invId = $_GET['invoice_id_search'];
-                $checkINV_ID = !empty($invId) ? " AND INV_ID LIKE '$invId'" : "";
+                $checkINV_ID = !empty($invId) ? " AND qi.INV_ID LIKE '$invId'" : "";
                 $customer_search = $_GET['customer_search'];
-                $checkCustomer = !empty($customer_search) ? " AND customer_id LIKE '$customer_search'" : "";
+                $checkCustomer = !empty($customer_search) ? " AND qi.customer_id LIKE '$customer_search'" : "";
                 $startSearchDate = $_GET['start_search_date'];
                 $endSearchDate = $_GET['end_search_date'];
-                $checkDate = !empty($startSearchDate) ? " AND create_date_time BETWEEN '$startSearchDate' AND '$endSearchDate'" : "";
+                $checkDate = !empty($startSearchDate) ? " AND qi.create_date_time BETWEEN '$startSearchDate' AND '$endSearchDate'" : "";
                 $invoiceStatus = $_GET['invoice_status_search'];
-                $checkInvStatus = !empty($invoiceStatus) ? " AND INVOICE_STATUS LIKE '$invoiceStatus'" : "";
+                $checkInvStatus = !empty($invoiceStatus) ? " AND qi.INVOICE_STATUS LIKE '$invoiceStatus'" : "";
                 $sqlSelectAllProjectRecord = "select *"
                         . " from QRC_INVOICE qi"
                         . " LEFT JOIN QRC_CUSTOMER_NAME qc on qc.customer_id = qi.customer_id"
@@ -68,7 +68,7 @@ if (empty($_SESSION['username'])) {
                         . $checkCustomer
                         . $checkDate
                         . $checkInvStatus
-                        . " ORDER BY create_date_time DESC;";
+                        . " ORDER BY create_date_time DESC;";                
             } else {
                 $sqlSelectAllProjectRecord = "select *"
                         . " from QRC_INVOICE qi"
