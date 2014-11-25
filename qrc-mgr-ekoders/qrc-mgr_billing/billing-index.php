@@ -331,7 +331,7 @@ if (empty($_SESSION['username'])) {
                                     </div>
                                     <!-- End Server Info Charts .morris -->
                                     <div class="row" id="row_html">
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <div class="portlet">
                                                 <div class="portlet-heading inverse">
                                                     <div class="portlet-title">
@@ -344,20 +344,61 @@ if (empty($_SESSION['username'])) {
                                                 </div>
                                                 <div id="jq-spark" class="panel-collapse collapse in">
                                                     <div class="portlet-body">
-                                                        <div class="row" id="search_project">
-
-                                                        </div>										
+                                                        <form id="form_search">
+                                                            <div>
+                                                                <select class="form-control" id="invoice_id_search" name="invoice_id_search">
+                                                                    <option value="">-- Select Invoice --</option>
+                                                                    <?php
+                                                                    $sqlSelectProjectType = "SELECT * FROM QRC_INVOICE;";
+                                                                    $resultSet = mysql_query($sqlSelectProjectType);
+                                                                    while ($row = mysql_fetch_array($resultSet)) {
+                                                                        echo '<option value="' . $row['inv_id'] . '">' . $row['inv_id'] . '</option>';
+                                                                    }
+                                                                    ?>                                           
+                                                                </select>
+                                                            </div>
+                                                            <div>
+                                                                <select class="form-control" id="customer_search" name="customer_search">
+                                                                    <option value="">-- Select Customer Name --</option>
+                                                                    <?php
+                                                                    $sqlSelectProjectType = "SELECT * FROM QRC_CUSTOMER_NAME;";
+                                                                    $resultSet = mysql_query($sqlSelectProjectType);
+                                                                    while ($row = mysql_fetch_array($resultSet)) {
+                                                                        echo '<option value="' . $row['customer_id'] . '">' . $row['customer_name'] . '</option>';
+                                                                    }
+                                                                    ?>                                           
+                                                                </select>
+                                                            </div>
+                                                            <div>
+                                                                <select class="form-control" id="invoice_status_search" name="invoice_status_search">
+                                                                    <option value="">-- Select Invoice Status --</option>
+                                                                    <?php
+                                                                    $sqlSelectProjectType = "SELECT * FROM QRC_INVOICE_STATUS;";
+                                                                    $resultSet = mysql_query($sqlSelectProjectType);
+                                                                    while ($row = mysql_fetch_array($resultSet)) {
+                                                                        echo '<option value="' . $row['inv_staus_id'] . '">' . $row['inv_staus_name'] . '</option>';
+                                                                    }
+                                                                    ?>                                           
+                                                                </select>
+                                                            </div>
+                                                            <div>
+                                                                <input type="text" class="form-control search_date" id="start_search_date" name="start_search_date" data-date-format="yyyy-mm-dd" placeholder="Start date">
+                                                            </div>
+                                                            <div>
+                                                                <input type="text" class="form-control search_date" id="end_search_date" name="end_search_date" data-date-format="yyyy-mm-dd" placeholder="End date">
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                     <div class="portlet-footer">
                                                         <div class="pull-right">
-                                                            <button id="search_project_button" class="btn btn-inverse">Search <i class="fa fa-arrow-right icon-on-right"></i></button>
+                                                            <button id="search_button" class="btn btn-inverse">Search <i class="fa fa-arrow-right icon-on-right"></i></button>
                                                         </div>
                                                         <div class="clearfix"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-10">
+                                        <div class="col-lg-9">
                                             <div class="portlet">
                                                 <div class="portlet-heading dark">
                                                     <div class="portlet-title">
@@ -468,23 +509,24 @@ if (empty($_SESSION['username'])) {
             var create_type = "";
             var create_receipt = "";
             var create_progressive = "";
-            $(document).ready(function() {
+            $(document).ready(function () {
+                $(".search_date").datepicker();
                 $("#show_temp_tble").hide();
                 $("#create_edit_panel").hide();
-                $("#loading_project").load("billing_table_result.php");
-                $("#create_new_billing_btn").click(function() {
-                    $("#loading_ce_form").load("create-edit_form.php", function() {
+                $("#loading_project").load("billing_table_result.php?search_condition=All");
+                $("#create_new_billing_btn").click(function () {
+                    $("#loading_ce_form").load("create-edit_form.php", function () {
                         $("#create_edit_panel").show("fast");
                         $("#create_new_billing_btn").hide("fast");
                     });
                 });
-                $("#close_search_panel").click(function() {
+                $("#close_search_panel").click(function () {
                     $("#create_edit_panel").hide("fast");
                     $("#create_new_billing_btn").show("fast");
                 });
-                $("#close_viewedit_tbl").click(function() {
+                $("#close_viewedit_tbl").click(function () {
                     var jqxhr = $.post("../model/com.qrc.mgr.controller/DeleteInvoiceDetailTemp.php");
-                    jqxhr.success(function(resp) {
+                    jqxhr.success(function (resp) {
                         if (resp == 1) {
                             $("#loading_viewedit_table").empty();
                             $("#show_temp_tble").hide();
@@ -494,7 +536,11 @@ if (empty($_SESSION['username'])) {
                     });
 
                 });
-                $("#create_billing").click(function() {
+                $("#search_button").click(function () {
+                    var searchInfo = $("#form_search").serialize();
+                    $("#loading_project").load("billing_table_result.php?search_condition=Condition&" + searchInfo);
+                });
+                $("#create_billing").click(function () {
                     var data = "";
                     if ($("#multi_sel_project_name").val() == null) {
 //                            $().toastmessage('showWarningToast', "Please select at least one project");
@@ -534,9 +580,9 @@ if (empty($_SESSION['username'])) {
                                     "isCreate=" + isCreate;
                         }
                         var jqxhr = $.post("../model/com.qrc.mgr.controller/SaveBillingHeader.php?" + data);
-                        jqxhr.success(function(resp) {
+                        jqxhr.success(function (resp) {
                             if (resp == 1) {
-                                $("#loading_viewedit_table").load("billing_page_generate.php", function() {
+                                $("#loading_viewedit_table").load("billing_page_generate.php", function () {
                                     $("#show_temp_tble").show();
                                     $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'slow');
                                 });
@@ -556,7 +602,7 @@ if (empty($_SESSION['username'])) {
 
 
                 });
-                $("#create_invoice_press").click(function() {
+                $("#create_invoice_press").click(function () {
                     var over = '<div id="overlay">' +
                             '<img id="loading" src="http://bit.ly/pMtW1K">' +
                             '</div>';
@@ -566,7 +612,7 @@ if (empty($_SESSION['username'])) {
                     var data = "";
                     if (statusNa == 1) {
                         var jqxhr = $.post("../model/com.qrc.mgr.controller/VerifyNumberOfRow.php");
-                        jqxhr.success(function(responseCheck) {
+                        jqxhr.success(function (responseCheck) {
                             if (responseCheck == "200") {
                                 var custId = $("#customer_id").val();
                                 var inv_type = $("input[name=create_type]:checked").val();
@@ -592,9 +638,9 @@ if (empty($_SESSION['username'])) {
                                 }
 
                                 var jqxhr = $.post("../model/com.qrc.mgr.controller/ManageBillingFile.php?" + data);
-                                jqxhr.success(function(response) {
+                                jqxhr.success(function (response) {
                                     if (response == "200") {
-                                        $("#loading_project").load("billing_table_result.php", function() {
+                                        $("#loading_project").load("billing_table_result.php", function () {
                                             $(".spinner").hide();
                                             $("#create_edit_panel").hide();
                                             $("#show_temp_tble").hide();
@@ -619,9 +665,9 @@ if (empty($_SESSION['username'])) {
                 {
                     // blockPage();
                     var jqxhr = $.post("../model/DeleteInvoice.php?inv_id=" + inv_id);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         if (data == 1) {
-                            $("#loading_project").load("billing_table_result.php", function() {
+                            $("#loading_project").load("billing_table_result.php", function () {
                                 $("#create_edit_panel").hide();
                                 $("#loading_ce_form").empty();
                                 window.location = "billing-index.php";
@@ -632,7 +678,7 @@ if (empty($_SESSION['username'])) {
                             alert("ไม่สามารถลบข้อมูลใบเสร็จได้");
                         }
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 }
@@ -643,12 +689,12 @@ if (empty($_SESSION['username'])) {
             }
             function deleteSubLevel(tempDetailID) {
                 var jqxhr = $.post("../model/com.qrc.mgr.controller/DeleteSubInvoiceService.php?tempDetailId=" + tempDetailID);
-                jqxhr.success(function(data) {
+                jqxhr.success(function (data) {
                     if (data == 200) {
 
                         alert("ลบข้อมูลใบเสร็จเรียบร้อยแล้ว");
 
-                        $("#loading_viewedit_table").load("billing_page_generate.php", function() {
+                        $("#loading_viewedit_table").load("billing_page_generate.php", function () {
                             $("#show_temp_tble").show();
                             $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'fast');
                         });
@@ -657,16 +703,16 @@ if (empty($_SESSION['username'])) {
                         alert("ไม่สามารถลบข้อมูลใบเสร็จได้");
                     }
                 });
-                jqxhr.error(function() {
+                jqxhr.error(function () {
                     alert("ไม่สามารถติดต่อกับ Server ได้");
                 });
             }
             function deleteFirstLevel(tempDetailID) {
                 var jqxhr = $.post("../model/com.qrc.mgr.controller/DeleteFirstInvoiceService.php?tempDetailId=" + tempDetailID);
-                jqxhr.success(function(data) {
+                jqxhr.success(function (data) {
                     if (data == 200) {
                         alert("ลบข้อมูลใบเสร็จเรียบร้อยแล้ว");
-                        $("#loading_viewedit_table").load("billing_page_generate.php", function() {
+                        $("#loading_viewedit_table").load("billing_page_generate.php", function () {
                             $("#show_temp_tble").show();
                             $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'slow');
                         });
@@ -674,7 +720,7 @@ if (empty($_SESSION['username'])) {
                         alert("ไม่สามารถลบข้อมูลใบเสร็จได้");
                     }
                 });
-                jqxhr.error(function() {
+                jqxhr.error(function () {
                     alert("ไม่สามารถติดต่อกับ Server ได้");
                 });
             }
@@ -682,7 +728,7 @@ if (empty($_SESSION['username'])) {
                 var check = invCode.split("-")[1].substring(0, 3);
                 if (check == "INV") {
                     var jqxhr = $.post("../model/com.qrc.mgr.controller/SavingToInvoiceDetail.php?inv_code=" + invCode);
-                    jqxhr.success(function(respInv) {
+                    jqxhr.success(function (respInv) {
                         if (respInv == 0) {
                             if (confirm("This invoice has been generated, Continue to generate this invoice?") == true) {
                                 window.location = 'billing_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + invCode;
