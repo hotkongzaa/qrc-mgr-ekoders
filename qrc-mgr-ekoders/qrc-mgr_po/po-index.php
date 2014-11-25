@@ -200,28 +200,9 @@ if (empty($_SESSION['username'])) {
 
                             <!-- BEGIN CHARTS DROPDOWN -->
                             <li class="panel">
-                                <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#charts">
-                                    <i class="fa fa-sitemap"></i> Report (รายงาน) <span class="fa arrow"></span>
+                                <a href="#" >
+                                    <i class="fa fa-sitemap"></i> Report (รายงาน)
                                 </a>
-                                <ul class="collapse nav" id="charts">
-                                    <li>
-                                        <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#team_report">
-                                            <i class="fa fa-angle-double-right"></i> Team Report <span class="fa arrow"></span>
-                                        </a>
-                                        <ul class="collapse nav" id="team_report">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-angle-double-right"></i> Team Summary 
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-angle-double-right"></i> Team Growth Rate 
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </li>
                         </ul><!-- /.side-nav -->                                              
                     </div><!-- /.navbar-collapse -->
@@ -416,25 +397,25 @@ if (empty($_SESSION['username'])) {
 
         <script type="text/javascript">
             var createOrEditState = "Save";
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $("#create_edit_panel").hide();
                 $("#search_project").load("po_search_page.php");
                 $("#loading_project").load("po_table_result.php?searchCondition=All");
-                $("#create_new_po_btn").click(function() {
-                    $("#loading_ce_form").load("create-edit_form.php", function() {
+                $("#create_new_po_btn").click(function () {
+                    $("#loading_ce_form").load("create-edit_form.php", function () {
                         $("#create_edit_panel").show();
                         $("#create_new_po_btn").hide();
                     });
                 });
-                $("#reset_search").click(function() {
+                $("#reset_search").click(function () {
                     $("#search_project").load("po_search_page.php");
                     $("#loading_project").load("po_table_result.php?searchCondition=All");
                 });
-                $("#cancel_form").click(function() {
+                $("#cancel_form").click(function () {
                     $("#create_edit_panel").hide();
                     $("#create_new_po_btn").show();
                 });
-                $("#search_po_button").click(function() {
+                $("#search_po_button").click(function () {
                     var project_id = $("#po_project_name_search").val();
                     var document_no = $("#po_document_no_search").val();
                     var po_no = $("#po_po_no_search").val();
@@ -458,24 +439,24 @@ if (empty($_SESSION['username'])) {
                             $.trim(po_owner).length != 0 ||
                             $.trim(po_sender).length != 0 ||
                             $.trim(po_issue_date).length != 0 ||
-                            po_order_type != 0||
-                            po_status!=0) {
+                            po_order_type != 0 ||
+                            po_status != 0) {
                         //window.location.assign("index-po-search-result.php?searchCondition=Condition&" + data);
 
-                        $("#loading_project").load("po_table_result.php?searchCondition=Condition&" + data, function() {
+                        $("#loading_project").load("po_table_result.php?searchCondition=Condition&" + data, function () {
                             //$(".spinner").hide();
 //                            $('html,body').animate({scrollTop: $('#team_tbl_content').offset().top}, 'slow');
                         });
                     } else {
                         //window.location.assign("index-po-search-result.php?searchCondition=All");
 
-                        $("#loading_project").load("po_table_result.php?searchCondition=search_all", function() {
+                        $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
                             //$(".spinner").hide();
 //                            $('html,body').animate({scrollTop: $('#team_tbl_content').offset().top}, 'slow');
                         });
                     }
                 });
-                $("#save_create_panel").click(function() {
+                $("#save_create_panel").click(function () {
                     var project_name = $("#po_project_name_form").val();
                     var project_code = $("#po_project_code_form").val();
                     var doc_no = $("#po_document_no_form").val();
@@ -530,14 +511,14 @@ if (empty($_SESSION['username'])) {
                         } else {
 
                             var isUploadImage = $.post("../model/CheckImageUpload.php");
-                            isUploadImage.success(function(resp) {
+                            isUploadImage.success(function (resp) {
                                 if (resp == "NO_DATA") {
                                     var po_id = $("#hideMemSkill").val();
                                     //alert(po_id);
                                     var updateWithSameImage = $.post("../model/UpdatePoWithSameImage.php?" + data + "&po_id=" + po_id);
-                                    updateWithSameImage.success(function(updateResp) {
+                                    updateWithSameImage.success(function (updateResp) {
                                         if (updateResp == 1) {
-                                            $("#loading_project").load("po_table_result.php?searchCondition=search_all", function() {
+                                            $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
                                                 $(".spinner").hide();
                                                 $("#create_edit_panel").hide();
                                                 $("#loading_ce_form").empty();
@@ -557,9 +538,9 @@ if (empty($_SESSION['username'])) {
                                 } else {
                                     var po_id = $("#hideMemSkill").val();
                                     var updateWithDifferImage = $.post("../model/UpdatePoWithDifferImage.php?" + data + "&po_id=" + po_id);
-                                    updateWithDifferImage.success(function(updateResp) {
+                                    updateWithDifferImage.success(function (updateResp) {
                                         if (updateResp == 1) {
-                                            $("#loading_project").load("po_table_result.php?searchCondition=search_all", function() {
+                                            $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
                                                 $(".spinner").hide();
                                                 $("#create_edit_panel").hide();
                                                 $("#loading_ce_form").empty();
@@ -582,10 +563,10 @@ if (empty($_SESSION['username'])) {
                     } else {
 
                         var jqxhr = $.post("../model/SavingPo.php?" + data);
-                        jqxhr.success(function(data) {
+                        jqxhr.success(function (data) {
                             if (data == 1) {
                                 //$("#modal-team").modal('hide');
-                                $("#loading_project").load("po_table_result.php?searchCondition=search_all", function() {
+                                $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
                                     $(".spinner").hide();
                                     $("#create_edit_panel").hide();
                                     $("#loading_ce_form").empty();
@@ -610,19 +591,19 @@ if (empty($_SESSION['username'])) {
                 $("#create_edit_panel").show();
                 $("#spinnerCE").show();
                 var jqxhr = $.post("create-edit_form.php?isEdit=Edit");
-                jqxhr.success(function(cedata) {
+                jqxhr.success(function (cedata) {
                     $("#loading_ce_form").html(cedata);
                     $("#spinnerCE").hide();
                     $('html,body').animate({scrollTop: $('#create_edit_panel').offset().top}, 'slow');
                 });
-                jqxhr.error(function(result) {
+                jqxhr.error(function (result) {
                     $().toastmessage('showWarningToast', "Cannot connect server with: " + result);
                 });
                 var millisecondsToWait = 500;
-                setTimeout(function() {
+                setTimeout(function () {
                     createOrEditState = "Edit";
                     var jqxhr = $.post("../model/GetPoByIDForEdit.php?po_id=" + po_id);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         $("#uploadpart").show();
                         obj = JSON.parse(data);
                         $("#hideMemSkill").val(po_id);
@@ -655,12 +636,12 @@ if (empty($_SESSION['username'])) {
                         $("#hidePoID").val(po_id);
 
                         var jqxhr = $.post("../model/GetPOIMGByID.php?po_id=" + po_id);
-                        jqxhr.success(function(imgData) {
+                        jqxhr.success(function (imgData) {
                             $("#edit_image").html(imgData);
                         });
 
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 }, millisecondsToWait);
@@ -669,12 +650,12 @@ if (empty($_SESSION['username'])) {
                 if (confirm("Are you sure?"))
                 {
                     var jqxhr = $.post("../model/DeletePO.php?PO_ID=" + PO_ID);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
 
-                        setTimeout(function()
+                        setTimeout(function ()
                         {
                             if (data == 1) {
-                                $("#loading_project").load("po_table_result.php?searchCondition=search_all", function() {
+                                $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
                                     $(".spinner").hide();
                                     $("#create_edit_panel").hide();
                                     $("#loading_ce_form").empty();
@@ -691,7 +672,7 @@ if (empty($_SESSION['username'])) {
                         }
                         , 500);
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 }
@@ -704,9 +685,9 @@ if (empty($_SESSION['username'])) {
                 if (confirm("Are you sure?"))
                 {
                     var jqxhr = $.post("../model/DelPoImageByID.php?imageID=" + imageID + "&img_name=" + img_name);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         if (data == 200) {
-                            $("#edit_image").load("../model/GetPOIMGByID.php?po_id=" + po_id, function() {
+                            $("#edit_image").load("../model/GetPOIMGByID.php?po_id=" + po_id, function () {
 
                             });
                         } else {

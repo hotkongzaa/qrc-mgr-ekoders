@@ -203,28 +203,9 @@ if (empty($_SESSION['username'])) {
 
                             <!-- BEGIN CHARTS DROPDOWN -->
                             <li class="panel">
-                                <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#charts">
-                                    <i class="fa fa-sitemap"></i> Report (รายงาน) <span class="fa arrow"></span>
+                                <a href="#" >
+                                    <i class="fa fa-sitemap"></i> Report (รายงาน)
                                 </a>
-                                <ul class="collapse nav" id="charts">
-                                    <li>
-                                        <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#team_report">
-                                            <i class="fa fa-angle-double-right"></i> Team Report <span class="fa arrow"></span>
-                                        </a>
-                                        <ul class="collapse nav" id="team_report">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-angle-double-right"></i> Team Summary 
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-angle-double-right"></i> Team Growth Rate 
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </li>
                         </ul><!-- /.side-nav -->                                              
                     </div><!-- /.navbar-collapse -->
@@ -472,25 +453,25 @@ if (empty($_SESSION['username'])) {
         <script src="../assets/js/plugins/select2/select2.min.js"></script>
         <script type="text/javascript">
             var createOrEditStateTeam = "Create";
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $("#select2_2").select2({
                     placeholder: "Select a Services",
                     allowClear: true
                 });
                 $("#create_edit_panel").hide();
                 $("#loading_project").load("team_table_result.php?searchCondition=search_all");
-                $("#create_new_team_btn").click(function() {
-                    $("#loading_ce_form").load("team-edit_form.php?mID=new", function() {
+                $("#create_new_team_btn").click(function () {
+                    $("#loading_ce_form").load("team-edit_form.php?mID=new", function () {
                         $("#create_edit_panel").show("fast");
                         $("#create_new_team_btn").hide();
                     });
                 });
-                $("#cancel_form").click(function() {
+                $("#cancel_form").click(function () {
                     $("#loading_ce_form").empty();
                     $("#create_edit_panel").hide("fast");
                     $("#create_new_team_btn").show("fast");
                 });
-                $("#save_create_panel").click(function() {
+                $("#save_create_panel").click(function () {
                     var teamCode = $("#team_code_form").val();
                     var teamName = $("#team_name_form").val();
                     var teamLeadId = $("#team_lead_form").val();
@@ -514,9 +495,9 @@ if (empty($_SESSION['username'])) {
                                     tSkill = $("#hideTeamSkill").val();
                                     $(".spinner").show();
                                     var jqxhr = $.post("../model/EditTeamBuilder.php?teamCode=" + teamCode + "&teamName=" + teamName + "&teamLeadId=" + teamLeadId + "&tSkill=" + tSkill + "&tType=" + tType + "&tManagerID=" + tManagerID + "&tRemark=" + tRemark);
-                                    jqxhr.success(function(data) {
+                                    jqxhr.success(function (data) {
                                         if (data == 1) {
-                                            $("#loading_project").load("team_table_result.php?searchCondition=search_all", function() {
+                                            $("#loading_project").load("team_table_result.php?searchCondition=search_all", function () {
                                                 $(".spinner").hide();
                                                 $("#create_edit_panel").hide();
                                                 $("#loading_ce_form").empty();
@@ -535,10 +516,10 @@ if (empty($_SESSION['username'])) {
                                 } else {
 
                                     var jqxhr = $.post("../model/EditTeamBuilder.php?teamCode=" + teamCode + "&teamName=" + teamName + "&teamLeadId=" + teamLeadId + "&tSkill=" + tSkill + "&tType=" + tType + "&tManagerID=" + tManagerID + "&tRemark=" + tRemark);
-                                    jqxhr.success(function(data) {
+                                    jqxhr.success(function (data) {
                                         if (data == 1) {
                                             //$("#modal-team").modal('hide');
-                                            $("#loading_project").load("team_table_result.php?searchCondition=search_all", function() {
+                                            $("#loading_project").load("team_table_result.php?searchCondition=search_all", function () {
                                                 $(".spinner").hide();
                                                 $("#create_edit_panel").hide();
                                                 $("#loading_ce_form").empty();
@@ -567,10 +548,10 @@ if (empty($_SESSION['username'])) {
                             alert("กรุณาระบุ ประเภทของบริการ");
                         } else {
                             var jqxhr = $.post("../model/SavingTeamBuilding.php?teamCode=" + teamCode + "&teamName=" + teamName + "&teamLeadId=" + teamLeadId + "&tSkill=" + tSkill + "&tType=" + tType + "&tManagerID=" + tManagerID + "&tRemark=" + tRemark);
-                            jqxhr.success(function(data) {
+                            jqxhr.success(function (data) {
                                 if (data == 1) {
                                     //$("#modal-team").modal('hide');
-                                    $("#loading_project").load("team_table_result.php?searchCondition=search_all", function() {
+                                    $("#loading_project").load("team_table_result.php?searchCondition=search_all", function () {
                                         $(".spinner").hide();
                                         $("#create_edit_panel").hide();
                                         $("#loading_ce_form").empty();
@@ -588,7 +569,7 @@ if (empty($_SESSION['username'])) {
                         }
                     }
                 });
-                $("#search_team_button").click(function() {
+                $("#search_team_button").click(function () {
                     var teamCode = $("#team_code_search").val();
                     var teamName = $("#team_name_search").val();
                     var teamLead = $("#team_lead_search").val();
@@ -605,13 +586,13 @@ if (empty($_SESSION['username'])) {
                             limit != 100) {
 
                         //window.location.assign("index-builder-search-result.php?searchCondition=condition&teamCode=" + teamCode + "&teamName=" + teamName + "&teamLead=" + teamLead + "&teamSkill=" + tSkill + "&teamType=" + teamType + "&teamManager=" + teamManager);
-                        $("#loading_project").load("team_table_result.php?searchCondition=condition&teamCode=" + teamCode + "&teamName=" + teamName + "&teamLead=" + teamLead + "&teamSkill=" + tSkill + "&teamType=" + teamType + "&teamManager=" + teamManager + "&searchLimit=" + limit, function() {
+                        $("#loading_project").load("team_table_result.php?searchCondition=condition&teamCode=" + teamCode + "&teamName=" + teamName + "&teamLead=" + teamLead + "&teamSkill=" + tSkill + "&teamType=" + teamType + "&teamManager=" + teamManager + "&searchLimit=" + limit, function () {
                             //$(".spinner").hide();
                             $('html,body').animate({scrollTop: $('#team_tbl_content').offset().top}, 'slow');
                         });
                     } else {
                         //window.location.assign("index-builder-search-result.php?searchCondition=search_all");
-                        $("#loading_project").load("team_table_result.php?searchCondition=search_all", function() {
+                        $("#loading_project").load("team_table_result.php?searchCondition=search_all", function () {
                             //$(".spinner").hide();
                             $('html,body').animate({scrollTop: $('#team_tbl_content').offset().top}, 'slow');
                         });
@@ -624,9 +605,9 @@ if (empty($_SESSION['username'])) {
                 if (confirm("Are you sure?"))
                 {
                     var jqxhr = $.post("../model/DeleteTeam.php?t_code=" + tID + "&memID=" + memID);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         if (data == 1) {
-                            $("#loading_project").load("team_table_result.php?searchCondition=search_all", function() {
+                            $("#loading_project").load("team_table_result.php?searchCondition=search_all", function () {
 
                                 $("#create_edit_panel").hide();
                                 $("#loading_ce_form").empty();
@@ -637,7 +618,7 @@ if (empty($_SESSION['username'])) {
                             alert("ไม่สามารถลบข้อมูลทีมได้");
                         }
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 }
@@ -651,19 +632,19 @@ if (empty($_SESSION['username'])) {
                 $("#create_edit_panel").show();
                 $("#spinnerCE").show();
                 var jqxhr = $.post("team-edit_form.php?mID=" + tID);
-                jqxhr.success(function(cedata) {
+                jqxhr.success(function (cedata) {
                     $("#loading_ce_form").html(cedata);
                     $("#spinnerCE").hide();
                     $('html,body').animate({scrollTop: $('#create_edit_panel').offset().top}, 'slow');
                 });
-                jqxhr.error(function(result) {
+                jqxhr.error(function (result) {
                     $().toastmessage('showWarningToast', "Cannot connect server with: " + result);
                 });
                 var millisecondsToWait = 500;
-                setTimeout(function() {
+                setTimeout(function () {
                     createOrEditStateTeam = "Edit";
                     var jqxhr = $.post("../model/GetAllTeamForEdit.php?teamID=" + tID);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         obj = JSON.parse(data);
                         $("#team_code_form").val(obj.t_code);
                         $("#team_name_form").val(obj.t_Name);
@@ -675,7 +656,7 @@ if (empty($_SESSION['username'])) {
                         $("#team_remark_in_form").val(obj.t_remark);
                     });
 
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 }, millisecondsToWait);

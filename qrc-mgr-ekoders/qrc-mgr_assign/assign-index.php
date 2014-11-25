@@ -200,28 +200,9 @@ if (empty($_SESSION['username'])) {
 
                             <!-- BEGIN CHARTS DROPDOWN -->
                             <li class="panel">
-                                <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#charts">
-                                    <i class="fa fa-sitemap"></i> Report (รายงาน) <span class="fa arrow"></span>
+                                <a href="#" >
+                                    <i class="fa fa-sitemap"></i> Report (รายงาน)
                                 </a>
-                                <ul class="collapse nav" id="charts">
-                                    <li>
-                                        <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#team_report">
-                                            <i class="fa fa-angle-double-right"></i> Team Report <span class="fa arrow"></span>
-                                        </a>
-                                        <ul class="collapse nav" id="team_report">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-angle-double-right"></i> Team Summary 
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-angle-double-right"></i> Team Growth Rate 
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </li>
                         </ul><!-- /.side-nav -->                                              
                     </div><!-- /.navbar-collapse -->
@@ -413,16 +394,16 @@ if (empty($_SESSION['username'])) {
         <script src="../assets/js/qrc-mgr_configuration.js"></script>
         <script type="text/javascript">
 
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $(".search_date").datepicker();
                 var loadAssigntbl = $.post("assign_table_result.php?search_condition=search_all");
-                loadAssigntbl.success(function(cedata) {
+                loadAssigntbl.success(function (cedata) {
                     $("#loading_project").html(cedata);
                 });
-                $("#create_new_assign").click(function() {
+                $("#create_new_assign").click(function () {
                     window.location = "assign-wo-new.php";
                 });
-                $("#search_WO_button").click(function() {
+                $("#search_WO_button").click(function () {
                     var projectCode = $("#project_name_search").val();
                     var poId = $("#po_id_search").val();
                     var woID = $("#wo_status_search").val();
@@ -438,7 +419,7 @@ if (empty($_SESSION['username'])) {
                             !$.trim(endSearch).length &&
                             woLimit == 100) {
 
-                        $("#loading_project").load("assign_table_result.php?search_condition=search_all", function() {
+                        $("#loading_project").load("assign_table_result.php?search_condition=search_all", function () {
 
                         });
                     } else {
@@ -453,7 +434,7 @@ if (empty($_SESSION['username'])) {
                         }
                         else {
 
-                            $("#loading_project").load("assign_table_result.php?search_condition=search_criteria&projectCode=" + projectCode + "&poId=" + poId + "&woID=" + woID + "&startSearch=" + startSearch + "&endSearch=" + endSearch + "&searchLimit=" + woLimit, function() {
+                            $("#loading_project").load("assign_table_result.php?search_condition=search_criteria&projectCode=" + projectCode + "&poId=" + poId + "&woID=" + woID + "&startSearch=" + startSearch + "&endSearch=" + endSearch + "&searchLimit=" + woLimit, function () {
 
                             });
 
@@ -466,12 +447,12 @@ if (empty($_SESSION['username'])) {
                 if (confirm("Are you sure?"))
                 {
                     var jqxhr = $.post("../model/DeleteProjectOrder.php?project_order_code=" + POID + "&imagePath=" + imagePath);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         if (data == 1) {
-                            setTimeout(function()
+                            setTimeout(function ()
                             {
                                 //$('html,body').animate({scrollTop: $('#project_tbl_content').offset().top}, 'slow');
-                                $("#loading_project").load("assign_table_result.php?search_condition=search_all", function() {
+                                $("#loading_project").load("assign_table_result.php?search_condition=search_all", function () {
                                     $(".spinner").hide();
                                 });
 
@@ -481,7 +462,7 @@ if (empty($_SESSION['username'])) {
 
                         }
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 }
