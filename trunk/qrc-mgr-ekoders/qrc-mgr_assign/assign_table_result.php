@@ -24,16 +24,16 @@ if (empty($_SESSION['username'])) {
 <!-- core JavaScript -->
 <script src="../assets/js/jquery.min.js"></script>
 <!-- PAGE LEVEL PLUGINS JS -->
-<script src="../assets/js/plugins/footable/footable.min.js"></script>
+<!--<script src="../assets/js/plugins/footable/footable.min.js"></script>-->
 <script src="../assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../assets/js/plugins/datatables/datatables.js"></script>
 <script src="../assets/js/plugins/datatables/datatables.responsive.js"></script>
 
 <script src="../assets/js/plugins/jqueryui/jquery-ui-1.10.4.full.min.js"></script>
 <script src="../assets/js/plugins/jqueryui/jquery.ui.touch-punch.min.js"></script>
-
+<script src="../assets/js/jquery.quickfit.js"></script>
 <!-- initial page level scripts for examples -->
-<script src="../assets/js/plugins/footable/footable.init.js"></script>
+<!--<script src="../assets/js/plugins/footable/footable.init.js"></script>-->
 <script src="../assets/js/plugins/datatables/datatables.init.js"></script>
 
 <table id="SampleDT" class="datatable table table-hover table-striped table-bordered tc-table footable">
@@ -42,7 +42,7 @@ if (empty($_SESSION['username'])) {
     <thead>
         <tr>
             <th data-class="expand" class="center">WO Code</th>
-            <th data-class="expand" class="center">Project Code</th>
+            <!--<th data-class="expand" class="center">Project Code</th>-->
             <th data-class="expand" class="center">Project Name</th>
             <th data-hide="phone,tablet">Document No.</th>
             <th data-hide="phone,tablet">PO No.</th>              
@@ -127,8 +127,8 @@ if (empty($_SESSION['username'])) {
 
                 echo '<tr class = "gradeX">';
                 echo '<td>' . $row['order_id'] . '</td>';
-                echo '<td>' . $row['project_code'] . '</td>';
-                echo '<td>' . $row['project_name'] . '</td>';
+//                echo '<td>' . $row['project_code'] . '</td>';
+                echo '<td><div class="wordrap">' . $row['project_name'] . '</div></td>';
                 echo '<td>' . $row['document_no'] . '</td>';
                 echo '<td>' . $row['po_no'] . '</td>';
 
@@ -176,24 +176,29 @@ if (empty($_SESSION['username'])) {
     <!-- // Table body END -->
 </table>
 <script>
-    $("#dialog").hide();
+    $(document).ready(function () {
+        $('.wordrap').quickfit({max: 14, min: 12, truncate: true});
+        $("#dialog").hide();
+    });
+
     function viewClick(po_id) {
         var jqxhr = $.post("AjaxViewContent.php?po_id=" + po_id);
-        jqxhr.success(function(data) {
+        jqxhr.success(function (data) {
             $("#dialog_Content").html(data);
             var millisecondsToWait = 200;
-            setTimeout(function() {
+            setTimeout(function () {
                 $("#dialog").removeClass("hide").dialog({
                     height: 600,
                     width: 600
                 });
             }, millisecondsToWait);
         });
-        jqxhr.error(function() {
+        jqxhr.error(function () {
             alert("ไม่สามารถติดต่อกับ Server ได้");
         });
 
     }
+
 </script>
 <div id="dialog" title="Project Detail" class="hide">
     <div id="dialog_Content"></div>
