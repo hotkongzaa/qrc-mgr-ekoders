@@ -200,7 +200,7 @@ if (empty($_SESSION['username'])) {
 
                             <!-- BEGIN CHARTS DROPDOWN -->
                             <li class="panel">
-                                <a href="#" >
+                                <a href="../qrc-mgr_reports/reports-index.php" >
                                     <i class="fa fa-sitemap"></i> Report (รายงาน)
                                 </a>
                             </li>
