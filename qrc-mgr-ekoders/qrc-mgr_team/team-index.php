@@ -200,11 +200,13 @@ if (empty($_SESSION['username'])) {
 
                             </li>
                             <!-- END FORMS DROPDOWN -->
-
+                            <li>
+                                <h4>Reports</h4> 								
+                            </li>
                             <!-- BEGIN CHARTS DROPDOWN -->
                             <li class="panel">
                                 <a href="../qrc-mgr_reports/reports-index.php" >
-                                    <i class="fa fa-sitemap"></i> Report (รายงาน)
+                                    <i class="fa fa-sitemap"></i>Team Report (รายงาน)
                                 </a>
                             </li>
                         </ul><!-- /.side-nav -->                                              

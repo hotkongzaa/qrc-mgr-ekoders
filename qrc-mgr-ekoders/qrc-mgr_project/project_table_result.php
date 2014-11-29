@@ -25,7 +25,7 @@ if (empty($_SESSION['username'])) {
 <!-- core JavaScript -->
 <script src="../assets/js/jquery.min.js"></script>
 <!-- PAGE LEVEL PLUGINS JS -->
-<script src="../assets/js/plugins/footable/footable.min.js"></script>
+<!--<script src="../assets/js/plugins/footable/footable.min.js"></script>-->
 <script src="../assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../assets/js/plugins/datatables/datatables.js"></script>
 <script src="../assets/js/plugins/datatables/datatables.responsive.js"></script>
@@ -34,7 +34,7 @@ if (empty($_SESSION['username'])) {
 <script src="../assets/js/plugins/jqueryui/jquery.ui.touch-punch.min.js"></script>
 
 <!-- initial page level scripts for examples -->
-<script src="../assets/js/plugins/footable/footable.init.js"></script>
+<!--<script src="../assets/js/plugins/footable/footable.init.js"></script>-->
 <script src="../assets/js/plugins/datatables/datatables.init.js"></script>
 <!-- Start jQuery Datatable -->
 <div class="well white">

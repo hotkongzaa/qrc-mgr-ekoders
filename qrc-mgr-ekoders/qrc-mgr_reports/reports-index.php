@@ -112,7 +112,7 @@ if (empty($_SESSION['username'])) {
                         <div class="collapse navbar-collapse top-collapse">
                             <!-- .nav -->
                             <ul class="nav navbar-left navbar-nav">
-                                <li><a href="project-index.php">Home</a></li>
+                                <li><a href="../qrc-mgr_project/project-index.php">Home</a></li>
 
                             </ul><!-- /.nav -->
                         </div>
@@ -197,11 +197,13 @@ if (empty($_SESSION['username'])) {
 
                             </li>
                             <!-- END FORMS DROPDOWN -->
-
+                            <li>
+                                <h4>Reports</h4> 								
+                            </li>
                             <!-- BEGIN CHARTS DROPDOWN -->
                             <li class="panel">
                                 <a class="active" href="reports-index.php" >
-                                    <i class="fa fa-sitemap"></i> Report (รายงาน)
+                                    <i class="fa fa-sitemap"></i> Team Report (รายงาน)
                                 </a>
                             </li>
                         </ul><!-- /.side-nav -->                                              
@@ -240,11 +242,32 @@ if (empty($_SESSION['username'])) {
                             <!-- START YOUR CONTENT HERE -->
                             <div class="row">
                                 <div class="col-lg-12 col-sm-12">
-
                                     <div class="row" id="upper_menu">
 
                                     </div>
+                                    <div class="row" id="row_html">
 
+                                        <div class="col-lg-12">
+
+                                            <div class="portlet">
+                                                <div class="portlet-heading dark">
+                                                    <div class="portlet-title">
+                                                        <h4><i class="fa fa-list-ul"></i> Team Report (รายงาน)</h4>
+                                                    </div>
+                                                    <div class="portlet-widgets">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#recent" class=""><i class="fa fa-chevron-down"></i></a>
+
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div id="recent" class="panel-collapse collapse in">
+                                                    <div class="portlet-body" class="row">
+                                                        <div id="report_loader"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div><!-- //col-lg-12 -->
 
                             </div>			
@@ -302,8 +325,13 @@ if (empty($_SESSION['username'])) {
         <script src="../assets/js/plugins/jquery-sparkline/jquery.sparkline.init.js"></script>
         <!-- qrc-mgr javascript init-->
         <script src="../assets/js/qrc-mgr_configuration.js"></script>
-        <script type="text/javascript">
 
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#report_loader").load("report_table_result.php", function () {
+
+                });
+            });
         </script>
     </body>
 

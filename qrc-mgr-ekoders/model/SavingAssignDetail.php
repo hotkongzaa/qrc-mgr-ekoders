@@ -78,7 +78,7 @@ $sqlInsertIntoProjectOrderTbl = "INSERT INTO QRC_ASSIGN_ORDER (ASSIGN_ID,WO_ID,P
 $resultSets = mysql_query($sqlInsertIntoProjectOrderTbl);
 
 $sqlUpdateProjectOrder = "UPDATE QRC_PROJECT_ORDER"
-        . " SET complete_date=null,WO_PERC_OF_PO='$perc_po_price',WO_PRICE='$wo_price',assign_id = '$strResult',project_status = 'Assign', remark = '$project_order_remark',po_inspection_id=null"
+        . " SET WO_PERC_OF_PO='$perc_po_price',WO_PRICE='$wo_price',assign_id = '$strResult',project_status = 'Assign', remark = '$project_order_remark'"
         . " WHERE project_order_id LIKE '$order_id';";
 mysql_query($sqlUpdateProjectOrder);
 
