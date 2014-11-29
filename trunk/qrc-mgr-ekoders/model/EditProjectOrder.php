@@ -29,11 +29,11 @@ $perc_po_price = $_GET['prc_po_price'];
 
 
 
-$sqlSubQueryDelete = "DELETE FROM QRC_ASSIGN_ORDER"
-        . " WHERE ASSIGN_ID LIKE (SELECT assign_id FROM QRC_PROJECT_ORDER WHERE project_order_id='$order_id');";
-mysql_query($sqlSubQueryDelete);
+//$sqlSubQueryDelete = "DELETE FROM QRC_ASSIGN_ORDER"
+//        . " WHERE ASSIGN_ID LIKE (SELECT assign_id FROM QRC_PROJECT_ORDER WHERE project_order_id='$order_id');";
+//mysql_query($sqlSubQueryDelete);
 $sqlUpdateProjectById = "UPDATE QRC_PROJECT_ORDER"
-        . " SET COMPLETE_DATE=null,po_inspection_id=null,WO_PERC_OF_PO='$perc_po_price',WO_PRICE='$wo_price',WO_ORDER_TYPE='$orderType',project_order_name='$wo_name',project_order_plan='$project_home_plan',project_order_plot='$project_home_plot',document_no='$project_document_no',po_no='$project_po_no',po_owner='$project_po_owner',po_sender='$project_po_sender',order_type='$project_order_type',plan_size='$project_plan_size',unit_price='$project_unit_price',amount='$project_amount',include_vat='$project_vat',image_name='$project_image_path',project_status='$project_order_status',updated_date_time=NOW(),remark='$project_remark',assign_id=null"
+        . " SET WO_PERC_OF_PO='$perc_po_price',WO_PRICE='$wo_price',WO_ORDER_TYPE='$orderType',project_order_name='$wo_name',project_order_plan='$project_home_plan',project_order_plot='$project_home_plot',document_no='$project_document_no',po_no='$project_po_no',po_owner='$project_po_owner',po_sender='$project_po_sender',order_type='$project_order_type',plan_size='$project_plan_size',unit_price='$project_unit_price',amount='$project_amount',include_vat='$project_vat',image_name='$project_image_path',project_status='$project_order_status',updated_date_time=NOW(),remark='$project_remark'"
         . " WHERE project_order_id='$order_id'";
 
 $resultSet = mysql_query($sqlUpdateProjectById);

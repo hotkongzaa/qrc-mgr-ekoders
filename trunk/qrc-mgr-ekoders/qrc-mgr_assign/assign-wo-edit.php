@@ -206,11 +206,13 @@ if (empty($_SESSION['username'])) {
 
                             </li>
                             <!-- END FORMS DROPDOWN -->
-
+                            <li>
+                                <h4>Reports</h4> 								
+                            </li>
                             <!-- BEGIN CHARTS DROPDOWN -->
                             <li class="panel">
                                 <a href="../qrc-mgr_reports/reports-index.php" >
-                                    <i class="fa fa-sitemap"></i> Report (รายงาน)
+                                    <i class="fa fa-sitemap"></i>Team Report (รายงาน)
                                 </a>
                             </li>
                         </ul><!-- /.side-nav -->                                              
@@ -618,11 +620,11 @@ if (empty($_SESSION['username'])) {
         <!-- qrc-mgr javascript init-->
         <script src="../assets/js/qrc-mgr_configuration.js"></script>
         <script type="text/javascript">
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $(".search_date").datepicker();
                 $("#assign_detail").hide();
                 $("#alert_inform").hide();
-                $("#reset_wo_form").click(function() {
+                $("#reset_wo_form").click(function () {
                     window.location.assign("assign-index.php");
                 });
                 var m_names = new Array("มกราคม", "กุมภาพันธ์", "มีนาคม",
@@ -638,7 +640,7 @@ if (empty($_SESSION['username'])) {
                         + " " + (curr_year + 543));
                 $("#assign_case, #complete_case").hide();
                 $("#wo_target_date").datepicker();
-                $("#update_project_status").load("../menu-page/project_menu_page.php", function() {
+                $("#update_project_status").load("../menu-page/project_menu_page.php", function () {
                     $(".spinner").hide();
                 });
                 //alert("<?= $isNew ?>");
@@ -649,7 +651,7 @@ if (empty($_SESSION['username'])) {
                     $("#project_oid").val("<?= $project_order_id ?>");
                     $("#shown_remark").show();
                     var jqxhr = $.post("../model/GetAllProjectOrderForEdit.php?project_code=<?= $projectCode ?>&order_id=<?= $project_order_id ?>");
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         obj = JSON.parse(data);
                         $("#project_document_no").val(obj.document_no);
                         $("#project_order_status").val(obj.project_status);
@@ -681,11 +683,11 @@ if (empty($_SESSION['username'])) {
                             $("#assign_case").hide("fast");
                             $("#complete_case").show("fast");
                             var jqxhr = $.post("../model/GetInspectionByID.php?ins_id=" + obj.po_inspection_id);
-                            jqxhr.success(function(data) {
+                            jqxhr.success(function (data) {
                                 obj = JSON.parse(data);
                                 $("#inspection_date_form").val(obj.INS_DATE);
                             });
-                            jqxhr.error(function(data) {
+                            jqxhr.error(function (data) {
                                 window.location.replace("error.php?error_msg=" + data);
                             });
                         } else {
@@ -708,14 +710,14 @@ if (empty($_SESSION['username'])) {
                         $("#wo_project_foreman").val(obj.project_foreman);
                         $("#wo_supervisor_control").val(obj.supervisor_control);
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 } else if ("<?= $isNew ?>" == "Edit") {
                     $("#project_oid").val("<?= $project_order_id ?>");
                     $("#shown_remark").show();
                     var jqxhr = $.post("../model/GetAllProjectOrderForEdit.php?project_code=<?= $projectCode ?>&order_id=<?= $project_order_id ?>");
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         obj = JSON.parse(data);
                         $("#project_document_no").val(obj.document_no);
                         $("#project_order_status").val(obj.project_status);
@@ -747,11 +749,11 @@ if (empty($_SESSION['username'])) {
                             $("#assign_case").hide("fast");
                             $("#complete_case").show("fast");
                             var jqxhr = $.post("../model/GetInspectionByID.php?ins_id=" + obj.po_inspection_id);
-                            jqxhr.success(function(data) {
+                            jqxhr.success(function (data) {
                                 obj = JSON.parse(data);
                                 $("#inspection_date_form").val(obj.INS_DATE);
                             });
-                            jqxhr.error(function(data) {
+                            jqxhr.error(function (data) {
                                 window.location.replace("error.php?error_msg=" + data);
                             });
                         } else {
@@ -774,33 +776,33 @@ if (empty($_SESSION['username'])) {
                         $("#wo_project_foreman").val(obj.project_foreman);
                         $("#wo_supervisor_control").val(obj.supervisor_control);
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 }
-                $("#wo_team_code").change(function() {
+                $("#wo_team_code").change(function () {
                     var tCode = $("#wo_team_code").val();
                     var jqxhr = $.post("../model/GetAllTeamForEdit.php?teamID=" + tCode);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
 
                         obj = JSON.parse(data);
                         $("#wo_team_name").val(obj.t_Name);
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 });
-                $("#logout_click").click(function() {
+                $("#logout_click").click(function () {
                     var jqxhr = $.post("../model/LogoutDesSession.php");
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         alert(data);
                         window.location.assign("../index.php")
                     });
-                    jqxhr.error(function() {
+                    jqxhr.error(function () {
                         alert("ไม่สามารถติดต่อกับ Server ได้");
                     });
                 });
-                $("#wo_price").change(function() {
+                $("#wo_price").change(function () {
                     if ($("#project_amount").val() == "") {
                         $("#alert_inform").show();
                         $("#alert_information").html('<br/>- Please select PO Code(เลขที่ใบสั่งจ้าง)');
@@ -811,7 +813,7 @@ if (empty($_SESSION['username'])) {
                         $("#perc_of_po").val(result);
                     }
                 });
-                $("#perc_of_po").change(function() {
+                $("#perc_of_po").change(function () {
                     if ($("#project_amount").val() == "") {
                         $("#alert_inform").show();
                         $("#alert_information").html('<br/>- Please select PO Code(เลขที่ใบสั่งจ้าง)');
@@ -823,10 +825,10 @@ if (empty($_SESSION['username'])) {
                         $("#wo_price").val(result);
                     }
                 });
-                $("#po_no_no").change(function() {
+                $("#po_no_no").change(function () {
                     var po_id = $("#po_no_no").val();
                     var jqxhr = $.post("../model/GetWorkOrderByPOID.php?po_id=" + po_id);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         obj = JSON.parse(data);
                         $("#project_plan").val(obj.PO_HOME_PLAN);
                         $("#project_plot").val(obj.PO_HOME_PLOT);
@@ -848,38 +850,38 @@ if (empty($_SESSION['username'])) {
                             $("#wo_name").val(orderType + obj.service_name + " Plan:" + obj.PO_HOME_PLAN + ", Plot:" + obj.PO_HOME_PLOT);
                         }
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 });
-                $("#inspection_order_type_form").change(function() {
+                $("#inspection_order_type_form").change(function () {
                     var insID = $(this).val();
                     var jqxhr = $.post("../model/GetInspectionByID.php?ins_id=" + insID);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         obj = JSON.parse(data);
                         $("#inspection_date_form").val(obj.INS_DATE);
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 });
-                $("#project_order_status").change(function() {
+                $("#project_order_status").change(function () {
                     if ($(this).val() == "Assign") {
                         var project_code = $("#project_code_orderPage").val();
                         var jqxhr = $.post("../model/GetAllProjectForEdit.php?project_code=" + project_code);
-                        jqxhr.success(function(data) {
+                        jqxhr.success(function (data) {
                             //                            $.unblockUI();
                             obj = JSON.parse(data);
                             $("#wo_project_managers").val(obj.project_manager);
                             $("#wo_project_foreman").val(obj.project_foreman);
                             $("#wo_supervisor_control").val(obj.supervisor_control);
-                            setTimeout(function()
+                            setTimeout(function ()
                             {
                                 $("#assign_case").show("fast");
                             }
                             , 300);
                         });
-                        jqxhr.error(function(data) {
+                        jqxhr.error(function (data) {
                             window.location.replace("error.php?error_msg=" + data);
                         });
                         $("#assign_detail").show();
@@ -893,7 +895,7 @@ if (empty($_SESSION['username'])) {
                         $("#complete_case").hide("fast");
                     }
                 });
-                $("#wo_order_type").change(function() {
+                $("#wo_order_type").change(function () {
                     var orderType = $("#wo_order_type").val();
                     var po_value = $("#po_no_no").val();
                     if (po_value == "null" || po_value == null) {
@@ -904,7 +906,7 @@ if (empty($_SESSION['username'])) {
                         }
                     }
                 });
-                $("#save_wo_form").click(function() {
+                $("#save_wo_form").click(function () {
                     var project_code = $("#project_code_orderPage").val();
                     var project_order_status = $("#project_order_status").val();
                     var project_home_plan = $("#project_plan").val();
@@ -957,10 +959,10 @@ if (empty($_SESSION['username'])) {
                                     "&project_vat=" + project_vat +
                                     "&wo_price=" + wo_price +
                                     "&perc_of_po=" + perc_of_po);
-                            jqxhr.success(function(data) {
+                            jqxhr.success(function (data) {
                                 if (data == 1) {
                                     var getLatestWOID = $.post("../model/GerLatestProjectOrderID.php");
-                                    getLatestWOID.success(function(response) {
+                                    getLatestWOID.success(function (response) {
                                         if (response != "" || response != null) {
                                             if (project_order_status == "Assign") {
 
@@ -974,17 +976,17 @@ if (empty($_SESSION['username'])) {
                                                         "&wo_price=" + wo_price +
                                                         "&prc_po_price=" + perc_of_po +
                                                         "&remark=" + wo_remark);
-                                                jqxhr.success(function(data) {
+                                                jqxhr.success(function (data) {
 
                                                     if (data == 1) {
-                                                        setTimeout(function()
+                                                        setTimeout(function ()
                                                         {
                                                             window.location.assign("assign-index.php");
                                                         }
                                                         , 300);
                                                     }
                                                 });
-                                                jqxhr.error(function(data) {
+                                                jqxhr.error(function (data) {
                                                     window.location.replace("error.php?error_msg=" + data);
                                                 });
 
@@ -1001,9 +1003,9 @@ if (empty($_SESSION['username'])) {
                                                             "&wo_price=" + wo_price +
                                                             "&prc_po_price=" + perc_of_po +
                                                             "&project_order_remark=" + project_order_remark);
-                                                    jqxhr.success(function(data) {
+                                                    jqxhr.success(function (data) {
                                                         if (data == 1) {
-                                                            setTimeout(function()
+                                                            setTimeout(function ()
                                                             {
                                                                 window.location.assign("assign-index.php");
                                                                 //window.location.assign("index-projects-order-search-result.php?project_code=<?= $projectCode ?>");
@@ -1011,7 +1013,7 @@ if (empty($_SESSION['username'])) {
                                                             , 500);
                                                         }
                                                     });
-                                                    jqxhr.error(function(data) {
+                                                    jqxhr.error(function (data) {
                                                         window.location.replace("error.php?error_msg=" + data);
                                                     });
                                                 }
@@ -1024,7 +1026,7 @@ if (empty($_SESSION['username'])) {
                                     alert(data);
                                 }
                             });
-                            jqxhr.error(function(data) {
+                            jqxhr.error(function (data) {
                                 window.location.replace("error.php?error_msg=" + data);
                             });
                         }
@@ -1051,16 +1053,16 @@ if (empty($_SESSION['username'])) {
                                             "&poForEdit=" + poForEdit +
                                             "&prc_po_price=" + perc_of_po +
                                             "&remark=" + wo_remark);
-                                    jqxhr.success(function(data) {
+                                    jqxhr.success(function (data) {
                                         if (data == 1) {
-                                            setTimeout(function()
+                                            setTimeout(function ()
                                             {
                                                 window.location.assign("assign-index.php");
                                             }
                                             , 300);
                                         }
                                     });
-                                    jqxhr.error(function(data) {
+                                    jqxhr.error(function (data) {
                                         window.location.replace("error.php?error_msg=" + data);
                                     });
                                 }
@@ -1083,9 +1085,9 @@ if (empty($_SESSION['username'])) {
                                         "&poForEdit=" + poForEdit +
                                         "&prc_po_price=" + perc_of_po +
                                         "&project_order_remark=" + project_order_remark);
-                                jqxhr.success(function(data) {
+                                jqxhr.success(function (data) {
                                     if (data == 1) {
-                                        setTimeout(function()
+                                        setTimeout(function ()
                                         {
                                             window.location.assign("assign-index.php");
                                             //window.location.assign("index-projects-order-search-result.php?project_code=<?= $projectCode ?>");
@@ -1093,7 +1095,7 @@ if (empty($_SESSION['username'])) {
                                         , 500);
                                     }
                                 });
-                                jqxhr.error(function(data) {
+                                jqxhr.error(function (data) {
                                     window.location.replace("error.php?error_msg=" + data);
                                 });
                             }
@@ -1123,16 +1125,16 @@ if (empty($_SESSION['username'])) {
                                         "&prc_po_price=" + perc_of_po +
                                         "&project_image_path=" + poForEdit +
                                         "&project_remark=" + project_order_remark);
-                                jqxhr.success(function(data) {
+                                jqxhr.success(function (data) {
                                     if (data == 1) {
-                                        setTimeout(function()
+                                        setTimeout(function ()
                                         {
                                             window.location.assign("assign-index.php");
                                         }
                                         , 500);
                                     }
                                 });
-                                jqxhr.error(function(data) {
+                                jqxhr.error(function (data) {
                                     window.location.replace("error.php?error_msg=" + data);
                                 });
                             }
