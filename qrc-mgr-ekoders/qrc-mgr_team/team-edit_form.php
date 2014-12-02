@@ -18,6 +18,7 @@ if (empty($_SESSION['username'])) {
 <link rel="stylesheet" type="text/css" href="../assets/css/jquery.multiselect.css" />
 <script src="../assets/js/jquery.maskedinput.js"></script>
 <script src="../assets/js/jquery.multiselect.js"></script>
+
 <table width="100%">
     <tr>
         <td align="right" style="width:250px">Team Code (หมายเลขทีมช่าง):</td>
@@ -66,11 +67,11 @@ if (empty($_SESSION['username'])) {
             }
             ?>
         </td>
-        <td align="right" style="width:250px">Team Name (ชื่อทีม):</td>
+        <td align="right" style="width:250px">Team Name (ชื่อทีม)*:</td>
         <td align="left" style="width:250px"><input type="text" class="form-control" id="team_name_form"></td>
     </tr>
     <tr>
-        <td align="right" style="width:250px">Team Leader (หัวหน้าทีม):</td>
+        <td align="right" style="width:250px">Team Leader (หัวหน้าทีม)*:</td>
         <td align="left" style="width:250px">
             <select class="form-control" id="team_lead_form" name="team_lead_form">
                 <option value=""></option>
@@ -87,7 +88,7 @@ if (empty($_SESSION['username'])) {
         <td align="left" style="width:250px"><input type="text" class="form-control" id="no_of_member_form" disabled="true"></td>
     </tr>
     <tr>
-        <td align="right" style="width:250px">Type of Service (ประเภทของบริการ):</td>
+        <td align="right" style="width:250px">Type of Service (ประเภทของบริการ)*:</td>
         <td align="left" style="width:250px" colspan="3">
 
             <select title="Basic example" multiple="multiple" name="type_of_service" id="select2_2_form" size="5">
@@ -138,7 +139,7 @@ if (empty($_SESSION['username'])) {
         </td>
     </tr>
     <tr>
-        <td align="right" style="width:250px">Team Type (ประเภททีม):</td>
+        <td align="right" style="width:250px">Team Type (ประเภททีม):*</td>
         <td align="left" style="width:250px">
             <select class="form-control" id="team_type_form" name="team_type_form">
                 <option value=""></option>
@@ -147,7 +148,7 @@ if (empty($_SESSION['username'])) {
                 <option value="T">T (Temporary)</option>
             </select>
         </td>
-        <td align="right" style="width:250px">Team Manager (ผู้จัดการทีม):</td>
+        <td align="right" style="width:250px">Team Manager (ผู้จัดการทีม):*</td>
         <td align="left" style="width:250px">
             <select class="form-control" id="team_t_manager_form" name="team_t_manager_form">
                 <option value=""></option>
@@ -172,7 +173,7 @@ if (empty($_SESSION['username'])) {
     </tr>-->
 </table>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         initialTextBox();
         $("#select2_2_form").multiselect({
             selectedList: 1 // 0-based index

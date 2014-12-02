@@ -106,12 +106,12 @@ if (empty($_SESSION['username'])) {
                     echo '<td>' . $row['t_lead_name'] . '</td>';
                     if ($row['t_type'] == "M") {
                         echo '<td class = "center">M (Main team)</td>';
-                    }
-                    if ($row['t_type'] == "S") {
+                    } else if ($row['t_type'] == "S") {
                         echo '<td class = "center">S (Sub team)</td>';
-                    }
-                    if ($row['t_type'] == "T") {
+                    } else if ($row['t_type'] == "T") {
                         echo '<td class = "center">T (Temporary)</td>';
+                    } else {
+                        echo '<td class="center"</td>';
                     }
                     $sqlGetAmount = "SELECT COUNT(*) AS amount FROM QRC_TEAM_MAPPING WHERE TEAM_ID LIKE '" . $row['t_code'] . "'";
                     $sqlGetAmountData = mysql_query($sqlGetAmount);
@@ -136,7 +136,7 @@ if (empty($_SESSION['username'])) {
     </table>
     <script type="text/javascript">
         $(document).tooltip({
-            open: function(event, ui) {
+            open: function (event, ui) {
                 ui.tooltip.css("max-width", "600px");
                 ui.tooltip.css("font-size", "12px");
             },

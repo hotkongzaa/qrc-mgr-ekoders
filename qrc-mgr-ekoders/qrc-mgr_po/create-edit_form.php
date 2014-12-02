@@ -107,7 +107,7 @@ if (empty($_SESSION['username'])) {
     </tr>
     <tr>
         <td align="right" style="width:250px">Unit Price (ราคาต่อหน่วย):</td>
-        <td align="left" style="width:250px"><input type="text" class="form-control" id="po_unit_price_form"></td>
+        <td align="left" style="width:250px"><input type="text" class="form-control" id="po_unit_price_form" ></td>
         <td align="right" style="width:250px">Amount (ราคารวม):</td>
         <td align="left" style="width:250px"><input type="text" class="form-control" id="po_amount_form"></td>
     </tr>
@@ -173,13 +173,11 @@ if (empty($_SESSION['username'])) {
 <script>
             var poNo = "";
             var settings;
-            $(document).ready(function() {
-                //alert("<?= $isEdit ?>");
+            $(document).ready(function () {
                 initialTextBox();
                 $(".search_date").datepicker();
                 $("#uploadpart").hide();
-//        $("d.fancybox-effects-d").fancybox();
-                $('#po_po_no_form').keyup(function() {
+                $('#po_po_no_form').keyup(function () {
                     if ($("#po_po_no_form").val() === "") {
                         $("#uploadpart").hide();
                     } else {
@@ -193,17 +191,17 @@ if (empty($_SESSION['username'])) {
                     fileName: "myfile",
                     allowedTypes: "jpg,png,gif,doc,pdf,zip",
                     returnType: "json",
-                    onSuccess: function(files, data, xhr)
+                    onSuccess: function (files, data, xhr)
                     {
 
                     },
                     showDelete: true,
-                    deleteCallback: function(data, pd)
+                    deleteCallback: function (data, pd)
                     {
                         for (var i = 0; i < data.length; i++)
                         {
                             $.post("../model/delete_po_attach.php", {op: "delete", name: data[i]},
-                            function(resp, textStatus, jqXHR)
+                            function (resp, textStatus, jqXHR)
                             {
 
                             });
@@ -213,11 +211,11 @@ if (empty($_SESSION['username'])) {
                     }
                 };
                 var uploadObj = $("#mulitplefileuploader").uploadFile(settings);
-                $("#po_project_name_form").change(function() {
+                $("#po_project_name_form").change(function () {
                     // blockPage();
                     var tCode = $("#po_project_name_form").val();
                     var jqxhr = $.post("../model/GetTeamObject.php?tCode=" + tCode);
-                    jqxhr.success(function(data) {
+                    jqxhr.success(function (data) {
                         obj = JSON.parse(data);
                         $("#po_project_code_form").val(obj.project_code);
                         $("#po_project_manager_form").val(obj.project_manager);
@@ -225,7 +223,7 @@ if (empty($_SESSION['username'])) {
                         $("#po_project_foreman_form").val(obj.project_foreman);
                         // $.unblockUI();
                     });
-                    jqxhr.error(function(data) {
+                    jqxhr.error(function (data) {
                         alert("เกิดข้อผิดพลาด");
                         //window.location.replace("error.php?error_msg=" + data);
                     });
@@ -256,5 +254,14 @@ if (empty($_SESSION['username'])) {
                     //alert("Accept only Integer..!");
                     return false;
                 }
+            }
+            function isNumberKey(evt)
+            {
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode != 46 && charCode > 31
+                        && (charCode < 48 || charCode > 57))
+                    return false;
+
+                return true;
             }
 </script>
