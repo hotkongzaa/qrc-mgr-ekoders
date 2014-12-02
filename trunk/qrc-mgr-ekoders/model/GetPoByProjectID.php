@@ -6,8 +6,15 @@ require '../model-db-connection/config.php';
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-$strResult = "<option value='0'>---Please select---</option>";
+
 $project_code = $_GET['project_code'];
+$OldPONO = $_GET['oldPONO'];
+
+if (!empty($OldPONO)) {
+    $strResult = "<option value='0'>---Please select---</option><option value='" . $OldPONO . "' selected>" . $OldPONO . "</option>";
+} else {
+    $strResult = "<option value='0'>---Please select---</option>";
+}
 $sqlSelectMemberAll = "SELECT qp.PO_PROJECT_NAME as PO_PROJECT_NAME,"
         . "qp.PO_PROJECT_CODE as PO_PROJECT_CODE,"
         . "qp.PO_DOCUMENT_NO as PO_DOCUMENT_NO,"

@@ -647,17 +647,24 @@ if (empty($_SESSION['username'])) {
                 if ("<?= $isNew ?>" == "New") {
                     $("#project_order_status").prop('disabled', true);
                 } else if ("<?= $isNew ?>" == "Copy") {
+                    $("#alert_inform").show();
+                    $("#alert_information").html('<br/>- This is copy item please delete remark before save');
+                    $('html,body').animate({scrollTop: $('#alert_inform').offset().top}, 400);
 
                     $("#project_oid").val("<?= $project_order_id ?>");
                     $("#shown_remark").show();
                     var jqxhr = $.post("../model/GetAllProjectOrderForEdit.php?project_code=<?= $projectCode ?>&order_id=<?= $project_order_id ?>");
                     jqxhr.success(function (data) {
                         obj = JSON.parse(data);
+                        var getPONo = $.post("../model/GetPoByProjectID.php?project_code=" + $("#project_code_orderPage").val() + "&oldPONO=" + obj.imgName);
+                        getPONo.success(function (respPONO) {
+                            $("#po_no_no").html(respPONO);
+                        });
                         $("#project_document_no").val(obj.document_no);
                         $("#project_order_status").val(obj.project_status);
                         $("#project_plan").val(obj.project_plan);
                         $("#project_plot").val(obj.project_plot);
-                        $("#po_no_no").val(obj.imgName);
+//                        $("#po_no_no").val(obj.imgName);
                         $("#project_po_owner").val(obj.po_owner);
                         $("#project_po_sender").val(obj.po_sender);
                         $("#project_issue_date").val(obj.created_date_time);
@@ -719,11 +726,14 @@ if (empty($_SESSION['username'])) {
                     var jqxhr = $.post("../model/GetAllProjectOrderForEdit.php?project_code=<?= $projectCode ?>&order_id=<?= $project_order_id ?>");
                     jqxhr.success(function (data) {
                         obj = JSON.parse(data);
+                        var getPONo = $.post("../model/GetPoByProjectID.php?project_code=" + $("#project_code_orderPage").val() + "&oldPONO=" + obj.imgName);
+                        getPONo.success(function (respPONO) {
+                            $("#po_no_no").html(respPONO);
+                        });
                         $("#project_document_no").val(obj.document_no);
                         $("#project_order_status").val(obj.project_status);
                         $("#project_plan").val(obj.project_plan);
                         $("#project_plot").val(obj.project_plot);
-                        $("#po_no_no").val(obj.imgName);
                         $("#project_po_owner").val(obj.po_owner);
                         $("#project_po_sender").val(obj.po_sender);
                         $("#project_issue_date").val(obj.created_date_time);
