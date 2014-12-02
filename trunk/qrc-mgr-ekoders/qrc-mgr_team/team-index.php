@@ -266,6 +266,10 @@ if (empty($_SESSION['username'])) {
                                                 </div>
                                                 <div id="m-charts" class="panel-collapse collapse in">
                                                     <div class="portlet-body">
+                                                        <div class="alert alert-danger" id="alert_inform">
+                                                            <strong>Please enter/select require fields</strong>
+                                                            <span id="alert_information">Change a few things up and try submitting again.</span>
+                                                        </div>
                                                         <div class="row" id="loading_ce_form">
 
                                                         </div>
@@ -456,6 +460,8 @@ if (empty($_SESSION['username'])) {
         <script type="text/javascript">
             var createOrEditStateTeam = "Create";
             $(document).ready(function () {
+                $("#alert_inform").hide();
+                $("#alert_information").html();
                 $("#select2_2").select2({
                     placeholder: "Select a Services",
                     allowClear: true
@@ -467,11 +473,15 @@ if (empty($_SESSION['username'])) {
                         $("#create_edit_panel").show("fast");
                         $("#create_new_team_btn").hide();
                     });
+                    createOrEditStateTeam = "Create";
                 });
                 $("#cancel_form").click(function () {
+                    $("#alert_inform").hide();
+                    $("#alert_information").html("");
                     $("#loading_ce_form").empty();
                     $("#create_edit_panel").hide("fast");
                     $("#create_new_team_btn").show("fast");
+                    createOrEditStateTeam = "Create";
                 });
                 $("#save_create_panel").click(function () {
                     var teamCode = $("#team_code_form").val();
@@ -483,76 +493,96 @@ if (empty($_SESSION['username'])) {
                     var tRemark = $("#team_remark_in_form").val();
                     if (createOrEditStateTeam == "Edit") {
                         if (tRemark == "" || tRemark == null) {
-//                            $().toastmessage('showWarningToast', "กรุณาระบุ Remark");
-                            alert("กรุณาระบุ Remark");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("<br> - Please enter remark");
+                        } else if (teamName == "" && teamLeadId == "" && tManagerID == "" && $("#select2_2_form").val() == null && tType == "") {
+                            $("#alert_inform").show();
+                            $("#alert_information").html("<br> - Please enter team name\n\
+                        <br/> - Please select Team Leader and Team Manager\n\
+                        <br/> - Please select Team Skill\n\
+                        <br/> - Please select Team Type");
+                        } else if (teamName == "") {
+                            $("#alert_inform").show();
+                            $("#alert_information").html("<br> - Please enter team name");
                         } else if ($("#select2_2_form").val() == null) {
-//                            $().toastmessage('showWarningToast', "กรุณาระบุ ประเภทของบริการ");
-                            alert("กรุณาระบุ ประเภทของบริการ");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("<br> - Please select Team Skill");
+                        } else if (teamLeadId == "" || teamLeadId == null || tManagerID == "" || tManagerID == null) {
+                            $("#alert_inform").show();
+                            $("#alert_information").html("<br> - Please select Team Leader and Team Manager");
+                        } else if (tType == "") {
+                            $("#alert_inform").show();
+                            $("#alert_information").html("<br> - Please select Team Type");
                         } else {
-                            if (teamLeadId == "" || teamLeadId == null || tManagerID == "" || tManagerID == null) {
-//                                $().toastmessage('showWarningToast', "กรุณาเลือก Team Leader หรือ Team Manager");
-                                alert("กรุณาเลือก Team Leader หรือ Team Manager");
+                            if (tSkill == null || tSkill == "") {
+                                tSkill = $("#hideTeamSkill").val();
+                                $(".spinner").show();
+                                var jqxhr = $.post("../model/EditTeamBuilder.php?teamCode=" + teamCode + "&teamName=" + teamName + "&teamLeadId=" + teamLeadId + "&tSkill=" + tSkill + "&tType=" + tType + "&tManagerID=" + tManagerID + "&tRemark=" + tRemark);
+                                jqxhr.success(function (data) {
+                                    if (data == 1) {
+                                        $("#alert_inform").show();
+                                        $("#alert_information").html("");
+                                        $("#loading_project").load("team_table_result.php?searchCondition=search_all", function () {
+                                            $(".spinner").hide();
+                                            $("#create_edit_panel").hide();
+                                            $("#loading_ce_form").empty();
+                                            $("#create_new_team_btn").show("fast");
+                                            createOrEditStateTeam = "Create";
+                                        });
+                                        alert("แกไขข้อมูลทีมเรียบร้อยแล้ว");
+
+                                    } else {
+                                        alert("ไม่สามารถแก้ไขข้อมูลทีมได้");
+                                    }
+                                });
                             } else {
-                                if (tSkill == null || tSkill == "") {
-                                    tSkill = $("#hideTeamSkill").val();
-                                    $(".spinner").show();
-                                    var jqxhr = $.post("../model/EditTeamBuilder.php?teamCode=" + teamCode + "&teamName=" + teamName + "&teamLeadId=" + teamLeadId + "&tSkill=" + tSkill + "&tType=" + tType + "&tManagerID=" + tManagerID + "&tRemark=" + tRemark);
-                                    jqxhr.success(function (data) {
-                                        if (data == 1) {
-                                            $("#loading_project").load("team_table_result.php?searchCondition=search_all", function () {
-                                                $(".spinner").hide();
-                                                $("#create_edit_panel").hide();
-                                                $("#loading_ce_form").empty();
-                                                $("#create_new_team_btn").show("fast");
-//                                                $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
-                                                createOrEditStateTeam = "Create";
-                                            });
-//                                            $().toastmessage('showSuccessToast', 'แกไขข้อมูลทีมเรียบร้อยแล้ว');
-                                            alert("แกไขข้อมูลทีมเรียบร้อยแล้ว");
+                                var jqxhr = $.post("../model/EditTeamBuilder.php?teamCode=" + teamCode + "&teamName=" + teamName + "&teamLeadId=" + teamLeadId + "&tSkill=" + tSkill + "&tType=" + tType + "&tManagerID=" + tManagerID + "&tRemark=" + tRemark);
+                                jqxhr.success(function (data) {
+                                    if (data == 1) {
+                                        $("#alert_inform").hide();
+                                        $("#alert_information").html("");
+                                        $("#loading_project").load("team_table_result.php?searchCondition=search_all", function () {
+                                            $(".spinner").hide();
+                                            $("#create_edit_panel").hide();
+                                            $("#loading_ce_form").empty();
+                                            $("#create_new_team_btn").show("fast");
+                                            $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
+                                            createOrEditStateTeam = "Create";
+                                        });
+                                        alert("แกไขข้อมูลทีมเรียบร้อยแล้ว");
 
-                                        } else {
-//                                            $().toastmessage('showWarningToast', "ไม่สามารถแก้ไขข้อมูลทีมได้");
-                                            alert("ไม่สามารถแก้ไขข้อมูลทีมได้");
-                                        }
-                                    });
-                                } else {
+                                    } else {
+                                        alert("ไม่สามารถแก้ไขข้อมูลทีมได้");
+                                    }
+                                });
 
-                                    var jqxhr = $.post("../model/EditTeamBuilder.php?teamCode=" + teamCode + "&teamName=" + teamName + "&teamLeadId=" + teamLeadId + "&tSkill=" + tSkill + "&tType=" + tType + "&tManagerID=" + tManagerID + "&tRemark=" + tRemark);
-                                    jqxhr.success(function (data) {
-                                        if (data == 1) {
-                                            //$("#modal-team").modal('hide');
-                                            $("#loading_project").load("team_table_result.php?searchCondition=search_all", function () {
-                                                $(".spinner").hide();
-                                                $("#create_edit_panel").hide();
-                                                $("#loading_ce_form").empty();
-                                                $("#create_new_team_btn").show("fast");
-                                                $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
-                                                createOrEditStateTeam = "Create";
-                                            });
-//                                            $().toastmessage('showSuccessToast', 'แกไขข้อมูลทีมเรียบร้อยแล้ว');
-                                            alert("แกไขข้อมูลทีมเรียบร้อยแล้ว");
-
-                                        } else {
-//                                            $().toastmessage('showWarningToast', "ไม่สามารถแก้ไขข้อมูลทีมได้");
-                                            alert("ไม่สามารถแก้ไขข้อมูลทีมได้");
-                                        }
-                                    });
-
-                                }
                             }
                         }
                     } else {
-                        if (teamLeadId == "" || teamLeadId == null || tManagerID == "" || tManagerID == null) {
-//                            $().toastmessage('showWarningToast', "กรุณาเลือก Team Leader หรือ Team Manager");
-                            alert("กรุณาเลือก Team Leader หรือ Team Manager");
+                        if (teamName == "" && teamLeadId == "" && tManagerID == "" && $("#select2_2_form").val() == null && tType == "") {
+                            $("#alert_inform").show();
+                            $("#alert_information").html("<br> - Please enter team name\n\
+                        <br/> - Please select Team Leader and Team Manager\n\
+                        <br/> - Please select Team Skill\n\
+                        <br/> - Please select Team Type");
+                        } else if (teamName == "") {
+                            $("#alert_inform").show();
+                            $("#alert_information").html("<br> - Please enter team name");
+                        } else if (teamLeadId == "" || teamLeadId == null || tManagerID == "" || tManagerID == null) {
+                            $("#alert_inform").show();
+                            $("#alert_information").html("<br> - Please select Team Leader and Team Manager");
                         } else if ($("#select2_2_form").val() == null) {
-//                            $().toastmessage('showWarningToast', "กรุณาระบุ ประเภทของบริการ");
-                            alert("กรุณาระบุ ประเภทของบริการ");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("<br> - Please select Team Skill");
+                        } else if (tType == "") {
+                            $("#alert_inform").show();
+                            $("#alert_information").html("<br> - Please select Team Type");
                         } else {
                             var jqxhr = $.post("../model/SavingTeamBuilding.php?teamCode=" + teamCode + "&teamName=" + teamName + "&teamLeadId=" + teamLeadId + "&tSkill=" + tSkill + "&tType=" + tType + "&tManagerID=" + tManagerID + "&tRemark=" + tRemark);
                             jqxhr.success(function (data) {
+                                $("#alert_inform").hide();
+                                $("#alert_information").html("");
                                 if (data == 1) {
-                                    //$("#modal-team").modal('hide');
                                     $("#loading_project").load("team_table_result.php?searchCondition=search_all", function () {
                                         $(".spinner").hide();
                                         $("#create_edit_panel").hide();
@@ -560,11 +590,9 @@ if (empty($_SESSION['username'])) {
                                         $("#create_new_team_btn").show("fast");
                                         $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
                                     });
-//                                    $().toastmessage('showSuccessToast', 'บันทึกข้อมูลทีมเรียบร้อยแล้ว');
                                     alert("บันทึกข้อมูลทีมเรียบร้อยแล้ว");
 
                                 } else {
-//                                    $().toastmessage('showWarningToast', "ไม่สามารถบันทึกข้อมูลทีมได้");
                                     alert("ไม่สามารถบันทึกข้อมูลทีมได้");
                                 }
                             });
