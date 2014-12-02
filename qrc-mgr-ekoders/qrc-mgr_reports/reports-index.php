@@ -246,7 +246,25 @@ if (empty($_SESSION['username'])) {
 
                                     </div>
                                     <div class="row" id="row_html">
+                                        <div class="col-lg-8">
 
+                                            <div class="portlet">
+                                                <div class="portlet-heading dark">
+                                                    <div class="portlet-title">
+                                                        <h4><i class="fa fa-list-ul"></i> Search Criteria</h4>
+                                                    </div>
+                                                    <div class="portlet-widgets">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#recent" class=""><i class="fa fa-chevron-down"></i></a>
+
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div id="recent" class="panel-collapse collapse in">
+                                                    <div class="portlet-body" class="row">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-lg-12">
 
                                             <div class="portlet">

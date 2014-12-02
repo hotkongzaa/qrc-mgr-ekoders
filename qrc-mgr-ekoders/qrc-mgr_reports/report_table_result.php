@@ -133,7 +133,7 @@ if (empty($_SESSION['username'])) {
                         }
 
                         echo $totalAmountWithDeduct - $totalRetention;
-                        
+
                         $totalAmountWithDeduct = 0;
                         $totalRetention = 0;
                         ?></td>
@@ -149,9 +149,9 @@ if (empty($_SESSION['username'])) {
                         echo $rowSet['total_of_retention'];
                         ?></td>
                 </tr>
-                        <?php
-                    }
-                    ?>
+                <?php
+            }
+            ?>
         </tbody>
         <tfoot>
             <tr>
@@ -199,76 +199,70 @@ if (empty($_SESSION['username'])) {
                         }
 
                     }
-
                 });
-                alert(stringTeamCodeBuilder);
+//                alert(stringTeamCodeBuilder);
+                if (stringTeamCodeBuilder != "") {
+                    $("#dialog").removeClass("hide").dialog({
+                        height: 500,
+                        width: 900
+                    });
+                    var getCateSeries = $.post("../model/GetTeamReportCateSummary.php?teamCodeSet="+stringTeamCodeBuilder);
+                    getCateSeries.success(function (cateData) {
+                        var teamCateArray = cateData.split(",");
+                        console.log(teamCateArray);
+                        $('#container').highcharts({
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Team Summary Report'
+                            },
+                            xAxis: {
+                                categories: teamCateArray
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'Amount(s)'
+                                }
+                            },
+                            tooltip: {
+                                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                        '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                                footerFormat: '</table>',
+                                shared: true,
+                                useHTML: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    pointPadding: 0.2,
+                                    borderWidth: 0
+                                }
+                            },
+                            "series": [{
+                                    name: 'Tokyo',
+                                    data: [106.4, 12900.2]
+
+                                }, {
+                                    name: 'New York',
+                                    data: [9800.5, 93.4]
+
+                                }, {
+                                    name: 'London',
+                                    data: [39.3, 41.4]
+
+                                }, {
+                                    name: 'Berlin',
+                                    data: [34.5, 39.7]
+
+                                }]
+                        });
+                    });
+                } else {
+                    alert("Please select at least one team");
+                }
                 stringTeamCodeBuilder = "";
-//                $("#dialog").removeClass("hide").dialog({
-//                    height: 500,
-//                    width: 900
-//                });
-//                $('#container').highcharts({
-//                    chart: {
-//                        type: 'column'
-//                    },
-//                    title: {
-//                        text: 'Monthly Average Rainfall'
-//                    },
-//                    subtitle: {
-//                        text: 'Source: WorldClimate.com'
-//                    },
-//                    xAxis: {
-//                        categories: [
-//                            'Jan',
-//                            'Feb',
-//                            'Mar',
-//                            'Apr',
-//                            'May',
-//                            'Jun',
-//                            'Jul',
-//                            'Aug',
-//                            'Sep',
-//                            'Oct'
-//                        ]
-//                    },
-//                    yAxis: {
-//                        min: 0,
-//                        title: {
-//                            text: 'Rainfall (mm)'
-//                        }
-//                    },
-//                    tooltip: {
-//                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-//                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-//                                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-//                        footerFormat: '</table>',
-//                        shared: true,
-//                        useHTML: true
-//                    },
-//                    plotOptions: {
-//                        column: {
-//                            pointPadding: 0.2,
-//                            borderWidth: 0
-//                        }
-//                    },
-//                    series: [{
-//                            name: 'Tokyo',
-//                            data: [106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-//
-//                        }, {
-//                            name: 'New York',
-//                            data: [98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-//
-//                        }, {
-//                            name: 'London',
-//                            data: [39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-//
-//                        }, {
-//                            name: 'Berlin',
-//                            data: [34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
-//
-//                        }]
-//                });
             });
         });
     </script>
