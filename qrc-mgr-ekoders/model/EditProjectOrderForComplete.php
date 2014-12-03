@@ -19,7 +19,7 @@ $complete_date = $_GET['complete_date'];
 //        . " WHERE ASSIGN_ID LIKE (SELECT assign_id FROM QRC_PROJECT_ORDER WHERE project_order_id='$order_id');";
 //mysql_query($sqlSubQueryDelete);
 $sqlUpdateProjectById = "UPDATE QRC_PROJECT_ORDER"
-        . " SET COMPLETE_DATE='" . date("Y-m-d H:i:s", strtotime($complete_date)) . "',WO_PERC_OF_PO='$perc_po_price',WO_PRICE='$wo_price',project_status='$project_order_status',updated_date_time=NOW(),remark='$project_order_remark',po_inspection_id='$inspectionID'"
+        . " SET REAL_WO_PRICE='" . $_GET['realWOPrice'] . "',COMPLETE_DATE='" . date("Y-m-d H:i:s", strtotime($complete_date)) . "',WO_PERC_OF_PO='$perc_po_price',WO_PRICE='$wo_price',project_status='$project_order_status',updated_date_time=NOW(),remark='$project_order_remark',po_inspection_id='$inspectionID'"
         . " WHERE project_order_id='$order_id'";
 
 $resultSet = mysql_query($sqlUpdateProjectById);

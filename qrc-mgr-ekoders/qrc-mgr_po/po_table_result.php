@@ -179,7 +179,12 @@ if (empty($_SESSION['username'])) {
                     echo '<button type = "button" class = "btn btn-primary dropdown-toggle btn-xs" data-toggle = "dropdown">Actions <span class = "caret"></span></button>';
 
                     echo '<ul class = "dropdown-menu" role = "menu">';
-                    echo '<li><a href = "#" class="btn-xs" onclick=loadOrder("' . $row['PO_PROJECT_CODE'] . '","' . $row['PO_ID'] . '")><i class = "fa fa-rss"></i> Assign (มอบหมาย)</a></li>';
+                    if ($row['PO_STATUS'] == "Complete" || $row['PO_STATUS'] == "Cancel" || $row['PO_STATUS'] == "Close") {
+                        
+                    } else {
+                        echo '<li><a href = "#" class="btn-xs" onclick=loadOrder("' . $row['PO_PROJECT_CODE'] . '","' . $row['PO_ID'] . '")><i class = "fa fa-rss"></i> Assign (มอบหมาย)</a></li>';
+                    }
+
                     echo '<li><a href = "#modal-po" class="btn-xs " onclick=editPO("' . $row['PO_ID'] . '")><i class = "fa fa-edit"></i> Edit (แก้ไข)</a></li>';
                     echo '<li><a href = "#" onclick=viewClick("' . $row['PO_ID'] . '") class="btn-xs")><i class = "fa fa-eye"></i> View (ดูข้อมูล)</a></li>';
                     echo '<li class = "divider"></li>';
@@ -198,23 +203,23 @@ if (empty($_SESSION['username'])) {
         $("#dialog").hide();
         function viewClick(po_id) {
             var jqxhr = $.post("AjaxViewContent.php?po_id=" + po_id);
-            jqxhr.success(function(data) {
+            jqxhr.success(function (data) {
                 $("#dialog_Content").html(data);
                 var millisecondsToWait = 200;
-                setTimeout(function() {
+                setTimeout(function () {
                     $("#dialog").removeClass("hide").dialog({
                         height: 500,
                         width: 900
                     });
                 }, millisecondsToWait);
             });
-            jqxhr.error(function() {
+            jqxhr.error(function () {
                 alert("ไม่สามารถติดต่อกับ Server ได้");
             });
 
         }
         $(document).tooltip({
-            open: function(event, ui) {
+            open: function (event, ui) {
                 ui.tooltip.css("max-width", "600px");
                 ui.tooltip.css("font-size", "12px");
             },

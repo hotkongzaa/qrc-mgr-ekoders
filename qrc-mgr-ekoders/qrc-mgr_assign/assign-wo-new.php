@@ -398,17 +398,24 @@ if (empty($_SESSION['username'])) {
                                                             <div class="separator"></div>
                                                         </div>
                                                         <div >
-                                                            <label for="project_document_no">WO Price</label>
+                                                            <label for="project_document_no">WO per Unit Price</label>
                                                             <div class="form-group input-group">
                                                                 <span class="input-group-addon">฿</span>
                                                                 <input type="text" id="wo_price" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div >
-                                                            <label for="project_plan">% Of PO</label>
+                                                            <label for="project_plan">% of Unit Price</label>
                                                             <div class="form-group input-group">
                                                                 <span class="input-group-addon">%</span>
                                                                 <input type="text" id="perc_of_po" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div >
+                                                            <label for="project_plan">WO Price</label>
+                                                            <div class="form-group input-group">
+                                                                <span class="input-group-addon">฿</span>
+                                                                <input type="text" id="wo_price_2" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div  id="shown_remark">
@@ -608,27 +615,44 @@ if (empty($_SESSION['username'])) {
                         window.location.replace("error.php?error_msg=" + data);
                     });
                 });
-
+                $("#wo_price_2").attr('disabled',true);
                 $("#wo_price").change(function () {
                     if ($("#project_amount").val() == "") {
                         $("#alert_inform").show();
                         $("#alert_information").html('<br/>- Please select PO Code(เลขที่ใบสั่งจ้าง)');
-                        $('html,body').animate({scrollTop: $('#alert_inform').offset().top}, 400);
+                        $('html,body').animate({scrollTop: top}, 400);
                     } else {
                         $("#alert_inform").hide();
-                        var result = ($("#wo_price").val() * 100) / $("#project_amount").val();
-                        $("#perc_of_po").val(result);
+                        if (parseInt($(this).val()) > $("#project_unit_price").val()) {
+                            alert("Please enter less than Unit Price");
+                            $("#perc_of_po").val("");
+                            $("#wo_price_2").val("");
+                        } else {
+                            var result = ($("#wo_price").val() * 100) / $("#project_unit_price").val();
+                            $("#perc_of_po").val(result);
+                            var resultOfRealWOPrice = parseInt($("#project_amount").val()) * parseFloat((result / 100));
+                            $("#wo_price_2").val(resultOfRealWOPrice);
+                        }
                     }
                 });
                 $("#perc_of_po").change(function () {
                     if ($("#project_amount").val() == "") {
                         $("#alert_inform").show();
                         $("#alert_information").html('<br/>- Please select PO Code(เลขที่ใบสั่งจ้าง)');
-                        $('html,body').animate({scrollTop: $('#alert_inform').offset().top}, 400);
+                        $('html,body').animate({scrollTop: top}, 400);
                     } else {
                         $("#alert_inform").hide();
-                        var result = ($("#perc_of_po").val() * $("#project_amount").val()) / 100;
-                        $("#wo_price").val(result);
+                        if (parseInt($(this).val()) > 100) {
+                            alert("Please enter percentage less than 100");
+                            $("#wo_price").val("");
+                            $("#wo_price_2").val("");
+                        } else {
+                            var result = ($("#perc_of_po").val() * $("#project_unit_price").val()) / 100;
+                            $("#wo_price").val(result);
+                            var resultOfRealWOPrice = parseInt($("#project_amount").val()) * parseFloat(($(this).val() / 100));
+                            $("#wo_price_2").val(resultOfRealWOPrice);
+
+                        }
                     }
                 });
                 $("#po_no_no").change(function () {
@@ -792,10 +816,11 @@ if (empty($_SESSION['username'])) {
                 var wo_target_date = $("#wo_target_date").val();
                 var wo_remark = $("#wo_remark").val();
                 var orderType = $("#wo_order_type").val();
-//            alert(orderType);
+
+                var realWOPrice = $("#wo_price_2").val();
+
                 var wo_price = $("#wo_price").val();
                 var perc_of_po = $("#perc_of_po").val();
-                // alert(project_order_status);
                 //Save State
                 if (project_code == 0) {
                     $("#alert_inform").show();
@@ -832,15 +857,14 @@ if (empty($_SESSION['username'])) {
                                 "&orderType=" + orderType +
                                 "&project_vat=" + project_vat +
                                 "&wo_price=" + wo_price +
+                                "&realWOPrice=" + realWOPrice +
                                 "&perc_of_po=" + perc_of_po);
                         jqxhr.success(function (data) {
                             if (data == 1) {
                                 alert('บันทึกข้อมูลเรียบร้อยแล้ว');
-                                //$().toastmessage('showSuccessToast', 'บันทึกข้อมูลเรียบร้อยแล้ว');
                                 window.location.assign("assign-index.php");
                             } else {
                                 alert('ไม่สามารถบันทึกข้อมูลได้');
-                                //$().toastmessage('showErrorToast', 'ไม่สามารถบันทึกข้อมูลได้');
                             }
                         });
                         jqxhr.error(function (data) {

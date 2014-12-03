@@ -37,6 +37,7 @@ $sqlSelectAllProjectRecord = "SELECT qpo.project_code as project_code,
                         qpo.WO_PRICE as WO_PRICE,
                         qpo.WO_PERC_OF_PO as WO_PERC_OF_PO,
                         qao.target_date as target_date,
+                        qpo.REAL_WO_PRICE as REAL_WO_PRICE,
                         qpo.complete_date as complete_date
                         FROM QRC_PROJECT_ORDER qpo
                         LEFT JOIN QRC_TYPE_OF_SERVICE qpot ON qpo.order_type = qpot.service_id

@@ -160,11 +160,16 @@ if (empty($_SESSION['username'])) {
                 echo '<button type = "button" class = "btn btn-primary dropdown-toggle btn-xs" data-toggle = "dropdown">Actions <span class = "caret"></span></button>';
 
                 echo '<ul class = "dropdown-menu dropdown-primary" role = "menu">';
-                echo '<li><a href = "#modal-project-order" class="btn-xs" data-toggle = "modal" onclick=editPO("' . $row['project_code'] . '","' . $row['order_id'] . '")><i class = "fa fa-edit"></i> Edit (แก้ไข)</a></li>';
-                echo '<li><a href = "#modal-project-order" class="btn-xs" data-toggle = "modal" onclick=copyWO("' . $row['project_code'] . '","' . $row['order_id'] . '")><i class = "fa fa-copy"></i> Copy (คัดลอก)</a></li>';
+
+                if ($row['project_status'] == "Complete" || $row['project_status'] == "Cancel" || $row['project_status'] == "Close") {
+                    
+                } else {
+                    echo '<li><a href = "#modal-project-order" class="btn-xs" data-toggle = "modal" onclick=editPO("' . $row['project_code'] . '","' . $row['order_id'] . '")><i class = "fa fa-edit"></i> Edit (แก้ไข)</a></li>';
+                    echo '<li><a href = "#modal-project-order" class="btn-xs" data-toggle = "modal" onclick=copyWO("' . $row['project_code'] . '","' . $row['order_id'] . '")><i class = "fa fa-copy"></i> Copy (คัดลอก)</a></li>';
+                }
                 echo '<li><a href = "#" class="btn-xs" onclick=viewClick("' . $row['order_id'] . '")><i class = "fa fa-eye"></i> View (ดูข้อมูล)</a></li>';
-                echo '<li class = "divider"></li>';
-                echo '<li><a href = "#" class="btn-xs" onclick=deletePO("' . $row['order_id'] . '","' . $row['project_code'] . '","' . $row['imgName'] . '")><i class = "fa fa-trash-o"></i> Delete (ลบ)</a></li>';
+                //echo '<li class = "divider"></li>';
+                //echo '<li><a href = "#" class="btn-xs" onclick=deletePO("' . $row['order_id'] . '","' . $row['project_code'] . '","' . $row['imgName'] . '")><i class = "fa fa-trash-o"></i> Delete (ลบ)</a></li>';
                 echo '</ul>';
                 echo '</div>';
                 echo '</td>';
