@@ -27,7 +27,8 @@ $orderType = $_GET['orderType'];
 $wo_price = $_GET['wo_price'];
 $perc_po_price = $_GET['prc_po_price'];
 
-
+$old_po_no_no = $_GET['old_po_no_no'];
+$current_po_no_no = $_GET['current_po_no_no'];
 
 //$sqlSubQueryDelete = "DELETE FROM QRC_ASSIGN_ORDER"
 //        . " WHERE ASSIGN_ID LIKE (SELECT assign_id FROM QRC_PROJECT_ORDER WHERE project_order_id='$order_id');";
@@ -38,10 +39,25 @@ $sqlUpdateProjectById = "UPDATE QRC_PROJECT_ORDER"
 
 $resultSet = mysql_query($sqlUpdateProjectById);
 
-$sqlUpdatePO = "update qrc_po"
-        . " set po_status = '$project_order_status'"
-        . " where po_id like '" . $_GET['poForEdit'] . "'";
-mysql_query($sqlUpdatePO);
+$sqlUpdatePO = "";
+if ($old_po_no_no == $current_po_no_no) {
+    $sqlUpdatePO = "update qrc_po"
+            . " set po_status = '$project_order_status'"
+            . " where po_id like '$current_po_no_no'";
+    mysql_query($sqlUpdatePO);
+} else {
+    $sqlUpdatePO = "update qrc_po"
+            . " set po_status = 'New'"
+            . " where po_id like '$old_po_no_no'";
+    mysql_query($sqlUpdatePO);
+
+    $sqlUpdatePO2 = "update qrc_po"
+            . " set po_status = '$project_order_status'"
+            . " where po_id like '$current_po_no_no'";
+    mysql_query($sqlUpdatePO2);
+}
+
+
 
 if ($resultSet) {
     echo '1';

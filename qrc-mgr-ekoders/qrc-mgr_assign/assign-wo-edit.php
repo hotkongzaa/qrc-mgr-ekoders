@@ -590,8 +590,8 @@ if (empty($_SESSION['username'])) {
         <input type="hidden" id="project_po_no_name">
         <input type="hidden" id="project_oid">
         <input type="hidden" id="service_name"/>
-
-        <!-- core JavaScript -->
+        <input type="hidden" id="old_po_no_no"
+               <!-- core JavaScript -->
         <script src="../assets/js/jquery.min.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
         <script src="../assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -730,6 +730,13 @@ if (empty($_SESSION['username'])) {
                         getPONo.success(function (respPONO) {
                             $("#po_no_no").html(respPONO);
                         });
+                        if (obj.project_status == "Complete" || obj.project_status == "Cancel" || obj.project_status == "Close") {
+                            $("#project_order_status,#wo_order_type,#po_no_no,#perc_of_po,#wo_price,#inspection_order_type_form,#complete_date_form").prop('disabled', true);
+                        }
+                        //Assign to old PO_NO_NO
+
+                        $("#old_po_no_no").val(obj.imgName);
+
                         $("#project_document_no").val(obj.document_no);
                         $("#project_order_status").val(obj.project_status);
                         $("#project_plan").val(obj.project_plan);
@@ -1052,6 +1059,7 @@ if (empty($_SESSION['username'])) {
                                 } else {
                                     $("#team_code_error").removeClass("has-error");
                                     // alert(order_id);
+
                                     var jqxhr = $.post("../model/SavingAssignDetail.php?order_id=" + order_id +
                                             "&project_id=" + project_code +
                                             "&team_code=" + teamCode +
@@ -1062,6 +1070,8 @@ if (empty($_SESSION['username'])) {
                                             "&wo_price=" + wo_price +
                                             "&poForEdit=" + poForEdit +
                                             "&prc_po_price=" + perc_of_po +
+                                            "&old_po_no_no=" + $("#old_po_no_no").val() +
+                                            "&current_po_no_no=" + $("#po_no_no").val() +
                                             "&remark=" + wo_remark);
                                     jqxhr.success(function (data) {
                                         if (data == 1) {
@@ -1134,6 +1144,8 @@ if (empty($_SESSION['username'])) {
                                         "&wo_price=" + wo_price +
                                         "&prc_po_price=" + perc_of_po +
                                         "&project_image_path=" + poForEdit +
+                                        "&old_po_no_no=" + $("#old_po_no_no").val() +
+                                        "&current_po_no_no=" + $("#po_no_no").val() +
                                         "&project_remark=" + project_order_remark);
                                 jqxhr.success(function (data) {
                                     if (data == 1) {

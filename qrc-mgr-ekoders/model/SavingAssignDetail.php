@@ -7,6 +7,9 @@ $project_id = $_GET['project_id'];
 $team_code = $_GET['team_code'];
 $assign_date = $_GET['assign_date'];
 
+$old_po_no_no = $_GET['old_po_no_no'];
+$current_po_no_no = $_GET['current_po_no_no'];
+
 $originalDate = $_GET['target_date'];
 $target_date = date("Y-m-d", strtotime($originalDate));
 
@@ -78,14 +81,27 @@ $sqlInsertIntoProjectOrderTbl = "INSERT INTO QRC_ASSIGN_ORDER (ASSIGN_ID,WO_ID,P
 $resultSets = mysql_query($sqlInsertIntoProjectOrderTbl);
 
 $sqlUpdateProjectOrder = "UPDATE QRC_PROJECT_ORDER"
-        . " SET WO_PERC_OF_PO='$perc_po_price',WO_PRICE='$wo_price',assign_id = '$strResult',project_status = 'Assign', remark = '$project_order_remark'"
+        . " SET image_name='$current_po_no_no',WO_PERC_OF_PO='$perc_po_price',WO_PRICE='$wo_price',assign_id = '$strResult',project_status = 'Assign', remark = '$project_order_remark'"
         . " WHERE project_order_id LIKE '$order_id';";
 mysql_query($sqlUpdateProjectOrder);
+$sqlUpdatePO = "";
+if ($old_po_no_no == $current_po_no_no) {
+    $sqlUpdatePO = "update qrc_po"
+            . " set po_status = '$project_order_status'"
+            . " where po_id like '$current_po_no_no'";
+    mysql_query($sqlUpdatePO);
+} else {
+    $sqlUpdatePO = "update qrc_po"
+            . " set po_status = 'New'"
+            . " where po_id like '$old_po_no_no'";
+    mysql_query($sqlUpdatePO);
 
-$sqlUpdatePO = "update qrc_po"
-        . " set po_status = '$project_order_status'"
-        . " where po_id like '" . $_GET['poForEdit'] . "'";
-mysql_query($sqlUpdatePO);
+    $sqlUpdatePO2 = "update qrc_po"
+            . " set po_status = '$project_order_status'"
+            . " where po_id like '$current_po_no_no'";
+    mysql_query($sqlUpdatePO2);
+}
+
 
 if ($resultSets) {
     echo 1;
