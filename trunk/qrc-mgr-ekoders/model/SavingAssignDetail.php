@@ -81,7 +81,7 @@ $sqlInsertIntoProjectOrderTbl = "INSERT INTO QRC_ASSIGN_ORDER (ASSIGN_ID,WO_ID,P
 $resultSets = mysql_query($sqlInsertIntoProjectOrderTbl);
 
 $sqlUpdateProjectOrder = "UPDATE QRC_PROJECT_ORDER"
-        . " SET image_name='$current_po_no_no',WO_PERC_OF_PO='$perc_po_price',WO_PRICE='$wo_price',assign_id = '$strResult',project_status = 'Assign', remark = '$project_order_remark'"
+        . " SET REAL_WO_PRICE='" . $_GET['realWOPrice'] . "',image_name='$current_po_no_no',WO_PERC_OF_PO='$perc_po_price',WO_PRICE='$wo_price',assign_id = '$strResult',project_status = 'Assign', remark = '$project_order_remark'"
         . " WHERE project_order_id LIKE '$order_id';";
 mysql_query($sqlUpdateProjectOrder);
 $sqlUpdatePO = "";

@@ -80,7 +80,7 @@ for ($sub = 0; $sub < $listBillingDto->Size(); $sub++) {
     echo '<table>';
     echo '<tr>';
     echo '<td style = "vertical-align: middle">';
-    echo '<img src = "http://localhost/qrc-mgr/images/qrc_logo.JPG">';
+    echo '<img src = "http://localhost/qrc-mgr-ekoders/images/qrc_logo.JPG">';
     echo '</td>';
     echo '<td>';
     echo '<font size = "2" style = "font-weight: bold;">บริษัท ควอลิตี้ รูฟ แอนด์ คอนสตรัคชั่น จำกัด <br/>';

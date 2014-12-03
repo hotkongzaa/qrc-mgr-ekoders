@@ -69,7 +69,7 @@ if ($listBillingDto->Size() <= 24) {
     echo '<table>';
     echo '<tr>';
     echo '<td style = "vertical-align: middle">';
-    echo '<img src = "http://localhost/qrc-mgr/images/qrc_logo.JPG">';
+    echo '<img src = "http://localhost/qrc-mgr-ekoders/images/qrc_logo.JPG">';
     echo '</td>';
     echo '<td>';
     echo '<font size = "2" style = "font-weight: bold;">บริษัท ควอลิตี้ รูฟ แอนด์ คอนสตรัคชั่น จำกัด <br/>';
@@ -201,7 +201,7 @@ if ($listBillingDto->Size() <= 24) {
 
     echo '<tr>';
     echo '<td align = "left">';
-    echo '<img src = "http://localhost/qrc-mgr/images/signaturebox.JPG">';
+    echo '<img src = "http://localhost/qrc-mgr-ekoders/images/signaturebox.JPG">';
     echo '</td>';
     echo '</tr>';
     echo '</table>';

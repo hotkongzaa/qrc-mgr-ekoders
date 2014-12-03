@@ -328,6 +328,7 @@ if (mysqli_query($con, $sql)) {
             . "WO_RETENTION varchar(100),"
             . "WO_RETENTION_REASON varchar(255),"
             . "COMPLETE_DATE varchar(100),"
+            . "REAL_WO_PRICE varchar(100),"
             . "PRIMARY KEY  (project_order_id)"
             . ")ENGINE=MyISAM DEFAULT CHARSET=utf8;";
     mysqli_query($con_create_tbl, $sqlCreateProjectOrder);

@@ -45,7 +45,7 @@ if ($listBillingDto->Size() % 23 != 0) {
 
 if ($listBillingDto->Size() <= 23) {
     header("Content-type: application/vnd.ms-word");
-    header("Content-Disposition: attachment;Filename=" . $inv_code . "_invoice_".$inv_type_eng.".doc");
+    header("Content-Disposition: attachment;Filename=" . $inv_code . "_invoice_" . $inv_type_eng . ".doc");
     echo '<!DOCTYPE html>';
     echo '<html>';
     echo '<head>';
@@ -67,8 +67,8 @@ if ($listBillingDto->Size() <= 23) {
     echo '<div id = "showcase">';
     echo '<table>';
     echo '<tr>';
-    echo '<td style = "vertical-align: middle">';
-    echo '<img src = "http://localhost/qrc-mgr/images/qrc_logo.JPG">';
+    echo '<td>';
+    echo '<img src = "http://localhost/qrc-mgr-ekoders/images/qrc_logo.JPG">';
     echo '</td>';
     echo '<td>';
     echo '<font size = "2" style = "font-weight: bold;">บริษัท ควอลิตี้ รูฟ แอนด์ คอนสตรัคชั่น จำกัด <br/>';

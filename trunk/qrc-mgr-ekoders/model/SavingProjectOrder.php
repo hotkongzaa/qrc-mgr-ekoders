@@ -20,7 +20,7 @@ $wo_name = $_GET['wo_name'];
 $orderType = $_GET['orderType'];
 $wo_price = $_GET['wo_price'];
 $perc_po = $_GET['perc_of_po'];
-
+$realWOPrice = $_GET['realWOPrice'];
 
 //$projectOrderID = md5(date('l jS \of F Y h:i:s A')."_".$project_code);
 $sqlSelectMaxValue = "SELECT count(*) as total FROM QRC_PROJECT_ORDER";
@@ -79,9 +79,9 @@ if ($row['total'] == 0) {
 $sqlGetRePOToInsert = "SELECT PO_RETENTION,PO_RETENTION_REASON FROM QRC_PO WHERE PO_ID LIKE '$project_image_path'";
 $setPODetail = mysql_query($sqlGetRePOToInsert);
 while ($poRow = mysql_fetch_assoc($setPODetail)) {
-    $sqlInsertIntoProjectOrderTbl = "INSERT INTO QRC_PROJECT_ORDER (project_order_id,project_order_name,project_code,project_order_plan,project_order_plot,document_no,po_no,po_owner,po_sender,created_date_time,order_type,plan_size,unit_price,amount,include_vat,image_name,project_status,wo_order_type,WO_PRICE,WO_PERC_OF_PO,WO_RETENTION,WO_RETENTION_REASON)"
+    $sqlInsertIntoProjectOrderTbl = "INSERT INTO QRC_PROJECT_ORDER (project_order_id,project_order_name,project_code,project_order_plan,project_order_plot,document_no,po_no,po_owner,po_sender,created_date_time,order_type,plan_size,unit_price,amount,include_vat,image_name,project_status,wo_order_type,WO_PRICE,WO_PERC_OF_PO,WO_RETENTION,WO_RETENTION_REASON,REAL_WO_PRICE)"
             . " VALUES "
-            . "('$strResult','$wo_name','$project_code','$project_home_plan','$project_home_plot','$project_document_no','$project_po_no','$project_po_owner','$project_po_sender',NOW(),'$project_order_type','$project_plan_size','$project_unit_price','$project_amount','$project_vat','$project_image_path','$project_order_status','$orderType','$wo_price','$perc_po','" . $poRow['PO_RETENTION'] . "','" . $poRow['PO_RETENTION_REASON'] . "');";
+            . "('$strResult','$wo_name','$project_code','$project_home_plan','$project_home_plot','$project_document_no','$project_po_no','$project_po_owner','$project_po_sender',NOW(),'$project_order_type','$project_plan_size','$project_unit_price','$project_amount','$project_vat','$project_image_path','$project_order_status','$orderType','$wo_price','$perc_po','" . $poRow['PO_RETENTION'] . "','" . $poRow['PO_RETENTION_REASON'] . "','$realWOPrice');";
 }
 
 $sqlUpdatePO = "update qrc_po"

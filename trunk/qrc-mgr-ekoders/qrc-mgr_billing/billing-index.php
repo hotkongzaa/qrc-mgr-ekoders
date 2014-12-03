@@ -713,23 +713,23 @@ if (empty($_SESSION['username'])) {
                     var jqxhr = $.post("../model/com.qrc.mgr.controller/SavingToInvoiceDetail.php?inv_code=" + invCode);
                     jqxhr.success(function (respInv) {
                         if (respInv == 0) {
-                            if (confirm("This invoice has been generated, Continue to generate this invoice?") == true) {
+//                            if (confirm("This invoice has been generated, Continue to generate this invoice?") == true) {
                                 window.location = 'billing_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + invCode;
-                            }
+//                            }
                         }
                     });
 
                 }
                 if (check == "REP") {
-                    if (confirm("This receipt has been generated, Continue to generate this receipt?") == true) {
+//                    if (confirm("This receipt has been generated, Continue to generate this receipt?") == true) {
                         window.location = 'receipt_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + invCode;
-                    }
+//                    }
                 }
             }
             function generateProgressive(invCode, custId, inv_type) {
-                if (confirm("This progressive has been generated, Continue to generate this progressive?") == true) {
+//                if (confirm("This progressive has been generated, Continue to generate this progressive?") == true) {
                     window.location = 'pgs_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + invCode;
-                }
+//                }
             }
         </script>
     </body>

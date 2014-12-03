@@ -324,17 +324,24 @@ if (empty($_SESSION['username'])) {
                                                             <div class="separator"></div>
                                                         </div>
                                                         <div class="">
-                                                            <label for="project_document_no">WO Price</label>
+                                                            <label for="project_document_no">WO per Unit Price</label>
                                                             <div class="form-group input-group">
                                                                 <span class="input-group-addon">฿</span>
                                                                 <input type="text" id="wo_price" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="">
-                                                            <label for="project_plan">% Of PO</label>
+                                                            <label for="project_plan">% of Unit Price</label>
                                                             <div class="form-group input-group">
                                                                 <span class="input-group-addon">%</span>
                                                                 <input type="text" id="perc_of_po" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div >
+                                                            <label for="project_plan">WO Price</label>
+                                                            <div class="form-group input-group">
+                                                                <span class="input-group-addon">฿</span>
+                                                                <input type="text" id="wo_price_2" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="" id="shown_remark">
@@ -661,10 +668,10 @@ if (empty($_SESSION['username'])) {
                             $("#po_no_no").html(respPONO);
                         });
                         $("#project_document_no").val(obj.document_no);
+                        $("#wo_price_2").val(obj.REAL_WO_PRICE);
                         $("#project_order_status").val(obj.project_status);
                         $("#project_plan").val(obj.project_plan);
                         $("#project_plot").val(obj.project_plot);
-//                        $("#po_no_no").val(obj.imgName);
                         $("#project_po_owner").val(obj.po_owner);
                         $("#project_po_sender").val(obj.po_sender);
                         $("#project_issue_date").val(obj.created_date_time);
@@ -673,7 +680,6 @@ if (empty($_SESSION['username'])) {
                         $("#project_unit_price").val(obj.unit_price);
                         $("#project_amount").val(obj.amount);
                         $("#project_vat").val(obj.vat);
-//                        $("#project_order_remark").val(obj.project_order_remark);
                         $("#project_order_remark").val("This is copy item please delete this remark before save");
                         $("#project_po_no_name").val(obj.po_no);
                         $("#wo_team_code").val(obj.tCode);
@@ -734,10 +740,10 @@ if (empty($_SESSION['username'])) {
                             $("#project_order_status,#wo_order_type,#po_no_no,#perc_of_po,#wo_price,#inspection_order_type_form,#complete_date_form").prop('disabled', true);
                         }
                         //Assign to old PO_NO_NO
-
                         $("#old_po_no_no").val(obj.imgName);
 
                         $("#project_document_no").val(obj.document_no);
+                        $("#wo_price_2").val(obj.REAL_WO_PRICE);
                         $("#project_order_status").val(obj.project_status);
                         $("#project_plan").val(obj.project_plan);
                         $("#project_plot").val(obj.project_plot);
@@ -819,27 +825,44 @@ if (empty($_SESSION['username'])) {
                         alert("ไม่สามารถติดต่อกับ Server ได้");
                     });
                 });
+                $("#wo_price_2").attr('disabled', true);
                 $("#wo_price").change(function () {
                     if ($("#project_amount").val() == "") {
                         $("#alert_inform").show();
                         $("#alert_information").html('<br/>- Please select PO Code(เลขที่ใบสั่งจ้าง)');
-                        $('html,body').animate({scrollTop: $('#alert_inform').offset().top}, 400);
+                        $('html,body').animate({scrollTop: top}, 400);
                     } else {
                         $("#alert_inform").hide();
-                        var result = ($("#wo_price").val() * 100) / $("#project_unit_price").val();
-                        $("#perc_of_po").val(result);
+                        if (parseInt($(this).val()) > $("#project_unit_price").val()) {
+                            alert("Please enter less than Unit Price");
+                            $("#perc_of_po").val("");
+                            $("#wo_price_2").val("");
+                        } else {
+                            var result = ($("#wo_price").val() * 100) / $("#project_unit_price").val();
+                            $("#perc_of_po").val(result);
+                            var resultOfRealWOPrice = parseInt($("#project_amount").val()) * parseFloat((result / 100));
+                            $("#wo_price_2").val(resultOfRealWOPrice);
+                        }
                     }
                 });
                 $("#perc_of_po").change(function () {
                     if ($("#project_amount").val() == "") {
                         $("#alert_inform").show();
                         $("#alert_information").html('<br/>- Please select PO Code(เลขที่ใบสั่งจ้าง)');
-                        $('html,body').animate({scrollTop: $('#alert_inform').offset().top}, 400);
+                        $('html,body').animate({scrollTop: top}, 400);
                     } else {
                         $("#alert_inform").hide();
-                        var result = ($("#perc_of_po").val() * $("#project_unit_price").val()) / 100;
-                        //                    $("#perc_of_po").val(result);
-                        $("#wo_price").val(result);
+                        if (parseInt($(this).val()) > 100) {
+                            alert("Please enter percentage less than 100");
+                            $("#wo_price").val("");
+                            $("#wo_price_2").val("");
+                        } else {
+                            var result = ($("#perc_of_po").val() * $("#project_unit_price").val()) / 100;
+                            $("#wo_price").val(result);
+                            var resultOfRealWOPrice = parseInt($("#project_amount").val()) * parseFloat(($(this).val() / 100));
+                            $("#wo_price_2").val(resultOfRealWOPrice);
+
+                        }
                     }
                 });
                 $("#po_no_no").change(function () {
@@ -951,6 +974,9 @@ if (empty($_SESSION['username'])) {
                     var wo_price = $("#wo_price").val();
                     var perc_of_po = $("#perc_of_po").val();
                     var complete_date = $("#complete_date_form").val();
+                    var realWOPrice = $("#wo_price_2").val();
+
+
 //                    "This is copy item please delete this remark before save";
 
                     if ("<?= $isNew ?>" == "New" || "<?= $isNew ?>" == "Copy") {
@@ -975,6 +1001,7 @@ if (empty($_SESSION['username'])) {
                                     "&orderType=" + orderType +
                                     "&project_vat=" + project_vat +
                                     "&wo_price=" + wo_price +
+                                    "&realWOPrice=" + realWOPrice +
                                     "&perc_of_po=" + perc_of_po);
                             jqxhr.success(function (data) {
                                 if (data == 1) {
@@ -992,6 +1019,7 @@ if (empty($_SESSION['username'])) {
                                                         "&project_order_remark=" + project_order_remark +
                                                         "&wo_price=" + wo_price +
                                                         "&prc_po_price=" + perc_of_po +
+                                                        "&realWOPrice=" + realWOPrice +
                                                         "&remark=" + wo_remark);
                                                 jqxhr.success(function (data) {
 
@@ -1019,6 +1047,7 @@ if (empty($_SESSION['username'])) {
                                                             "&order_id=" + response +
                                                             "&wo_price=" + wo_price +
                                                             "&prc_po_price=" + perc_of_po +
+                                                            "&realWOPrice=" + realWOPrice +
                                                             "&project_order_remark=" + project_order_remark);
                                                     jqxhr.success(function (data) {
                                                         if (data == 1) {
@@ -1072,6 +1101,7 @@ if (empty($_SESSION['username'])) {
                                             "&prc_po_price=" + perc_of_po +
                                             "&old_po_no_no=" + $("#old_po_no_no").val() +
                                             "&current_po_no_no=" + $("#po_no_no").val() +
+                                            "&realWOPrice=" + realWOPrice +
                                             "&remark=" + wo_remark);
                                     jqxhr.success(function (data) {
                                         if (data == 1) {
@@ -1104,6 +1134,7 @@ if (empty($_SESSION['username'])) {
                                         "&wo_price=" + wo_price +
                                         "&poForEdit=" + poForEdit +
                                         "&prc_po_price=" + perc_of_po +
+                                        "&realWOPrice=" + realWOPrice +
                                         "&project_order_remark=" + project_order_remark);
                                 jqxhr.success(function (data) {
                                     if (data == 1) {
@@ -1146,6 +1177,7 @@ if (empty($_SESSION['username'])) {
                                         "&project_image_path=" + poForEdit +
                                         "&old_po_no_no=" + $("#old_po_no_no").val() +
                                         "&current_po_no_no=" + $("#po_no_no").val() +
+                                        "&realWOPrice=" + realWOPrice +
                                         "&project_remark=" + project_order_remark);
                                 jqxhr.success(function (data) {
                                     if (data == 1) {
