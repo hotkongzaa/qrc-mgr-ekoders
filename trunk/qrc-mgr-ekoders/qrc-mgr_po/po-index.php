@@ -112,7 +112,7 @@ if (empty($_SESSION['username'])) {
                         <div class="collapse navbar-collapse top-collapse">
                             <!-- .nav -->
                             <ul class="nav navbar-left navbar-nav">
-                                <li><a href="project-index.php">Home</a></li>
+                                <li><a href="../qrc-mgr_project/project-index.php">Home</a></li>
 
                             </ul><!-- /.nav -->
                         </div>
@@ -256,13 +256,17 @@ if (empty($_SESSION['username'])) {
                                                         <h4><i class="fa fa-bar-chart-o"></i> Create/Edit PO (สร้าง/แก้ไข PO)</h4>
                                                     </div>
                                                     <div class="portlet-widgets">
-
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#m-charts"><i class="fa fa-chevron-down"></i></a>
                                                     </div>
                                                     <div class="clearfix"></div>
                                                 </div>
                                                 <div id="m-charts" class="panel-collapse collapse in">
                                                     <div class="portlet-body">
+                                                        <div class="note bg-warning" id="alert_inform">                                                            
+                                                            <h4><i class="fa fa-adjust"></i> Please enter/select require fields</h4>
+                                                            <hr class="separator">
+                                                            <span id="alert_information">Change a few things up and try submitting again.</span>
+                                                        </div>
                                                         <div class="row" id="loading_ce_form">
 
                                                         </div>
@@ -325,8 +329,13 @@ if (empty($_SESSION['username'])) {
                                                     <div class="clearfix"></div>
                                                 </div>
                                                 <div id="recent" class="panel-collapse collapse in">
-                                                    <div class="portlet-body" class="row">
-                                                        <div id="loading_project">
+                                                    <div class="portlet-body">
+                                                        <div class="note bg-success" id="alert_success_inform">
+                                                            <h4><i class="fa fa-bell"></i> Success !!</h4>
+                                                            <hr class="separator">
+                                                            <span id="alert_success_information"><strong>Please enter/select require fields</strong></span>
+                                                        </div>
+                                                        <div id="loading_project" class="row">
 
                                                         </div>
 
@@ -400,6 +409,10 @@ if (empty($_SESSION['username'])) {
         <script type="text/javascript">
             var createOrEditState = "Save";
             $(document).ready(function () {
+                $("#alert_inform").hide();
+                $("#alert_information").html();
+                $("#alert_success_inform").hide();
+                $("#alert_success_information").html();
                 $("#create_edit_panel").hide();
                 $("#search_project").load("po_search_page.php");
                 $("#loading_project").load("po_table_result.php?searchCondition=All");
@@ -443,18 +456,10 @@ if (empty($_SESSION['username'])) {
                             $.trim(po_issue_date).length != 0 ||
                             po_order_type != 0 ||
                             po_status != 0) {
-                        //window.location.assign("index-po-search-result.php?searchCondition=Condition&" + data);
-
                         $("#loading_project").load("po_table_result.php?searchCondition=Condition&" + data, function () {
-                            //$(".spinner").hide();
-//                            $('html,body').animate({scrollTop: $('#team_tbl_content').offset().top}, 'slow');
                         });
                     } else {
-                        //window.location.assign("index-po-search-result.php?searchCondition=All");
-
                         $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
-                            //$(".spinner").hide();
-//                            $('html,body').animate({scrollTop: $('#team_tbl_content').offset().top}, 'slow');
                         });
                     }
                 });
@@ -506,17 +511,68 @@ if (empty($_SESSION['username'])) {
                             + "&po_retention=" + po_retention
                             + "&po_retention_reason=" + po_retention_reason
                             + "&po_name=" + po_name;
-
                     if (createOrEditState == "Edit") {
-                        if ($("#remark_inform").val() == "") {
-                            alert("กรุณาใส่ Remark");
+                        if (project_name == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please select Project Name");
+                        } else if (po_name == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please enter PO Name");
+                        } else if (doc_no == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Document No");
+                        } else if (po_no == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter PO No.");
+                        } else if (home_plan == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Home Plan");
+                        } else if (home_plot == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Home Plot");
+                        } else if (issue_date == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please select Issue Date");
+                        } else if (order_type == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please select Order Type");
+                        } else if (quantity == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Quantity");
+                        } else if (plan_size == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Plan Size");
+                        } else if (unit_price == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Unit Price");
+                        } else if (amount == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Amount");
+                        } else if (vat7 == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Amount");
+                        } else if ($("#remark_inform").val() == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Remark");
                         } else {
-
                             var isUploadImage = $.post("../model/CheckImageUpload.php");
                             isUploadImage.success(function (resp) {
                                 if (resp == "NO_DATA") {
                                     var po_id = $("#hideMemSkill").val();
-                                    //alert(po_id);
                                     var updateWithSameImage = $.post("../model/UpdatePoWithSameImage.php?" + data + "&po_id=" + po_id);
                                     updateWithSameImage.success(function (updateResp) {
                                         if (updateResp == 1) {
@@ -524,16 +580,18 @@ if (empty($_SESSION['username'])) {
                                                 $(".spinner").hide();
                                                 $("#create_edit_panel").hide();
                                                 $("#loading_ce_form").empty();
-                                                $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
+                                                $("html, body").animate({scrollTop: 0}, "fast");
                                                 $("#create_new_po_btn").show();
                                                 createOrEditState = "Save";
-
+                                                $("#alert_success_inform").show();
+                                                $("#alert_success_information").html("แก้ไขข้อมูลPOเรียบร้อยแล้ว");
+                                                setTimeout(function () {
+                                                    $("#alert_success_inform").hide("fast");
+                                                    $("#alert_success_information").html("");
+                                                }, 3000);
                                             });
-//                                            $().toastmessage('showSuccessToast', 'แกไขข้อมูลPOเรียบร้อยแล้ว');
-                                            alert("แก้ไขข้อมูลPOเรียบร้อยแล้ว");
 
                                         } else {
-//                                            $().toastmessage('showWarningToast', "ไม่สามารถแก้ไขข้อมูลPOได้");
                                             alert("ไม่สามารถแก้ไขข้อมูลPOได้");
                                         }
                                     });
@@ -546,16 +604,18 @@ if (empty($_SESSION['username'])) {
                                                 $(".spinner").hide();
                                                 $("#create_edit_panel").hide();
                                                 $("#loading_ce_form").empty();
-                                                $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
+                                                $("html, body").animate({scrollTop: 0}, "fast");
                                                 createOrEditState = "Save";
                                                 $("#create_new_po_btn").show();
-//                                                updateUpperMenu();
+                                                $("#alert_success_inform").show();
+                                                $("#alert_success_information").html("แก้ไขข้อมูลPOเรียบร้อยแล้ว");
+                                                setTimeout(function () {
+                                                    $("#alert_success_inform").hide("fast");
+                                                    $("#alert_success_information").html("");
+                                                }, 3000);
                                             });
-//                                            $().toastmessage('showSuccessToast', 'แกไขข้อมูลPOเรียบร้อยแล้ว');
-                                            alert("แก้ไขข้อมูลPOเรียบร้อยแล้ว");
 
                                         } else {
-//                                            $().toastmessage('showWarningToast', "ไม่สามารถแก้ไขข้อมูลPOได้");
                                             alert("ไม่สามารถแก้ไขข้อมูลPOได้");
                                         }
                                     });
@@ -563,26 +623,136 @@ if (empty($_SESSION['username'])) {
                             });
                         }
                     } else {
+                        if (project_name == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please select Project Name");
+                            setTimeout(function () {
+                                $("#alert_inform").hide("fast");
+                                $("#alert_information").html("");
+                            }, 2000);
+                        } else if (po_name == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please enter PO Name");
+                            setTimeout(function () {
+                                $("#alert_inform").hide("fast");
+                                $("#alert_information").html("");
+                            }, 2000);
+                        } else if (doc_no == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Document No");
+                            setTimeout(function () {
+                                $("#alert_inform").hide("fast");
+                                $("#alert_information").html("");
+                            }, 2000);
+                        } else if (po_no == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter PO No.");
+                            setTimeout(function () {
+                                $("#alert_inform").hide("fast");
+                                $("#alert_information").html("");
+                            }, 2000);
+                        } else if (home_plan == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Home Plan");
+                            setTimeout(function () {
+                                $("#alert_inform").hide("fast");
+                                $("#alert_information").html("");
+                            }, 2000);
+                        } else if (home_plot == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Home Plot");
+                            setTimeout(function () {
+                                $("#alert_inform").hide("fast");
+                                $("#alert_information").html("");
+                            }, 2000);
+                        } else if (issue_date == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please select Issue Date");
+                            setTimeout(function () {
+                                $("#alert_inform").hide("fast");
+                                $("#alert_information").html("");
+                            }, 2000);
+                        } else if (order_type == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please select Order Type");
+                            setTimeout(function () {
+                                $("#alert_inform").hide("fast");
+                                $("#alert_information").html("");
+                            }, 2000);
+                        } else if (quantity == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Quantity");
+                            setTimeout(function () {
+                                $("#alert_inform").hide("fast");
+                                $("#alert_information").html("");
+                            }, 2000);
+                        } else if (plan_size == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Plan Size");
+                            setTimeout(function () {
+                                $("#alert_inform").hide("fast");
+                                $("#alert_information").html("");
+                            }, 2000);
+                        } else if (unit_price == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Unit Price");
+                            setTimeout(function () {
+                                $("#alert_inform").hide("fast");
+                                $("#alert_information").html("");
+                            }, 2000);
+                        } else if (amount == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Amount");
+                            setTimeout(function () {
+                                $("#alert_inform").hide("fast");
+                                $("#alert_information").html("");
+                            }, 2000);
+                        } else if (vat7 == "") {
+                            $("html, body").animate({scrollTop: 0}, "fast");
+                            $("#alert_inform").show();
+                            $("#alert_information").html("- Please Enter Amount");
+                            setTimeout(function () {
+                                $("#alert_inform").hide("fast");
+                                $("#alert_information").html("");
+                            }, 2000);
+                        } else {
+                            var jqxhr = $.post("../model/SavingPo.php?" + data);
+                            jqxhr.success(function (data) {
+                                $("html, body").animate({scrollTop: 0}, "fast");
+                                $("#alert_inform").hide();
+                                $("#alert_information").html("");
+                                if (data == 1) {
+                                    $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
+                                        $(".spinner").hide();
+                                        $("#create_edit_panel").hide();
+                                        $("#loading_ce_form").empty();
+                                        $("#create_new_po_btn").show();
+                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                        $("#alert_success_inform").show();
+                                        $("#alert_success_information").html("บันทึกข้อมูลPOเรียบร้อยแล้ว");
+                                        setTimeout(function () {
+                                            $("#alert_success_inform").hide("fast");
+                                            $("#alert_success_information").html("");
+                                        }, 3000);
+                                    });
 
-                        var jqxhr = $.post("../model/SavingPo.php?" + data);
-                        jqxhr.success(function (data) {
-                            if (data == 1) {
-                                //$("#modal-team").modal('hide');
-                                $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
-                                    $(".spinner").hide();
-                                    $("#create_edit_panel").hide();
-                                    $("#loading_ce_form").empty();
-                                    $("#create_new_po_btn").show();
-                                    $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
-                                });
-//                                $().toastmessage('showSuccessToast', 'บันทึกข้อมูลPOเรียบร้อยแล้ว');
-                                alert("บันทึกข้อมูลPOเรียบร้อยแล้ว");
-
-                            } else {
-//                                $().toastmessage('showWarningToast', "ไม่สามารถบันทึกข้อมูลPOได้");
-                                alert("ไม่สามารถบันทึกข้อมูลPOได้");
-                            }
-                        });
+                                } else {
+                                    alert("ไม่สามารถบันทึกข้อมูลPOได้");
+                                }
+                            });
+                        }
                     }
                 });
             });
@@ -630,18 +800,14 @@ if (empty($_SESSION['username'])) {
                         $("#po_project_foreman_form").val(obj.PO_PROJECT_FOREMAN_ID);
                         $("#remark_inform").val(obj.PO_REMARK);
                         $("#po_name").val(obj.PO_NAME);
-
                         $("#project_order_status").val(obj.PO_STATUS);
                         $("#po_retention").val(obj.PO_RETENTION);
                         $("#po_retention_reason").val(obj.PO_RETENTION_REASON);
-
                         $("#hidePoID").val(po_id);
-
                         var jqxhr = $.post("../model/GetPOIMGByID.php?po_id=" + po_id);
                         jqxhr.success(function (imgData) {
                             $("#edit_image").html(imgData);
                         });
-
                     });
                     jqxhr.error(function (data) {
                         window.location.replace("error.php?error_msg=" + data);
@@ -661,14 +827,18 @@ if (empty($_SESSION['username'])) {
                                     $(".spinner").hide();
                                     $("#create_edit_panel").hide();
                                     $("#loading_ce_form").empty();
-                                    $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
-//                                    updateUpperMenu();
+                                    $("html, body").animate({scrollTop: 0}, "fast");
+
+                                    $("#alert_success_inform").show();
+                                    $("#alert_success_information").html("ลบข้อมูลPOเรียบร้อยแล้ว");
+                                    setTimeout(function () {
+                                        $("#alert_success_inform").hide("fast");
+                                        $("#alert_success_information").html("");
+                                    }, 3000);
+
                                 });
-//                                $().toastmessage('showSuccessToast', 'ลบข้อมูลPOเรียบร้อยแล้ว');
-                                alert("ลบข้อมูลPOเรียบร้อยแล้ว");
 
                             } else {
-//                                $().toastmessage('showWarningToast', "ไม่สามารถลบข้อมูลPOได้");
                                 alert("ไม่สามารถลบข้อมูลPOได้");
                             }
                         }
