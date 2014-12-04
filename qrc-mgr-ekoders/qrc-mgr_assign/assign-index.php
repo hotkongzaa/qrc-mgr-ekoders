@@ -343,6 +343,57 @@ if (empty($_SESSION['username'])) {
                             <!-- END YOUR CONTENT HERE -->
 
                         </div>
+                        <!-- /#ek-layout-button -->	
+                        <div class="qs-layout-menu">
+                            <div class="btn btn-gray qs-setting-btn" id="qs-setting-btn">
+                                <i class="fa fa-cog bigger-150 icon-only"></i>
+                            </div>
+                            <div class="qs-setting-box" id="qs-setting-box">
+
+                                <div class="hidden-xs hidden-sm">
+                                    <span class="bigger-120">Layout Options</span>
+
+                                    <div class="hr hr-dotted hr-8"></div>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="fixed-navbar" />
+                                        <span id="#fixed-navbar" class="labels"> Fixed NavBar</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="fixed-sidebar" />
+                                        <span id="#fixed-sidebar" class="labels"> Fixed NavBar+SideBar</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="sidebar-toggle" />
+                                        <span id="#sidebar-toggle" class="labels"> Sidebar Toggle</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="in-container" />
+                                        <span id="#in-container" class="labels"> Inside<strong>.container</strong></span>
+                                    </label>
+
+                                    <div class="space-4"></div>
+                                </div>
+
+                                <span class="bigger-120">Color Options</span>
+
+                                <div class="hr hr-dotted hr-8"></div>
+
+                                <label>
+                                    <input type="checkbox" class="tc" id="side-bar-color" />
+                                    <span id="#side-bar-color" class="labels"> SideBar (Light)</span>
+                                </label>
+
+                                <ul>									
+                                    <li><button class="btn" style="background-color:#d15050;" onclick="swapStyle('../assets/css/themes/style.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#86618f;" onclick="swapStyle('../assets/css/themes/style-1.css')"></button></li> 
+                                    <li><button class="btn" style="background-color:#ba5d32;" onclick="swapStyle('../assets/css/themes/style-2.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#488075;" onclick="swapStyle('../assets/css/themes/style-3.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#4e72c2;" onclick="swapStyle('../assets/css/themes/style-4.css')"></button></li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        <!-- /#ek-layout-button -->
                     </div>
                     <!-- BEGIN FOOTER CONTENT -->		
                     <div class="footer">
@@ -396,90 +447,90 @@ if (empty($_SESSION['username'])) {
         <script src="../assets/js/qrc-mgr_configuration.js"></script>
         <script type="text/javascript">
 
-            $(document).ready(function () {
-                $(".search_date").datepicker();
-                var loadAssigntbl = $.post("assign_table_result.php?search_condition=search_all");
-                loadAssigntbl.success(function (cedata) {
-                    $("#loading_project").html(cedata);
-                });
-                $("#create_new_assign").click(function () {
-                    window.location = "assign-wo-new.php";
-                });
-                $("#search_WO_button").click(function () {
-                    var projectCode = $("#project_name_search").val();
-                    var poId = $("#po_id_search").val();
-                    var woID = $("#wo_status_search").val();
-                    var startSearch = $("#start_search_date").val();
-                    var endSearch = $("#end_search_date").val();
-                    var woLimit = $("#project_limit_search").val();
+                                        $(document).ready(function () {
+                                            $(".search_date").datepicker();
+                                            var loadAssigntbl = $.post("assign_table_result.php?search_condition=search_all");
+                                            loadAssigntbl.success(function (cedata) {
+                                                $("#loading_project").html(cedata);
+                                            });
+                                            $("#create_new_assign").click(function () {
+                                                window.location = "assign-wo-new.php";
+                                            });
+                                            $("#search_WO_button").click(function () {
+                                                var projectCode = $("#project_name_search").val();
+                                                var poId = $("#po_id_search").val();
+                                                var woID = $("#wo_status_search").val();
+                                                var startSearch = $("#start_search_date").val();
+                                                var endSearch = $("#end_search_date").val();
+                                                var woLimit = $("#project_limit_search").val();
 
 
-                    if (!$.trim(projectCode).length &&
-                            !$.trim(poId).length &&
-                            !$.trim(woID) &&
-                            !$.trim(startSearch).length &&
-                            !$.trim(endSearch).length &&
-                            woLimit == 100) {
+                                                if (!$.trim(projectCode).length &&
+                                                        !$.trim(poId).length &&
+                                                        !$.trim(woID) &&
+                                                        !$.trim(startSearch).length &&
+                                                        !$.trim(endSearch).length &&
+                                                        woLimit == 100) {
 
-                        $("#loading_project").load("assign_table_result.php?search_condition=search_all", function () {
+                                                    $("#loading_project").load("assign_table_result.php?search_condition=search_all", function () {
 
-                        });
-                    } else {
-                        if (startSearch != "" && endSearch == "") {
-                            //$().toastmessage('showWarningToast', "Please enter end date");
-                            alert("Please enter end date");
+                                                    });
+                                                } else {
+                                                    if (startSearch != "" && endSearch == "") {
+                                                        //$().toastmessage('showWarningToast', "Please enter end date");
+                                                        alert("Please enter end date");
 
-                        }
-                        else if (startSearch == "" && endSearch != "") {
+                                                    }
+                                                    else if (startSearch == "" && endSearch != "") {
 //                            $().toastmessage('showWarningToast', "Please enter start date");
-                            alert("Please enter start date");
-                        }
-                        else {
+                                                        alert("Please enter start date");
+                                                    }
+                                                    else {
 
-                            $("#loading_project").load("assign_table_result.php?search_condition=search_criteria&projectCode=" + projectCode + "&poId=" + poId + "&woID=" + woID + "&startSearch=" + startSearch + "&endSearch=" + endSearch + "&searchLimit=" + woLimit, function () {
+                                                        $("#loading_project").load("assign_table_result.php?search_condition=search_criteria&projectCode=" + projectCode + "&poId=" + poId + "&woID=" + woID + "&startSearch=" + startSearch + "&endSearch=" + endSearch + "&searchLimit=" + woLimit, function () {
 
-                            });
+                                                        });
 
-                        }
-                    }
-                });
-            });
-            function deletePO(POID, project_code, imagePath) {
+                                                    }
+                                                }
+                                            });
+                                        });
+                                        function deletePO(POID, project_code, imagePath) {
 
-                if (confirm("Are you sure?"))
-                {
-                    var jqxhr = $.post("../model/DeleteProjectOrder.php?project_order_code=" + POID + "&imagePath=" + imagePath);
-                    jqxhr.success(function (data) {
-                        if (data == 1) {
-                            setTimeout(function ()
-                            {
-                                //$('html,body').animate({scrollTop: $('#project_tbl_content').offset().top}, 'slow');
-                                $("#loading_project").load("assign_table_result.php?search_condition=search_all", function () {
-                                    $(".spinner").hide();
-                                });
+                                            if (confirm("Are you sure?"))
+                                            {
+                                                var jqxhr = $.post("../model/DeleteProjectOrder.php?project_order_code=" + POID + "&imagePath=" + imagePath);
+                                                jqxhr.success(function (data) {
+                                                    if (data == 1) {
+                                                        setTimeout(function ()
+                                                        {
+                                                            //$('html,body').animate({scrollTop: $('#project_tbl_content').offset().top}, 'slow');
+                                                            $("#loading_project").load("assign_table_result.php?search_condition=search_all", function () {
+                                                                $(".spinner").hide();
+                                                            });
 
-                            }
-                            , 100);
-                        } else {
+                                                        }
+                                                        , 100);
+                                                    } else {
 
-                        }
-                    });
-                    jqxhr.error(function (data) {
-                        window.location.replace("error.php?error_msg=" + data);
-                    });
-                }
-                else
-                {
-                    e.preventDefault();
-                }
-            }
-            function editPO(project_code, project_order_id) {
-                //alert(project_order_id);
-                window.location.assign("assign-wo-edit.php?projectCode=" + project_code + "&projectOrderStatus=Edit&project_order_id=" + project_order_id);
-            }
-            function copyWO(project_code, project_order_id) {
-                window.location.assign("assign-wo-edit.php?projectCode=" + project_code + "&projectOrderStatus=Copy&project_order_id=" + project_order_id);
-            }
+                                                    }
+                                                });
+                                                jqxhr.error(function (data) {
+                                                    window.location.replace("error.php?error_msg=" + data);
+                                                });
+                                            }
+                                            else
+                                            {
+                                                e.preventDefault();
+                                            }
+                                        }
+                                        function editPO(project_code, project_order_id) {
+                                            //alert(project_order_id);
+                                            window.location.assign("assign-wo-edit.php?projectCode=" + project_code + "&projectOrderStatus=Edit&project_order_id=" + project_order_id);
+                                        }
+                                        function copyWO(project_code, project_order_id) {
+                                            window.location.assign("assign-wo-edit.php?projectCode=" + project_code + "&projectOrderStatus=Copy&project_order_id=" + project_order_id);
+                                        }
         </script>
     </body>
 
