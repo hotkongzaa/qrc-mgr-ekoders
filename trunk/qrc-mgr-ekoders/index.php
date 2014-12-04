@@ -19,7 +19,8 @@
         <link rel="stylesheet" type="text/css" href="assets/css/plugins/gritter/jquery.gritter.css" />	
 
         <!-- Tc core CSS -->
-        <link id="qstyle" rel="stylesheet" href="assets/css/themes/style.css">	
+        <link id="qstyle" rel="stylesheet" href="assets/css/themes/style.css">
+        <link id="qstyle" rel="stylesheet" href="assets/css/themes/style-2.css">
         <!--[if lte IE 8]>
                 <link rel="stylesheet" href="assets/css/ie-fix.css" />
         <![endif]-->
