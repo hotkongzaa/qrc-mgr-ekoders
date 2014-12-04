@@ -380,6 +380,57 @@ if (empty($_SESSION['username'])) {
                             <!-- END YOUR CONTENT HERE -->
 
                         </div>
+                        <!-- /#ek-layout-button -->	
+                        <div class="qs-layout-menu">
+                            <div class="btn btn-gray qs-setting-btn" id="qs-setting-btn">
+                                <i class="fa fa-cog bigger-150 icon-only"></i>
+                            </div>
+                            <div class="qs-setting-box" id="qs-setting-box">
+
+                                <div class="hidden-xs hidden-sm">
+                                    <span class="bigger-120">Layout Options</span>
+
+                                    <div class="hr hr-dotted hr-8"></div>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="fixed-navbar" />
+                                        <span id="#fixed-navbar" class="labels"> Fixed NavBar</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="fixed-sidebar" />
+                                        <span id="#fixed-sidebar" class="labels"> Fixed NavBar+SideBar</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="sidebar-toggle" />
+                                        <span id="#sidebar-toggle" class="labels"> Sidebar Toggle</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="in-container" />
+                                        <span id="#in-container" class="labels"> Inside<strong>.container</strong></span>
+                                    </label>
+
+                                    <div class="space-4"></div>
+                                </div>
+
+                                <span class="bigger-120">Color Options</span>
+
+                                <div class="hr hr-dotted hr-8"></div>
+
+                                <label>
+                                    <input type="checkbox" class="tc" id="side-bar-color" />
+                                    <span id="#side-bar-color" class="labels"> SideBar (Light)</span>
+                                </label>
+
+                                <ul>									
+                                    <li><button class="btn" style="background-color:#d15050;" onclick="swapStyle('../assets/css/themes/style.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#86618f;" onclick="swapStyle('../assets/css/themes/style-1.css')"></button></li> 
+                                    <li><button class="btn" style="background-color:#ba5d32;" onclick="swapStyle('../assets/css/themes/style-2.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#488075;" onclick="swapStyle('../assets/css/themes/style-3.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#4e72c2;" onclick="swapStyle('../assets/css/themes/style-4.css')"></button></li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        <!-- /#ek-layout-button -->
                     </div>
                     <!-- BEGIN FOOTER CONTENT -->		
                     <div class="footer">
@@ -436,207 +487,207 @@ if (empty($_SESSION['username'])) {
         <!--<script src="../assets/js/jquery.multiselect.js"></script>-->
         <script src="../assets/js/plugins/select2/select2.min.js"></script>
         <script type="text/javascript">
-            var createOrEditState = "Create";
-            $(document).ready(function () {
-                $("#select3_2").select2({
-                    placeholder: "Select a Services",
-                    allowClear: true
-                });
+                                        var createOrEditState = "Create";
+                                        $(document).ready(function () {
+                                            $("#select3_2").select2({
+                                                placeholder: "Select a Services",
+                                                allowClear: true
+                                            });
 
-                $("#create_edit_panel").hide();
-                $("#loading_project").load("member_table_result.php?searchCondition=search_all");
-                $("#create_new_member_btn").click(function () {
-                    $("#loading_ce_form").load("member-edit_form.php?mID=new", function () {
-                        $("#create_edit_panel").show("fast");
-                        $("#create_new_member_btn").hide();
-                    });
-                });
-                $("#cancel_form").click(function () {
-                    $("#loading_ce_form").empty();
-                    $("#create_new_member_btn").show();
-                    $("#create_edit_panel").hide("fast");
-                });
-                $("#save_create_panel").click(function () {
+                                            $("#create_edit_panel").hide();
+                                            $("#loading_project").load("member_table_result.php?searchCondition=search_all");
+                                            $("#create_new_member_btn").click(function () {
+                                                $("#loading_ce_form").load("member-edit_form.php?mID=new", function () {
+                                                    $("#create_edit_panel").show("fast");
+                                                    $("#create_new_member_btn").hide();
+                                                });
+                                            });
+                                            $("#cancel_form").click(function () {
+                                                $("#loading_ce_form").empty();
+                                                $("#create_new_member_btn").show();
+                                                $("#create_edit_panel").hide("fast");
+                                            });
+                                            $("#save_create_panel").click(function () {
 
-                    var memId = $("#member_id_form").val();
-                    var memName = $("#member_name_form").val();
-                    var memRole = $("#member_role_form").val();
-                    var memberSkill = $("#member_skill_form").val();
-                    var teamCode = $("#team_code_in_member_form2").val();
-                    var teamName = $("#team_name_in_member_form2").val();
-                    var tel = $("#tel_in_member_form").val();
-                    var email = $("#email_in_member_form").val();
-                    var remark_inform = $("#remark_inform").val();
+                                                var memId = $("#member_id_form").val();
+                                                var memName = $("#member_name_form").val();
+                                                var memRole = $("#member_role_form").val();
+                                                var memberSkill = $("#member_skill_form").val();
+                                                var teamCode = $("#team_code_in_member_form2").val();
+                                                var teamName = $("#team_name_in_member_form2").val();
+                                                var tel = $("#tel_in_member_form").val();
+                                                var email = $("#email_in_member_form").val();
+                                                var remark_inform = $("#remark_inform").val();
 
-                    if (createOrEditState == "Edit") {
-                        if (remark_inform == "") {
+                                                if (createOrEditState == "Edit") {
+                                                    if (remark_inform == "") {
 //                            $().toastmessage('showWarningToast', "กรุณาระบุ Remark");
-                            alert("กรุณาระบุ Remark");
-                        } else if ($("#member_skill_form").val() == null) {
+                                                        alert("กรุณาระบุ Remark");
+                                                    } else if ($("#member_skill_form").val() == null) {
 //                            $().toastmessage('showWarningToast', "กรุณาระบุ ความสามารถของวมาชิก");
-                            alert("กรุณาระบุ ความสามารถของวมาชิก");
-                        } else {
-                            if (memberSkill == null || memberSkill == "") {
-                                memberSkill = $("#hideMemSkill").val();
-                                var jqxhr = $.post("../model/EditMember.php?memId=" + memId + "&memName=" + memName + "&memRole=" + memRole + "&memberSkill=" + memberSkill + "&teamCode=" + teamCode + "&teamName=" + teamName + "&tel=" + tel + "&email=" + email + "&remark=" + remark_inform);
-                                jqxhr.success(function (data) {
-                                    if (data == 1) {
-                                        $("#loading_project").load("member_table_result.php?searchCondition=search_all", function () {
-                                            $(".spinner").hide();
-                                            $("#create_edit_panel").hide();
-                                            $("#loading_ce_form").empty();
-                                            $("#create_new_member_btn").show();
+                                                        alert("กรุณาระบุ ความสามารถของวมาชิก");
+                                                    } else {
+                                                        if (memberSkill == null || memberSkill == "") {
+                                                            memberSkill = $("#hideMemSkill").val();
+                                                            var jqxhr = $.post("../model/EditMember.php?memId=" + memId + "&memName=" + memName + "&memRole=" + memRole + "&memberSkill=" + memberSkill + "&teamCode=" + teamCode + "&teamName=" + teamName + "&tel=" + tel + "&email=" + email + "&remark=" + remark_inform);
+                                                            jqxhr.success(function (data) {
+                                                                if (data == 1) {
+                                                                    $("#loading_project").load("member_table_result.php?searchCondition=search_all", function () {
+                                                                        $(".spinner").hide();
+                                                                        $("#create_edit_panel").hide();
+                                                                        $("#loading_ce_form").empty();
+                                                                        $("#create_new_member_btn").show();
 //                                            $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
-                                            createOrEditState = "Create";
-                                        });
+                                                                        createOrEditState = "Create";
+                                                                    });
 //                                        $().toastmessage('showSuccessToast', 'แกไขข้อมูลทีมเรียบร้อยแล้ว');
-                                        alert('แกไขข้อมูลทีมเรียบร้อยแล้ว');
+                                                                    alert('แกไขข้อมูลทีมเรียบร้อยแล้ว');
 
-                                    } else {
+                                                                } else {
 //                                        $().toastmessage('showWarningToast', "ไม่สามารถแก้ไขข้อมูลทีมได้");
-                                        alert("ไม่สามารถแก้ไขข้อมูลทีมได้");
-                                    }
-                                });
-                            } else {
-                                var jqxhr = $.post("../model/EditMember.php?memId=" + memId + "&memName=" + memName + "&memRole=" + memRole + "&memberSkill=" + memberSkill + "&teamCode=" + teamCode + "&teamName=" + teamName + "&tel=" + tel + "&email=" + email + "&remark=" + remark_inform);
-                                jqxhr.success(function (data) {
-                                    if (data == 1) {
-                                        $("#loading_project").load("member_table_result.php?searchCondition=search_all", function () {
-                                            $(".spinner").hide();
-                                            $("#create_edit_panel").hide();
-                                            $("#loading_ce_form").empty();
-                                            $("#create_new_member_btn").show();
+                                                                    alert("ไม่สามารถแก้ไขข้อมูลทีมได้");
+                                                                }
+                                                            });
+                                                        } else {
+                                                            var jqxhr = $.post("../model/EditMember.php?memId=" + memId + "&memName=" + memName + "&memRole=" + memRole + "&memberSkill=" + memberSkill + "&teamCode=" + teamCode + "&teamName=" + teamName + "&tel=" + tel + "&email=" + email + "&remark=" + remark_inform);
+                                                            jqxhr.success(function (data) {
+                                                                if (data == 1) {
+                                                                    $("#loading_project").load("member_table_result.php?searchCondition=search_all", function () {
+                                                                        $(".spinner").hide();
+                                                                        $("#create_edit_panel").hide();
+                                                                        $("#loading_ce_form").empty();
+                                                                        $("#create_new_member_btn").show();
 //                                            $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
-                                            createOrEditState = "Create";
-                                        });
+                                                                        createOrEditState = "Create";
+                                                                    });
 //                                        $().toastmessage('showSuccessToast', 'แกไขข้อมูลทีมเรียบร้อยแล้ว');
-                                        alert('แกไขข้อมูลทีมเรียบร้อยแล้ว');
+                                                                    alert('แกไขข้อมูลทีมเรียบร้อยแล้ว');
 
-                                    } else {
+                                                                } else {
 //                                        $().toastmessage('showWarningToast', "ไม่สามารถแก้ไขข้อมูลทีมได้");
-                                        alert("ไม่สามารถแก้ไขข้อมูลทีมได้");
-                                    }
-                                });
-                            }
+                                                                    alert("ไม่สามารถแก้ไขข้อมูลทีมได้");
+                                                                }
+                                                            });
+                                                        }
 
-                        }
-                    } else {
-                        if (memName == "" || memName == null) {
+                                                    }
+                                                } else {
+                                                    if (memName == "" || memName == null) {
 //                            $().toastmessage('showWarningToast', "กรุณาระบุ ชื่อของสมาชิก");
-                            alert("กรุณาระบุ ชื่อของสมาชิก");
-                        } else if ($("#member_skill_form").val() == null) {
+                                                        alert("กรุณาระบุ ชื่อของสมาชิก");
+                                                    } else if ($("#member_skill_form").val() == null) {
 //                            $().toastmessage('showWarningToast', "กรุณาระบุ ความสามารถของวมาชิก");
-                            alert("กรุณาระบุ ความสามารถของวมาชิก");
-                        } else {
-                            var jqxhr = $.post("../model/SavingMember.php?memId=" + memId + "&memName=" + memName + "&memRole=" + memRole + "&memberSkill=" + memberSkill + "&teamCode=" + teamCode + "&teamName=" + teamName + "&tel=" + tel + "&email=" + email + "&remark=" + remark_inform);
-                            jqxhr.success(function (data) {
-                                if (data == 1) {
-                                    //$("#modal-team").modal('hide');
-                                    $("#loading_project").load("member_table_result.php?searchCondition=search_all", function () {
-                                        $(".spinner").hide();
-                                        $("#create_edit_panel").hide();
-                                        $("#loading_ce_form").empty();
-                                        $("#create_new_member_btn").show();
-                                        $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
-                                    });
+                                                        alert("กรุณาระบุ ความสามารถของวมาชิก");
+                                                    } else {
+                                                        var jqxhr = $.post("../model/SavingMember.php?memId=" + memId + "&memName=" + memName + "&memRole=" + memRole + "&memberSkill=" + memberSkill + "&teamCode=" + teamCode + "&teamName=" + teamName + "&tel=" + tel + "&email=" + email + "&remark=" + remark_inform);
+                                                        jqxhr.success(function (data) {
+                                                            if (data == 1) {
+                                                                //$("#modal-team").modal('hide');
+                                                                $("#loading_project").load("member_table_result.php?searchCondition=search_all", function () {
+                                                                    $(".spinner").hide();
+                                                                    $("#create_edit_panel").hide();
+                                                                    $("#loading_ce_form").empty();
+                                                                    $("#create_new_member_btn").show();
+                                                                    $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
+                                                                });
 //                                    $().toastmessage('showSuccessToast', 'บันทึกข้อมูลทีมเรียบร้อยแล้ว');
-                                    alert("บันทึกข้อมูลทีมเรียบร้อยแล้ว");
+                                                                alert("บันทึกข้อมูลทีมเรียบร้อยแล้ว");
 
-                                } else {
+                                                            } else {
 //                                    $().toastmessage('showWarningToast', "ไม่สามารถบันทึกข้อมูลทีมได้");
-                                    alert("ไม่สามารถบันทึกข้อมูลทีมได้");
-                                }
-                            });
-                        }
-                    }
-                });
-                $("#search_member_button").click(function () {
-                    var member_id = $("#member_id").val();
-                    var member_name = $("#member_name").val();
-                    var role = $("#role").val();
-                    var team_code_in_member_form = $("#team_code_in_member_form").val();
+                                                                alert("ไม่สามารถบันทึกข้อมูลทีมได้");
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            });
+                                            $("#search_member_button").click(function () {
+                                                var member_id = $("#member_id").val();
+                                                var member_name = $("#member_name").val();
+                                                var role = $("#role").val();
+                                                var team_code_in_member_form = $("#team_code_in_member_form").val();
 //                    var t_name_in_search = $("#t_name_in_search").val();
-                    var select3_2 = $("#select3_2").val();
+                                                var select3_2 = $("#select3_2").val();
 
-                    if (!$.trim(member_id).length &&
-                            !$.trim(member_name).length &&
-                            !$.trim(role).length &&
-                            !$.trim(team_code_in_member_form).length &&
+                                                if (!$.trim(member_id).length &&
+                                                        !$.trim(member_name).length &&
+                                                        !$.trim(role).length &&
+                                                        !$.trim(team_code_in_member_form).length &&
 //                            !$.trim(t_name_in_search).length &&
-                            !$.trim(select3_2)) {
-                        $("#loading_project").load("member_table_result.php?searchCondition=search_all", function () {
-                            //$(".spinner").hide();
-                            $('html,body').animate({scrollTop: $('#team_tbl_content').offset().top}, 'slow');
-                        });
-                    } else {
-                        $("#loading_project").load("member_table_result.php?searchCondition=condition&memId=" + member_id + "&memName=" + member_name + "&memRole=" + role + "&memberSkill=" + select3_2 + "&teamCode=" + team_code_in_member_form, function () {
-                            //$(".spinner").hide();
-                            $('html,body').animate({scrollTop: $('#team_tbl_content').offset().top}, 'slow');
-                        });
-                        //window.location.assign("index-member-search-result.php?searchCondition=condition&memId=" + member_id + "&memName=" + member_name + "&memRole=" + role + "&memberSkill=" + select3_2 + "&teamCode=" + team_code_in_member_form + "&teamName=" + t_name_in_search);
-                    }
-                });
-            });
-            function editMember(memID) {
-                $("#create_edit_panel").show();
-                $("#spinnerCE").show();
-                var jqxhr = $.post("member-edit_form.php?mID=" + memID);
-                jqxhr.success(function (cedata) {
-                    $("#loading_ce_form").html(cedata);
+                                                        !$.trim(select3_2)) {
+                                                    $("#loading_project").load("member_table_result.php?searchCondition=search_all", function () {
+                                                        //$(".spinner").hide();
+                                                        $('html,body').animate({scrollTop: $('#team_tbl_content').offset().top}, 'slow');
+                                                    });
+                                                } else {
+                                                    $("#loading_project").load("member_table_result.php?searchCondition=condition&memId=" + member_id + "&memName=" + member_name + "&memRole=" + role + "&memberSkill=" + select3_2 + "&teamCode=" + team_code_in_member_form, function () {
+                                                        //$(".spinner").hide();
+                                                        $('html,body').animate({scrollTop: $('#team_tbl_content').offset().top}, 'slow');
+                                                    });
+                                                    //window.location.assign("index-member-search-result.php?searchCondition=condition&memId=" + member_id + "&memName=" + member_name + "&memRole=" + role + "&memberSkill=" + select3_2 + "&teamCode=" + team_code_in_member_form + "&teamName=" + t_name_in_search);
+                                                }
+                                            });
+                                        });
+                                        function editMember(memID) {
+                                            $("#create_edit_panel").show();
+                                            $("#spinnerCE").show();
+                                            var jqxhr = $.post("member-edit_form.php?mID=" + memID);
+                                            jqxhr.success(function (cedata) {
+                                                $("#loading_ce_form").html(cedata);
 //                    $("#spinnerCE").hide();
 //                    $('html,body').animate({scrollTop: $('#create_edit_panel').offset().top}, 'slow');
-                });
-                var millisecondsToWait = 500;
-                setTimeout(function () {
-                    createOrEditState = "Edit";
-                    var jqxhr = $.post("../model/GetAllMemberForEdit.php?mem_id=" + memID);
-                    jqxhr.success(function (data) {
+                                            });
+                                            var millisecondsToWait = 500;
+                                            setTimeout(function () {
+                                                createOrEditState = "Edit";
+                                                var jqxhr = $.post("../model/GetAllMemberForEdit.php?mem_id=" + memID);
+                                                jqxhr.success(function (data) {
 //                        $("#waringmsg").append("Leave empty for no change");
-                        obj = JSON.parse(data);
-                        $("#member_id_form").val(obj.mem_id);
-                        $("#member_name_form").val(obj.mem_name);
-                        $("#member_role_form").val(obj.mem_role);
-                        $("#hideMemSkill").val(obj.mem_skill);
-                        $("#team_code_in_member_form2").val(obj.mem_t_code);
-                        $("#team_name_in_member_form2").val(obj.mem_t_name);
-                        $("#tel_in_member_form").val(obj.mem_tel);
-                        $("#email_in_member_form").val(obj.mem_email);
-                        $("#remark_inform").val(obj.mem_remark);
+                                                    obj = JSON.parse(data);
+                                                    $("#member_id_form").val(obj.mem_id);
+                                                    $("#member_name_form").val(obj.mem_name);
+                                                    $("#member_role_form").val(obj.mem_role);
+                                                    $("#hideMemSkill").val(obj.mem_skill);
+                                                    $("#team_code_in_member_form2").val(obj.mem_t_code);
+                                                    $("#team_name_in_member_form2").val(obj.mem_t_name);
+                                                    $("#tel_in_member_form").val(obj.mem_tel);
+                                                    $("#email_in_member_form").val(obj.mem_email);
+                                                    $("#remark_inform").val(obj.mem_remark);
 
-                    });
-                    jqxhr.error(function (data) {
-                        window.location.replace("error.php?error_msg=" + data);
-                    });
-                }, millisecondsToWait);
-            }
-            function deleteMember(memID) {
-                if (confirm("Are you sure?"))
-                {
-                    // blockPage();
-                    var jqxhr = $.post("../model/DeleteMember.php?mem_id=" + memID);
-                    jqxhr.success(function (data) {
-                        if (data == 1) {
-                            $("#loading_project").load("member_table_result.php?searchCondition=search_all", function () {
+                                                });
+                                                jqxhr.error(function (data) {
+                                                    window.location.replace("error.php?error_msg=" + data);
+                                                });
+                                            }, millisecondsToWait);
+                                        }
+                                        function deleteMember(memID) {
+                                            if (confirm("Are you sure?"))
+                                            {
+                                                // blockPage();
+                                                var jqxhr = $.post("../model/DeleteMember.php?mem_id=" + memID);
+                                                jqxhr.success(function (data) {
+                                                    if (data == 1) {
+                                                        $("#loading_project").load("member_table_result.php?searchCondition=search_all", function () {
 
-                                $("#loading_ce_form").empty();
+                                                            $("#loading_ce_form").empty();
 
-                            });
-                            alert('ลบข้อมูลทีมเรียบร้อยแล้ว');
+                                                        });
+                                                        alert('ลบข้อมูลทีมเรียบร้อยแล้ว');
 
-                        } else {
-                            alert("ไม่สามารถลบข้อมูลทีมได้");
+                                                    } else {
+                                                        alert("ไม่สามารถลบข้อมูลทีมได้");
 
-                        }
-                    });
-                    jqxhr.error(function (data) {
-                        window.location.replace("error.php?error_msg=" + data);
-                    });
-                }
-                else
-                {
-                    e.preventDefault();
-                }
-            }
+                                                    }
+                                                });
+                                                jqxhr.error(function (data) {
+                                                    window.location.replace("error.php?error_msg=" + data);
+                                                });
+                                            }
+                                            else
+                                            {
+                                                e.preventDefault();
+                                            }
+                                        }
         </script>
     </body>
 

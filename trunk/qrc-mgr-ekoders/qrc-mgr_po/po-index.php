@@ -351,6 +351,57 @@ if (empty($_SESSION['username'])) {
                             <!-- END YOUR CONTENT HERE -->
 
                         </div>
+                        <!-- /#ek-layout-button -->	
+                        <div class="qs-layout-menu">
+                            <div class="btn btn-gray qs-setting-btn" id="qs-setting-btn">
+                                <i class="fa fa-cog bigger-150 icon-only"></i>
+                            </div>
+                            <div class="qs-setting-box" id="qs-setting-box">
+
+                                <div class="hidden-xs hidden-sm">
+                                    <span class="bigger-120">Layout Options</span>
+
+                                    <div class="hr hr-dotted hr-8"></div>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="fixed-navbar" />
+                                        <span id="#fixed-navbar" class="labels"> Fixed NavBar</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="fixed-sidebar" />
+                                        <span id="#fixed-sidebar" class="labels"> Fixed NavBar+SideBar</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="sidebar-toggle" />
+                                        <span id="#sidebar-toggle" class="labels"> Sidebar Toggle</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="in-container" />
+                                        <span id="#in-container" class="labels"> Inside<strong>.container</strong></span>
+                                    </label>
+
+                                    <div class="space-4"></div>
+                                </div>
+
+                                <span class="bigger-120">Color Options</span>
+
+                                <div class="hr hr-dotted hr-8"></div>
+
+                                <label>
+                                    <input type="checkbox" class="tc" id="side-bar-color" />
+                                    <span id="#side-bar-color" class="labels"> SideBar (Light)</span>
+                                </label>
+
+                                <ul>									
+                                    <li><button class="btn" style="background-color:#d15050;" onclick="swapStyle('../assets/css/themes/style.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#86618f;" onclick="swapStyle('../assets/css/themes/style-1.css')"></button></li> 
+                                    <li><button class="btn" style="background-color:#ba5d32;" onclick="swapStyle('../assets/css/themes/style-2.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#488075;" onclick="swapStyle('../assets/css/themes/style-3.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#4e72c2;" onclick="swapStyle('../assets/css/themes/style-4.css')"></button></li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        <!-- /#ek-layout-button -->
                     </div>
                     <!-- BEGIN FOOTER CONTENT -->		
                     <div class="footer">
@@ -407,473 +458,473 @@ if (empty($_SESSION['username'])) {
 
 
         <script type="text/javascript">
-            var createOrEditState = "Save";
-            $(document).ready(function () {
-                $("#alert_inform").hide();
-                $("#alert_information").html();
-                $("#alert_success_inform").hide();
-                $("#alert_success_information").html();
-                $("#create_edit_panel").hide();
-                $("#search_project").load("po_search_page.php");
-                $("#loading_project").load("po_table_result.php?searchCondition=All");
-                $("#create_new_po_btn").click(function () {
-                    $("#loading_ce_form").load("create-edit_form.php", function () {
-                        $("#create_edit_panel").show();
-                        $("#create_new_po_btn").hide();
-                    });
-                });
-                $("#reset_search").click(function () {
-                    $("#search_project").load("po_search_page.php");
-                    $("#loading_project").load("po_table_result.php?searchCondition=All");
-                });
-                $("#cancel_form").click(function () {
-                    $("#create_edit_panel").hide();
-                    $("#create_new_po_btn").show();
-                });
-                $("#search_po_button").click(function () {
-                    var project_id = $("#po_project_name_search").val();
-                    var document_no = $("#po_document_no_search").val();
-                    var po_no = $("#po_po_no_search").val();
-                    var po_owner = $("#po_owner_search").val();
-                    var po_sender = $("#po_sender_search").val();
-                    var po_issue_date = $("#po_issue_date_search").val();
-                    var po_order_type = $("#po_order_type_search").val();
-                    var po_status = $("#po_status_search").val();
-                    var data = "project_id=" + project_id +
-                            "&document_no=" + document_no +
-                            "&po_no=" + po_no +
-                            "&po_owner=" + po_owner +
-                            "&po_sender=" + po_sender +
-                            "&po_issue_date=" + po_issue_date +
-                            "&po_status=" + po_status +
-                            "&po_order_type=" + po_order_type;
-                    if (project_id != 0 ||
-                            $.trim(project_id).length != 0 ||
-                            $.trim(document_no).length != 0 ||
-                            $.trim(po_no).length != 0 ||
-                            $.trim(po_owner).length != 0 ||
-                            $.trim(po_sender).length != 0 ||
-                            $.trim(po_issue_date).length != 0 ||
-                            po_order_type != 0 ||
-                            po_status != 0) {
-                        $("#loading_project").load("po_table_result.php?searchCondition=Condition&" + data, function () {
-                        });
-                    } else {
-                        $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
-                        });
-                    }
-                });
-                $("#save_create_panel").click(function () {
-                    var project_name = $("#po_project_name_form").val();
-                    var project_code = $("#po_project_code_form").val();
-                    var doc_no = $("#po_document_no_form").val();
-                    var po_no = $("#po_po_no_form").val();
-                    var home_plan = $("#po_home_plan_form").val();
-                    var home_plot = $("#po_home_plot_form").val();
-                    var po_owner = $("#po_owner_form").val();
-                    var po_sender = $("#po_sender_form").val();
-                    var issue_date = $("#po_issue_date_form").val();
-                    var order_type = $("#po_order_type_form").val();
-                    var quantity = $("#po_quantity_form").val();
-                    var plan_size = $("#po_plan_size_form").val();
-                    var unit_price = $("#po_unit_price_form").val();
-                    var amount = $("#po_amount_form").val();
-                    var vat7 = $("#po_vat_form").val();
-                    var supervisor = $("#po_project_supervisor_form").val();
-                    var project_manager = $("#po_project_manager_form").val();
-                    var projectforeman = $("#po_project_foreman_form").val();
-                    var project_remark = $("#remark_inform").val();
-                    var po_name = $("#po_name").val();
-                    var po_status = $("#project_order_status").val();
-                    var po_retention = $("#po_retention").val();
-                    var po_retention_reason = $("#po_retention_reason").val();
-
-                    var data = "project_name=" + project_name
-                            + "&project_code=" + project_code
-                            + "&doc_no=" + doc_no
-                            + "&po_no=" + po_no
-                            + "&home_plan=" + home_plan
-                            + "&home_plot=" + home_plot
-                            + "&po_owner=" + po_owner
-                            + "&po_sender=" + po_sender
-                            + "&issue_date=" + issue_date
-                            + "&order_type=" + order_type
-                            + "&quantity=" + quantity
-                            + "&plan_size=" + plan_size
-                            + "&unit_price=" + unit_price
-                            + "&amount=" + amount
-                            + "&vat7=" + vat7
-                            + "&supervisor=" + supervisor
-                            + "&project_manager=" + project_manager
-                            + "&projectforeman=" + projectforeman
-                            + "&project_remark=" + project_remark
-                            + "&po_status=" + po_status
-                            + "&po_retention=" + po_retention
-                            + "&po_retention_reason=" + po_retention_reason
-                            + "&po_name=" + po_name;
-                    if (createOrEditState == "Edit") {
-                        if (project_name == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please select Project Name");
-                        } else if (po_name == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please enter PO Name");
-                        } else if (doc_no == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Document No");
-                        } else if (po_no == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter PO No.");
-                        } else if (home_plan == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Home Plan");
-                        } else if (home_plot == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Home Plot");
-                        } else if (issue_date == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please select Issue Date");
-                        } else if (order_type == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please select Order Type");
-                        } else if (quantity == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Quantity");
-                        } else if (plan_size == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Plan Size");
-                        } else if (unit_price == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Unit Price");
-                        } else if (amount == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Amount");
-                        } else if (vat7 == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Amount");
-                        } else if ($("#remark_inform").val() == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Remark");
-                        } else {
-                            var isUploadImage = $.post("../model/CheckImageUpload.php");
-                            isUploadImage.success(function (resp) {
-                                if (resp == "NO_DATA") {
-                                    var po_id = $("#hideMemSkill").val();
-                                    var updateWithSameImage = $.post("../model/UpdatePoWithSameImage.php?" + data + "&po_id=" + po_id);
-                                    updateWithSameImage.success(function (updateResp) {
-                                        if (updateResp == 1) {
-                                            $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
-                                                $(".spinner").hide();
-                                                $("#create_edit_panel").hide();
-                                                $("#loading_ce_form").empty();
-                                                $("html, body").animate({scrollTop: 0}, "fast");
-                                                $("#create_new_po_btn").show();
-                                                createOrEditState = "Save";
-                                                $("#alert_success_inform").show();
-                                                $("#alert_success_information").html("แก้ไขข้อมูลPOเรียบร้อยแล้ว");
-                                                setTimeout(function () {
-                                                    $("#alert_success_inform").hide("fast");
-                                                    $("#alert_success_information").html("");
-                                                }, 3000);
+                                        var createOrEditState = "Save";
+                                        $(document).ready(function () {
+                                            $("#alert_inform").hide();
+                                            $("#alert_information").html();
+                                            $("#alert_success_inform").hide();
+                                            $("#alert_success_information").html();
+                                            $("#create_edit_panel").hide();
+                                            $("#search_project").load("po_search_page.php");
+                                            $("#loading_project").load("po_table_result.php?searchCondition=All");
+                                            $("#create_new_po_btn").click(function () {
+                                                $("#loading_ce_form").load("create-edit_form.php", function () {
+                                                    $("#create_edit_panel").show();
+                                                    $("#create_new_po_btn").hide();
+                                                });
                                             });
-
-                                        } else {
-                                            alert("ไม่สามารถแก้ไขข้อมูลPOได้");
-                                        }
-                                    });
-                                } else {
-                                    var po_id = $("#hideMemSkill").val();
-                                    var updateWithDifferImage = $.post("../model/UpdatePoWithDifferImage.php?" + data + "&po_id=" + po_id);
-                                    updateWithDifferImage.success(function (updateResp) {
-                                        if (updateResp == 1) {
-                                            $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
-                                                $(".spinner").hide();
-                                                $("#create_edit_panel").hide();
-                                                $("#loading_ce_form").empty();
-                                                $("html, body").animate({scrollTop: 0}, "fast");
-                                                createOrEditState = "Save";
-                                                $("#create_new_po_btn").show();
-                                                $("#alert_success_inform").show();
-                                                $("#alert_success_information").html("แก้ไขข้อมูลPOเรียบร้อยแล้ว");
-                                                setTimeout(function () {
-                                                    $("#alert_success_inform").hide("fast");
-                                                    $("#alert_success_information").html("");
-                                                }, 3000);
+                                            $("#reset_search").click(function () {
+                                                $("#search_project").load("po_search_page.php");
+                                                $("#loading_project").load("po_table_result.php?searchCondition=All");
                                             });
+                                            $("#cancel_form").click(function () {
+                                                $("#create_edit_panel").hide();
+                                                $("#create_new_po_btn").show();
+                                            });
+                                            $("#search_po_button").click(function () {
+                                                var project_id = $("#po_project_name_search").val();
+                                                var document_no = $("#po_document_no_search").val();
+                                                var po_no = $("#po_po_no_search").val();
+                                                var po_owner = $("#po_owner_search").val();
+                                                var po_sender = $("#po_sender_search").val();
+                                                var po_issue_date = $("#po_issue_date_search").val();
+                                                var po_order_type = $("#po_order_type_search").val();
+                                                var po_status = $("#po_status_search").val();
+                                                var data = "project_id=" + project_id +
+                                                        "&document_no=" + document_no +
+                                                        "&po_no=" + po_no +
+                                                        "&po_owner=" + po_owner +
+                                                        "&po_sender=" + po_sender +
+                                                        "&po_issue_date=" + po_issue_date +
+                                                        "&po_status=" + po_status +
+                                                        "&po_order_type=" + po_order_type;
+                                                if (project_id != 0 ||
+                                                        $.trim(project_id).length != 0 ||
+                                                        $.trim(document_no).length != 0 ||
+                                                        $.trim(po_no).length != 0 ||
+                                                        $.trim(po_owner).length != 0 ||
+                                                        $.trim(po_sender).length != 0 ||
+                                                        $.trim(po_issue_date).length != 0 ||
+                                                        po_order_type != 0 ||
+                                                        po_status != 0) {
+                                                    $("#loading_project").load("po_table_result.php?searchCondition=Condition&" + data, function () {
+                                                    });
+                                                } else {
+                                                    $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
+                                                    });
+                                                }
+                                            });
+                                            $("#save_create_panel").click(function () {
+                                                var project_name = $("#po_project_name_form").val();
+                                                var project_code = $("#po_project_code_form").val();
+                                                var doc_no = $("#po_document_no_form").val();
+                                                var po_no = $("#po_po_no_form").val();
+                                                var home_plan = $("#po_home_plan_form").val();
+                                                var home_plot = $("#po_home_plot_form").val();
+                                                var po_owner = $("#po_owner_form").val();
+                                                var po_sender = $("#po_sender_form").val();
+                                                var issue_date = $("#po_issue_date_form").val();
+                                                var order_type = $("#po_order_type_form").val();
+                                                var quantity = $("#po_quantity_form").val();
+                                                var plan_size = $("#po_plan_size_form").val();
+                                                var unit_price = $("#po_unit_price_form").val();
+                                                var amount = $("#po_amount_form").val();
+                                                var vat7 = $("#po_vat_form").val();
+                                                var supervisor = $("#po_project_supervisor_form").val();
+                                                var project_manager = $("#po_project_manager_form").val();
+                                                var projectforeman = $("#po_project_foreman_form").val();
+                                                var project_remark = $("#remark_inform").val();
+                                                var po_name = $("#po_name").val();
+                                                var po_status = $("#project_order_status").val();
+                                                var po_retention = $("#po_retention").val();
+                                                var po_retention_reason = $("#po_retention_reason").val();
 
-                                        } else {
-                                            alert("ไม่สามารถแก้ไขข้อมูลPOได้");
+                                                var data = "project_name=" + project_name
+                                                        + "&project_code=" + project_code
+                                                        + "&doc_no=" + doc_no
+                                                        + "&po_no=" + po_no
+                                                        + "&home_plan=" + home_plan
+                                                        + "&home_plot=" + home_plot
+                                                        + "&po_owner=" + po_owner
+                                                        + "&po_sender=" + po_sender
+                                                        + "&issue_date=" + issue_date
+                                                        + "&order_type=" + order_type
+                                                        + "&quantity=" + quantity
+                                                        + "&plan_size=" + plan_size
+                                                        + "&unit_price=" + unit_price
+                                                        + "&amount=" + amount
+                                                        + "&vat7=" + vat7
+                                                        + "&supervisor=" + supervisor
+                                                        + "&project_manager=" + project_manager
+                                                        + "&projectforeman=" + projectforeman
+                                                        + "&project_remark=" + project_remark
+                                                        + "&po_status=" + po_status
+                                                        + "&po_retention=" + po_retention
+                                                        + "&po_retention_reason=" + po_retention_reason
+                                                        + "&po_name=" + po_name;
+                                                if (createOrEditState == "Edit") {
+                                                    if (project_name == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please select Project Name");
+                                                    } else if (po_name == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please enter PO Name");
+                                                    } else if (doc_no == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Document No");
+                                                    } else if (po_no == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter PO No.");
+                                                    } else if (home_plan == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Home Plan");
+                                                    } else if (home_plot == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Home Plot");
+                                                    } else if (issue_date == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please select Issue Date");
+                                                    } else if (order_type == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please select Order Type");
+                                                    } else if (quantity == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Quantity");
+                                                    } else if (plan_size == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Plan Size");
+                                                    } else if (unit_price == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Unit Price");
+                                                    } else if (amount == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Amount");
+                                                    } else if (vat7 == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Amount");
+                                                    } else if ($("#remark_inform").val() == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Remark");
+                                                    } else {
+                                                        var isUploadImage = $.post("../model/CheckImageUpload.php");
+                                                        isUploadImage.success(function (resp) {
+                                                            if (resp == "NO_DATA") {
+                                                                var po_id = $("#hideMemSkill").val();
+                                                                var updateWithSameImage = $.post("../model/UpdatePoWithSameImage.php?" + data + "&po_id=" + po_id);
+                                                                updateWithSameImage.success(function (updateResp) {
+                                                                    if (updateResp == 1) {
+                                                                        $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
+                                                                            $(".spinner").hide();
+                                                                            $("#create_edit_panel").hide();
+                                                                            $("#loading_ce_form").empty();
+                                                                            $("html, body").animate({scrollTop: 0}, "fast");
+                                                                            $("#create_new_po_btn").show();
+                                                                            createOrEditState = "Save";
+                                                                            $("#alert_success_inform").show();
+                                                                            $("#alert_success_information").html("แก้ไขข้อมูลPOเรียบร้อยแล้ว");
+                                                                            setTimeout(function () {
+                                                                                $("#alert_success_inform").hide("fast");
+                                                                                $("#alert_success_information").html("");
+                                                                            }, 3000);
+                                                                        });
+
+                                                                    } else {
+                                                                        alert("ไม่สามารถแก้ไขข้อมูลPOได้");
+                                                                    }
+                                                                });
+                                                            } else {
+                                                                var po_id = $("#hideMemSkill").val();
+                                                                var updateWithDifferImage = $.post("../model/UpdatePoWithDifferImage.php?" + data + "&po_id=" + po_id);
+                                                                updateWithDifferImage.success(function (updateResp) {
+                                                                    if (updateResp == 1) {
+                                                                        $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
+                                                                            $(".spinner").hide();
+                                                                            $("#create_edit_panel").hide();
+                                                                            $("#loading_ce_form").empty();
+                                                                            $("html, body").animate({scrollTop: 0}, "fast");
+                                                                            createOrEditState = "Save";
+                                                                            $("#create_new_po_btn").show();
+                                                                            $("#alert_success_inform").show();
+                                                                            $("#alert_success_information").html("แก้ไขข้อมูลPOเรียบร้อยแล้ว");
+                                                                            setTimeout(function () {
+                                                                                $("#alert_success_inform").hide("fast");
+                                                                                $("#alert_success_information").html("");
+                                                                            }, 3000);
+                                                                        });
+
+                                                                    } else {
+                                                                        alert("ไม่สามารถแก้ไขข้อมูลPOได้");
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                } else {
+                                                    if (project_name == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please select Project Name");
+                                                        setTimeout(function () {
+                                                            $("#alert_inform").hide("fast");
+                                                            $("#alert_information").html("");
+                                                        }, 2000);
+                                                    } else if (po_name == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please enter PO Name");
+                                                        setTimeout(function () {
+                                                            $("#alert_inform").hide("fast");
+                                                            $("#alert_information").html("");
+                                                        }, 2000);
+                                                    } else if (doc_no == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Document No");
+                                                        setTimeout(function () {
+                                                            $("#alert_inform").hide("fast");
+                                                            $("#alert_information").html("");
+                                                        }, 2000);
+                                                    } else if (po_no == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter PO No.");
+                                                        setTimeout(function () {
+                                                            $("#alert_inform").hide("fast");
+                                                            $("#alert_information").html("");
+                                                        }, 2000);
+                                                    } else if (home_plan == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Home Plan");
+                                                        setTimeout(function () {
+                                                            $("#alert_inform").hide("fast");
+                                                            $("#alert_information").html("");
+                                                        }, 2000);
+                                                    } else if (home_plot == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Home Plot");
+                                                        setTimeout(function () {
+                                                            $("#alert_inform").hide("fast");
+                                                            $("#alert_information").html("");
+                                                        }, 2000);
+                                                    } else if (issue_date == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please select Issue Date");
+                                                        setTimeout(function () {
+                                                            $("#alert_inform").hide("fast");
+                                                            $("#alert_information").html("");
+                                                        }, 2000);
+                                                    } else if (order_type == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please select Order Type");
+                                                        setTimeout(function () {
+                                                            $("#alert_inform").hide("fast");
+                                                            $("#alert_information").html("");
+                                                        }, 2000);
+                                                    } else if (quantity == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Quantity");
+                                                        setTimeout(function () {
+                                                            $("#alert_inform").hide("fast");
+                                                            $("#alert_information").html("");
+                                                        }, 2000);
+                                                    } else if (plan_size == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Plan Size");
+                                                        setTimeout(function () {
+                                                            $("#alert_inform").hide("fast");
+                                                            $("#alert_information").html("");
+                                                        }, 2000);
+                                                    } else if (unit_price == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Unit Price");
+                                                        setTimeout(function () {
+                                                            $("#alert_inform").hide("fast");
+                                                            $("#alert_information").html("");
+                                                        }, 2000);
+                                                    } else if (amount == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Amount");
+                                                        setTimeout(function () {
+                                                            $("#alert_inform").hide("fast");
+                                                            $("#alert_information").html("");
+                                                        }, 2000);
+                                                    } else if (vat7 == "") {
+                                                        $("html, body").animate({scrollTop: 0}, "fast");
+                                                        $("#alert_inform").show();
+                                                        $("#alert_information").html("- Please Enter Amount");
+                                                        setTimeout(function () {
+                                                            $("#alert_inform").hide("fast");
+                                                            $("#alert_information").html("");
+                                                        }, 2000);
+                                                    } else {
+                                                        var jqxhr = $.post("../model/SavingPo.php?" + data);
+                                                        jqxhr.success(function (data) {
+                                                            $("html, body").animate({scrollTop: 0}, "fast");
+                                                            $("#alert_inform").hide();
+                                                            $("#alert_information").html("");
+                                                            if (data == 1) {
+                                                                $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
+                                                                    $(".spinner").hide();
+                                                                    $("#create_edit_panel").hide();
+                                                                    $("#loading_ce_form").empty();
+                                                                    $("#create_new_po_btn").show();
+                                                                    $("html, body").animate({scrollTop: 0}, "fast");
+                                                                    $("#alert_success_inform").show();
+                                                                    $("#alert_success_information").html("บันทึกข้อมูลPOเรียบร้อยแล้ว");
+                                                                    setTimeout(function () {
+                                                                        $("#alert_success_inform").hide("fast");
+                                                                        $("#alert_success_information").html("");
+                                                                    }, 3000);
+                                                                });
+
+                                                            } else {
+                                                                alert("ไม่สามารถบันทึกข้อมูลPOได้");
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            });
+                                        });
+                                        function loadOrder(projectCode, poCode) {
+                                            window.location.replace("../qrc-mgr_assign/assign-wo-new.php?project_id=" + projectCode + "&poCode=" + poCode);
                                         }
-                                    });
-                                }
-                            });
-                        }
-                    } else {
-                        if (project_name == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please select Project Name");
-                            setTimeout(function () {
-                                $("#alert_inform").hide("fast");
-                                $("#alert_information").html("");
-                            }, 2000);
-                        } else if (po_name == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please enter PO Name");
-                            setTimeout(function () {
-                                $("#alert_inform").hide("fast");
-                                $("#alert_information").html("");
-                            }, 2000);
-                        } else if (doc_no == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Document No");
-                            setTimeout(function () {
-                                $("#alert_inform").hide("fast");
-                                $("#alert_information").html("");
-                            }, 2000);
-                        } else if (po_no == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter PO No.");
-                            setTimeout(function () {
-                                $("#alert_inform").hide("fast");
-                                $("#alert_information").html("");
-                            }, 2000);
-                        } else if (home_plan == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Home Plan");
-                            setTimeout(function () {
-                                $("#alert_inform").hide("fast");
-                                $("#alert_information").html("");
-                            }, 2000);
-                        } else if (home_plot == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Home Plot");
-                            setTimeout(function () {
-                                $("#alert_inform").hide("fast");
-                                $("#alert_information").html("");
-                            }, 2000);
-                        } else if (issue_date == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please select Issue Date");
-                            setTimeout(function () {
-                                $("#alert_inform").hide("fast");
-                                $("#alert_information").html("");
-                            }, 2000);
-                        } else if (order_type == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please select Order Type");
-                            setTimeout(function () {
-                                $("#alert_inform").hide("fast");
-                                $("#alert_information").html("");
-                            }, 2000);
-                        } else if (quantity == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Quantity");
-                            setTimeout(function () {
-                                $("#alert_inform").hide("fast");
-                                $("#alert_information").html("");
-                            }, 2000);
-                        } else if (plan_size == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Plan Size");
-                            setTimeout(function () {
-                                $("#alert_inform").hide("fast");
-                                $("#alert_information").html("");
-                            }, 2000);
-                        } else if (unit_price == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Unit Price");
-                            setTimeout(function () {
-                                $("#alert_inform").hide("fast");
-                                $("#alert_information").html("");
-                            }, 2000);
-                        } else if (amount == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Amount");
-                            setTimeout(function () {
-                                $("#alert_inform").hide("fast");
-                                $("#alert_information").html("");
-                            }, 2000);
-                        } else if (vat7 == "") {
-                            $("html, body").animate({scrollTop: 0}, "fast");
-                            $("#alert_inform").show();
-                            $("#alert_information").html("- Please Enter Amount");
-                            setTimeout(function () {
-                                $("#alert_inform").hide("fast");
-                                $("#alert_information").html("");
-                            }, 2000);
-                        } else {
-                            var jqxhr = $.post("../model/SavingPo.php?" + data);
-                            jqxhr.success(function (data) {
-                                $("html, body").animate({scrollTop: 0}, "fast");
-                                $("#alert_inform").hide();
-                                $("#alert_information").html("");
-                                if (data == 1) {
-                                    $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
-                                        $(".spinner").hide();
-                                        $("#create_edit_panel").hide();
-                                        $("#loading_ce_form").empty();
-                                        $("#create_new_po_btn").show();
-                                        $("html, body").animate({scrollTop: 0}, "fast");
-                                        $("#alert_success_inform").show();
-                                        $("#alert_success_information").html("บันทึกข้อมูลPOเรียบร้อยแล้ว");
-                                        setTimeout(function () {
-                                            $("#alert_success_inform").hide("fast");
-                                            $("#alert_success_information").html("");
-                                        }, 3000);
-                                    });
+                                        function editPO(po_id) {
+                                            $("#create_edit_panel").show();
+                                            $("#spinnerCE").show();
+                                            var jqxhr = $.post("create-edit_form.php?isEdit=Edit");
+                                            jqxhr.success(function (cedata) {
+                                                $("#loading_ce_form").html(cedata);
+                                                $("#spinnerCE").hide();
+                                                $('html,body').animate({scrollTop: $('#create_edit_panel').offset().top}, 'slow');
+                                            });
+                                            jqxhr.error(function (result) {
+                                                $().toastmessage('showWarningToast', "Cannot connect server with: " + result);
+                                            });
+                                            var millisecondsToWait = 500;
+                                            setTimeout(function () {
+                                                createOrEditState = "Edit";
+                                                var jqxhr = $.post("../model/GetPoByIDForEdit.php?po_id=" + po_id);
+                                                jqxhr.success(function (data) {
+                                                    $("#uploadpart").show();
+                                                    obj = JSON.parse(data);
+                                                    $("#hideMemSkill").val(po_id);
+                                                    $("#uploadWarning").append("Leave empty for no change");
+                                                    $("#po_project_name_form").val(obj.PO_PROJECT_NAME);
+                                                    $("#po_project_code_form").val(obj.PO_PROJECT_CODE);
+                                                    $("#po_document_no_form").val(obj.PO_DOCUMENT_NO);
+                                                    $("#po_po_no_form").val(obj.PO_PO_NO);
+                                                    $("#po_home_plan_form").val(obj.PO_HOME_PLAN);
+                                                    $("#po_home_plot_form").val(obj.PO_HOME_PLOT);
+                                                    $("#po_owner_form").val(obj.PO_OWNER);
+                                                    $("#po_sender_form").val(obj.PO_SENDER);
+                                                    $("#po_issue_date_form").val(obj.PO_ISSUE_DATE);
+                                                    $("#po_order_type_form").val(obj.order_type_name);
+                                                    $("#po_quantity_form").val(obj.PO_QUANTITY);
+                                                    $("#po_plan_size_form").val(obj.PO_PLAN_SIZE);
+                                                    $("#po_unit_price_form").val(obj.PO_UNIT_PRICE);
+                                                    $("#po_amount_form").val(obj.PO_AMOUNT);
+                                                    $("#po_vat_form").val(obj.PO_VAT);
+                                                    $("#po_project_supervisor_form").val(obj.PO_SUPERVISOR_ID);
+                                                    $("#po_project_manager_form").val(obj.PO_PROJECT_MANAGER_ID);
+                                                    $("#po_project_foreman_form").val(obj.PO_PROJECT_FOREMAN_ID);
+                                                    $("#remark_inform").val(obj.PO_REMARK);
+                                                    $("#po_name").val(obj.PO_NAME);
+                                                    $("#project_order_status").val(obj.PO_STATUS);
+                                                    $("#po_retention").val(obj.PO_RETENTION);
+                                                    $("#po_retention_reason").val(obj.PO_RETENTION_REASON);
+                                                    $("#hidePoID").val(po_id);
+                                                    var jqxhr = $.post("../model/GetPOIMGByID.php?po_id=" + po_id);
+                                                    jqxhr.success(function (imgData) {
+                                                        $("#edit_image").html(imgData);
+                                                    });
+                                                });
+                                                jqxhr.error(function (data) {
+                                                    window.location.replace("error.php?error_msg=" + data);
+                                                });
+                                            }, millisecondsToWait);
+                                        }
+                                        function deletePO(PO_ID) {
+                                            if (confirm("Are you sure?"))
+                                            {
+                                                var jqxhr = $.post("../model/DeletePO.php?PO_ID=" + PO_ID);
+                                                jqxhr.success(function (data) {
 
-                                } else {
-                                    alert("ไม่สามารถบันทึกข้อมูลPOได้");
-                                }
-                            });
-                        }
-                    }
-                });
-            });
-            function loadOrder(projectCode, poCode) {
-                window.location.replace("../qrc-mgr_assign/assign-wo-new.php?project_id=" + projectCode + "&poCode=" + poCode);
-            }
-            function editPO(po_id) {
-                $("#create_edit_panel").show();
-                $("#spinnerCE").show();
-                var jqxhr = $.post("create-edit_form.php?isEdit=Edit");
-                jqxhr.success(function (cedata) {
-                    $("#loading_ce_form").html(cedata);
-                    $("#spinnerCE").hide();
-                    $('html,body').animate({scrollTop: $('#create_edit_panel').offset().top}, 'slow');
-                });
-                jqxhr.error(function (result) {
-                    $().toastmessage('showWarningToast', "Cannot connect server with: " + result);
-                });
-                var millisecondsToWait = 500;
-                setTimeout(function () {
-                    createOrEditState = "Edit";
-                    var jqxhr = $.post("../model/GetPoByIDForEdit.php?po_id=" + po_id);
-                    jqxhr.success(function (data) {
-                        $("#uploadpart").show();
-                        obj = JSON.parse(data);
-                        $("#hideMemSkill").val(po_id);
-                        $("#uploadWarning").append("Leave empty for no change");
-                        $("#po_project_name_form").val(obj.PO_PROJECT_NAME);
-                        $("#po_project_code_form").val(obj.PO_PROJECT_CODE);
-                        $("#po_document_no_form").val(obj.PO_DOCUMENT_NO);
-                        $("#po_po_no_form").val(obj.PO_PO_NO);
-                        $("#po_home_plan_form").val(obj.PO_HOME_PLAN);
-                        $("#po_home_plot_form").val(obj.PO_HOME_PLOT);
-                        $("#po_owner_form").val(obj.PO_OWNER);
-                        $("#po_sender_form").val(obj.PO_SENDER);
-                        $("#po_issue_date_form").val(obj.PO_ISSUE_DATE);
-                        $("#po_order_type_form").val(obj.order_type_name);
-                        $("#po_quantity_form").val(obj.PO_QUANTITY);
-                        $("#po_plan_size_form").val(obj.PO_PLAN_SIZE);
-                        $("#po_unit_price_form").val(obj.PO_UNIT_PRICE);
-                        $("#po_amount_form").val(obj.PO_AMOUNT);
-                        $("#po_vat_form").val(obj.PO_VAT);
-                        $("#po_project_supervisor_form").val(obj.PO_SUPERVISOR_ID);
-                        $("#po_project_manager_form").val(obj.PO_PROJECT_MANAGER_ID);
-                        $("#po_project_foreman_form").val(obj.PO_PROJECT_FOREMAN_ID);
-                        $("#remark_inform").val(obj.PO_REMARK);
-                        $("#po_name").val(obj.PO_NAME);
-                        $("#project_order_status").val(obj.PO_STATUS);
-                        $("#po_retention").val(obj.PO_RETENTION);
-                        $("#po_retention_reason").val(obj.PO_RETENTION_REASON);
-                        $("#hidePoID").val(po_id);
-                        var jqxhr = $.post("../model/GetPOIMGByID.php?po_id=" + po_id);
-                        jqxhr.success(function (imgData) {
-                            $("#edit_image").html(imgData);
-                        });
-                    });
-                    jqxhr.error(function (data) {
-                        window.location.replace("error.php?error_msg=" + data);
-                    });
-                }, millisecondsToWait);
-            }
-            function deletePO(PO_ID) {
-                if (confirm("Are you sure?"))
-                {
-                    var jqxhr = $.post("../model/DeletePO.php?PO_ID=" + PO_ID);
-                    jqxhr.success(function (data) {
+                                                    setTimeout(function ()
+                                                    {
+                                                        if (data == 1) {
+                                                            $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
+                                                                $(".spinner").hide();
+                                                                $("#create_edit_panel").hide();
+                                                                $("#loading_ce_form").empty();
+                                                                $("html, body").animate({scrollTop: 0}, "fast");
 
-                        setTimeout(function ()
-                        {
-                            if (data == 1) {
-                                $("#loading_project").load("po_table_result.php?searchCondition=search_all", function () {
-                                    $(".spinner").hide();
-                                    $("#create_edit_panel").hide();
-                                    $("#loading_ce_form").empty();
-                                    $("html, body").animate({scrollTop: 0}, "fast");
+                                                                $("#alert_success_inform").show();
+                                                                $("#alert_success_information").html("ลบข้อมูลPOเรียบร้อยแล้ว");
+                                                                setTimeout(function () {
+                                                                    $("#alert_success_inform").hide("fast");
+                                                                    $("#alert_success_information").html("");
+                                                                }, 3000);
 
-                                    $("#alert_success_inform").show();
-                                    $("#alert_success_information").html("ลบข้อมูลPOเรียบร้อยแล้ว");
-                                    setTimeout(function () {
-                                        $("#alert_success_inform").hide("fast");
-                                        $("#alert_success_information").html("");
-                                    }, 3000);
+                                                            });
 
-                                });
+                                                        } else {
+                                                            alert("ไม่สามารถลบข้อมูลPOได้");
+                                                        }
+                                                    }
+                                                    , 500);
+                                                });
+                                                jqxhr.error(function (data) {
+                                                    window.location.replace("error.php?error_msg=" + data);
+                                                });
+                                            }
+                                            else
+                                            {
+                                                e.preventDefault();
+                                            }
+                                        }
+                                        function delImage(imageID, po_id, img_name) {
+                                            if (confirm("Are you sure?"))
+                                            {
+                                                var jqxhr = $.post("../model/DelPoImageByID.php?imageID=" + imageID + "&img_name=" + img_name);
+                                                jqxhr.success(function (data) {
+                                                    if (data == 200) {
+                                                        $("#edit_image").load("../model/GetPOIMGByID.php?po_id=" + po_id, function () {
 
-                            } else {
-                                alert("ไม่สามารถลบข้อมูลPOได้");
-                            }
-                        }
-                        , 500);
-                    });
-                    jqxhr.error(function (data) {
-                        window.location.replace("error.php?error_msg=" + data);
-                    });
-                }
-                else
-                {
-                    e.preventDefault();
-                }
-            }
-            function delImage(imageID, po_id, img_name) {
-                if (confirm("Are you sure?"))
-                {
-                    var jqxhr = $.post("../model/DelPoImageByID.php?imageID=" + imageID + "&img_name=" + img_name);
-                    jqxhr.success(function (data) {
-                        if (data == 200) {
-                            $("#edit_image").load("../model/GetPOIMGByID.php?po_id=" + po_id, function () {
-
-                            });
-                        } else {
+                                                        });
+                                                    } else {
 //                            $().toastmessage('showWarningToast', "ไม่สามารถลบรูปภาพได้");
-                            alert("ไม่สามารถลบรูปภาพได้: " + data);
-                        }
-                    });
-                }
-                else
-                {
-                    e.preventDefault();
-                }
+                                                        alert("ไม่สามารถลบรูปภาพได้: " + data);
+                                                    }
+                                                });
+                                            }
+                                            else
+                                            {
+                                                e.preventDefault();
+                                            }
 
-            }
+                                        }
         </script>
     </body>
 

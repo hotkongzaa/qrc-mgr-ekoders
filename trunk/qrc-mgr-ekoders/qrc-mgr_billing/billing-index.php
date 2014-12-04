@@ -411,6 +411,57 @@ if (empty($_SESSION['username'])) {
                             <!-- END YOUR CONTENT HERE -->
 
                         </div>
+                        <!-- /#ek-layout-button -->	
+                        <div class="qs-layout-menu">
+                            <div class="btn btn-gray qs-setting-btn" id="qs-setting-btn">
+                                <i class="fa fa-cog bigger-150 icon-only"></i>
+                            </div>
+                            <div class="qs-setting-box" id="qs-setting-box">
+
+                                <div class="hidden-xs hidden-sm">
+                                    <span class="bigger-120">Layout Options</span>
+
+                                    <div class="hr hr-dotted hr-8"></div>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="fixed-navbar" />
+                                        <span id="#fixed-navbar" class="labels"> Fixed NavBar</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="fixed-sidebar" />
+                                        <span id="#fixed-sidebar" class="labels"> Fixed NavBar+SideBar</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="sidebar-toggle" />
+                                        <span id="#sidebar-toggle" class="labels"> Sidebar Toggle</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="in-container" />
+                                        <span id="#in-container" class="labels"> Inside<strong>.container</strong></span>
+                                    </label>
+
+                                    <div class="space-4"></div>
+                                </div>
+
+                                <span class="bigger-120">Color Options</span>
+
+                                <div class="hr hr-dotted hr-8"></div>
+
+                                <label>
+                                    <input type="checkbox" class="tc" id="side-bar-color" />
+                                    <span id="#side-bar-color" class="labels"> SideBar (Light)</span>
+                                </label>
+
+                                <ul>									
+                                    <li><button class="btn" style="background-color:#d15050;" onclick="swapStyle('../assets/css/themes/style.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#86618f;" onclick="swapStyle('../assets/css/themes/style-1.css')"></button></li> 
+                                    <li><button class="btn" style="background-color:#ba5d32;" onclick="swapStyle('../assets/css/themes/style-2.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#488075;" onclick="swapStyle('../assets/css/themes/style-3.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#4e72c2;" onclick="swapStyle('../assets/css/themes/style-4.css')"></button></li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        <!-- /#ek-layout-button -->
                     </div>
                     <!-- BEGIN FOOTER CONTENT -->		
                     <div class="footer">
@@ -487,250 +538,250 @@ if (empty($_SESSION['username'])) {
         </style>
 
         <script type="text/javascript">
-            var statusNa = 1;
-            var isCreate = 1;
-            var create_type = "";
-            var create_receipt = "";
-            var create_progressive = "";
-            $(document).ready(function () {
-                $(".search_date").datepicker();
-                $("#show_temp_tble").hide();
-                $("#create_edit_panel").hide();
-                $("#loading_project").load("billing_table_result.php?search_condition=All");
-                $("#create_new_billing_btn").click(function () {
-                    $("#loading_ce_form").load("create-edit_form.php", function () {
-                        $("#create_edit_panel").show("fast");
-                        $("#create_new_billing_btn").hide("fast");
-                    });
-                });
-                $("#close_search_panel").click(function () {
-                    $("#create_edit_panel").hide("fast");
-                    $("#create_new_billing_btn").show("fast");
-                });
-                $("#close_viewedit_tbl").click(function () {
-                    var jqxhr = $.post("../model/com.qrc.mgr.controller/DeleteInvoiceDetailTemp.php");
-                    jqxhr.success(function (resp) {
-                        if (resp == 1) {
-                            $("#loading_viewedit_table").empty();
-                            $("#show_temp_tble").hide();
-                        } else {
-                            alert(resp + "");
-                        }
-                    });
-
-                });
-                $("#search_button").click(function () {
-                    var searchInfo = $("#form_search").serialize();
-                    $("#loading_project").load("billing_table_result.php?search_condition=Condition&" + searchInfo);
-                });
-                $("#create_billing").click(function () {
-                    var data = "";
-                    if ($("#multi_sel_project_name").val() == null) {
-//                            $().toastmessage('showWarningToast', "Please select at least one project");
-                        alert("Please select at least one project");
-                    } else {
-
-                        $("#create_invoice_press").prop('disabled', false);
-                        $("#create_receipt_press").prop('disabled', true);
-                        $("#create_progressive_press").prop('disabled', true);
-
-                        if ($("#inv_status").val() == "") {
-                            //inv_status always open
-                            data = "inv_code=" + $("#inv_code").val() + "&" +
-                                    "customer_id=" + $("#customer_id").val() + "&" +
-                                    "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
-                                    "wo_status=" + $("#wo_status").val() + "&" +
-                                    "order_type_id=" + $("#order_type_id").val() + "&" +
-                                    "create_type=" + create_type + "&" +
-                                    "inv_status=44002&" +
-                                    "create_receive=" + create_receipt + "&" +
-                                    "create_progressive=" + create_progressive + "&" +
-                                    "start_date=" + $("#start_date").val() + "&" +
-                                    "end_date=" + $("#end_date").val() + "&" +
-                                    "isCreate=" + isCreate;
-                        } else {
-                            data = "inv_code=" + $("#inv_code").val() + "&" +
-                                    "customer_id=" + $("#customer_id").val() + "&" +
-                                    "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
-                                    "wo_status=" + $("#wo_status").val() + "&" +
-                                    "order_type_id=" + $("#order_type_id").val() + "&" +
-                                    "create_type=" + create_type + "&" +
-                                    "inv_status=" + $("#inv_status").val() + "&" +
-                                    "create_receive=" + create_receipt + "&" +
-                                    "create_progressive=" + create_progressive + "&" +
-                                    "start_date=" + $("#start_date").val() + "&" +
-                                    "end_date=" + $("#end_date").val() + "&" +
-                                    "isCreate=" + isCreate;
-                        }
-                        var jqxhr = $.post("../model/com.qrc.mgr.controller/SaveBillingHeader.php?" + data);
-                        jqxhr.success(function (resp) {
-                            if (resp == 1) {
-                                $("#loading_viewedit_table").load("billing_page_generate.php", function () {
-                                    $("#show_temp_tble").show();
-                                    $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'slow');
-                                });
-                            } else if (resp == "") {
-                                alert("No Data Found");
-                                $("#loading_viewedit_table").empty();
-                                $("#show_temp_tble").hide();
-                            } else if (resp == "406") {
-                                alert("Please select project");
-                                $("#loading_viewedit_table").empty();
-                                $("#show_temp_tble").hide();
-                            } else {
-                                alert(resp);
-                            }
-                        });
-                    }
-
-
-                });
-                $("#create_invoice_press").click(function () {
-                    var over = '<div id="overlay">' +
-                            '<img id="loading" src="http://bit.ly/pMtW1K">' +
-                            '</div>';
-                    $(over).appendTo('body');
-                    $('html,body').animate({scrollTop: $('#overlay').offset().top}, 'slow');
-//                    $("html, body").animate({scrollTop: 0}, "slow");
-                    var data = "";
-                    if (statusNa == 1) {
-                        var jqxhr = $.post("../model/com.qrc.mgr.controller/VerifyNumberOfRow.php");
-                        jqxhr.success(function (responseCheck) {
-                            if (responseCheck == "200") {
-                                var custId = $("#customer_id").val();
-                                var inv_type = $("input[name=create_type]:checked").val();
-                                var inv_code = $("#inv_code").val();
-                                if ($("#inv_status").val() == "") {
-                                    data = "inv_code=" + $("#inv_code").val() + "&" +
-                                            "customer_id=" + $("#customer_id").val() + "&" +
-                                            "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
-                                            "wo_status=" + $("#wo_status").val() + "&" +
-                                            "order_type_id=" + $("#order_type_id").val() + "&" +
-                                            "inv_status=44002&" +
-                                            "start_date=" + $("#start_date").val() + "&" +
-                                            "end_date=" + $("#end_date").val();
-                                } else {
-                                    data = "inv_code=" + $("#inv_code").val() + "&" +
-                                            "customer_id=" + $("#customer_id").val() + "&" +
-                                            "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
-                                            "wo_status=" + $("#wo_status").val() + "&" +
-                                            "order_type_id=" + $("#order_type_id").val() + "&" +
-                                            "inv_status=" + $("#inv_status").val() + "&" +
-                                            "start_date=" + $("#start_date").val() + "&" +
-                                            "end_date=" + $("#end_date").val();
-                                }
-
-                                var jqxhr = $.post("../model/com.qrc.mgr.controller/ManageBillingFile.php?" + data);
-                                jqxhr.success(function (response) {
-                                    if (response == "200") {
-                                        $("#loading_project").load("billing_table_result.php", function () {
-                                            $(".spinner").hide();
-                                            $("#create_edit_panel").hide();
+                                        var statusNa = 1;
+                                        var isCreate = 1;
+                                        var create_type = "";
+                                        var create_receipt = "";
+                                        var create_progressive = "";
+                                        $(document).ready(function () {
+                                            $(".search_date").datepicker();
                                             $("#show_temp_tble").hide();
-                                            $("#create_new_billing_btn").show("fast");
-                                            $('#overlay').remove();
-                                            //window.location = 'billing_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + inv_code;
-                                            window.location = "billing-index.php";
+                                            $("#create_edit_panel").hide();
+                                            $("#loading_project").load("billing_table_result.php?search_condition=All");
+                                            $("#create_new_billing_btn").click(function () {
+                                                $("#loading_ce_form").load("create-edit_form.php", function () {
+                                                    $("#create_edit_panel").show("fast");
+                                                    $("#create_new_billing_btn").hide("fast");
+                                                });
+                                            });
+                                            $("#close_search_panel").click(function () {
+                                                $("#create_edit_panel").hide("fast");
+                                                $("#create_new_billing_btn").show("fast");
+                                            });
+                                            $("#close_viewedit_tbl").click(function () {
+                                                var jqxhr = $.post("../model/com.qrc.mgr.controller/DeleteInvoiceDetailTemp.php");
+                                                jqxhr.success(function (resp) {
+                                                    if (resp == 1) {
+                                                        $("#loading_viewedit_table").empty();
+                                                        $("#show_temp_tble").hide();
+                                                    } else {
+                                                        alert(resp + "");
+                                                    }
+                                                });
+
+                                            });
+                                            $("#search_button").click(function () {
+                                                var searchInfo = $("#form_search").serialize();
+                                                $("#loading_project").load("billing_table_result.php?search_condition=Condition&" + searchInfo);
+                                            });
+                                            $("#create_billing").click(function () {
+                                                var data = "";
+                                                if ($("#multi_sel_project_name").val() == null) {
+//                            $().toastmessage('showWarningToast', "Please select at least one project");
+                                                    alert("Please select at least one project");
+                                                } else {
+
+                                                    $("#create_invoice_press").prop('disabled', false);
+                                                    $("#create_receipt_press").prop('disabled', true);
+                                                    $("#create_progressive_press").prop('disabled', true);
+
+                                                    if ($("#inv_status").val() == "") {
+                                                        //inv_status always open
+                                                        data = "inv_code=" + $("#inv_code").val() + "&" +
+                                                                "customer_id=" + $("#customer_id").val() + "&" +
+                                                                "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
+                                                                "wo_status=" + $("#wo_status").val() + "&" +
+                                                                "order_type_id=" + $("#order_type_id").val() + "&" +
+                                                                "create_type=" + create_type + "&" +
+                                                                "inv_status=44002&" +
+                                                                "create_receive=" + create_receipt + "&" +
+                                                                "create_progressive=" + create_progressive + "&" +
+                                                                "start_date=" + $("#start_date").val() + "&" +
+                                                                "end_date=" + $("#end_date").val() + "&" +
+                                                                "isCreate=" + isCreate;
+                                                    } else {
+                                                        data = "inv_code=" + $("#inv_code").val() + "&" +
+                                                                "customer_id=" + $("#customer_id").val() + "&" +
+                                                                "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
+                                                                "wo_status=" + $("#wo_status").val() + "&" +
+                                                                "order_type_id=" + $("#order_type_id").val() + "&" +
+                                                                "create_type=" + create_type + "&" +
+                                                                "inv_status=" + $("#inv_status").val() + "&" +
+                                                                "create_receive=" + create_receipt + "&" +
+                                                                "create_progressive=" + create_progressive + "&" +
+                                                                "start_date=" + $("#start_date").val() + "&" +
+                                                                "end_date=" + $("#end_date").val() + "&" +
+                                                                "isCreate=" + isCreate;
+                                                    }
+                                                    var jqxhr = $.post("../model/com.qrc.mgr.controller/SaveBillingHeader.php?" + data);
+                                                    jqxhr.success(function (resp) {
+                                                        if (resp == 1) {
+                                                            $("#loading_viewedit_table").load("billing_page_generate.php", function () {
+                                                                $("#show_temp_tble").show();
+                                                                $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'slow');
+                                                            });
+                                                        } else if (resp == "") {
+                                                            alert("No Data Found");
+                                                            $("#loading_viewedit_table").empty();
+                                                            $("#show_temp_tble").hide();
+                                                        } else if (resp == "406") {
+                                                            alert("Please select project");
+                                                            $("#loading_viewedit_table").empty();
+                                                            $("#show_temp_tble").hide();
+                                                        } else {
+                                                            alert(resp);
+                                                        }
+                                                    });
+                                                }
+
+
+                                            });
+                                            $("#create_invoice_press").click(function () {
+                                                var over = '<div id="overlay">' +
+                                                        '<img id="loading" src="http://bit.ly/pMtW1K">' +
+                                                        '</div>';
+                                                $(over).appendTo('body');
+                                                $('html,body').animate({scrollTop: $('#overlay').offset().top}, 'slow');
+//                    $("html, body").animate({scrollTop: 0}, "slow");
+                                                var data = "";
+                                                if (statusNa == 1) {
+                                                    var jqxhr = $.post("../model/com.qrc.mgr.controller/VerifyNumberOfRow.php");
+                                                    jqxhr.success(function (responseCheck) {
+                                                        if (responseCheck == "200") {
+                                                            var custId = $("#customer_id").val();
+                                                            var inv_type = $("input[name=create_type]:checked").val();
+                                                            var inv_code = $("#inv_code").val();
+                                                            if ($("#inv_status").val() == "") {
+                                                                data = "inv_code=" + $("#inv_code").val() + "&" +
+                                                                        "customer_id=" + $("#customer_id").val() + "&" +
+                                                                        "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
+                                                                        "wo_status=" + $("#wo_status").val() + "&" +
+                                                                        "order_type_id=" + $("#order_type_id").val() + "&" +
+                                                                        "inv_status=44002&" +
+                                                                        "start_date=" + $("#start_date").val() + "&" +
+                                                                        "end_date=" + $("#end_date").val();
+                                                            } else {
+                                                                data = "inv_code=" + $("#inv_code").val() + "&" +
+                                                                        "customer_id=" + $("#customer_id").val() + "&" +
+                                                                        "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
+                                                                        "wo_status=" + $("#wo_status").val() + "&" +
+                                                                        "order_type_id=" + $("#order_type_id").val() + "&" +
+                                                                        "inv_status=" + $("#inv_status").val() + "&" +
+                                                                        "start_date=" + $("#start_date").val() + "&" +
+                                                                        "end_date=" + $("#end_date").val();
+                                                            }
+
+                                                            var jqxhr = $.post("../model/com.qrc.mgr.controller/ManageBillingFile.php?" + data);
+                                                            jqxhr.success(function (response) {
+                                                                if (response == "200") {
+                                                                    $("#loading_project").load("billing_table_result.php", function () {
+                                                                        $(".spinner").hide();
+                                                                        $("#create_edit_panel").hide();
+                                                                        $("#show_temp_tble").hide();
+                                                                        $("#create_new_billing_btn").show("fast");
+                                                                        $('#overlay').remove();
+                                                                        //window.location = 'billing_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + inv_code;
+                                                                        window.location = "billing-index.php";
+                                                                    });
+                                                                } else {
+                                                                    alert("ไม่สามารถสร้างใบเสร็จได้ : " + response);
+                                                                }
+                                                            });
+                                                        } else {
+                                                            alert(responseCheck);
+                                                        }
+                                                    });
+                                                }
+                                            });
                                         });
-                                    } else {
-                                        alert("ไม่สามารถสร้างใบเสร็จได้ : " + response);
-                                    }
-                                });
-                            } else {
-                                alert(responseCheck);
-                            }
-                        });
-                    }
-                });
-            });
-            function deleteBilling(inv_id) {
-                if (confirm("Are you sure?"))
-                {
-                    // blockPage();
-                    var jqxhr = $.post("../model/DeleteInvoice.php?inv_id=" + inv_id);
-                    jqxhr.success(function (data) {
-                        if (data == 1) {
-                            $("#loading_project").load("billing_table_result.php", function () {
-                                $("#create_edit_panel").hide();
-                                $("#loading_ce_form").empty();
-                                window.location = "billing-index.php";
-                            });
+                                        function deleteBilling(inv_id) {
+                                            if (confirm("Are you sure?"))
+                                            {
+                                                // blockPage();
+                                                var jqxhr = $.post("../model/DeleteInvoice.php?inv_id=" + inv_id);
+                                                jqxhr.success(function (data) {
+                                                    if (data == 1) {
+                                                        $("#loading_project").load("billing_table_result.php", function () {
+                                                            $("#create_edit_panel").hide();
+                                                            $("#loading_ce_form").empty();
+                                                            window.location = "billing-index.php";
+                                                        });
 
-                        } else {
+                                                    } else {
 
-                            alert("ไม่สามารถลบข้อมูลใบเสร็จได้");
-                        }
-                    });
-                    jqxhr.error(function (data) {
-                        window.location.replace("error.php?error_msg=" + data);
-                    });
-                }
-                else
-                {
-                    e.preventDefault();
-                }
-            }
-            function deleteSubLevel(tempDetailID) {
-                var jqxhr = $.post("../model/com.qrc.mgr.controller/DeleteSubInvoiceService.php?tempDetailId=" + tempDetailID);
-                jqxhr.success(function (data) {
-                    if (data == 200) {
+                                                        alert("ไม่สามารถลบข้อมูลใบเสร็จได้");
+                                                    }
+                                                });
+                                                jqxhr.error(function (data) {
+                                                    window.location.replace("error.php?error_msg=" + data);
+                                                });
+                                            }
+                                            else
+                                            {
+                                                e.preventDefault();
+                                            }
+                                        }
+                                        function deleteSubLevel(tempDetailID) {
+                                            var jqxhr = $.post("../model/com.qrc.mgr.controller/DeleteSubInvoiceService.php?tempDetailId=" + tempDetailID);
+                                            jqxhr.success(function (data) {
+                                                if (data == 200) {
 
-                        alert("ลบข้อมูลใบเสร็จเรียบร้อยแล้ว");
+                                                    alert("ลบข้อมูลใบเสร็จเรียบร้อยแล้ว");
 
-                        $("#loading_viewedit_table").load("billing_page_generate.php", function () {
-                            $("#show_temp_tble").show();
-                            $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'fast');
-                        });
-                    } else {
+                                                    $("#loading_viewedit_table").load("billing_page_generate.php", function () {
+                                                        $("#show_temp_tble").show();
+                                                        $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'fast');
+                                                    });
+                                                } else {
 
-                        alert("ไม่สามารถลบข้อมูลใบเสร็จได้");
-                    }
-                });
-                jqxhr.error(function () {
-                    alert("ไม่สามารถติดต่อกับ Server ได้");
-                });
-            }
-            function deleteFirstLevel(tempDetailID) {
-                var jqxhr = $.post("../model/com.qrc.mgr.controller/DeleteFirstInvoiceService.php?tempDetailId=" + tempDetailID);
-                jqxhr.success(function (data) {
-                    if (data == 200) {
-                        alert("ลบข้อมูลใบเสร็จเรียบร้อยแล้ว");
-                        $("#loading_viewedit_table").load("billing_page_generate.php", function () {
-                            $("#show_temp_tble").show();
-                            $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'slow');
-                        });
-                    } else {
-                        alert("ไม่สามารถลบข้อมูลใบเสร็จได้");
-                    }
-                });
-                jqxhr.error(function () {
-                    alert("ไม่สามารถติดต่อกับ Server ได้");
-                });
-            }
-            function generateBilling(invCode, custId, inv_type) {
-                var check = invCode.split("-")[1].substring(0, 3);
-                if (check == "INV") {
-                    var jqxhr = $.post("../model/com.qrc.mgr.controller/SavingToInvoiceDetail.php?inv_code=" + invCode);
-                    jqxhr.success(function (respInv) {
-                        if (respInv == 0) {
+                                                    alert("ไม่สามารถลบข้อมูลใบเสร็จได้");
+                                                }
+                                            });
+                                            jqxhr.error(function () {
+                                                alert("ไม่สามารถติดต่อกับ Server ได้");
+                                            });
+                                        }
+                                        function deleteFirstLevel(tempDetailID) {
+                                            var jqxhr = $.post("../model/com.qrc.mgr.controller/DeleteFirstInvoiceService.php?tempDetailId=" + tempDetailID);
+                                            jqxhr.success(function (data) {
+                                                if (data == 200) {
+                                                    alert("ลบข้อมูลใบเสร็จเรียบร้อยแล้ว");
+                                                    $("#loading_viewedit_table").load("billing_page_generate.php", function () {
+                                                        $("#show_temp_tble").show();
+                                                        $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'slow');
+                                                    });
+                                                } else {
+                                                    alert("ไม่สามารถลบข้อมูลใบเสร็จได้");
+                                                }
+                                            });
+                                            jqxhr.error(function () {
+                                                alert("ไม่สามารถติดต่อกับ Server ได้");
+                                            });
+                                        }
+                                        function generateBilling(invCode, custId, inv_type) {
+                                            var check = invCode.split("-")[1].substring(0, 3);
+                                            if (check == "INV") {
+                                                var jqxhr = $.post("../model/com.qrc.mgr.controller/SavingToInvoiceDetail.php?inv_code=" + invCode);
+                                                jqxhr.success(function (respInv) {
+                                                    if (respInv == 0) {
 //                            if (confirm("This invoice has been generated, Continue to generate this invoice?") == true) {
-                                window.location = 'billing_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + invCode;
+                                                        window.location = 'billing_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + invCode;
 //                            }
-                        }
-                    });
+                                                    }
+                                                });
 
-                }
-                if (check == "REP") {
+                                            }
+                                            if (check == "REP") {
 //                    if (confirm("This receipt has been generated, Continue to generate this receipt?") == true) {
-                        window.location = 'receipt_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + invCode;
+                                                window.location = 'receipt_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + invCode;
 //                    }
-                }
-            }
-            function generateProgressive(invCode, custId, inv_type) {
+                                            }
+                                        }
+                                        function generateProgressive(invCode, custId, inv_type) {
 //                if (confirm("This progressive has been generated, Continue to generate this progressive?") == true) {
-                    window.location = 'pgs_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + invCode;
+                                            window.location = 'pgs_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + invCode;
 //                }
-            }
+                                        }
         </script>
     </body>
 

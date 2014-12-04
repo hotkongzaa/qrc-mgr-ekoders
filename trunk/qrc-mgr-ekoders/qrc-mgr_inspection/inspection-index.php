@@ -342,6 +342,57 @@ if (empty($_SESSION['username'])) {
                             <!-- END YOUR CONTENT HERE -->
 
                         </div>
+                        <!-- /#ek-layout-button -->	
+                        <div class="qs-layout-menu">
+                            <div class="btn btn-gray qs-setting-btn" id="qs-setting-btn">
+                                <i class="fa fa-cog bigger-150 icon-only"></i>
+                            </div>
+                            <div class="qs-setting-box" id="qs-setting-box">
+
+                                <div class="hidden-xs hidden-sm">
+                                    <span class="bigger-120">Layout Options</span>
+
+                                    <div class="hr hr-dotted hr-8"></div>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="fixed-navbar" />
+                                        <span id="#fixed-navbar" class="labels"> Fixed NavBar</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="fixed-sidebar" />
+                                        <span id="#fixed-sidebar" class="labels"> Fixed NavBar+SideBar</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="sidebar-toggle" />
+                                        <span id="#sidebar-toggle" class="labels"> Sidebar Toggle</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="in-container" />
+                                        <span id="#in-container" class="labels"> Inside<strong>.container</strong></span>
+                                    </label>
+
+                                    <div class="space-4"></div>
+                                </div>
+
+                                <span class="bigger-120">Color Options</span>
+
+                                <div class="hr hr-dotted hr-8"></div>
+
+                                <label>
+                                    <input type="checkbox" class="tc" id="side-bar-color" />
+                                    <span id="#side-bar-color" class="labels"> SideBar (Light)</span>
+                                </label>
+
+                                <ul>									
+                                    <li><button class="btn" style="background-color:#d15050;" onclick="swapStyle('../assets/css/themes/style.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#86618f;" onclick="swapStyle('../assets/css/themes/style-1.css')"></button></li> 
+                                    <li><button class="btn" style="background-color:#ba5d32;" onclick="swapStyle('../assets/css/themes/style-2.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#488075;" onclick="swapStyle('../assets/css/themes/style-3.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#4e72c2;" onclick="swapStyle('../assets/css/themes/style-4.css')"></button></li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        <!-- /#ek-layout-button -->
                     </div>
                     <!-- BEGIN FOOTER CONTENT -->		
                     <div class="footer">
@@ -399,246 +450,246 @@ if (empty($_SESSION['username'])) {
 
 
         <script type="text/javascript">
-            var createOrEditState = "Save";
-            $(document).ready(function () {
-                $(".search_date").datepicker();
-                $("#create_edit_panel").hide();
-                $("#loading_project").load("inspection_table_result.php");
-                $("#search_project").load("inspection_search_page.php");
-                $("#create_new_ins_btn").click(function () {
-                    $("#loading_ce_form").load("create-edit_form.php", function () {
-                        $("#create_edit_panel").show("fast");
-                        $("#create_new_ins_btn").hide("fast");
-                    });
-                });
-                $("#reset_search").click(function () {
-                    $("#search_project").load("inspection_search_page.php");
-                    $("#loading_project").load("inspection_table_result.php");
-                });
-                $("#cancel_form").click(function () {
-                    $("#create_edit_panel").hide("fast");
-                    $("#create_new_ins_btn").show("fast");
-                });
-                $("#search_ins_button").click(function () {
-                    var ins_project_name = $("#inspection_project_name_search").val();
-                    var ins_document_no = $("#inspection_document_no_search").val();
-                    var ins_ins_no = $("#inspection_no_search").val();
-                    var ins_date = $("#inspection_date_search").val();
-                    var ins_ins_ordertype = $("#inspection_order_type_search").val();
-                    var data = "project_name=" + ins_project_name +
-                            "&ins_document_no=" + ins_document_no +
-                            "&ins_ins_no=" + ins_ins_no +
-                            "&ins_date=" + ins_date +
-                            "&ins_ins_ordertype=" + ins_ins_ordertype;
-                    if (ins_project_name !== 0 ||
-                            $.trim(ins_document_no).length !== 0 ||
-                            $.trim(ins_ins_no).length !== 0 ||
-                            $.trim(ins_date).length !== 0 ||
-                            ins_ins_ordertype !== 0) {
-                        var inspection_condition_condition = CryptoJS.MD5("Condition").toString();
-                        $("#loading_project").load("inspection_table_result.php?searchCondition=" + inspection_condition_condition + "&" + data, function () {
-                            //$(".spinner").hide();
-                            $('html,body').animate({scrollTop: $('#inspection_table_result').offset().top}, 'slow');
-                        });
-                    } else {
-                        $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function () {
-                            //$(".spinner").hide();
-                            $('html,body').animate({scrollTop: $('#inspection_table_result').offset().top}, 'slow');
-                        });
-                    }
-                });
-                $("#save_create_panel").click(function () {
-                    if ($("#inspection_project_name_form").val() == "") {
+                                        var createOrEditState = "Save";
+                                        $(document).ready(function () {
+                                            $(".search_date").datepicker();
+                                            $("#create_edit_panel").hide();
+                                            $("#loading_project").load("inspection_table_result.php");
+                                            $("#search_project").load("inspection_search_page.php");
+                                            $("#create_new_ins_btn").click(function () {
+                                                $("#loading_ce_form").load("create-edit_form.php", function () {
+                                                    $("#create_edit_panel").show("fast");
+                                                    $("#create_new_ins_btn").hide("fast");
+                                                });
+                                            });
+                                            $("#reset_search").click(function () {
+                                                $("#search_project").load("inspection_search_page.php");
+                                                $("#loading_project").load("inspection_table_result.php");
+                                            });
+                                            $("#cancel_form").click(function () {
+                                                $("#create_edit_panel").hide("fast");
+                                                $("#create_new_ins_btn").show("fast");
+                                            });
+                                            $("#search_ins_button").click(function () {
+                                                var ins_project_name = $("#inspection_project_name_search").val();
+                                                var ins_document_no = $("#inspection_document_no_search").val();
+                                                var ins_ins_no = $("#inspection_no_search").val();
+                                                var ins_date = $("#inspection_date_search").val();
+                                                var ins_ins_ordertype = $("#inspection_order_type_search").val();
+                                                var data = "project_name=" + ins_project_name +
+                                                        "&ins_document_no=" + ins_document_no +
+                                                        "&ins_ins_no=" + ins_ins_no +
+                                                        "&ins_date=" + ins_date +
+                                                        "&ins_ins_ordertype=" + ins_ins_ordertype;
+                                                if (ins_project_name !== 0 ||
+                                                        $.trim(ins_document_no).length !== 0 ||
+                                                        $.trim(ins_ins_no).length !== 0 ||
+                                                        $.trim(ins_date).length !== 0 ||
+                                                        ins_ins_ordertype !== 0) {
+                                                    var inspection_condition_condition = CryptoJS.MD5("Condition").toString();
+                                                    $("#loading_project").load("inspection_table_result.php?searchCondition=" + inspection_condition_condition + "&" + data, function () {
+                                                        //$(".spinner").hide();
+                                                        $('html,body').animate({scrollTop: $('#inspection_table_result').offset().top}, 'slow');
+                                                    });
+                                                } else {
+                                                    $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function () {
+                                                        //$(".spinner").hide();
+                                                        $('html,body').animate({scrollTop: $('#inspection_table_result').offset().top}, 'slow');
+                                                    });
+                                                }
+                                            });
+                                            $("#save_create_panel").click(function () {
+                                                if ($("#inspection_project_name_form").val() == "") {
 //                        $().toastmessage('showWarningToast', "Please select Project name (ชื่อโครงการ)");
-                        alert("Please select Project name (ชื่อโครงการ)");
-                    } else if ($("#inspection_document_no_form").val() == 0) {
+                                                    alert("Please select Project name (ชื่อโครงการ)");
+                                                } else if ($("#inspection_document_no_form").val() == 0) {
 //                        $().toastmessage('showWarningToast', "Please select Document No. (เลขที่)");
-                        alert("Please select Document No. (เลขที่)");
-                    } else if ($("#inspection_no_form").val() == "") {
+                                                    alert("Please select Document No. (เลขที่)");
+                                                } else if ($("#inspection_no_form").val() == "") {
 //                        $().toastmessage('showWarningToast', "Please select Inspection No. (เลขที่ใบสั่งจ้าง)");
-                        alert("Please select Inspection No. (เลขที่ใบตรวจรับงาน)");
-                    } else if ($("#inspection_date_form").val() == "") {
+                                                    alert("Please select Inspection No. (เลขที่ใบตรวจรับงาน)");
+                                                } else if ($("#inspection_date_form").val() == "") {
 //                        $().toastmessage('showWarningToast', "Please select Inspection Date (วันที่)");
-                        alert("Please select Inspection Date (วันที่)");
-                    } else if ($("#inspection_order_type_form").val() == "") {
+                                                    alert("Please select Inspection Date (วันที่)");
+                                                } else if ($("#inspection_order_type_form").val() == "") {
 //                        $().toastmessage('showWarningToast', "Please select Order Type (ประเภทงาน)");
-                        alert("Please select Order Type (ประเภทงาน)");
-                    } else {
-                        var data = $("#inspectionForm").serialize();
-                        //alert($("#inspection_attached_form").val());                   
-                        if (createOrEditState == "Save") {
-                            //alert(data);
-                            var jqxhr = $.post("../model/SavingInspection.php?" + data);
-                            jqxhr.success(function (resp) {
-                                //alert(resp);
-                                if (resp == 1) {
-                                    $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function () {
-                                        $(".spinner").hide();
-                                        $("#create_edit_panel").hide();
-                                        $("#loading_ce_form").empty();
-                                        $("#create_new_ins_btn").show("fast");
-                                        $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
-                                    });
+                                                    alert("Please select Order Type (ประเภทงาน)");
+                                                } else {
+                                                    var data = $("#inspectionForm").serialize();
+                                                    //alert($("#inspection_attached_form").val());                   
+                                                    if (createOrEditState == "Save") {
+                                                        //alert(data);
+                                                        var jqxhr = $.post("../model/SavingInspection.php?" + data);
+                                                        jqxhr.success(function (resp) {
+                                                            //alert(resp);
+                                                            if (resp == 1) {
+                                                                $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function () {
+                                                                    $(".spinner").hide();
+                                                                    $("#create_edit_panel").hide();
+                                                                    $("#loading_ce_form").empty();
+                                                                    $("#create_new_ins_btn").show("fast");
+                                                                    $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
+                                                                });
 //                                    $().toastmessage('showSuccessToast', 'บันทึกข้อมูล Inspection เรียบร้อยแล้ว');
-                                    alert("บันทึกข้อมูล Inspection เรียบร้อยแล้ว");
-                                } else {
+                                                                alert("บันทึกข้อมูล Inspection เรียบร้อยแล้ว");
+                                                            } else {
 //                                    $().toastmessage('showWarningToast', "ไม่สามารถบันทึกข้อมูล Inspection ได้");
-                                    alert("ไม่สามารถบันทึกข้อมูล Inspection ได้");
-                                }
+                                                                alert("ไม่สามารถบันทึกข้อมูล Inspection ได้");
+                                                            }
 
-                            });
-                        } else {
-                            var remark = $("#inspection_remark_form").val();
-                            if (remark == "" || remark == null) {
-                                alert("กรุณาใส่ Remark");
-                            } else {
-                                var insIDD = $("#insID").val();
+                                                        });
+                                                    } else {
+                                                        var remark = $("#inspection_remark_form").val();
+                                                        if (remark == "" || remark == null) {
+                                                            alert("กรุณาใส่ Remark");
+                                                        } else {
+                                                            var insIDD = $("#insID").val();
 
-                                var jqxhr = $.post("../model/UpdateInsWithDifferImage.php?INS_ID=" + insIDD + "&" + data);
-                                jqxhr.success(function (resp) {
-                                    // alert(resp);
-                                    //window.location.assign("index.php")
-                                    $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function () {
-                                        $(".spinner").hide();
-                                        $("#create_edit_panel").hide();
-                                        $("#loading_ce_form").empty();
-                                        $("#create_new_ins_btn").show("fast");
-                                        $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
-                                    });
+                                                            var jqxhr = $.post("../model/UpdateInsWithDifferImage.php?INS_ID=" + insIDD + "&" + data);
+                                                            jqxhr.success(function (resp) {
+                                                                // alert(resp);
+                                                                //window.location.assign("index.php")
+                                                                $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function () {
+                                                                    $(".spinner").hide();
+                                                                    $("#create_edit_panel").hide();
+                                                                    $("#loading_ce_form").empty();
+                                                                    $("#create_new_ins_btn").show("fast");
+                                                                    $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
+                                                                });
 //                                    $().toastmessage('showSuccessToast', 'แก้ไขข้อมูลใบตรวจรับเรียบร้อยแล้ว');
-                                    alert("แก้ไขข้อมูลใบตรวจรับเรียบร้อยแล้ว");
-                                });
-                            }
-                        }
-                    }
-                });
-            });
+                                                                alert("แก้ไขข้อมูลใบตรวจรับเรียบร้อยแล้ว");
+                                                            });
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        });
 
-            function deleteInspection(INS_ID) {
-                if (confirm("Are you sure?"))
-                {
-                    // blockPage();
-                    var jqxhr = $.post("../model/DeleteInspection.php?INS_ID=" + INS_ID);
-                    jqxhr.success(function (data) {
-                        setTimeout(function ()
-                        {
-                            if (data == 1) {
-                                $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function () {
-                                    $(".spinner").hide();
-                                    $("#create_edit_panel").hide();
-                                    $("#loading_ce_form").empty();
-                                    $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
+                                        function deleteInspection(INS_ID) {
+                                            if (confirm("Are you sure?"))
+                                            {
+                                                // blockPage();
+                                                var jqxhr = $.post("../model/DeleteInspection.php?INS_ID=" + INS_ID);
+                                                jqxhr.success(function (data) {
+                                                    setTimeout(function ()
+                                                    {
+                                                        if (data == 1) {
+                                                            $("#loading_project").load("inspection_table_result.php?searchCondition=search_all", function () {
+                                                                $(".spinner").hide();
+                                                                $("#create_edit_panel").hide();
+                                                                $("#loading_ce_form").empty();
+                                                                $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
 
-                                });
+                                                            });
 //                                $().toastmessage('showSuccessToast', 'ลบข้อมูล Inspection เรียบร้อยแล้ว');
-                                alert('ลบข้อมูล Inspection เรียบร้อยแล้ว');
+                                                            alert('ลบข้อมูล Inspection เรียบร้อยแล้ว');
 
-                            } else {
+                                                        } else {
 //                                $().toastmessage('showWarningToast', "ไม่สามารถลบข้อมูลPOได้");
-                                alert("ไม่สามารถลบข้อมูลPOได้");
-                            }
-                        }
-                        , 300);
-                    });
-                    jqxhr.error(function (data) {
-                        window.location.replace("error.php?error_msg=" + data);
-                    });
-                }
-                else
-                {
-                    e.preventDefault();
-                }
-            }
-            function editInspection(ins_id) {
-                $("#create_new_ins_btn").hide("fast");
-                $("#create_edit_panel").show();
-                $("#spinnerCE").show();
-                var jqxhr = $.post("create-edit_form.php?isEdit=Edit");
-                jqxhr.success(function (cedata) {
-                    $("#loading_ce_form").html(cedata);
-                    $("#spinnerCE").hide();
-                    $('html,body').animate({scrollTop: $('#create_edit_panel').offset().top}, 'slow');
-                });
-                jqxhr.error(function (result) {
-                    $().toastmessage('showWarningToast', "Cannot connect server with: " + result);
-                });
-                var millisecondsToWait = 500;
-                setTimeout(function () {
-                    $("#insID").val(ins_id);
-                    $("#uploadWarning").html("Leave it for no change");
-                    createOrEditState = "Edit";
-                    var jqxhr = $.post("../model/GetInspectionByID.php?ins_id=" + ins_id);
-                    jqxhr.success(function (data) {
-                        obj = JSON.parse(data);
-                        $("#inspection_no_form").val(obj.INS_INSPECTION_NO);
-                        $("#inspection_date_form").val(obj.INS_DATE);
-                        $("#inspection_order_type_form").val(obj.INS_ORDER_TYPE);
-                        $("#inspection_remark_form").val(obj.INS_REMARK);
+                                                            alert("ไม่สามารถลบข้อมูลPOได้");
+                                                        }
+                                                    }
+                                                    , 300);
+                                                });
+                                                jqxhr.error(function (data) {
+                                                    window.location.replace("error.php?error_msg=" + data);
+                                                });
+                                            }
+                                            else
+                                            {
+                                                e.preventDefault();
+                                            }
+                                        }
+                                        function editInspection(ins_id) {
+                                            $("#create_new_ins_btn").hide("fast");
+                                            $("#create_edit_panel").show();
+                                            $("#spinnerCE").show();
+                                            var jqxhr = $.post("create-edit_form.php?isEdit=Edit");
+                                            jqxhr.success(function (cedata) {
+                                                $("#loading_ce_form").html(cedata);
+                                                $("#spinnerCE").hide();
+                                                $('html,body').animate({scrollTop: $('#create_edit_panel').offset().top}, 'slow');
+                                            });
+                                            jqxhr.error(function (result) {
+                                                $().toastmessage('showWarningToast', "Cannot connect server with: " + result);
+                                            });
+                                            var millisecondsToWait = 500;
+                                            setTimeout(function () {
+                                                $("#insID").val(ins_id);
+                                                $("#uploadWarning").html("Leave it for no change");
+                                                createOrEditState = "Edit";
+                                                var jqxhr = $.post("../model/GetInspectionByID.php?ins_id=" + ins_id);
+                                                jqxhr.success(function (data) {
+                                                    obj = JSON.parse(data);
+                                                    $("#inspection_no_form").val(obj.INS_INSPECTION_NO);
+                                                    $("#inspection_date_form").val(obj.INS_DATE);
+                                                    $("#inspection_order_type_form").val(obj.INS_ORDER_TYPE);
+                                                    $("#inspection_remark_form").val(obj.INS_REMARK);
 
-                        $("#inspection_project_name_form").val(obj.project_code);
-                        var jqxhr = $.post("../model/GetAllProjectForEdit.php?project_code=" + obj.project_code);
-                        jqxhr.success(function (data) {
-                            obj = JSON.parse(data);
-                            $("#inspection_project_code_form").val(obj.project_code);
-                            $("#inspection_project_manager_form").val(obj.project_manager);
-                            $("#inspection_project_foreman_form").val(obj.project_foreman);
-                            $("#inspection_project_supervisor_form").val(obj.supervisor_control);
-                        });
+                                                    $("#inspection_project_name_form").val(obj.project_code);
+                                                    var jqxhr = $.post("../model/GetAllProjectForEdit.php?project_code=" + obj.project_code);
+                                                    jqxhr.success(function (data) {
+                                                        obj = JSON.parse(data);
+                                                        $("#inspection_project_code_form").val(obj.project_code);
+                                                        $("#inspection_project_manager_form").val(obj.project_manager);
+                                                        $("#inspection_project_foreman_form").val(obj.project_foreman);
+                                                        $("#inspection_project_supervisor_form").val(obj.supervisor_control);
+                                                    });
 
-                        var jqxhr = $.post("../model/GetPoDocumentByProjectID.php?project_code=" + obj.project_code);
-                        jqxhr.success(function (data2) {
-                            $("#inspection_document_no_form").html(data2);
-                            setTimeout(function () {
-                                $("#inspection_document_no_form").val(obj.PO_ID);
-                            }, 100);
-                        });
+                                                    var jqxhr = $.post("../model/GetPoDocumentByProjectID.php?project_code=" + obj.project_code);
+                                                    jqxhr.success(function (data2) {
+                                                        $("#inspection_document_no_form").html(data2);
+                                                        setTimeout(function () {
+                                                            $("#inspection_document_no_form").val(obj.PO_ID);
+                                                        }, 100);
+                                                    });
 
 
 
-                        var jqxhr = $.post("../model/GetPoByIDForEdit.php?po_id=" + obj.PO_ID);
-                        jqxhr.success(function (resp) {
-                            obj = JSON.parse(resp);
-                            $("#inspection_home_plan_form").val(obj.PO_HOME_PLAN);
-                            $("#inspection_home_plot_form").val(obj.PO_HOME_PLOT);
-                            $("#inspection_po_no_form").val(obj.PO_PO_NO);
-                            $("#inspection_po_issue_date_form").val(obj.PO_ISSUE_DATE);
-                            $("#inspection_quantity_form").val(obj.PO_QUANTITY);
-                            $("#inspection_plan_size_form").val(obj.PO_PLAN_SIZE);
+                                                    var jqxhr = $.post("../model/GetPoByIDForEdit.php?po_id=" + obj.PO_ID);
+                                                    jqxhr.success(function (resp) {
+                                                        obj = JSON.parse(resp);
+                                                        $("#inspection_home_plan_form").val(obj.PO_HOME_PLAN);
+                                                        $("#inspection_home_plot_form").val(obj.PO_HOME_PLOT);
+                                                        $("#inspection_po_no_form").val(obj.PO_PO_NO);
+                                                        $("#inspection_po_issue_date_form").val(obj.PO_ISSUE_DATE);
+                                                        $("#inspection_quantity_form").val(obj.PO_QUANTITY);
+                                                        $("#inspection_plan_size_form").val(obj.PO_PLAN_SIZE);
 
-                        });
+                                                    });
 
-                        var jqxhrCkImage = $.post("../model/GetINSIMGByID.php?po_id=" + ins_id);
-                        jqxhrCkImage.success(function (imgData) {
-                            $("#edit_image").html(imgData);
-                        });
-                    });
-                    jqxhr.error(function (data) {
-                        window.location.replace("error.php?error_msg=" + data);
-                    });
+                                                    var jqxhrCkImage = $.post("../model/GetINSIMGByID.php?po_id=" + ins_id);
+                                                    jqxhrCkImage.success(function (imgData) {
+                                                        $("#edit_image").html(imgData);
+                                                    });
+                                                });
+                                                jqxhr.error(function (data) {
+                                                    window.location.replace("error.php?error_msg=" + data);
+                                                });
 
-                }, millisecondsToWait);
-            }
-            function delImage(imageID, po_id, img_name) {
-                if (confirm("Are you sure?"))
-                {
-                    var jqxhr = $.post("../model/DelINSImageByID.php?imageID=" + imageID + "&img_name=" + img_name);
-                    jqxhr.success(function (data) {
-                        if (data == 200) {
-                            $("#edit_image").load("../model/GetINSIMGByID.php?po_id=" + po_id, function () {
+                                            }, millisecondsToWait);
+                                        }
+                                        function delImage(imageID, po_id, img_name) {
+                                            if (confirm("Are you sure?"))
+                                            {
+                                                var jqxhr = $.post("../model/DelINSImageByID.php?imageID=" + imageID + "&img_name=" + img_name);
+                                                jqxhr.success(function (data) {
+                                                    if (data == 200) {
+                                                        $("#edit_image").load("../model/GetINSIMGByID.php?po_id=" + po_id, function () {
 
-                            });
-                        } else {
-                            //$().toastmessage('showWarningToast', "ไม่สามารถลบรูปภาพได้");
-                            alert("ไม่สามารถลบรูปภาพได้");
-                        }
-                    });
-                }
-                else
-                {
-                    e.preventDefault();
-                }
+                                                        });
+                                                    } else {
+                                                        //$().toastmessage('showWarningToast', "ไม่สามารถลบรูปภาพได้");
+                                                        alert("ไม่สามารถลบรูปภาพได้");
+                                                    }
+                                                });
+                                            }
+                                            else
+                                            {
+                                                e.preventDefault();
+                                            }
 
-            }
+                                        }
         </script>
     </body>
 

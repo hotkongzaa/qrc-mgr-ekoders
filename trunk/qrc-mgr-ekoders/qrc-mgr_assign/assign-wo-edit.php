@@ -573,6 +573,57 @@ if (empty($_SESSION['username'])) {
                             <!-- END YOUR CONTENT HERE -->
 
                         </div>
+                        <!-- /#ek-layout-button -->	
+                        <div class="qs-layout-menu">
+                            <div class="btn btn-gray qs-setting-btn" id="qs-setting-btn">
+                                <i class="fa fa-cog bigger-150 icon-only"></i>
+                            </div>
+                            <div class="qs-setting-box" id="qs-setting-box">
+
+                                <div class="hidden-xs hidden-sm">
+                                    <span class="bigger-120">Layout Options</span>
+
+                                    <div class="hr hr-dotted hr-8"></div>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="fixed-navbar" />
+                                        <span id="#fixed-navbar" class="labels"> Fixed NavBar</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="fixed-sidebar" />
+                                        <span id="#fixed-sidebar" class="labels"> Fixed NavBar+SideBar</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="sidebar-toggle" />
+                                        <span id="#sidebar-toggle" class="labels"> Sidebar Toggle</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="tc" id="in-container" />
+                                        <span id="#in-container" class="labels"> Inside<strong>.container</strong></span>
+                                    </label>
+
+                                    <div class="space-4"></div>
+                                </div>
+
+                                <span class="bigger-120">Color Options</span>
+
+                                <div class="hr hr-dotted hr-8"></div>
+
+                                <label>
+                                    <input type="checkbox" class="tc" id="side-bar-color" />
+                                    <span id="#side-bar-color" class="labels"> SideBar (Light)</span>
+                                </label>
+
+                                <ul>									
+                                    <li><button class="btn" style="background-color:#d15050;" onclick="swapStyle('../assets/css/themes/style.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#86618f;" onclick="swapStyle('../assets/css/themes/style-1.css')"></button></li> 
+                                    <li><button class="btn" style="background-color:#ba5d32;" onclick="swapStyle('../assets/css/themes/style-2.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#488075;" onclick="swapStyle('../assets/css/themes/style-3.css')"></button></li>
+                                    <li><button class="btn" style="background-color:#4e72c2;" onclick="swapStyle('../assets/css/themes/style-4.css')"></button></li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        <!-- /#ek-layout-button -->
                     </div>
                     <!-- BEGIN FOOTER CONTENT -->		
                     <div class="footer">
@@ -627,575 +678,575 @@ if (empty($_SESSION['username'])) {
         <!-- qrc-mgr javascript init-->
         <script src="../assets/js/qrc-mgr_configuration.js"></script>
         <script type="text/javascript">
-            $(document).ready(function () {
-                $(".search_date").datepicker();
-                $("#assign_detail").hide();
-                $("#alert_inform").hide();
-                $("#reset_wo_form").click(function () {
-                    window.location.assign("assign-index.php");
-                });
-                var m_names = new Array("มกราคม", "กุมภาพันธ์", "มีนาคม",
-                        "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน",
-                        "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-                var d = new Date();
-                var curr_date = d.getDate();
-                var curr_month = d.getMonth();
-                var curr_year = d.getFullYear();
-                $("#project_issue_date").val(curr_date + " " + m_names[curr_month]
-                        + " " + (curr_year + 543));
-                $("#wo_assign_date").val(curr_date + " " + m_names[curr_month]
-                        + " " + (curr_year + 543));
-                $("#assign_case, #complete_case").hide();
-                $("#wo_target_date").datepicker();
-                $("#update_project_status").load("../menu-page/project_menu_page.php", function () {
-                    $(".spinner").hide();
-                });
-                //alert("<?= $isNew ?>");
-                if ("<?= $isNew ?>" == "New") {
-                    $("#project_order_status").prop('disabled', true);
-                } else if ("<?= $isNew ?>" == "Copy") {
-                    $("#alert_inform").show();
-                    $("#alert_information").html('<br/>- This is copy item please delete remark before save');
-                    $('html,body').animate({scrollTop: $('#alert_inform').offset().top}, 400);
+                                        $(document).ready(function () {
+                                            $(".search_date").datepicker();
+                                            $("#assign_detail").hide();
+                                            $("#alert_inform").hide();
+                                            $("#reset_wo_form").click(function () {
+                                                window.location.assign("assign-index.php");
+                                            });
+                                            var m_names = new Array("มกราคม", "กุมภาพันธ์", "มีนาคม",
+                                                    "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน",
+                                                    "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+                                            var d = new Date();
+                                            var curr_date = d.getDate();
+                                            var curr_month = d.getMonth();
+                                            var curr_year = d.getFullYear();
+                                            $("#project_issue_date").val(curr_date + " " + m_names[curr_month]
+                                                    + " " + (curr_year + 543));
+                                            $("#wo_assign_date").val(curr_date + " " + m_names[curr_month]
+                                                    + " " + (curr_year + 543));
+                                            $("#assign_case, #complete_case").hide();
+                                            $("#wo_target_date").datepicker();
+                                            $("#update_project_status").load("../menu-page/project_menu_page.php", function () {
+                                                $(".spinner").hide();
+                                            });
+                                            //alert("<?= $isNew ?>");
+                                            if ("<?= $isNew ?>" == "New") {
+                                                $("#project_order_status").prop('disabled', true);
+                                            } else if ("<?= $isNew ?>" == "Copy") {
+                                                $("#alert_inform").show();
+                                                $("#alert_information").html('<br/>- This is copy item please delete remark before save');
+                                                $('html,body').animate({scrollTop: $('#alert_inform').offset().top}, 400);
 
-                    $("#project_oid").val("<?= $project_order_id ?>");
-                    $("#shown_remark").show();
-                    var jqxhr = $.post("../model/GetAllProjectOrderForEdit.php?project_code=<?= $projectCode ?>&order_id=<?= $project_order_id ?>");
-                    jqxhr.success(function (data) {
-                        obj = JSON.parse(data);
-                        var getPONo = $.post("../model/GetPoByProjectID.php?project_code=" + $("#project_code_orderPage").val() + "&oldPONO=" + obj.imgName);
-                        getPONo.success(function (respPONO) {
-                            $("#po_no_no").html(respPONO);
-                        });
-                        $("#project_document_no").val(obj.document_no);
-                        $("#wo_price_2").val(obj.REAL_WO_PRICE);
-                        $("#project_order_status").val(obj.project_status);
-                        $("#project_plan").val(obj.project_plan);
-                        $("#project_plot").val(obj.project_plot);
-                        $("#project_po_owner").val(obj.po_owner);
-                        $("#project_po_sender").val(obj.po_sender);
-                        $("#project_issue_date").val(obj.created_date_time);
-                        $("#project_order_type").val(obj.order_type);
-                        $("#project_plan_size").val(obj.plan_size);
-                        $("#project_unit_price").val(obj.unit_price);
-                        $("#project_amount").val(obj.amount);
-                        $("#project_vat").val(obj.vat);
-                        $("#project_order_remark").val("This is copy item please delete this remark before save");
-                        $("#project_po_no_name").val(obj.po_no);
-                        $("#wo_team_code").val(obj.tCode);
-                        $("#wo_name").val(obj.order_name);
-                        $("#inspection_order_type_form").val(obj.po_inspection_id);
-                        $("#wo_price").val(obj.WO_PRICE);
-                        $("#perc_of_po").val(obj.WO_PERC_OF_PO);
-                        $("#wo_order_type").val(obj.WO_ORDER_TYPE);
-                        $("#wo_name").val(obj.WO_ORDER_TYPE + obj.service_name + " Plan:" + obj.project_plan + ", Plot:" + obj.project_plot);
-                        $("#service_name").val(obj.service_name);
-                        if (obj.project_status == "Assign") {
-                            $("#assign_case").show("fast");
-                        } else if (obj.project_status == "Complete") {
-                            $("#assign_case").hide("fast");
-                            $("#complete_case").show("fast");
-                            var jqxhr = $.post("../model/GetInspectionByID.php?ins_id=" + obj.po_inspection_id);
-                            jqxhr.success(function (data) {
-                                obj = JSON.parse(data);
-                                $("#inspection_date_form").val(obj.INS_DATE);
-                            });
-                            jqxhr.error(function (data) {
-                                window.location.replace("error.php?error_msg=" + data);
-                            });
-                        } else {
+                                                $("#project_oid").val("<?= $project_order_id ?>");
+                                                $("#shown_remark").show();
+                                                var jqxhr = $.post("../model/GetAllProjectOrderForEdit.php?project_code=<?= $projectCode ?>&order_id=<?= $project_order_id ?>");
+                                                jqxhr.success(function (data) {
+                                                    obj = JSON.parse(data);
+                                                    var getPONo = $.post("../model/GetPoByProjectID.php?project_code=" + $("#project_code_orderPage").val() + "&oldPONO=" + obj.imgName);
+                                                    getPONo.success(function (respPONO) {
+                                                        $("#po_no_no").html(respPONO);
+                                                    });
+                                                    $("#project_document_no").val(obj.document_no);
+                                                    $("#wo_price_2").val(obj.REAL_WO_PRICE);
+                                                    $("#project_order_status").val(obj.project_status);
+                                                    $("#project_plan").val(obj.project_plan);
+                                                    $("#project_plot").val(obj.project_plot);
+                                                    $("#project_po_owner").val(obj.po_owner);
+                                                    $("#project_po_sender").val(obj.po_sender);
+                                                    $("#project_issue_date").val(obj.created_date_time);
+                                                    $("#project_order_type").val(obj.order_type);
+                                                    $("#project_plan_size").val(obj.plan_size);
+                                                    $("#project_unit_price").val(obj.unit_price);
+                                                    $("#project_amount").val(obj.amount);
+                                                    $("#project_vat").val(obj.vat);
+                                                    $("#project_order_remark").val("This is copy item please delete this remark before save");
+                                                    $("#project_po_no_name").val(obj.po_no);
+                                                    $("#wo_team_code").val(obj.tCode);
+                                                    $("#wo_name").val(obj.order_name);
+                                                    $("#inspection_order_type_form").val(obj.po_inspection_id);
+                                                    $("#wo_price").val(obj.WO_PRICE);
+                                                    $("#perc_of_po").val(obj.WO_PERC_OF_PO);
+                                                    $("#wo_order_type").val(obj.WO_ORDER_TYPE);
+                                                    $("#wo_name").val(obj.WO_ORDER_TYPE + obj.service_name + " Plan:" + obj.project_plan + ", Plot:" + obj.project_plot);
+                                                    $("#service_name").val(obj.service_name);
+                                                    if (obj.project_status == "Assign") {
+                                                        $("#assign_case").show("fast");
+                                                    } else if (obj.project_status == "Complete") {
+                                                        $("#assign_case").hide("fast");
+                                                        $("#complete_case").show("fast");
+                                                        var jqxhr = $.post("../model/GetInspectionByID.php?ins_id=" + obj.po_inspection_id);
+                                                        jqxhr.success(function (data) {
+                                                            obj = JSON.parse(data);
+                                                            $("#inspection_date_form").val(obj.INS_DATE);
+                                                        });
+                                                        jqxhr.error(function (data) {
+                                                            window.location.replace("error.php?error_msg=" + data);
+                                                        });
+                                                    } else {
 
-                        }
+                                                    }
 
-                        if (obj.assign_date === null) {
-                            var d = new Date();
-                            var curr_date = d.getDate();
-                            var curr_month = d.getMonth();
-                            var curr_year = d.getFullYear();
-                            $("#wo_assign_date").val(curr_date + "-" + curr_month + "-" + curr_year);
-                        } else {
-                            $("#wo_assign_date").val(obj.assign_date);
-                        }
+                                                    if (obj.assign_date === null) {
+                                                        var d = new Date();
+                                                        var curr_date = d.getDate();
+                                                        var curr_month = d.getMonth();
+                                                        var curr_year = d.getFullYear();
+                                                        $("#wo_assign_date").val(curr_date + "-" + curr_month + "-" + curr_year);
+                                                    } else {
+                                                        $("#wo_assign_date").val(obj.assign_date);
+                                                    }
 
-                        $("#wo_target_date").val(obj.target_date);
-                        $("#wo_team_name").val(obj.tName);
-                        $("#wo_project_managers").val(obj.project_manager);
-                        $("#wo_project_foreman").val(obj.project_foreman);
-                        $("#wo_supervisor_control").val(obj.supervisor_control);
-                    });
-                    jqxhr.error(function (data) {
-                        window.location.replace("error.php?error_msg=" + data);
-                    });
-                } else if ("<?= $isNew ?>" == "Edit") {
-                    $("#project_oid").val("<?= $project_order_id ?>");
-                    $("#shown_remark").show();
-                    var jqxhr = $.post("../model/GetAllProjectOrderForEdit.php?project_code=<?= $projectCode ?>&order_id=<?= $project_order_id ?>");
-                    jqxhr.success(function (data) {
-                        obj = JSON.parse(data);
-                        var getPONo = $.post("../model/GetPoByProjectID.php?project_code=" + $("#project_code_orderPage").val() + "&oldPONO=" + obj.imgName);
-                        getPONo.success(function (respPONO) {
-                            $("#po_no_no").html(respPONO);
-                        });
-                        if (obj.project_status == "Complete" || obj.project_status == "Cancel" || obj.project_status == "Close") {
-                            $("#project_order_status,#wo_order_type,#po_no_no,#perc_of_po,#wo_price,#inspection_order_type_form,#complete_date_form").prop('disabled', true);
-                        }
-                        //Assign to old PO_NO_NO
-                        $("#old_po_no_no").val(obj.imgName);
+                                                    $("#wo_target_date").val(obj.target_date);
+                                                    $("#wo_team_name").val(obj.tName);
+                                                    $("#wo_project_managers").val(obj.project_manager);
+                                                    $("#wo_project_foreman").val(obj.project_foreman);
+                                                    $("#wo_supervisor_control").val(obj.supervisor_control);
+                                                });
+                                                jqxhr.error(function (data) {
+                                                    window.location.replace("error.php?error_msg=" + data);
+                                                });
+                                            } else if ("<?= $isNew ?>" == "Edit") {
+                                                $("#project_oid").val("<?= $project_order_id ?>");
+                                                $("#shown_remark").show();
+                                                var jqxhr = $.post("../model/GetAllProjectOrderForEdit.php?project_code=<?= $projectCode ?>&order_id=<?= $project_order_id ?>");
+                                                jqxhr.success(function (data) {
+                                                    obj = JSON.parse(data);
+                                                    var getPONo = $.post("../model/GetPoByProjectID.php?project_code=" + $("#project_code_orderPage").val() + "&oldPONO=" + obj.imgName);
+                                                    getPONo.success(function (respPONO) {
+                                                        $("#po_no_no").html(respPONO);
+                                                    });
+                                                    if (obj.project_status == "Complete" || obj.project_status == "Cancel" || obj.project_status == "Close") {
+                                                        $("#project_order_status,#wo_order_type,#po_no_no,#perc_of_po,#wo_price,#inspection_order_type_form,#complete_date_form").prop('disabled', true);
+                                                    }
+                                                    //Assign to old PO_NO_NO
+                                                    $("#old_po_no_no").val(obj.imgName);
 
-                        $("#project_document_no").val(obj.document_no);
-                        $("#wo_price_2").val(obj.REAL_WO_PRICE);
-                        $("#project_order_status").val(obj.project_status);
-                        $("#project_plan").val(obj.project_plan);
-                        $("#project_plot").val(obj.project_plot);
-                        $("#project_po_owner").val(obj.po_owner);
-                        $("#project_po_sender").val(obj.po_sender);
-                        $("#project_issue_date").val(obj.created_date_time);
-                        $("#project_order_type").val(obj.order_type);
-                        $("#project_plan_size").val(obj.plan_size);
-                        $("#project_unit_price").val(obj.unit_price);
-                        $("#project_amount").val(obj.amount);
-                        $("#project_vat").val(obj.vat);
-                        $("#project_order_remark").val(obj.project_order_remark);
-                        $("#project_po_no_name").val(obj.po_no);
-                        $("#wo_team_code").val(obj.tCode);
-                        $("#wo_name").val(obj.order_name);
-                        $("#inspection_order_type_form").val(obj.po_inspection_id);
-                        $("#wo_price").val(obj.WO_PRICE);
-                        $("#perc_of_po").val(obj.WO_PERC_OF_PO);
-                        $("#wo_order_type").val(obj.WO_ORDER_TYPE);
-                        $("#complete_date_form").val(obj.complete_date);
-                        $("#wo_name").val(obj.WO_ORDER_TYPE + obj.service_name + " Plan:" + obj.project_plan + ", Plot:" + obj.project_plot);
-                        $("#service_name").val(obj.service_name);
-                        if (obj.project_status == "Assign") {
-                            $("#assign_case").show("fast");
-                        } else if (obj.project_status == "Complete") {
-                            $("#assign_case").hide("fast");
-                            $("#complete_case").show("fast");
-                            var jqxhr = $.post("../model/GetInspectionByID.php?ins_id=" + obj.po_inspection_id);
-                            jqxhr.success(function (data) {
-                                obj = JSON.parse(data);
-                                $("#inspection_date_form").val(obj.INS_DATE);
-                            });
-                            jqxhr.error(function (data) {
-                                window.location.replace("error.php?error_msg=" + data);
-                            });
-                        } else {
+                                                    $("#project_document_no").val(obj.document_no);
+                                                    $("#wo_price_2").val(obj.REAL_WO_PRICE);
+                                                    $("#project_order_status").val(obj.project_status);
+                                                    $("#project_plan").val(obj.project_plan);
+                                                    $("#project_plot").val(obj.project_plot);
+                                                    $("#project_po_owner").val(obj.po_owner);
+                                                    $("#project_po_sender").val(obj.po_sender);
+                                                    $("#project_issue_date").val(obj.created_date_time);
+                                                    $("#project_order_type").val(obj.order_type);
+                                                    $("#project_plan_size").val(obj.plan_size);
+                                                    $("#project_unit_price").val(obj.unit_price);
+                                                    $("#project_amount").val(obj.amount);
+                                                    $("#project_vat").val(obj.vat);
+                                                    $("#project_order_remark").val(obj.project_order_remark);
+                                                    $("#project_po_no_name").val(obj.po_no);
+                                                    $("#wo_team_code").val(obj.tCode);
+                                                    $("#wo_name").val(obj.order_name);
+                                                    $("#inspection_order_type_form").val(obj.po_inspection_id);
+                                                    $("#wo_price").val(obj.WO_PRICE);
+                                                    $("#perc_of_po").val(obj.WO_PERC_OF_PO);
+                                                    $("#wo_order_type").val(obj.WO_ORDER_TYPE);
+                                                    $("#complete_date_form").val(obj.complete_date);
+                                                    $("#wo_name").val(obj.WO_ORDER_TYPE + obj.service_name + " Plan:" + obj.project_plan + ", Plot:" + obj.project_plot);
+                                                    $("#service_name").val(obj.service_name);
+                                                    if (obj.project_status == "Assign") {
+                                                        $("#assign_case").show("fast");
+                                                    } else if (obj.project_status == "Complete") {
+                                                        $("#assign_case").hide("fast");
+                                                        $("#complete_case").show("fast");
+                                                        var jqxhr = $.post("../model/GetInspectionByID.php?ins_id=" + obj.po_inspection_id);
+                                                        jqxhr.success(function (data) {
+                                                            obj = JSON.parse(data);
+                                                            $("#inspection_date_form").val(obj.INS_DATE);
+                                                        });
+                                                        jqxhr.error(function (data) {
+                                                            window.location.replace("error.php?error_msg=" + data);
+                                                        });
+                                                    } else {
 
-                        }
+                                                    }
 
-                        if (obj.assign_date === null) {
-                            var d = new Date();
-                            var curr_date = d.getDate();
-                            var curr_month = d.getMonth();
-                            var curr_year = d.getFullYear();
-                            $("#wo_assign_date").val(curr_date + "-" + curr_month + "-" + curr_year);
-                        } else {
-                            $("#wo_assign_date").val(obj.assign_date);
-                        }
+                                                    if (obj.assign_date === null) {
+                                                        var d = new Date();
+                                                        var curr_date = d.getDate();
+                                                        var curr_month = d.getMonth();
+                                                        var curr_year = d.getFullYear();
+                                                        $("#wo_assign_date").val(curr_date + "-" + curr_month + "-" + curr_year);
+                                                    } else {
+                                                        $("#wo_assign_date").val(obj.assign_date);
+                                                    }
 
-                        $("#wo_target_date").val(obj.target_date);
-                        $("#wo_team_name").val(obj.tName);
-                        $("#wo_project_managers").val(obj.project_manager);
-                        $("#wo_project_foreman").val(obj.project_foreman);
-                        $("#wo_supervisor_control").val(obj.supervisor_control);
-                    });
-                    jqxhr.error(function (data) {
-                        window.location.replace("error.php?error_msg=" + data);
-                    });
-                }
-                $("#wo_team_code").change(function () {
-                    var tCode = $("#wo_team_code").val();
-                    var jqxhr = $.post("../model/GetAllTeamForEdit.php?teamID=" + tCode);
-                    jqxhr.success(function (data) {
-
-                        obj = JSON.parse(data);
-                        $("#wo_team_name").val(obj.t_Name);
-                    });
-                    jqxhr.error(function (data) {
-                        window.location.replace("error.php?error_msg=" + data);
-                    });
-                });
-                $("#logout_click").click(function () {
-                    var jqxhr = $.post("../model/LogoutDesSession.php");
-                    jqxhr.success(function (data) {
-                        alert(data);
-                        window.location.assign("../index.php")
-                    });
-                    jqxhr.error(function () {
-                        alert("ไม่สามารถติดต่อกับ Server ได้");
-                    });
-                });
-                $("#wo_price_2").attr('disabled', true);
-                $("#wo_price").change(function () {
-                    if ($("#project_amount").val() == "") {
-                        $("#alert_inform").show();
-                        $("#alert_information").html('<br/>- Please select PO Code(เลขที่ใบสั่งจ้าง)');
-                        $('html,body').animate({scrollTop: top}, 400);
-                    } else {
-                        $("#alert_inform").hide();
-                        if (parseInt($(this).val()) > $("#project_unit_price").val()) {
-                            alert("Please enter less than Unit Price");
-                            $("#perc_of_po").val("");
-                            $("#wo_price_2").val("");
-                        } else {
-                            var result = ($("#wo_price").val() * 100) / $("#project_unit_price").val();
-                            $("#perc_of_po").val(result);
-                            var resultOfRealWOPrice = parseInt($("#project_amount").val()) * parseFloat((result / 100));
-                            $("#wo_price_2").val(resultOfRealWOPrice);
-                        }
-                    }
-                });
-                $("#perc_of_po").change(function () {
-                    if ($("#project_amount").val() == "") {
-                        $("#alert_inform").show();
-                        $("#alert_information").html('<br/>- Please select PO Code(เลขที่ใบสั่งจ้าง)');
-                        $('html,body').animate({scrollTop: top}, 400);
-                    } else {
-                        $("#alert_inform").hide();
-                        if (parseInt($(this).val()) > 100) {
-                            alert("Please enter percentage less than 100");
-                            $("#wo_price").val("");
-                            $("#wo_price_2").val("");
-                        } else {
-                            var result = ($("#perc_of_po").val() * $("#project_unit_price").val()) / 100;
-                            $("#wo_price").val(result);
-                            var resultOfRealWOPrice = parseInt($("#project_amount").val()) * parseFloat(($(this).val() / 100));
-                            $("#wo_price_2").val(resultOfRealWOPrice);
-
-                        }
-                    }
-                });
-                $("#po_no_no").change(function () {
-                    var po_id = $("#po_no_no").val();
-                    var jqxhr = $.post("../model/GetWorkOrderByPOID.php?po_id=" + po_id);
-                    jqxhr.success(function (data) {
-                        obj = JSON.parse(data);
-                        $("#project_plan").val(obj.PO_HOME_PLAN);
-                        $("#project_plot").val(obj.PO_HOME_PLOT);
-                        $("#project_document_no").val(obj.PO_DOCUMENT_NO);
-                        $("#project_po_owner").val(obj.PO_OWNER);
-                        $("#project_po_sender").val(obj.PO_SENDER);
-                        $("#project_order_type").val(obj.order_type_name);
-                        $("#project_plan_size").val(obj.PO_PLAN_SIZE);
-                        $("#project_unit_price").val(obj.PO_UNIT_PRICE);
-                        $("#project_amount").val(obj.PO_AMOUNT);
-                        $("#project_vat").val(obj.PO_VAT);
-                        $("#project_po_no_name").val(obj.PO_PO_NO);
-                        $("#project_po_no_id").val(obj.po_id);
-                        //                        $.unblockUI();
-                        var orderType = $("#wo_order_type").val();
-                        if ($("#po_no_no").val() == 0 || $("#po_no_no").val() == "0") {
-                            $("#wo_name").val("");
-                        } else {
-                            $("#wo_name").val(orderType + obj.service_name + " Plan:" + obj.PO_HOME_PLAN + ", Plot:" + obj.PO_HOME_PLOT);
-                        }
-                    });
-                    jqxhr.error(function (data) {
-                        window.location.replace("error.php?error_msg=" + data);
-                    });
-                });
-                $("#inspection_order_type_form").change(function () {
-                    var insID = $(this).val();
-                    var jqxhr = $.post("../model/GetInspectionByID.php?ins_id=" + insID);
-                    jqxhr.success(function (data) {
-                        obj = JSON.parse(data);
-                        $("#inspection_date_form").val(obj.INS_DATE);
-                    });
-                    jqxhr.error(function (data) {
-                        window.location.replace("error.php?error_msg=" + data);
-                    });
-                });
-                $("#project_order_status").change(function () {
-                    if ($(this).val() == "Assign") {
-                        var project_code = $("#project_code_orderPage").val();
-                        var jqxhr = $.post("../model/GetAllProjectForEdit.php?project_code=" + project_code);
-                        jqxhr.success(function (data) {
-                            //                            $.unblockUI();
-                            obj = JSON.parse(data);
-                            $("#wo_project_managers").val(obj.project_manager);
-                            $("#wo_project_foreman").val(obj.project_foreman);
-                            $("#wo_supervisor_control").val(obj.supervisor_control);
-                            setTimeout(function ()
-                            {
-                                $("#assign_case").show("fast");
-                            }
-                            , 300);
-                        });
-                        jqxhr.error(function (data) {
-                            window.location.replace("error.php?error_msg=" + data);
-                        });
-                        $("#assign_detail").show();
-                        $("#assign_case").show("fast");
-                        $("#complete_case").hide("fast");
-                    } else if ($(this).val() == "Complete") {
-                        $("#assign_case").hide("fast");
-                        $("#complete_case").show("fast");
-                    } else {
-                        $("#assign_case").hide("fast");
-                        $("#complete_case").hide("fast");
-                    }
-                });
-                $("#wo_order_type").change(function () {
-                    var orderType = $("#wo_order_type").val();
-                    var po_value = $("#po_no_no").val();
-                    if (po_value == "null" || po_value == null) {
-
-                    } else {
-                        if (po_value != 0 || po_value != "0") {
-                            $("#wo_name").val($("#wo_order_type").val() + $("#service_name").val() + " Plan:" + $("#project_plan").val() + ", Plot:" + $("#project_plot").val());
-                        }
-                    }
-                });
-                $("#save_wo_form").click(function () {
-                    var project_code = $("#project_code_orderPage").val();
-                    var project_order_status = $("#project_order_status").val();
-                    var project_home_plan = $("#project_plan").val();
-                    var project_home_plot = $("#project_plot").val();
-                    var project_document_no = $("#project_document_no").val();
-                    var project_po_no = $("#project_po_no_name").val();
-                    var project_po_owner = $("#project_po_owner").val();
-                    var project_po_sender = $("#project_po_sender").val();
-                    var project_order_type = $("#project_order_type").val();
-                    var project_plan_size = $("#project_plan_size").val();
-                    var project_unit_price = $("#project_unit_price").val();
-                    var project_amount = $("#project_amount").val();
-                    var project_vat = $("#project_vat").val();
-                    var poid = $("#project_po_no_id").val();
-                    var poForEdit = $("#po_no_no").val();
-                    var project_order_remark = $("#project_order_remark").val();
-                    var order_id = $("#project_oid").val();
-                    var wo_name = $("#wo_name").val();
-                    var wo_team_code = $("#wo_team_code").val();
-                    var teamCode = $("#wo_team_code").val();
-                    var wo_assign_date = $("#wo_assign_date").val();
-                    var wo_target_date = $("#wo_target_date").val();
-                    var wo_remark = $("#wo_remark").val();
-                    var orderType = $("#wo_order_type").val();
-                    var wo_price = $("#wo_price").val();
-                    var perc_of_po = $("#perc_of_po").val();
-                    var complete_date = $("#complete_date_form").val();
-                    var realWOPrice = $("#wo_price_2").val();
-
-
-//                    "This is copy item please delete this remark before save";
-
-                    if ("<?= $isNew ?>" == "New" || "<?= $isNew ?>" == "Copy") {
-
-                        if (project_order_remark != "") {
-                            alert("Please delete remark of copy item before save");
-                        } else {
-                            var jqxhr = $.post("../model/SavingProjectOrder.php?project_code=" + project_code +
-                                    "&project_order_status=" + project_order_status +
-                                    "&project_home_plan=" + project_home_plan +
-                                    "&project_home_plot=" + project_home_plot +
-                                    "&project_document_no=" + project_document_no +
-                                    "&project_po_no=" + project_po_no +
-                                    "&project_po_owner=" + project_po_owner +
-                                    "&project_po_sender=" + project_po_sender +
-                                    "&project_order_type=" + project_order_type +
-                                    "&project_plan_size=" + project_plan_size +
-                                    "&project_unit_price=" + project_unit_price +
-                                    "&project_amount=" + project_amount +
-                                    "&project_image_path=" + poForEdit +
-                                    "&wo_name=" + wo_name +
-                                    "&orderType=" + orderType +
-                                    "&project_vat=" + project_vat +
-                                    "&wo_price=" + wo_price +
-                                    "&realWOPrice=" + realWOPrice +
-                                    "&perc_of_po=" + perc_of_po);
-                            jqxhr.success(function (data) {
-                                if (data == 1) {
-                                    var getLatestWOID = $.post("../model/GerLatestProjectOrderID.php");
-                                    getLatestWOID.success(function (response) {
-                                        if (response != "" || response != null) {
-                                            if (project_order_status == "Assign") {
-
-                                                var jqxhr = $.post("../model/SavingAssignDetail.php?order_id=" + response +
-                                                        "&project_id=" + project_code +
-                                                        "&team_code=" + teamCode +
-                                                        "&assign_date" + wo_assign_date +
-                                                        "&target_date=" + wo_target_date +
-                                                        "&project_order_status =" + project_order_status +
-                                                        "&project_order_remark=" + project_order_remark +
-                                                        "&wo_price=" + wo_price +
-                                                        "&prc_po_price=" + perc_of_po +
-                                                        "&realWOPrice=" + realWOPrice +
-                                                        "&remark=" + wo_remark);
+                                                    $("#wo_target_date").val(obj.target_date);
+                                                    $("#wo_team_name").val(obj.tName);
+                                                    $("#wo_project_managers").val(obj.project_manager);
+                                                    $("#wo_project_foreman").val(obj.project_foreman);
+                                                    $("#wo_supervisor_control").val(obj.supervisor_control);
+                                                });
+                                                jqxhr.error(function (data) {
+                                                    window.location.replace("error.php?error_msg=" + data);
+                                                });
+                                            }
+                                            $("#wo_team_code").change(function () {
+                                                var tCode = $("#wo_team_code").val();
+                                                var jqxhr = $.post("../model/GetAllTeamForEdit.php?teamID=" + tCode);
                                                 jqxhr.success(function (data) {
 
-                                                    if (data == 1) {
-                                                        setTimeout(function ()
-                                                        {
-                                                            window.location.assign("assign-index.php");
-                                                        }
-                                                        , 300);
+                                                    obj = JSON.parse(data);
+                                                    $("#wo_team_name").val(obj.t_Name);
+                                                });
+                                                jqxhr.error(function (data) {
+                                                    window.location.replace("error.php?error_msg=" + data);
+                                                });
+                                            });
+                                            $("#logout_click").click(function () {
+                                                var jqxhr = $.post("../model/LogoutDesSession.php");
+                                                jqxhr.success(function (data) {
+                                                    alert(data);
+                                                    window.location.assign("../index.php")
+                                                });
+                                                jqxhr.error(function () {
+                                                    alert("ไม่สามารถติดต่อกับ Server ได้");
+                                                });
+                                            });
+                                            $("#wo_price_2").attr('disabled', true);
+                                            $("#wo_price").change(function () {
+                                                if ($("#project_amount").val() == "") {
+                                                    $("#alert_inform").show();
+                                                    $("#alert_information").html('<br/>- Please select PO Code(เลขที่ใบสั่งจ้าง)');
+                                                    $('html,body').animate({scrollTop: top}, 400);
+                                                } else {
+                                                    $("#alert_inform").hide();
+                                                    if (parseInt($(this).val()) > $("#project_unit_price").val()) {
+                                                        alert("Please enter less than Unit Price");
+                                                        $("#perc_of_po").val("");
+                                                        $("#wo_price_2").val("");
+                                                    } else {
+                                                        var result = ($("#wo_price").val() * 100) / $("#project_unit_price").val();
+                                                        $("#perc_of_po").val(result);
+                                                        var resultOfRealWOPrice = parseInt($("#project_amount").val()) * parseFloat((result / 100));
+                                                        $("#wo_price_2").val(resultOfRealWOPrice);
+                                                    }
+                                                }
+                                            });
+                                            $("#perc_of_po").change(function () {
+                                                if ($("#project_amount").val() == "") {
+                                                    $("#alert_inform").show();
+                                                    $("#alert_information").html('<br/>- Please select PO Code(เลขที่ใบสั่งจ้าง)');
+                                                    $('html,body').animate({scrollTop: top}, 400);
+                                                } else {
+                                                    $("#alert_inform").hide();
+                                                    if (parseInt($(this).val()) > 100) {
+                                                        alert("Please enter percentage less than 100");
+                                                        $("#wo_price").val("");
+                                                        $("#wo_price_2").val("");
+                                                    } else {
+                                                        var result = ($("#perc_of_po").val() * $("#project_unit_price").val()) / 100;
+                                                        $("#wo_price").val(result);
+                                                        var resultOfRealWOPrice = parseInt($("#project_amount").val()) * parseFloat(($(this).val() / 100));
+                                                        $("#wo_price_2").val(resultOfRealWOPrice);
+
+                                                    }
+                                                }
+                                            });
+                                            $("#po_no_no").change(function () {
+                                                var po_id = $("#po_no_no").val();
+                                                var jqxhr = $.post("../model/GetWorkOrderByPOID.php?po_id=" + po_id);
+                                                jqxhr.success(function (data) {
+                                                    obj = JSON.parse(data);
+                                                    $("#project_plan").val(obj.PO_HOME_PLAN);
+                                                    $("#project_plot").val(obj.PO_HOME_PLOT);
+                                                    $("#project_document_no").val(obj.PO_DOCUMENT_NO);
+                                                    $("#project_po_owner").val(obj.PO_OWNER);
+                                                    $("#project_po_sender").val(obj.PO_SENDER);
+                                                    $("#project_order_type").val(obj.order_type_name);
+                                                    $("#project_plan_size").val(obj.PO_PLAN_SIZE);
+                                                    $("#project_unit_price").val(obj.PO_UNIT_PRICE);
+                                                    $("#project_amount").val(obj.PO_AMOUNT);
+                                                    $("#project_vat").val(obj.PO_VAT);
+                                                    $("#project_po_no_name").val(obj.PO_PO_NO);
+                                                    $("#project_po_no_id").val(obj.po_id);
+                                                    //                        $.unblockUI();
+                                                    var orderType = $("#wo_order_type").val();
+                                                    if ($("#po_no_no").val() == 0 || $("#po_no_no").val() == "0") {
+                                                        $("#wo_name").val("");
+                                                    } else {
+                                                        $("#wo_name").val(orderType + obj.service_name + " Plan:" + obj.PO_HOME_PLAN + ", Plot:" + obj.PO_HOME_PLOT);
                                                     }
                                                 });
                                                 jqxhr.error(function (data) {
                                                     window.location.replace("error.php?error_msg=" + data);
                                                 });
-
-
-                                            } else if (project_order_status == "Complete") {
-                                                if ($("#inspection_order_type_form").val() == 0) {
-                                                    alert('กรุณาเลือก ใบตรวจรับงาน');
-                                                } else {
-                                                    var inspection_id = $("#inspection_order_type_form").val();
-                                                    var jqxhr = $.post("../model/EditProjectOrderForComplete.php?project_code=" + project_code +
-                                                            "&project_order_status=" + project_order_status +
-                                                            "&inspection_id=" + inspection_id +
-                                                            "&order_id=" + response +
-                                                            "&wo_price=" + wo_price +
-                                                            "&prc_po_price=" + perc_of_po +
-                                                            "&realWOPrice=" + realWOPrice +
-                                                            "&project_order_remark=" + project_order_remark);
+                                            });
+                                            $("#inspection_order_type_form").change(function () {
+                                                var insID = $(this).val();
+                                                var jqxhr = $.post("../model/GetInspectionByID.php?ins_id=" + insID);
+                                                jqxhr.success(function (data) {
+                                                    obj = JSON.parse(data);
+                                                    $("#inspection_date_form").val(obj.INS_DATE);
+                                                });
+                                                jqxhr.error(function (data) {
+                                                    window.location.replace("error.php?error_msg=" + data);
+                                                });
+                                            });
+                                            $("#project_order_status").change(function () {
+                                                if ($(this).val() == "Assign") {
+                                                    var project_code = $("#project_code_orderPage").val();
+                                                    var jqxhr = $.post("../model/GetAllProjectForEdit.php?project_code=" + project_code);
                                                     jqxhr.success(function (data) {
-                                                        if (data == 1) {
-                                                            setTimeout(function ()
-                                                            {
-                                                                window.location.assign("assign-index.php");
-                                                                //window.location.assign("index-projects-order-search-result.php?project_code=<?= $projectCode ?>");
-                                                            }
-                                                            , 500);
+                                                        //                            $.unblockUI();
+                                                        obj = JSON.parse(data);
+                                                        $("#wo_project_managers").val(obj.project_manager);
+                                                        $("#wo_project_foreman").val(obj.project_foreman);
+                                                        $("#wo_supervisor_control").val(obj.supervisor_control);
+                                                        setTimeout(function ()
+                                                        {
+                                                            $("#assign_case").show("fast");
                                                         }
+                                                        , 300);
                                                     });
                                                     jqxhr.error(function (data) {
                                                         window.location.replace("error.php?error_msg=" + data);
                                                     });
+                                                    $("#assign_detail").show();
+                                                    $("#assign_case").show("fast");
+                                                    $("#complete_case").hide("fast");
+                                                } else if ($(this).val() == "Complete") {
+                                                    $("#assign_case").hide("fast");
+                                                    $("#complete_case").show("fast");
+                                                } else {
+                                                    $("#assign_case").hide("fast");
+                                                    $("#complete_case").hide("fast");
                                                 }
-                                            } else {
-                                                window.location.assign("assign-index.php");
-                                            }
-                                        }
-                                    });
-                                } else {
-                                    alert(data);
-                                }
-                            });
-                            jqxhr.error(function (data) {
-                                window.location.replace("error.php?error_msg=" + data);
-                            });
-                        }
-                    } else {
-                        if (project_order_status == "Assign") {
-                            if (project_order_remark == "") {
-                                alert('กรุณาใส่ Remark !');
-                            } else if ($("#wo_team_code").val() == 0 || $("#wo_team_code").val() == null) {
-                                alert('กรุณาเลือกทีม !');
-                            } else {
-                                if (wo_team_code == 0) {
-                                    $("#team_code_error").addClass("has-error");
-                                } else {
-                                    $("#team_code_error").removeClass("has-error");
-                                    // alert(order_id);
+                                            });
+                                            $("#wo_order_type").change(function () {
+                                                var orderType = $("#wo_order_type").val();
+                                                var po_value = $("#po_no_no").val();
+                                                if (po_value == "null" || po_value == null) {
 
-                                    var jqxhr = $.post("../model/SavingAssignDetail.php?order_id=" + order_id +
-                                            "&project_id=" + project_code +
-                                            "&team_code=" + teamCode +
-                                            "&assign_date" + wo_assign_date +
-                                            "&target_date=" + wo_target_date +
-                                            "&project_order_status=" + project_order_status +
-                                            "&project_order_remark=" + project_order_remark +
-                                            "&wo_price=" + wo_price +
-                                            "&poForEdit=" + poForEdit +
-                                            "&prc_po_price=" + perc_of_po +
-                                            "&old_po_no_no=" + $("#old_po_no_no").val() +
-                                            "&current_po_no_no=" + $("#po_no_no").val() +
-                                            "&realWOPrice=" + realWOPrice +
-                                            "&remark=" + wo_remark);
-                                    jqxhr.success(function (data) {
-                                        if (data == 1) {
-                                            setTimeout(function ()
-                                            {
-                                                window.location.assign("assign-index.php");
-                                            }
-                                            , 300);
-                                        }
-                                    });
-                                    jqxhr.error(function (data) {
-                                        window.location.replace("error.php?error_msg=" + data);
-                                    });
-                                }
-                            }
-                        } else if (project_order_status == "Complete") {
-                            if ($("#inspection_order_type_form").val() == 0) {
-                                alert('กรุณาเลือก ใบตรวจรับงาน');
-                            } else if (complete_date == "" || complete_date == null) {
-                                alert("กรุณาเลือก วันที่เสร็จสิ้น");
-                            } else if (project_order_remark == "") {
-                                alert('กรุณาใส่ Remark !');
-                            } else {
-                                var inspection_id = $("#inspection_order_type_form").val();
-                                var jqxhr = $.post("../model/EditProjectOrderForComplete.php?project_code=" + project_code +
-                                        "&project_order_status=" + project_order_status +
-                                        "&inspection_id=" + inspection_id +
-                                        "&order_id=" + order_id +
-                                        "&complete_date=" + complete_date +
-                                        "&wo_price=" + wo_price +
-                                        "&poForEdit=" + poForEdit +
-                                        "&prc_po_price=" + perc_of_po +
-                                        "&realWOPrice=" + realWOPrice +
-                                        "&project_order_remark=" + project_order_remark);
-                                jqxhr.success(function (data) {
-                                    if (data == 1) {
-                                        setTimeout(function ()
-                                        {
-                                            window.location.assign("assign-index.php");
-                                            //window.location.assign("index-projects-order-search-result.php?project_code=<?= $projectCode ?>");
-                                        }
-                                        , 500);
-                                    }
-                                });
-                                jqxhr.error(function (data) {
-                                    window.location.replace("error.php?error_msg=" + data);
-                                });
-                            }
-                        } else {
-                            if (project_order_remark == "") {
-                                alert('กรุณาใส่ Remark !');
+                                                } else {
+                                                    if (po_value != 0 || po_value != "0") {
+                                                        $("#wo_name").val($("#wo_order_type").val() + $("#service_name").val() + " Plan:" + $("#project_plan").val() + ", Plot:" + $("#project_plot").val());
+                                                    }
+                                                }
+                                            });
+                                            $("#save_wo_form").click(function () {
+                                                var project_code = $("#project_code_orderPage").val();
+                                                var project_order_status = $("#project_order_status").val();
+                                                var project_home_plan = $("#project_plan").val();
+                                                var project_home_plot = $("#project_plot").val();
+                                                var project_document_no = $("#project_document_no").val();
+                                                var project_po_no = $("#project_po_no_name").val();
+                                                var project_po_owner = $("#project_po_owner").val();
+                                                var project_po_sender = $("#project_po_sender").val();
+                                                var project_order_type = $("#project_order_type").val();
+                                                var project_plan_size = $("#project_plan_size").val();
+                                                var project_unit_price = $("#project_unit_price").val();
+                                                var project_amount = $("#project_amount").val();
+                                                var project_vat = $("#project_vat").val();
+                                                var poid = $("#project_po_no_id").val();
+                                                var poForEdit = $("#po_no_no").val();
+                                                var project_order_remark = $("#project_order_remark").val();
+                                                var order_id = $("#project_oid").val();
+                                                var wo_name = $("#wo_name").val();
+                                                var wo_team_code = $("#wo_team_code").val();
+                                                var teamCode = $("#wo_team_code").val();
+                                                var wo_assign_date = $("#wo_assign_date").val();
+                                                var wo_target_date = $("#wo_target_date").val();
+                                                var wo_remark = $("#wo_remark").val();
+                                                var orderType = $("#wo_order_type").val();
+                                                var wo_price = $("#wo_price").val();
+                                                var perc_of_po = $("#perc_of_po").val();
+                                                var complete_date = $("#complete_date_form").val();
+                                                var realWOPrice = $("#wo_price_2").val();
+
+
+//                    "This is copy item please delete this remark before save";
+
+                                                if ("<?= $isNew ?>" == "New" || "<?= $isNew ?>" == "Copy") {
+
+                                                    if (project_order_remark != "") {
+                                                        alert("Please delete remark of copy item before save");
+                                                    } else {
+                                                        var jqxhr = $.post("../model/SavingProjectOrder.php?project_code=" + project_code +
+                                                                "&project_order_status=" + project_order_status +
+                                                                "&project_home_plan=" + project_home_plan +
+                                                                "&project_home_plot=" + project_home_plot +
+                                                                "&project_document_no=" + project_document_no +
+                                                                "&project_po_no=" + project_po_no +
+                                                                "&project_po_owner=" + project_po_owner +
+                                                                "&project_po_sender=" + project_po_sender +
+                                                                "&project_order_type=" + project_order_type +
+                                                                "&project_plan_size=" + project_plan_size +
+                                                                "&project_unit_price=" + project_unit_price +
+                                                                "&project_amount=" + project_amount +
+                                                                "&project_image_path=" + poForEdit +
+                                                                "&wo_name=" + wo_name +
+                                                                "&orderType=" + orderType +
+                                                                "&project_vat=" + project_vat +
+                                                                "&wo_price=" + wo_price +
+                                                                "&realWOPrice=" + realWOPrice +
+                                                                "&perc_of_po=" + perc_of_po);
+                                                        jqxhr.success(function (data) {
+                                                            if (data == 1) {
+                                                                var getLatestWOID = $.post("../model/GerLatestProjectOrderID.php");
+                                                                getLatestWOID.success(function (response) {
+                                                                    if (response != "" || response != null) {
+                                                                        if (project_order_status == "Assign") {
+
+                                                                            var jqxhr = $.post("../model/SavingAssignDetail.php?order_id=" + response +
+                                                                                    "&project_id=" + project_code +
+                                                                                    "&team_code=" + teamCode +
+                                                                                    "&assign_date" + wo_assign_date +
+                                                                                    "&target_date=" + wo_target_date +
+                                                                                    "&project_order_status =" + project_order_status +
+                                                                                    "&project_order_remark=" + project_order_remark +
+                                                                                    "&wo_price=" + wo_price +
+                                                                                    "&prc_po_price=" + perc_of_po +
+                                                                                    "&realWOPrice=" + realWOPrice +
+                                                                                    "&remark=" + wo_remark);
+                                                                            jqxhr.success(function (data) {
+
+                                                                                if (data == 1) {
+                                                                                    setTimeout(function ()
+                                                                                    {
+                                                                                        window.location.assign("assign-index.php");
+                                                                                    }
+                                                                                    , 300);
+                                                                                }
+                                                                            });
+                                                                            jqxhr.error(function (data) {
+                                                                                window.location.replace("error.php?error_msg=" + data);
+                                                                            });
+
+
+                                                                        } else if (project_order_status == "Complete") {
+                                                                            if ($("#inspection_order_type_form").val() == 0) {
+                                                                                alert('กรุณาเลือก ใบตรวจรับงาน');
+                                                                            } else {
+                                                                                var inspection_id = $("#inspection_order_type_form").val();
+                                                                                var jqxhr = $.post("../model/EditProjectOrderForComplete.php?project_code=" + project_code +
+                                                                                        "&project_order_status=" + project_order_status +
+                                                                                        "&inspection_id=" + inspection_id +
+                                                                                        "&order_id=" + response +
+                                                                                        "&wo_price=" + wo_price +
+                                                                                        "&prc_po_price=" + perc_of_po +
+                                                                                        "&realWOPrice=" + realWOPrice +
+                                                                                        "&project_order_remark=" + project_order_remark);
+                                                                                jqxhr.success(function (data) {
+                                                                                    if (data == 1) {
+                                                                                        setTimeout(function ()
+                                                                                        {
+                                                                                            window.location.assign("assign-index.php");
+                                                                                            //window.location.assign("index-projects-order-search-result.php?project_code=<?= $projectCode ?>");
+                                                                                        }
+                                                                                        , 500);
+                                                                                    }
+                                                                                });
+                                                                                jqxhr.error(function (data) {
+                                                                                    window.location.replace("error.php?error_msg=" + data);
+                                                                                });
+                                                                            }
+                                                                        } else {
+                                                                            window.location.assign("assign-index.php");
+                                                                        }
+                                                                    }
+                                                                });
+                                                            } else {
+                                                                alert(data);
+                                                            }
+                                                        });
+                                                        jqxhr.error(function (data) {
+                                                            window.location.replace("error.php?error_msg=" + data);
+                                                        });
+                                                    }
+                                                } else {
+                                                    if (project_order_status == "Assign") {
+                                                        if (project_order_remark == "") {
+                                                            alert('กรุณาใส่ Remark !');
+                                                        } else if ($("#wo_team_code").val() == 0 || $("#wo_team_code").val() == null) {
+                                                            alert('กรุณาเลือกทีม !');
+                                                        } else {
+                                                            if (wo_team_code == 0) {
+                                                                $("#team_code_error").addClass("has-error");
+                                                            } else {
+                                                                $("#team_code_error").removeClass("has-error");
+                                                                // alert(order_id);
+
+                                                                var jqxhr = $.post("../model/SavingAssignDetail.php?order_id=" + order_id +
+                                                                        "&project_id=" + project_code +
+                                                                        "&team_code=" + teamCode +
+                                                                        "&assign_date" + wo_assign_date +
+                                                                        "&target_date=" + wo_target_date +
+                                                                        "&project_order_status=" + project_order_status +
+                                                                        "&project_order_remark=" + project_order_remark +
+                                                                        "&wo_price=" + wo_price +
+                                                                        "&poForEdit=" + poForEdit +
+                                                                        "&prc_po_price=" + perc_of_po +
+                                                                        "&old_po_no_no=" + $("#old_po_no_no").val() +
+                                                                        "&current_po_no_no=" + $("#po_no_no").val() +
+                                                                        "&realWOPrice=" + realWOPrice +
+                                                                        "&remark=" + wo_remark);
+                                                                jqxhr.success(function (data) {
+                                                                    if (data == 1) {
+                                                                        setTimeout(function ()
+                                                                        {
+                                                                            window.location.assign("assign-index.php");
+                                                                        }
+                                                                        , 300);
+                                                                    }
+                                                                });
+                                                                jqxhr.error(function (data) {
+                                                                    window.location.replace("error.php?error_msg=" + data);
+                                                                });
+                                                            }
+                                                        }
+                                                    } else if (project_order_status == "Complete") {
+                                                        if ($("#inspection_order_type_form").val() == 0) {
+                                                            alert('กรุณาเลือก ใบตรวจรับงาน');
+                                                        } else if (complete_date == "" || complete_date == null) {
+                                                            alert("กรุณาเลือก วันที่เสร็จสิ้น");
+                                                        } else if (project_order_remark == "") {
+                                                            alert('กรุณาใส่ Remark !');
+                                                        } else {
+                                                            var inspection_id = $("#inspection_order_type_form").val();
+                                                            var jqxhr = $.post("../model/EditProjectOrderForComplete.php?project_code=" + project_code +
+                                                                    "&project_order_status=" + project_order_status +
+                                                                    "&inspection_id=" + inspection_id +
+                                                                    "&order_id=" + order_id +
+                                                                    "&complete_date=" + complete_date +
+                                                                    "&wo_price=" + wo_price +
+                                                                    "&poForEdit=" + poForEdit +
+                                                                    "&prc_po_price=" + perc_of_po +
+                                                                    "&realWOPrice=" + realWOPrice +
+                                                                    "&project_order_remark=" + project_order_remark);
+                                                            jqxhr.success(function (data) {
+                                                                if (data == 1) {
+                                                                    setTimeout(function ()
+                                                                    {
+                                                                        window.location.assign("assign-index.php");
+                                                                        //window.location.assign("index-projects-order-search-result.php?project_code=<?= $projectCode ?>");
+                                                                    }
+                                                                    , 500);
+                                                                }
+                                                            });
+                                                            jqxhr.error(function (data) {
+                                                                window.location.replace("error.php?error_msg=" + data);
+                                                            });
+                                                        }
+                                                    } else {
+                                                        if (project_order_remark == "") {
+                                                            alert('กรุณาใส่ Remark !');
 //                                $().toastmessage('showErrorToast', 'กรุณาใส่ Remark !');
-                            } else {
-                                var jqxhr = $.post("../model/EditProjectOrder.php?project_code=" + project_code +
-                                        "&project_order_status=" + project_order_status +
-                                        "&project_home_plan=" + project_home_plan +
-                                        "&project_home_plot=" + project_home_plot +
-                                        "&project_document_no=" + project_document_no +
-                                        "&project_po_no=" + project_po_no +
-                                        "&project_po_owner=" + project_po_owner +
-                                        "&project_po_sender=" + project_po_sender +
-                                        "&project_order_type=" + project_order_type +
-                                        "&project_plan_size=" + project_plan_size +
-                                        "&project_unit_price=" + project_unit_price +
-                                        "&project_amount=" + project_amount +
-                                        "&project_vat=" + project_vat +
-                                        "&order_id=" + order_id +
-                                        "&wo_name=" + wo_name +
-                                        "&orderType=" + orderType +
-                                        "&poForEdit=" + poForEdit +
-                                        "&wo_price=" + wo_price +
-                                        "&prc_po_price=" + perc_of_po +
-                                        "&project_image_path=" + poForEdit +
-                                        "&old_po_no_no=" + $("#old_po_no_no").val() +
-                                        "&current_po_no_no=" + $("#po_no_no").val() +
-                                        "&realWOPrice=" + realWOPrice +
-                                        "&project_remark=" + project_order_remark);
-                                jqxhr.success(function (data) {
-                                    if (data == 1) {
-                                        setTimeout(function ()
-                                        {
-                                            window.location.assign("assign-index.php");
-                                        }
-                                        , 500);
-                                    }
-                                });
-                                jqxhr.error(function (data) {
-                                    window.location.replace("error.php?error_msg=" + data);
-                                });
-                            }
-                        }
-                    }
-                });
-            });
+                                                        } else {
+                                                            var jqxhr = $.post("../model/EditProjectOrder.php?project_code=" + project_code +
+                                                                    "&project_order_status=" + project_order_status +
+                                                                    "&project_home_plan=" + project_home_plan +
+                                                                    "&project_home_plot=" + project_home_plot +
+                                                                    "&project_document_no=" + project_document_no +
+                                                                    "&project_po_no=" + project_po_no +
+                                                                    "&project_po_owner=" + project_po_owner +
+                                                                    "&project_po_sender=" + project_po_sender +
+                                                                    "&project_order_type=" + project_order_type +
+                                                                    "&project_plan_size=" + project_plan_size +
+                                                                    "&project_unit_price=" + project_unit_price +
+                                                                    "&project_amount=" + project_amount +
+                                                                    "&project_vat=" + project_vat +
+                                                                    "&order_id=" + order_id +
+                                                                    "&wo_name=" + wo_name +
+                                                                    "&orderType=" + orderType +
+                                                                    "&poForEdit=" + poForEdit +
+                                                                    "&wo_price=" + wo_price +
+                                                                    "&prc_po_price=" + perc_of_po +
+                                                                    "&project_image_path=" + poForEdit +
+                                                                    "&old_po_no_no=" + $("#old_po_no_no").val() +
+                                                                    "&current_po_no_no=" + $("#po_no_no").val() +
+                                                                    "&realWOPrice=" + realWOPrice +
+                                                                    "&project_remark=" + project_order_remark);
+                                                            jqxhr.success(function (data) {
+                                                                if (data == 1) {
+                                                                    setTimeout(function ()
+                                                                    {
+                                                                        window.location.assign("assign-index.php");
+                                                                    }
+                                                                    , 500);
+                                                                }
+                                                            });
+                                                            jqxhr.error(function (data) {
+                                                                window.location.replace("error.php?error_msg=" + data);
+                                                            });
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        });
         </script>
     </body>
 
