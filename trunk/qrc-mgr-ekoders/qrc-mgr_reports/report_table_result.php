@@ -175,6 +175,7 @@ if (empty($_SESSION['username'])) {
     </table>
     <script>
         var stringTeamCodeBuilder = "";
+        var noOfWO = "";
         $(document).ready(function () {
             $("#dialog").hide();
             $('table th input:checkbox').on('click', function () {
@@ -200,71 +201,121 @@ if (empty($_SESSION['username'])) {
 
                     }
                 });
-//                alert(stringTeamCodeBuilder);
-                if (stringTeamCodeBuilder != "") {
+
+
+                if (stringTeamCodeBuilder != "" && stringTeamCodeBuilder != "on,on") {
                     $("#dialog").removeClass("hide").dialog({
                         height: 500,
                         width: 900
                     });
-                    var getCateSeries = $.post("../model/GetTeamReportCateSummary.php?teamCodeSet="+stringTeamCodeBuilder);
+                    var getCateSeries = $.post("../model/GetTeamReportCateSummary.php?teamCodeSet=" + stringTeamCodeBuilder);
                     getCateSeries.success(function (cateData) {
                         var teamCateArray = cateData.split(",");
-                        console.log(teamCateArray);
-                        $('#container').highcharts({
-                            chart: {
-                                type: 'column'
-                            },
-                            title: {
-                                text: 'Team Summary Report'
-                            },
-                            xAxis: {
-                                categories: teamCateArray
-                            },
-                            yAxis: {
-                                min: 0,
-                                title: {
-                                    text: 'Amount(s)'
+
+                        //Get Work Number of Work Order
+                        var partOfGettingNoOfWO = $.post("../model/ReportGettingTeamNoOfWO.php?teamCodeSet=" + stringTeamCodeBuilder);
+                        partOfGettingNoOfWO.success(function (noOfWso) {
+                            var arrayWO = new Array();
+                            var woSplit = noOfWso.split(",");
+                            for (i = 0; i < woSplit.length; i++) {
+                                arrayWO.push(parseInt(woSplit[i]));
+                            }
+
+                            //Get Summary Plan Size
+                            var partOfSummaryPlanSize = $.post("../model/ReportGettingTeamSummaryPlanSize.php?teamCodeSet=" + stringTeamCodeBuilder);
+                            partOfSummaryPlanSize.success(function (summaryPlanSize) {
+                                var arrayPlanSize = new Array();
+                                var planSizeSplit = summaryPlanSize.split(",");
+                                for (j = 0; j < planSizeSplit.length; j++) {
+                                    arrayPlanSize.push(parseInt(planSizeSplit[j]));
                                 }
-                            },
-                            tooltip: {
-                                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                        '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                                footerFormat: '</table>',
-                                shared: true,
-                                useHTML: true
-                            },
-                            plotOptions: {
-                                column: {
-                                    pointPadding: 0.2,
-                                    borderWidth: 0
-                                }
-                            },
-                            "series": [{
-                                    name: 'Tokyo',
-                                    data: [106.4, 12900.2]
 
-                                }, {
-                                    name: 'New York',
-                                    data: [9800.5, 93.4]
+                                //Get AVG Unit Price
+                                var partOfGettingAVGUnitPrice = $.post("../model/ReportGettingTeamAVGUnitPrice.php?teamCodeSet=" + stringTeamCodeBuilder);
+                                partOfGettingAVGUnitPrice.success(function (avgUnitPrice) {
+                                    var arrayAVGPrice = new Array();
+                                    var avgPriceSplit = avgUnitPrice.split(",");
+                                    for (j = 0; j < avgPriceSplit.length; j++) {
+                                        arrayAVGPrice.push(parseInt(avgPriceSplit[j]));
+                                    }
+                                    generateGraph(teamCateArray, arrayWO, arrayPlanSize, arrayAVGPrice);
+                                    stringTeamCodeBuilder = "";
+                                });
 
-                                }, {
-                                    name: 'London',
-                                    data: [39.3, 41.4]
+                            });
 
-                                }, {
-                                    name: 'Berlin',
-                                    data: [34.5, 39.7]
 
-                                }]
                         });
+
+
+
                     });
+
                 } else {
                     alert("Please select at least one team");
+
                 }
-                stringTeamCodeBuilder = "";
+
             });
         });
+        function generateGraph(teamCateArray, arrayWO, arrayPlanSize, arrayAVGPrice) {
+            $('#container').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Team Summary Report'
+                },
+                xAxis: {
+                    categories: teamCateArray
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Amount(s)'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f}     </b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                "series": [{
+                        name: 'No of WO.',
+                        data: arrayWO
+
+                    }, {
+                        name: 'Summary Plan Size',
+                        data: arrayPlanSize
+
+                    }, {
+                        name: 'AVG Unit Price',
+                        data: arrayAVGPrice
+
+                    }, {
+                        name: 'Total Amount',
+                        data: [34.5]
+
+                    }, {
+                        name: 'Total Amount With Deduct',
+                        data: [34.5]
+
+                    }, {
+                        name: 'Total Number of Retention',
+                        data: [34.5]
+
+                    }]
+            });
+        }
     </script>
     <div id="dialog" title="Team Report Summary" class="hide">
         <div id="container" style="min-width: 850px; height: 400px; margin: 0 auto"></div>
