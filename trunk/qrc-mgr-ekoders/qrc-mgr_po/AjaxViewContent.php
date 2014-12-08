@@ -52,6 +52,8 @@ if (empty($_SESSION['username'])) {
                                         . "qp.PO_ID as PO_ID,"
                                         . "qp.PO_REMARK as PO_REMARK,"
                                         . "qp.PO_STATUS as PO_STATUS,"
+                                        . "qp.PO_RETENTION as WO_RETENTION,"
+                                        . "qp.PO_RETENTION_REASON as WO_RETENTION_REASON,"
                                         . "qp.PO_NAME as PO_NAME"
                                         . " FROM QRC_PO qp"
                                         . " LEFT JOIN qrc_type_of_service qts on qp.po_order_type_id = qts.service_id"
@@ -141,6 +143,14 @@ if (empty($_SESSION['username'])) {
                                         <tr>
                                             <td>Project Foreman (ผู้ควบคุมงานของโครงการ): </td>
                                             <td><?= $row['PO_PROJECT_FOREMAN_ID']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Retention: </td>
+                                            <td><?= $row['WO_RETENTION']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Retention Reason: </td>
+                                            <td><?= $row['WO_RETENTION_REASON']; ?></td>
                                         </tr>
                                         <tr>
                                             <td>Remark: </td>

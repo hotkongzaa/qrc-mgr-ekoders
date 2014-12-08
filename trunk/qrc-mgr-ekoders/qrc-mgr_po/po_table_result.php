@@ -20,6 +20,8 @@ if (empty($_SESSION['username'])) {
         $po_issue_date = $_GET['po_issue_date'];
         $po_order_type = $_GET['po_order_type'];
         $po_status = $_GET['po_status'];
+        $po_end_issue_date = $_GET['po_end_issue_date'];
+        $po_is_retention = $_GET['po_is_retention'];
     }
 }
 ?>
@@ -50,21 +52,8 @@ if (empty($_SESSION['username'])) {
                 <th class = "center">PO No.</th>
                 <th class = "center">PO Owner</th>
                 <th class = "center">PO Sender</th>
-                <!--<th data-hide="phone,tablet">Home Plan</th>-->
-                <!--<th data-hide="phone,tablet">Home Plot</th>-->
-                <!--<th data-hide="phone,tablet">Issue Date</th>-->
-                <!--<th data-hide="phone,tablet">Order type</th>-->
-                <!--<th data-hide="phone,tablet">Quantity</th>-->
-                <!--<th data-hide="phone,tablet">Plan Size</th>-->
-                <!--<th data-hide="phone,tablet">Unit Prices</th>-->
                 <th data-hide="phone,tablet">Amount</th>
                 <th data-hide="phone,tablet">Status</th>
-                <!--<th data-hide="phone,tablet">Grand Total included VAT 7%</th>-->
-                <!--<th data-hide="phone,tablet">Supervisor Control</th>-->
-                <!--<th data-hide="phone,tablet">Project Manager</th>-->
-                <!--<th data-hide="phone,tablet">Project Foreman</th>-->
-                <!--<th data-hide="phone,tablet">Remark</th>-->
-                <!--<th data-hide="phone,tablet">PO Image</th>-->
                 <th></th>
             </tr>
         </thead>
@@ -103,7 +92,16 @@ if (empty($_SESSION['username'])) {
                 $checkPoOwner = !empty($po_owner) ? " AND qp.PO_OWNER LIKE '%$po_owner%'" : "";
                 $checkPoSender = !empty($po_sender) ? " AND qp.PO_SENDER LIKE '%$po_sender%'" : "";
                 $checkPOStatus = !empty($po_status) ? " AND qp.PO_STATUS LIKE '%$po_status%'" : "";
-                $checkPoIssueDate = !empty($po_issue_date) ? " AND qp.PO_ISSUE_DATE BETWEEN '$po_issue_date' AND '$po_issue_date'" : "";
+                if ($po_end_issue_date == "") {
+                    $checkPoIssueDate = !empty($po_issue_date) ? " AND qp.PO_ISSUE_DATE BETWEEN '$po_issue_date' AND '$po_issue_date'" : "";
+                } else {
+                    $checkPoIssueDate = !empty($po_issue_date) ? " AND qp.PO_ISSUE_DATE BETWEEN '$po_issue_date' AND '$po_end_issue_date'" : "";
+                }
+                if ($po_is_retention == "yes") {
+                    $chekIsRetention = !empty($po_is_retention) ? " AND qp.PO_RETENTION is not null AND qp.PO_RETENTION !=''" : "";
+                } else {
+                    $chekIsRetention = !empty($po_is_retention) ? " AND qp.PO_RETENTION is null OR qp.PO_RETENTION =''" : "";
+                }
                 $checkPoOrderType = !empty($po_order_type) ? " AND qp.PO_ORDER_TYPE_ID LIKE '$po_order_type'" : "";
                 $sqlSelectMemberAll = "SELECT qp.PO_PROJECT_NAME as PO_PROJECT_NAME,"
                         . "qp.PO_PROJECT_CODE as PO_PROJECT_CODE,"
@@ -137,9 +135,9 @@ if (empty($_SESSION['username'])) {
                         . $checkPoOwner
                         . $checkPoSender
                         . $checkPoIssueDate
-                        . $checkPoOrderType;
+                        . $checkPoOrderType
+                        . $chekIsRetention;
             }
-//                echo $sqlSelectMemberAll;
             $sqlGetAllData = mysql_query($sqlSelectMemberAll);
             if (mysql_num_rows($sqlGetAllData) >= 1) {
                 while ($row = mysql_fetch_assoc($sqlGetAllData)) {
@@ -151,40 +149,17 @@ if (empty($_SESSION['username'])) {
                     echo '<td>' . $row['PO_PO_NO'] . '</td>';
                     echo '<td>' . $row['PO_OWNER'] . '</td>';
                     echo '<td>' . $row['PO_SENDER'] . '</td>';
-//                echo '<td>' . $row['PO_HOME_PLAN'] . '</td>';
-//                echo '<td>' . $row['PO_HOME_PLOT'] . '</td>';
-//                echo '<td>' . $row['PO_ISSUE_DATE'] . '</td>';
-//                echo '<td>' . $row['order_type_name'] . '</td>';
-//                echo '<td>' . $row['PO_QUANTITY'] . '</td>';
-//                echo '<td>' . $row['PO_PLAN_SIZE'] . '</td>';
-//                echo '<td>' . $row['PO_UNIT_PRICE'] . '</td>';
                     echo '<td>' . $row['PO_AMOUNT'] . '</td>';
                     echo '<td>' . $row['PO_STATUS'] . '</td>';
-//                echo '<td>' . $row['PO_VAT'] . '</td>';
-//                echo '<td>' . $row['PO_SUPERVISOR_ID'] . '</td>';
-//                echo '<td>' . $row['PO_PROJECT_MANAGER_ID'] . '</td>';
-//                echo '<td>' . $row['PO_PROJECT_FOREMAN_ID'] . '</td>';
-//                echo '<td>' . $row['PO_REMARK'] . '</td>';
-//                $sqlSelectImageByID = "SELECT IMAGE_PATH as IMAGE_PATH FROM QRC_PO_IMAGE WHERE TEMP_PO_ID LIKE '" . $row['PO_ID'] . "'";
-//                $queryGetFilePath = mysql_query($sqlSelectImageByID);
-//                $strBuilding = "";
-//                while ($rowq = mysql_fetch_assoc($queryGetFilePath)) {
-//                    $strBuilding.='<d class="fancybox-effects-d" href="../images/uploads/' . $rowq['IMAGE_PATH'] . '" title="' . $rowq['IMAGE_PATH'] . '" onlick="changeAttrHref()"><img src="../images/uploads/' . $rowq['IMAGE_PATH'] . '" alt="Smiley face" width="200"></d>';
-//                }
-//                echo '<td>' . $strBuilding . '</td>';
-
                     echo '<td>';
-
                     echo '<div class = "btn-group margin-bottom-20">';
                     echo '<button type = "button" class = "btn btn-primary dropdown-toggle btn-xs" data-toggle = "dropdown">Actions <span class = "caret"></span></button>';
-
                     echo '<ul class = "dropdown-menu" role = "menu">';
                     if ($row['PO_STATUS'] == "Complete" || $row['PO_STATUS'] == "Cancel" || $row['PO_STATUS'] == "Close") {
                         
                     } else {
                         echo '<li><a href = "#" class="btn-xs" onclick=loadOrder("' . $row['PO_PROJECT_CODE'] . '","' . $row['PO_ID'] . '")><i class = "fa fa-rss"></i> Assign (มอบหมาย)</a></li>';
                     }
-
                     echo '<li><a href = "#modal-po" class="btn-xs " onclick=editPO("' . $row['PO_ID'] . '")><i class = "fa fa-edit"></i> Edit (แก้ไข)</a></li>';
                     echo '<li><a href = "#" onclick=viewClick("' . $row['PO_ID'] . '") class="btn-xs")><i class = "fa fa-eye"></i> View (ดูข้อมูล)</a></li>';
                     echo '<li class = "divider"></li>';
