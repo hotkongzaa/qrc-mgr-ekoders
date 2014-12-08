@@ -205,8 +205,8 @@ if (empty($_SESSION['username'])) {
 
                 if (stringTeamCodeBuilder != "" && stringTeamCodeBuilder != "on,on") {
                     $("#dialog").removeClass("hide").dialog({
-                        height: 500,
-                        width: 900
+                        height: 550,
+                        width: 1150
                     });
                     var getCateSeries = $.post("../model/GetTeamReportCateSummary.php?teamCodeSet=" + stringTeamCodeBuilder);
                     getCateSeries.success(function (cateData) {
@@ -220,7 +220,60 @@ if (empty($_SESSION['username'])) {
                             for (i = 0; i < woSplit.length; i++) {
                                 arrayWO.push(parseInt(woSplit[i]));
                             }
-
+                            $('#container').highcharts({
+                                chart: {
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: 'Team Summary Report'
+                                },
+                                xAxis: {
+                                    categories: teamCateArray
+                                },
+                                yAxis: {
+                                    min: 0,
+                                    title: {
+                                        text: 'Amount(s)'
+                                    }
+                                },
+                                tooltip: {
+                                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                            '<td style="padding:0"><b>{point.y:.1f}     </b></td></tr>',
+                                    footerFormat: '</table>',
+                                    shared: true,
+                                    useHTML: true
+                                },
+                                plotOptions: {
+                                    column: {
+                                        pointPadding: 0.2,
+                                        borderWidth: 0
+                                    },
+                                    bar: {
+                                        dataLabels: {
+                                            enabled: true
+                                        }
+                                    }
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'top',
+                                    x: -40,
+                                    y: 100,
+                                    floating: true,
+                                    borderWidth: 1,
+                                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                                    shadow: true
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                "series": [{
+                                        name: 'Number of Work Order',
+                                        data: arrayWO
+                                    }]
+                            });
                             //Get Summary Plan Size
                             var partOfSummaryPlanSize = $.post("../model/ReportGettingTeamSummaryPlanSize.php?teamCodeSet=" + stringTeamCodeBuilder);
                             partOfSummaryPlanSize.success(function (summaryPlanSize) {
@@ -229,7 +282,60 @@ if (empty($_SESSION['username'])) {
                                 for (j = 0; j < planSizeSplit.length; j++) {
                                     arrayPlanSize.push(parseInt(planSizeSplit[j]));
                                 }
-
+                                $('#container2').highcharts({
+                                    chart: {
+                                        type: 'column'
+                                    },
+                                    title: {
+                                        text: 'Team Summary Report'
+                                    },
+                                    xAxis: {
+                                        categories: teamCateArray
+                                    },
+                                    yAxis: {
+                                        min: 0,
+                                        title: {
+                                            text: 'Amount(s)'
+                                        }
+                                    },
+                                    tooltip: {
+                                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                                '<td style="padding:0"><b>{point.y:.1f}     </b></td></tr>',
+                                        footerFormat: '</table>',
+                                        shared: true,
+                                        useHTML: true
+                                    },
+                                    plotOptions: {
+                                        column: {
+                                            pointPadding: 0.2,
+                                            borderWidth: 0
+                                        },
+                                        bar: {
+                                            dataLabels: {
+                                                enabled: true
+                                            }
+                                        }
+                                    },
+                                    legend: {
+                                        layout: 'vertical',
+                                        align: 'right',
+                                        verticalAlign: 'top',
+                                        x: -40,
+                                        y: 100,
+                                        floating: true,
+                                        borderWidth: 1,
+                                        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                                        shadow: true
+                                    },
+                                    credits: {
+                                        enabled: false
+                                    },
+                                    "series": [{
+                                            name: 'Summary Plan Size',
+                                            data: arrayPlanSize
+                                        }]
+                                });
                                 //Get AVG Unit Price
                                 var partOfGettingAVGUnitPrice = $.post("../model/ReportGettingTeamAVGUnitPrice.php?teamCodeSet=" + stringTeamCodeBuilder);
                                 partOfGettingAVGUnitPrice.success(function (avgUnitPrice) {
@@ -238,8 +344,250 @@ if (empty($_SESSION['username'])) {
                                     for (j = 0; j < avgPriceSplit.length; j++) {
                                         arrayAVGPrice.push(parseInt(avgPriceSplit[j]));
                                     }
-                                    generateGraph(teamCateArray, arrayWO, arrayPlanSize, arrayAVGPrice);
-                                    stringTeamCodeBuilder = "";
+                                    $('#container3').highcharts({
+                                        chart: {
+                                            type: 'column'
+                                        },
+                                        title: {
+                                            text: 'Team Summary Report'
+                                        },
+                                        xAxis: {
+                                            categories: teamCateArray
+                                        },
+                                        yAxis: {
+                                            min: 0,
+                                            title: {
+                                                text: 'Amount(s)'
+                                            }
+                                        },
+                                        tooltip: {
+                                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                                    '<td style="padding:0"><b>{point.y:.1f}     </b></td></tr>',
+                                            footerFormat: '</table>',
+                                            shared: true,
+                                            useHTML: true
+                                        },
+                                        plotOptions: {
+                                            column: {
+                                                pointPadding: 0.2,
+                                                borderWidth: 0
+                                            },
+                                            bar: {
+                                                dataLabels: {
+                                                    enabled: true
+                                                }
+                                            }
+                                        },
+                                        legend: {
+                                            layout: 'vertical',
+                                            align: 'right',
+                                            verticalAlign: 'top',
+                                            x: -40,
+                                            y: 100,
+                                            floating: true,
+                                            borderWidth: 1,
+                                            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                                            shadow: true
+                                        },
+                                        credits: {
+                                            enabled: false
+                                        },
+                                        "series": [{
+                                                name: 'AVG Unit Price',
+                                                data: arrayAVGPrice
+                                            }]
+                                    });
+                                    //Part of geting total amount
+                                    var gettingTotalAmount = $.post("../model/ReportGettingTeamTotalAmount.php?teamCodeSet=" + stringTeamCodeBuilder);
+                                    gettingTotalAmount.success(function (totalAmount) {
+                                        var arrayTotalAmount = new Array();
+                                        var totalAmountSplit = totalAmount.split(",");
+                                        for (i = 0; i < totalAmountSplit.length; i++) {
+                                            arrayTotalAmount.push(parseInt(totalAmountSplit[i]));
+                                        }
+                                        $('#container4').highcharts({
+                                            chart: {
+                                                type: 'column'
+                                            },
+                                            title: {
+                                                text: 'Team Summary Report'
+                                            },
+                                            xAxis: {
+                                                categories: teamCateArray
+                                            },
+                                            yAxis: {
+                                                min: 0,
+                                                title: {
+                                                    text: 'Amount(s)'
+                                                }
+                                            },
+                                            tooltip: {
+                                                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                                        '<td style="padding:0"><b>{point.y:.1f}     </b></td></tr>',
+                                                footerFormat: '</table>',
+                                                shared: true,
+                                                useHTML: true
+                                            },
+                                            plotOptions: {
+                                                column: {
+                                                    pointPadding: 0.2,
+                                                    borderWidth: 0
+                                                },
+                                                bar: {
+                                                    dataLabels: {
+                                                        enabled: true
+                                                    }
+                                                }
+                                            },
+                                            legend: {
+                                                layout: 'vertical',
+                                                align: 'right',
+                                                verticalAlign: 'top',
+                                                x: -40,
+                                                y: 100,
+                                                floating: true,
+                                                borderWidth: 1,
+                                                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                                                shadow: true
+                                            },
+                                            credits: {
+                                                enabled: false
+                                            },
+                                            "series": [{
+                                                    name: 'Total Amount',
+                                                    data: arrayTotalAmount
+                                                }]
+                                        });
+                                        var gettingTotalAmountWithDeduct = $.post("../model/ReportGettingTeamTotalAmountWithDeduct.php?teamCodeSet=" + stringTeamCodeBuilder);
+                                        gettingTotalAmountWithDeduct.success(function (totalAmountWithDeduct) {
+                                            var arrayTotalAmountWithDeduct = new Array();
+                                            var totalAmountWithDeductSplit = totalAmountWithDeduct.split(",");
+                                            for (i = 0; i < totalAmountWithDeductSplit.length; i++) {
+                                                arrayTotalAmountWithDeduct.push(parseInt(totalAmountWithDeductSplit[i]));
+                                            }
+                                            $('#container5').highcharts({
+                                                chart: {
+                                                    type: 'column'
+                                                },
+                                                title: {
+                                                    text: 'Team Summary Report'
+                                                },
+                                                xAxis: {
+                                                    categories: teamCateArray
+                                                },
+                                                yAxis: {
+                                                    min: 0,
+                                                    title: {
+                                                        text: 'Amount(s)'
+                                                    }
+                                                },
+                                                tooltip: {
+                                                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                                            '<td style="padding:0"><b>{point.y:.1f}     </b></td></tr>',
+                                                    footerFormat: '</table>',
+                                                    shared: true,
+                                                    useHTML: true
+                                                },
+                                                plotOptions: {
+                                                    column: {
+                                                        pointPadding: 0.2,
+                                                        borderWidth: 0
+                                                    },
+                                                    bar: {
+                                                        dataLabels: {
+                                                            enabled: true
+                                                        }
+                                                    }
+                                                },
+                                                legend: {
+                                                    layout: 'vertical',
+                                                    align: 'right',
+                                                    verticalAlign: 'top',
+                                                    x: -40,
+                                                    y: 100,
+                                                    floating: true,
+                                                    borderWidth: 1,
+                                                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                                                    shadow: true
+                                                },
+                                                credits: {
+                                                    enabled: false
+                                                },
+                                                "series": [{
+                                                        name: 'Total Amount With Deduct',
+                                                        data: arrayTotalAmountWithDeduct
+                                                    }]
+                                            });
+                                            var gettingNoOfRetention = $.post("../model/ReportGettingTeamTotalNumberOfRetention.php?teamCodeSet=" + stringTeamCodeBuilder);
+                                            gettingNoOfRetention.success(function (noOfRetention) {
+                                                var arrayTotalNumberOfRetention = new Array();
+                                                var totalRetentionWithSplit = noOfRetention.split(",");
+                                                for (i = 0; i < totalRetentionWithSplit.length; i++) {
+                                                    arrayTotalNumberOfRetention.push(parseInt(totalRetentionWithSplit[i]));
+                                                }
+                                                $('#container6').highcharts({
+                                                    chart: {
+                                                        type: 'column'
+                                                    },
+                                                    title: {
+                                                        text: 'Team Summary Report'
+                                                    },
+                                                    xAxis: {
+                                                        categories: teamCateArray
+                                                    },
+                                                    yAxis: {
+                                                        min: 0,
+                                                        title: {
+                                                            text: 'Amount(s)'
+                                                        }
+                                                    },
+                                                    tooltip: {
+                                                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                                                '<td style="padding:0"><b>{point.y:.1f}     </b></td></tr>',
+                                                        footerFormat: '</table>',
+                                                        shared: true,
+                                                        useHTML: true
+                                                    },
+                                                    plotOptions: {
+                                                        column: {
+                                                            pointPadding: 0.2,
+                                                            borderWidth: 0
+                                                        },
+                                                        bar: {
+                                                            dataLabels: {
+                                                                enabled: true
+                                                            }
+                                                        }
+                                                    },
+                                                    legend: {
+                                                        layout: 'vertical',
+                                                        align: 'right',
+                                                        verticalAlign: 'top',
+                                                        x: -40,
+                                                        y: 100,
+                                                        floating: true,
+                                                        borderWidth: 1,
+                                                        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                                                        shadow: true
+                                                    },
+                                                    credits: {
+                                                        enabled: false
+                                                    },
+                                                    "series": [{
+                                                            name: 'Total Number of Retention',
+                                                            data: arrayTotalNumberOfRetention
+                                                        }]
+                                                });
+                                                stringTeamCodeBuilder = "";
+                                            });
+
+                                        });
+
+                                    });
                                 });
 
                             });
@@ -258,65 +606,38 @@ if (empty($_SESSION['username'])) {
 
             });
         });
-        function generateGraph(teamCateArray, arrayWO, arrayPlanSize, arrayAVGPrice) {
-            $('#container').highcharts({
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Team Summary Report'
-                },
-                xAxis: {
-                    categories: teamCateArray
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'Amount(s)'
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                            '<td style="padding:0"><b>{point.y:.1f}     </b></td></tr>',
-                    footerFormat: '</table>',
-                    shared: true,
-                    useHTML: true
-                },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
-                "series": [{
-                        name: 'No of WO.',
-                        data: arrayWO
-
-                    }, {
-                        name: 'Summary Plan Size',
-                        data: arrayPlanSize
-
-                    }, {
-                        name: 'AVG Unit Price',
-                        data: arrayAVGPrice
-
-                    }, {
-                        name: 'Total Amount',
-                        data: [34.5]
-
-                    }, {
-                        name: 'Total Amount With Deduct',
-                        data: [34.5]
-
-                    }, {
-                        name: 'Total Number of Retention',
-                        data: [34.5]
-
-                    }]
-            });
-        }
     </script>
     <div id="dialog" title="Team Report Summary" class="hide">
-        <div id="container" style="min-width: 850px; height: 400px; margin: 0 auto"></div>
+        <div class="tc-tabs tabs-left"><!-- Nav tabs style 11-->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab30" data-toggle="tab"><i class="fa fa-line-chart"></i> No. Of WO</a></li>
+                <li class=""><a href="#tab31" data-toggle="tab"><i class="fa fa-line-chart"></i> Summary Plan Size </a></li>
+                <li class=""><a href="#tab32" data-toggle="tab"><i class="fa fa-line-chart"></i> AVG Unit Price</a></li>
+                <li class=""><a href="#tab33" data-toggle="tab"><i class="fa fa-line-chart"></i> Total Amount</a></li>
+                <li class=""><a href="#tab34" data-toggle="tab"><i class="fa fa-line-chart"></i> Total Amount With Deduct</a></li>
+                <li class=""><a href="#tab35" data-toggle="tab"><i class="fa fa-line-chart"></i> Total Number of Retention</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab30">
+                    <div id="container" style="min-width: 850px; height: 400px; margin: 0 auto"></div>
+                </div>
+                <div class="tab-pane" id="tab31">
+                    <div id="container2" style="min-width: 850px; height: 400px; margin: 0 auto"></div>
+                </div>
+                <div class="tab-pane" id="tab32">
+                    <div id="container3" style="min-width: 850px; height: 400px; margin: 0 auto"></div>
+                </div>
+                <div class="tab-pane" id="tab33">
+                    <div id="container4" style="min-width: 850px; height: 400px; margin: 0 auto"></div>
+                </div>
+                <div class="tab-pane" id="tab34">
+                    <div id="container5" style="min-width: 850px; height: 400px; margin: 0 auto"></div>
+                </div>
+                <div class="tab-pane" id="tab35">
+                    <div id="container6" style="min-width: 850px; height: 400px; margin: 0 auto"></div>
+                </div>
+            </div>
+        </div>       
     </div>
