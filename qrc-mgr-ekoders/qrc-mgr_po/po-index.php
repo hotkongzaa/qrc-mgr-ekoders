@@ -490,13 +490,17 @@ if (empty($_SESSION['username'])) {
                                                 var po_issue_date = $("#po_issue_date_search").val();
                                                 var po_order_type = $("#po_order_type_search").val();
                                                 var po_status = $("#po_status_search").val();
+                                                var po_end_issue_date = $("#po_end_issue_date_search").val();
+                                                var po_is_retention = $("#po_is_retention").val();
                                                 var data = "project_id=" + project_id +
                                                         "&document_no=" + document_no +
                                                         "&po_no=" + po_no +
                                                         "&po_owner=" + po_owner +
                                                         "&po_sender=" + po_sender +
                                                         "&po_issue_date=" + po_issue_date +
+                                                        "&po_end_issue_date=" + po_end_issue_date +
                                                         "&po_status=" + po_status +
+                                                        "&po_is_retention=" + po_is_retention +
                                                         "&po_order_type=" + po_order_type;
                                                 if (project_id != 0 ||
                                                         $.trim(project_id).length != 0 ||
@@ -505,6 +509,8 @@ if (empty($_SESSION['username'])) {
                                                         $.trim(po_owner).length != 0 ||
                                                         $.trim(po_sender).length != 0 ||
                                                         $.trim(po_issue_date).length != 0 ||
+                                                        $.trim(po_end_issue_date).length != 0 ||
+                                                        $.trim(po_is_retention) != 0 ||
                                                         po_order_type != 0 ||
                                                         po_status != 0) {
                                                     $("#loading_project").load("po_table_result.php?searchCondition=Condition&" + data, function () {

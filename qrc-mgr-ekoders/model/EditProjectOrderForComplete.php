@@ -15,11 +15,14 @@ $wo_price = $_GET['wo_price'];
 $perc_po_price = $_GET['prc_po_price'];
 $complete_date = $_GET['complete_date'];
 
+$complete_retention_form = $_GET['complete_retention_form'];
+$complete_retention_reason_form = $_GET['complete_retention_reason_form'];
+
 //$sqlSubQueryDelete = "DELETE FROM QRC_ASSIGN_ORDER"
 //        . " WHERE ASSIGN_ID LIKE (SELECT assign_id FROM QRC_PROJECT_ORDER WHERE project_order_id='$order_id');";
 //mysql_query($sqlSubQueryDelete);
 $sqlUpdateProjectById = "UPDATE QRC_PROJECT_ORDER"
-        . " SET REAL_WO_PRICE='" . $_GET['realWOPrice'] . "',COMPLETE_DATE='" . date("Y-m-d H:i:s", strtotime($complete_date)) . "',WO_PERC_OF_PO='$perc_po_price',WO_PRICE='$wo_price',project_status='$project_order_status',updated_date_time=NOW(),remark='$project_order_remark',po_inspection_id='$inspectionID'"
+        . " SET WO_RETENTION_REASON='$complete_retention_reason_form',WO_RETENTION='$complete_retention_form',REAL_WO_PRICE='" . $_GET['realWOPrice'] . "',COMPLETE_DATE='" . date("Y-m-d H:i:s", strtotime($complete_date)) . "',WO_PERC_OF_PO='$perc_po_price',WO_PRICE='$wo_price',project_status='$project_order_status',updated_date_time=NOW(),remark='$project_order_remark',po_inspection_id='$inspectionID'"
         . " WHERE project_order_id='$order_id'";
 
 $resultSet = mysql_query($sqlUpdateProjectById);

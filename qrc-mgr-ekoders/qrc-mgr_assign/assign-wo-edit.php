@@ -400,6 +400,16 @@ if (empty($_SESSION['username'])) {
                                                             <input type="text" class="form-control search_date" id="complete_date_form" name="complete_date_form" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd">
                                                             <div class="separator"></div>
                                                         </div>
+                                                        <div class="">
+                                                            <label for="project_unit_price">Retention: </label>
+                                                            <input type="text" class="form-control" id="complete_retention_form" name="complete_retention_form">
+                                                            <div class="separator"></div>
+                                                        </div>
+                                                        <div class="">
+                                                            <label for="project_unit_price">Retention Reason: </label>
+                                                            <input type="text" class="form-control" id="complete_retention_reason_form" name="complete_retention_reason_form" >
+                                                            <div class="separator"></div>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
@@ -1186,6 +1196,8 @@ if (empty($_SESSION['username'])) {
                                                                     "&poForEdit=" + poForEdit +
                                                                     "&prc_po_price=" + perc_of_po +
                                                                     "&realWOPrice=" + realWOPrice +
+                                                                    "&complete_retention_form=" + $("#complete_retention_form").val() +
+                                                                    "&complete_retention_reason_form=" + $("#complete_retention_reason_form").val() +
                                                                     "&project_order_remark=" + project_order_remark);
                                                             jqxhr.success(function (data) {
                                                                 if (data == 1) {

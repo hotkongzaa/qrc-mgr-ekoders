@@ -39,7 +39,10 @@ if (empty($_SESSION['username'])) {
         <input type="text" class="form-control" id="po_sender_search" placeholder="PO Sender (จนท. PO)">         
     </div>
     <div id="project_name_div status">
-        <input type="text" class="form-control date_selecter search_date" id="po_issue_date_search" data-date-format="yyyy-mm-dd" placeholder="Issue Date (วันที่)">
+        <input type="text" class="form-control date_selecter search_date" id="po_issue_date_search" data-date-format="yyyy-mm-dd" placeholder="Start Issue Date">
+    </div>
+    <div id="project_name_div status">
+        <input type="text" class="form-control date_selecter search_date" id="po_end_issue_date_search" data-date-format="yyyy-mm-dd" placeholder="End Issue Date">
     </div>
     <div id="project_name_div status">
         <select class="form-control" id="po_order_type_search" name="po_order_type_search">
@@ -65,12 +68,18 @@ if (empty($_SESSION['username'])) {
             ?>
         </select>
     </div>
-    
+    <div>
+        <select class="form-control" id="po_is_retention">
+            <option value="">-- Select Retention --</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+    </div>
 </div>
 <script src="../assets/js/plugins/daterangepicker/daterangepicker.js"></script>
 <script src="../assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $(".search_date").datepicker();
     });
 </script>
