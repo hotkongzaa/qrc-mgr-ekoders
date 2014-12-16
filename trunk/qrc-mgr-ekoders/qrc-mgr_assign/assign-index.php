@@ -294,6 +294,13 @@ if (empty($_SESSION['username'])) {
                                                         <div>
                                                             <input type="text" class="form-control search_date" id="end_search_date" data-date-format="yyyy-mm-dd" placeholder="-- End date --">
                                                         </div>
+                                                        <div>
+                                                            <select class="form-control" id="wo_is_retention">
+                                                                <option value="">-- Select Retention --</option>
+                                                                <option value="yes">Yes</option>
+                                                                <option value="no">No</option>
+                                                            </select>
+                                                        </div>
                                                         <div id="project_name_div status">
                                                             <select class="form-control" id="project_limit_search" name="project_limit_search">
                                                                 <option value="100">100</option>
@@ -463,13 +470,14 @@ if (empty($_SESSION['username'])) {
                                                 var startSearch = $("#start_search_date").val();
                                                 var endSearch = $("#end_search_date").val();
                                                 var woLimit = $("#project_limit_search").val();
-
+                                                var isRetention = $("#wo_is_retention").val();
 
                                                 if (!$.trim(projectCode).length &&
                                                         !$.trim(poId).length &&
                                                         !$.trim(woID) &&
                                                         !$.trim(startSearch).length &&
                                                         !$.trim(endSearch).length &&
+                                                        !$.trim(isRetention).length &&
                                                         woLimit == 100) {
 
                                                     $("#loading_project").load("assign_table_result.php?search_condition=search_all", function () {
@@ -487,7 +495,7 @@ if (empty($_SESSION['username'])) {
                                                     }
                                                     else {
 
-                                                        $("#loading_project").load("assign_table_result.php?search_condition=search_criteria&projectCode=" + projectCode + "&poId=" + poId + "&woID=" + woID + "&startSearch=" + startSearch + "&endSearch=" + endSearch + "&searchLimit=" + woLimit, function () {
+                                                        $("#loading_project").load("assign_table_result.php?search_condition=search_criteria&projectCode=" + projectCode + "&poId=" + poId + "&woID=" + woID + "&startSearch=" + startSearch + "&endSearch=" + endSearch + "&searchLimit=" + woLimit + "&isRetention=" + isRetention, function () {
 
                                                         });
 
