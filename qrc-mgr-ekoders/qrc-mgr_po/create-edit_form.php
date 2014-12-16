@@ -115,14 +115,14 @@ if (empty($_SESSION['username'])) {
     <tr>
         <td align="right" style="width:250px">Grand Total included VAT 7%:</td>
         <td align="left" style="width:250px"><input type="text" class="form-control xxxx required" id="po_vat_form"></td>
-        <td align="right" style="width:250px; visibility: hidden;">Supervisor Control (ผู้ควบคุมงานของลูกค้า):</td>
+        <td align="right" style="width:250px">Supervisor Control (ผู้ควบคุมงานของลูกค้า):</td>
         <td align="left" style="width:250px"><input type="text" class="form-control" id="po_project_supervisor_form" disabled="true"></td>
 
     </tr>
     <tr>
-        <td align="right" style="width:250px; visibility: hidden;">Project Manager (ผู้จัดการโครงการ):</td>
+        <td align="right" style="width:250px;">Project Manager (ผู้จัดการโครงการ):</td>
         <td align="left" style="width:250px"><input type="text" class="form-control required" id="po_project_manager_form" disabled="true"></td>
-        <td align="right" style="width:250px; visibility: hidden;">Project Foreman (ผู้ควบคุมงานของโครงการ):</td>
+        <td align="right" style="width:250px;">Project Foreman (ผู้ควบคุมงานของโครงการ):</td>
         <td align="left" style="width:250px"><input type="text" class="form-control required" id="po_project_foreman_form" disabled="true"></td>
     </tr>
     <tr>
