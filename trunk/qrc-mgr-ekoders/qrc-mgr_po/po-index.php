@@ -262,9 +262,7 @@ if (empty($_SESSION['username'])) {
                                                 </div>
                                                 <div id="m-charts" class="panel-collapse collapse in">
                                                     <div class="portlet-body">
-                                                        <div class="note bg-warning" id="alert_inform">                                                            
-                                                            <h4><i class="fa fa-adjust"></i> Please enter/select require fields</h4>
-                                                            <hr class="separator">
+                                                        <div class="note alert-danger" id="alert_inform">                                                            
                                                             <span id="alert_information">Change a few things up and try submitting again.</span>
                                                         </div>
                                                         <div class="row" id="loading_ce_form">
@@ -480,6 +478,7 @@ if (empty($_SESSION['username'])) {
                                             $("#cancel_form").click(function () {
                                                 $("#create_edit_panel").hide();
                                                 $("#create_new_po_btn").show();
+                                                $("#alert_inform").hide();
                                             });
                                             $("#search_po_button").click(function () {
                                                 var project_id = $("#po_project_name_search").val();
@@ -684,106 +683,67 @@ if (empty($_SESSION['username'])) {
                                                         $("html, body").animate({scrollTop: 0}, "fast");
                                                         $("#alert_inform").show();
                                                         $("#alert_information").html("- Please select Project Name");
-                                                        setTimeout(function () {
-                                                            $("#alert_inform").hide("fast");
-                                                            $("#alert_information").html("");
-                                                        }, 2000);
+
                                                     } else if (po_name == "") {
                                                         $("html, body").animate({scrollTop: 0}, "fast");
                                                         $("#alert_inform").show();
                                                         $("#alert_information").html("- Please enter PO Name");
-                                                        setTimeout(function () {
-                                                            $("#alert_inform").hide("fast");
-                                                            $("#alert_information").html("");
-                                                        }, 2000);
+
                                                     } else if (doc_no == "") {
                                                         $("html, body").animate({scrollTop: 0}, "fast");
                                                         $("#alert_inform").show();
                                                         $("#alert_information").html("- Please Enter Document No");
-                                                        setTimeout(function () {
-                                                            $("#alert_inform").hide("fast");
-                                                            $("#alert_information").html("");
-                                                        }, 2000);
+
                                                     } else if (po_no == "") {
                                                         $("html, body").animate({scrollTop: 0}, "fast");
                                                         $("#alert_inform").show();
                                                         $("#alert_information").html("- Please Enter PO No.");
-                                                        setTimeout(function () {
-                                                            $("#alert_inform").hide("fast");
-                                                            $("#alert_information").html("");
-                                                        }, 2000);
+
                                                     } else if (home_plan == "") {
                                                         $("html, body").animate({scrollTop: 0}, "fast");
                                                         $("#alert_inform").show();
                                                         $("#alert_information").html("- Please Enter Home Plan");
-                                                        setTimeout(function () {
-                                                            $("#alert_inform").hide("fast");
-                                                            $("#alert_information").html("");
-                                                        }, 2000);
+
                                                     } else if (home_plot == "") {
                                                         $("html, body").animate({scrollTop: 0}, "fast");
                                                         $("#alert_inform").show();
                                                         $("#alert_information").html("- Please Enter Home Plot");
-                                                        setTimeout(function () {
-                                                            $("#alert_inform").hide("fast");
-                                                            $("#alert_information").html("");
-                                                        }, 2000);
+
                                                     } else if (issue_date == "") {
                                                         $("html, body").animate({scrollTop: 0}, "fast");
                                                         $("#alert_inform").show();
                                                         $("#alert_information").html("- Please select Issue Date");
-                                                        setTimeout(function () {
-                                                            $("#alert_inform").hide("fast");
-                                                            $("#alert_information").html("");
-                                                        }, 2000);
+
                                                     } else if (order_type == "") {
                                                         $("html, body").animate({scrollTop: 0}, "fast");
                                                         $("#alert_inform").show();
                                                         $("#alert_information").html("- Please select Order Type");
-                                                        setTimeout(function () {
-                                                            $("#alert_inform").hide("fast");
-                                                            $("#alert_information").html("");
-                                                        }, 2000);
+
                                                     } else if (quantity == "") {
                                                         $("html, body").animate({scrollTop: 0}, "fast");
                                                         $("#alert_inform").show();
                                                         $("#alert_information").html("- Please Enter Quantity");
-                                                        setTimeout(function () {
-                                                            $("#alert_inform").hide("fast");
-                                                            $("#alert_information").html("");
-                                                        }, 2000);
+
                                                     } else if (plan_size == "") {
                                                         $("html, body").animate({scrollTop: 0}, "fast");
                                                         $("#alert_inform").show();
                                                         $("#alert_information").html("- Please Plan Size");
-                                                        setTimeout(function () {
-                                                            $("#alert_inform").hide("fast");
-                                                            $("#alert_information").html("");
-                                                        }, 2000);
+
                                                     } else if (unit_price == "") {
                                                         $("html, body").animate({scrollTop: 0}, "fast");
                                                         $("#alert_inform").show();
                                                         $("#alert_information").html("- Please Enter Unit Price");
-                                                        setTimeout(function () {
-                                                            $("#alert_inform").hide("fast");
-                                                            $("#alert_information").html("");
-                                                        }, 2000);
+
                                                     } else if (amount == "") {
                                                         $("html, body").animate({scrollTop: 0}, "fast");
                                                         $("#alert_inform").show();
                                                         $("#alert_information").html("- Please Enter Amount");
-                                                        setTimeout(function () {
-                                                            $("#alert_inform").hide("fast");
-                                                            $("#alert_information").html("");
-                                                        }, 2000);
+
                                                     } else if (vat7 == "") {
                                                         $("html, body").animate({scrollTop: 0}, "fast");
                                                         $("#alert_inform").show();
                                                         $("#alert_information").html("- Please Enter Amount");
-                                                        setTimeout(function () {
-                                                            $("#alert_inform").hide("fast");
-                                                            $("#alert_information").html("");
-                                                        }, 2000);
+
                                                     } else {
                                                         var jqxhr = $.post("../model/SavingPo.php?" + data);
                                                         jqxhr.success(function (data) {

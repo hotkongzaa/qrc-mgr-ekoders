@@ -22,7 +22,7 @@ if (empty($_SESSION['username'])) {
 
 <table width="100%">
     <tr>
-        <td align="right" style="width:250px">Project Name (ชื่อโครงการ):</td>
+        <td align="right" style="width:250px">Project Name (ชื่อโครงการ)<span style="color:red">*</span>: </td>
         <td align="left" style="width:250px">
             <!--<input type="text" class="form-control" id="team_code_search">-->
             <select class="form-control required" id="po_project_name_form" name="po_project_name_form">
@@ -40,7 +40,7 @@ if (empty($_SESSION['username'])) {
         <td align="left" style="width:250px"><input type="text" class="form-control" id="po_project_code_form" disabled="true"></td>
     </tr>
     <tr>
-        <td align="right" style="width:250px">PO Name. (ชื่อ PO):</td>
+        <td align="right" style="width:250px">PO Name. (ชื่อ PO)<span style="color:red">*</span>: </td>
         <td align="left" style="width:250px">
             <input type="text" class="form-control required" id="po_name" name="po_name">
         </td>
@@ -58,19 +58,19 @@ if (empty($_SESSION['username'])) {
         </td>
     </tr>
     <tr>
-        <td align="right" style="width:250px">Document No. (เลขที่):</td>
+        <td align="right" style="width:250px">Document No. (เลขที่)<span style="color:red">*</span>: </td>
         <td align="left" style="width:250px">
             <input type="text" class="form-control required" id="po_document_no_form">
         </td>
-        <td align="right" style="width:250px">PO No. (เลขที่ใบสั่งจ้าง):</td>
+        <td align="right" style="width:250px">PO No. (เลขที่ใบสั่งจ้าง)<span style="color:red">*</span>: </td>
         <td align="left" style="width:250px"><input type="text" class="form-control required" id="po_po_no_form"></td>
     </tr>
     <tr>
-        <td align="right" style="width:250px">Plan (แบบบ้าน):</td>
+        <td align="right" style="width:250px">Plan (แบบบ้าน)<span style="color:red">*</span>: </td>
         <td align="left" style="width:250px">
             <input type="text" class="form-control required" id="po_home_plan_form" name="po_home_plan_form">
         </td>
-        <td align="right" style="width:250px">Plot (แปลงบ้าน):</td>
+        <td align="right" style="width:250px">Plot (แปลงบ้าน)<span style="color:red">*</span>: </td>
         <td align="left" style="width:250px">
             <input type="text" class="form-control required" id="po_home_plot_form" name="po_home_plot_form">
         </td>
@@ -84,9 +84,9 @@ if (empty($_SESSION['username'])) {
         <td align="left" style="width:250px"><input type="text" class="form-control required" id="po_sender_form"></td>
     </tr>
     <tr>
-        <td align="right" style="width:250px">Issue Date (วันที่):</td>
+        <td align="right" style="width:250px">Issue Date (วันที่)<span style="color:red">*</span>:</td>
         <td align="left" style="width:250px"><input type="text" class="form-control search_date required" id="po_issue_date_form" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd"></td>
-        <td align="right" style="width:250px">Order Type (ประเภทงาน):</td>
+        <td align="right" style="width:250px">Order Type (ประเภทงาน)<span style="color:red">*</span>: </td>
         <td align="left" style="width:250px">
             <select class="form-control required" id="po_order_type_form" name="po_order_type_form">
                 <option value=""></option>
@@ -101,19 +101,19 @@ if (empty($_SESSION['username'])) {
         </td>
     </tr>
     <tr>
-        <td align="right" style="width:250px">Quantity (จำนวน):</td>
+        <td align="right" style="width:250px">Quantity (จำนวน)<span style="color:red">*</span>: </td>
         <td align="left" style="width:250px"><input type="text" class="form-control xxxx required" id="po_quantity_form"></td>
-        <td align="right" style="width:250px">Plan Size (ขนาด ตร.ม.):</td>
+        <td align="right" style="width:250px">Plan Size (ขนาด ตร.ม.)<span style="color:red">*</span>: </td>
         <td align="left" style="width:250px"><input type="text" class="form-control xxxx required" id="po_plan_size_form"></td>
     </tr>
     <tr>
-        <td align="right" style="width:250px">Unit Price (ราคาต่อหน่วย):</td>
+        <td align="right" style="width:250px">Unit Price (ราคาต่อหน่วย)<span style="color:red">*</span>:</td>
         <td align="left" style="width:250px"><input type="text" class="form-control xxxx required" id="po_unit_price_form" ></td>
-        <td align="right" style="width:250px">Amount (ราคารวม):</td>
+        <td align="right" style="width:250px">Amount (ราคารวม)<span style="color:red">*</span>: </td>
         <td align="left" style="width:250px"><input type="text" class="form-control xxxx required" id="po_amount_form"></td>
     </tr>
     <tr>
-        <td align="right" style="width:250px">Grand Total included VAT 7%:</td>
+        <td align="right" style="width:250px">Grand Total included VAT 7%<span style="color:red">*</span>: </td>
         <td align="left" style="width:250px"><input type="text" class="form-control xxxx required" id="po_vat_form"></td>
         <td align="right" style="width:250px">Supervisor Control (ผู้ควบคุมงานของลูกค้า):</td>
         <td align="left" style="width:250px"><input type="text" class="form-control" id="po_project_supervisor_form" disabled="true"></td>
