@@ -19,7 +19,6 @@ if (empty($_SESSION['username'])) {
 <script src="../assets/js/jquery.maskedinput.js"></script>
 <script src="../assets/js/jquery.multiselect.js"></script>
 <script src="../assets/js/jquery.numeric.min.js"></script>
-
 <table width="100%">
     <tr>
         <td align="right" style="width:250px">Project Name (ชื่อโครงการ)<span style="color:red">*</span>: </td>
@@ -37,12 +36,12 @@ if (empty($_SESSION['username'])) {
             </select>
         </td>
         <td align="right" style="width:250px">Project Code (หมายเลขโครงการ):</td>
-        <td align="left" style="width:250px"><input type="text" class="form-control" id="po_project_code_form" disabled="true"></td>
+        <td align="left" style="width:250px"><input type="text" class="form-control" name="po_project_code_form" id="po_project_code_form" disabled="true"></td>
     </tr>
     <tr>
-        <td align="right" style="width:250px">PO Name. (ชื่อ PO)<span style="color:red">*</span>: </td>
+        <td align="right" style="width:250px" >PO Name. (ชื่อ PO)<span style="color:red">*</span>: </td>
         <td align="left" style="width:250px">
-            <input type="text" class="form-control required" id="po_name" name="po_name">
+            <input type="text" class="form-control" id="po_name" name="po_name">
         </td>
         <td align="right" style="width:250px">PO Status. (สถานะ PO):</td>
         <td align="left" style="width:250px">

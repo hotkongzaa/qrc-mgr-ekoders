@@ -34,7 +34,8 @@ if (empty($_SESSION['username'])) {
         <link rel="stylesheet" type="text/css" href="../assets/css/plugins/gritter/jquery.gritter.css" />
 
         <!-- Tc core CSS -->
-        <link id="qstyle" rel="stylesheet" href="../assets/css/themes/style.css">	
+        <link id="qstyle" rel="stylesheet" href="../assets/css/themes/style.css">
+
         <!--[if lte IE 8]>
                 <link rel="stylesheet" href="../assets/css/ie-fix.css" />
         <![endif]-->
@@ -262,7 +263,7 @@ if (empty($_SESSION['username'])) {
                                                 </div>
                                                 <div id="m-charts" class="panel-collapse collapse in">
                                                     <div class="portlet-body">
-                                                        <div class="note alert-danger" id="alert_inform">                                                            
+                                                        <div class="alert alert-danger" id="alert_inform">                                                            
                                                             <span id="alert_information">Change a few things up and try submitting again.</span>
                                                         </div>
                                                         <div class="row" id="loading_ce_form">
@@ -458,6 +459,7 @@ if (empty($_SESSION['username'])) {
         <script type="text/javascript">
                                         var createOrEditState = "Save";
                                         $(document).ready(function () {
+
                                             $("#alert_inform").hide();
                                             $("#alert_information").html();
                                             $("#alert_success_inform").hide();

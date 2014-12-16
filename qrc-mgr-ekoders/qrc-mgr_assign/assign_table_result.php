@@ -17,6 +17,7 @@ if (empty($_SESSION['username'])) {
         $startSearch = $_GET['startSearch'];
         $endSearch = $_GET['endSearch'];
         $searchLimit = $_GET['searchLimit'];
+        $po_is_retention = $_GET['isRetention'];
     }
 }
 ?>
@@ -91,6 +92,12 @@ if (empty($_SESSION['username'])) {
             $checkProjectCode = !empty($projectCodes) ? " AND qpo.project_code like '$projectCodes'" : "";
             $checkStartDate = !empty($startSearch) ? " AND qpo.created_date_time >= '$startSearch' AND qpo.created_date_time < '$endSearch'" : "";
 
+            if ($po_is_retention == "yes") {
+                $chekIsRetention = !empty($po_is_retention) ? " AND qpo.WO_RETENTION_REASON !=''" : "";
+            } else {
+                $chekIsRetention = !empty($po_is_retention) ? " AND qpo.WO_RETENTION_REASON =''" : "";
+            }
+
             $sqlSelectAllProjectRecord = "SELECT qpo.project_code as project_code,
                         qpo.project_order_id as order_id,
                         qpo.project_order_plan as project_plan,
@@ -117,10 +124,10 @@ if (empty($_SESSION['username'])) {
                     . $checkProjectStatus
                     . $checkProjectCode
                     . $checkStartDate
+                    . $chekIsRetention
                     . " ORDER BY qpo.created_date_time DESC"
                     . $limit;
         }
-
         $sqlGetAllData = mysql_query($sqlSelectAllProjectRecord);
         if (mysql_num_rows($sqlGetAllData) >= 1) {
             while ($row = mysql_fetch_assoc($sqlGetAllData)) {
