@@ -210,12 +210,52 @@ if (empty($_SESSION['username'])) {
     <div class="form-group">
         <label for="project_remark" class="col-sm-5 control-label">Remark :</label>
         <div class="col-sm-5">
-            <textarea rows="4" cols="30" class="form-control" id="project_remark" name="project_remark"></textarea>
+            <textarea rows="4" cols="30" class="form-control" id="project_remark" name="project_remark"></textarea><br>
+        </div>        
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12" id="uploadpart">
+            <ul class="list-group">
+                <li href="#" class="list-group-item active">Image Upload</li>
+                <li class = "list-group-item">
+                    <div id="mulitplefileuploader">Upload</div>
+                    <div id="status"></div>
+                </li>
+            </ul>
         </div>
     </div>
 </form>
+
+<script type="text/javascript" src="../assets/js/jquery.uploadfile.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/css/uploadfile.css" media="screen" />
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
+        settings = {
+            url: "../model/upload_project_image.php",
+            dragDrop: true,
+            fileName: "myfile",
+            allowedTypes: "jpg,png,gif,doc,pdf,zip",
+            returnType: "json",
+            onSuccess: function (files, data, xhr)
+            {
+
+            },
+            showDelete: true,
+            deleteCallback: function (data, pd)
+            {
+                for (var i = 0; i < data.length; i++)
+                {
+                    $.post("../model/delete_project_image_attach.php", {op: "delete", name: data[i]},
+                    function (resp, textStatus, jqXHR)
+                    {
+
+                    });
+                }
+                pd.statusbar.hide(); //You choice to hide/not.
+
+            }
+        };
+        var uploadObj = $("#mulitplefileuploader").uploadFile(settings);
         initialTextBox();
         var m_names = new Array("มกราคม", "กุมภาพันธ์", "มีนาคม",
                 "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน",
@@ -224,7 +264,7 @@ if (empty($_SESSION['username'])) {
         var curr_date = d.getDate();
         var curr_month = d.getMonth();
         var curr_year = d.getFullYear();
-        $("#created_date").val(curr_date + " " + m_names[curr_month] + " " + (curr_year + 543));       
+        $("#created_date").val(curr_date + " " + m_names[curr_month] + " " + (curr_year + 543));
     });
 
 

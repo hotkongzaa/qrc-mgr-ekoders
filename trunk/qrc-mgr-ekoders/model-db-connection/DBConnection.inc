@@ -15,6 +15,14 @@ if (mysqli_query($con, $sql)) {
     $con_create_tbl = mysqli_connect($config_properties['domain'], $config_properties['username'], $config_properties['password'], $config_properties['databasename']);
     mysqli_set_charset($con_create_tbl, "utf8");
 
+    $sqlCreateProjectImage = "CREATE TABLE IF NOT EXISTS QRC_PROJECT_IMAGE ("
+            . "IMAGE_ID VARCHAR(100),"
+            . "TEMP_PROJECT_ID VARCHAR(100),"
+            . "IMAGE_PATH VARCHAR(255),"
+            . "PRIMARY KEY (IMAGE_ID)"
+            . ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+    mysqli_query($con_create_tbl, $sqlCreateProjectImage);
+
     $sqlCreatePGSDetail = "CREATE TABLE IF NOT EXISTS QRC_PGS_DETAIL ("
             . "PGS_ID varchar(100) NOT NULL,"
             . "PGS_description varchar(100),"
