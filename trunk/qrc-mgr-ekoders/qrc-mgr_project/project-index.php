@@ -593,29 +593,50 @@ if (empty($_SESSION['username'])) {
                                                         });
                                                     } else {
                                                         if ($("#project_remark").val() == "") {
-//                                $().toastmessage('showNoticeToast', 'กรุณาใส่ Remark');
                                                             alert('กรุณาใส่ Remark');
                                                         } else {
-                                                            var jqxhr = $.post("../model/EditProject.php" + data);
-                                                            jqxhr.success(function (result) {
-                                                                if (result == 1) {
-                                                                    clearProjectInsertFields();
-                                                                    $("#create_edit_panel").hide();
-                                                                    $("#loading_project").load("project_table_result.php?search_condition=search_all", function () {
-                                                                        $("#create_new_project_btn").show();
+                                                            var isUploadImage = $.post("../model/CheckProjectIMGUpload.php");
+                                                            isUploadImage.success(function (resp) {
+                                                                if (resp == "NO_DATA") {
+                                                                    var jqxhr = $.post("../model/EditProject.php" + data);
+                                                                    jqxhr.success(function (result) {
+                                                                        if (result == 1) {
+                                                                            clearProjectInsertFields();
+                                                                            $("#create_edit_panel").hide();
+                                                                            $("#loading_project").load("project_table_result.php?search_condition=search_all", function () {
+                                                                                $("#create_new_project_btn").show();
+                                                                            });
+                                                                            alert('แก้ไขเรียบร้อยแล้ว');
+                                                                            createOrEditState = "Create";
+                                                                        } else {
+                                                                            $().toastmessage('showErrorToast', 'ไม่สามารถแก้ไขได้');
+                                                                            alert('ไม่สามารถแก้ไขได้');
+                                                                        }
                                                                     });
-                                                                    //$().toastmessage('showSuccessToast', 'แก้ไขเรียบร้อยแล้ว');
-                                                                    alert('แก้ไขเรียบร้อยแล้ว');
-                                                                    createOrEditState = "Create";
+                                                                    jqxhr.error(function (resultFail) {
+                                                                        alert("Cannot connect server with: " + resultFail);
+                                                                    });
                                                                 } else {
-                                                                    $().toastmessage('showErrorToast', 'ไม่สามารถแก้ไขได้');
-                                                                    alert('ไม่สามารถแก้ไขได้');
-                                                                    //alert("Cannot Edit Project");
+                                                                    
+                                                                    var jqxhr = $.post("../model/EditProject.php" + data + "&isDiffImg=diff");
+                                                                    jqxhr.success(function (result) {
+                                                                        if (result == 1) {
+                                                                            clearProjectInsertFields();
+                                                                            $("#create_edit_panel").hide();
+                                                                            $("#loading_project").load("project_table_result.php?search_condition=search_all", function () {
+                                                                                $("#create_new_project_btn").show();
+                                                                            });
+                                                                            alert('แก้ไขเรียบร้อยแล้ว');
+                                                                            createOrEditState = "Create";
+                                                                        } else {
+                                                                            $().toastmessage('showErrorToast', 'ไม่สามารถแก้ไขได้');
+                                                                            alert('ไม่สามารถแก้ไขได้');
+                                                                        }
+                                                                    });
+                                                                    jqxhr.error(function (resultFail) {
+                                                                        alert("Cannot connect server with: " + resultFail);
+                                                                    });
                                                                 }
-                                                            });
-                                                            jqxhr.error(function (resultFail) {
-//                                    $().toastmessage('showWarningToast', "Cannot connect server with: " + resultFail);
-                                                                alert("Cannot connect server with: " + resultFail);
                                                             });
                                                         }
                                                     }
@@ -676,7 +697,7 @@ if (empty($_SESSION['username'])) {
                                             $("#create_new_project_btn").hide();
                                             createOrEditState = "Edit";
                                             $("#create_edit_panel").show();
-                                            $("#loading_ce_form").load("create-edit_form.php", function () {
+                                            $("#loading_ce_form").load("create-edit_form.php?isEdit=Edit", function () {
                                                 $("#spinnerCE").hide();
                                                 $('html,body').animate({scrollTop: $('#create_edit_panel').offset().top}, 'slow');
                                             });
@@ -702,11 +723,37 @@ if (empty($_SESSION['username'])) {
                                                     $("#created_date").val(obj.created_date_time);
                                                     $("#last_update").val(obj.updated_date_time);
                                                     $("#address_location").val(obj.address_location);
+
+                                                    var jqxhr = $.post("../model/GetProjectIMGByID.php?project_code=" + obj.project_code);
+                                                    jqxhr.success(function (imgData) {
+                                                        $("#edit_image").html(imgData);
+                                                    });
                                                 });
                                                 jqxhr.error(function (data) {
                                                     window.location.replace("error.php?error_msg=" + data);
                                                 });
                                             }, millisecondsToWait);
+                                        }
+                                        function delImage(imageID, po_id, img_name) {
+                                            
+                                            if (confirm("Are you sure?"))
+                                            {
+                                                var jqxhr = $.post("../model/DelProjectIMGByID.php?imageID=" + imageID + "&img_name=" + img_name);
+                                                jqxhr.success(function (data) {
+                                                    if (data == 200) {
+                                                        $("#edit_image").load("../model/GetProjectIMGByID.php?project_code=" + po_id, function () {
+
+                                                        });
+                                                    } else {
+                                                        alert("ไม่สามารถลบรูปภาพได้: " + data);
+                                                    }
+                                                });
+                                            }
+                                            else
+                                            {
+                                                e.preventDefault();
+                                            }
+
                                         }
         </script>
     </body>
