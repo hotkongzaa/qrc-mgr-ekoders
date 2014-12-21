@@ -10,7 +10,7 @@ require '../model-db-connection/config.php';
 $project_code = $_GET['project_code'];
 $OldPONO = $_GET['oldPONO'];
 
-if (!empty($OldPONO)) {
+if ($OldPONO != "") {
     $strResult = "<option value='0'>---Please select---</option><option value='" . $OldPONO . "' selected>" . $OldPONO . "</option>";
 } else {
     $strResult = "<option value='0'>---Please select---</option>";
@@ -37,7 +37,7 @@ $sqlSelectMemberAll = "SELECT qp.PO_PROJECT_NAME as PO_PROJECT_NAME,"
         . "qp.PO_REMARK as PO_REMARK"
         . " FROM QRC_PO qp"
         . " LEFT JOIN qrc_type_of_service qts on qp.po_order_type_id = qts.service_id"
-        . " WHERE qp.PO_PROJECT_CODE LIKE '$project_code' AND qp.PO_STATUS = 'New';";
+        . " WHERE qp.PO_PROJECT_CODE LIKE '$project_code' AND qp.PO_STATUS = 'New' AND qp.PO_ID != '$OldPONO';";
 $sqlGetAllData = mysql_query($sqlSelectMemberAll);
 while ($row = mysql_fetch_array($sqlGetAllData)) {
     $strResult.= '<option value="' . $row['PO_ID'] . '">' . $row['PO_ID'] . '</option>';

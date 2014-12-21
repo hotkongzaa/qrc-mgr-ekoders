@@ -485,12 +485,10 @@ if (empty($_SESSION['username'])) {
                                                     });
                                                 } else {
                                                     if (startSearch != "" && endSearch == "") {
-                                                        //$().toastmessage('showWarningToast', "Please enter end date");
                                                         alert("Please enter end date");
 
                                                     }
                                                     else if (startSearch == "" && endSearch != "") {
-//                            $().toastmessage('showWarningToast', "Please enter start date");
                                                         alert("Please enter start date");
                                                     }
                                                     else {

@@ -1037,9 +1037,6 @@ if (empty($_SESSION['username'])) {
                                                 var complete_date = $("#complete_date_form").val();
                                                 var realWOPrice = $("#wo_price_2").val();
 
-
-//                    "This is copy item please delete this remark before save";
-
                                                 if ("<?= $isNew ?>" == "New" || "<?= $isNew ?>" == "Copy") {
 
                                                     if (project_order_remark != "") {
