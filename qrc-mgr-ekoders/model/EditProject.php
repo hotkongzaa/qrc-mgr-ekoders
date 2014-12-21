@@ -38,6 +38,14 @@ $sqlUpdateProjectById = "UPDATE QRC_PROJECT"
         . " WHERE project_code='$project_code'";
 
 $resultSet = mysql_query($sqlUpdateProjectById);
+
+if ($_GET['isDiffImg'] == "diff") {
+    $sqlUpdateWithNullImage = "UPDATE QRC_PROJECT_IMAGE"
+            . " SET TEMP_PROJECT_ID = '$project_code'"
+            . " WHERE TEMP_PROJECT_ID IS NULL;";
+    mysql_query($sqlUpdateWithNullImage);
+}
+
 if ($resultSet) {
     echo '1';
 } else {

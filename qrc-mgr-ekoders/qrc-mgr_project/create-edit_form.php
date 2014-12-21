@@ -213,17 +213,40 @@ if (empty($_SESSION['username'])) {
             <textarea rows="4" cols="30" class="form-control" id="project_remark" name="project_remark"></textarea><br>
         </div>        
     </div>
-    <div class="form-group">
-        <div class="col-sm-12" id="uploadpart">
-            <ul class="list-group">
-                <li href="#" class="list-group-item active">Image Upload</li>
-                <li class = "list-group-item">
-                    <div id="mulitplefileuploader">Upload</div>
-                    <div id="status"></div>
-                </li>
-            </ul>
-        </div>
+
+
+    <div class="row">
+        <?php
+        $isEdit = $_GET['isEdit'];
+        if ($isEdit == "Edit") {
+            ?>
+            <div class="col-sm-6" id="uploadpart">
+                <ul class="list-group">
+                    <li href="#" class="list-group-item active">Image Upload</li>
+                    <li class = "list-group-item">
+                        <div id="mulitplefileuploader">Upload</div>
+                        <div id="status"></div>
+                    </li>
+                </ul>
+            </div>
+            <div id="edit_image"></div>
+            <style type="text/css">
+                .ajax-upload-dragdrop {width: 300px !important}
+                .ajax-file-upload-statusbar {width: 340px !important}
+            </style>
+        <?php } else { ?>
+            <div class="col-sm-12" id="uploadpart">
+                <ul class="list-group">
+                    <li href="#" class="list-group-item active">Image Upload</li>
+                    <li class = "list-group-item">
+                        <div id="mulitplefileuploader">Upload</div>
+                        <div id="status"></div>
+                    </li>
+                </ul>
+            </div>
+        <?php } ?>
     </div>
+
 </form>
 
 <script type="text/javascript" src="../assets/js/jquery.uploadfile.js"></script>

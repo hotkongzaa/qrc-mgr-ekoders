@@ -24,6 +24,13 @@ $sqlInsertIntoProjectTbl = "INSERT INTO QRC_PROJECT "
         . " values"
         . " ('$project_code','$project_name','$project_status','$project_owner','$project_type','$project_customer','$project_manager','$project_foreman','$supervisor_control','$team_owner','$qa_inspectors','$address_location',NOW(),'$project_remark','')";
 $resultSet = mysql_query($sqlInsertIntoProjectTbl);
+
+
+$sqlUpdateProjectImage = "UPDATE QRC_PROJECT_IMAGE"
+        . " SET TEMP_PROJECT_ID = '$project_code'"
+        . " WHERE TEMP_PROJECT_ID IS NULL;";
+mysql_query($sqlUpdateProjectImage);
+
 if ($resultSet) {
     echo '1';
 } else {
