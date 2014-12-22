@@ -200,8 +200,8 @@ if (empty($_SESSION['username'])) {
             var millisecondsToWait = 200;
             setTimeout(function () {
                 $("#dialog").removeClass("hide").dialog({
-                    height: 600,
-                    width: 600
+                    height: 500,
+                    width: 950
                 });
             }, millisecondsToWait);
         });
@@ -212,7 +212,7 @@ if (empty($_SESSION['username'])) {
     }
 
 </script>
-<div id="dialog" title="Project Detail" class="hide">
+<div id="dialog" class="hide">
     <div id="dialog_Content"></div>
 
 </div>
