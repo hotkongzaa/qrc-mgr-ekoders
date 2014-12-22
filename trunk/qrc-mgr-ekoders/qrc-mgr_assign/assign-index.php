@@ -314,6 +314,9 @@ if (empty($_SESSION['username'])) {
                                                         <div class="pull-right">
                                                             <button id="search_WO_button" class="btn btn-inverse">Search <i class="fa fa-arrow-right icon-on-right"></i></button>
                                                         </div>
+                                                        <div class="pull-left">
+                                                            <button id="reset_search" class="btn btn-primary"><i class="fa fa-arrow-left icon-on-left"></i> Reset </button>
+                                                        </div>
                                                         <div class="clearfix"></div>
                                                     </div>
                                                 </div>
@@ -455,6 +458,9 @@ if (empty($_SESSION['username'])) {
         <script type="text/javascript">
 
                                         $(document).ready(function () {
+                                            $("#reset_search").click(function () {
+                                                window.location = "assign-index.php";
+                                            });
                                             $(".search_date").datepicker();
                                             var loadAssigntbl = $.post("assign_table_result.php?search_condition=search_all");
                                             loadAssigntbl.success(function (cedata) {
