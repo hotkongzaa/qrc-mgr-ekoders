@@ -281,12 +281,12 @@ if (empty($_SESSION['username'])) {
                                                             <div class="separator"></div>
                                                         </div>
                                                         <div class="">
-                                                            <label for="project_code">Project Code (หมายเลขโครงการ)</label>
+                                                            <label for="project_code">Project Code (หมายเลขโครงการ)*:</label>
                                                             <input type="text" id="project_code_orderPage" name="project_code" class=" form-control" value="<?= $projectCode ?>" disabled="true" />
                                                             <div class="separator"></div>
                                                         </div>
                                                         <div class="">
-                                                            <label for="project_order_status">Status (สถานะ)</label>
+                                                            <label for="project_order_status">Status (สถานะ)*:</label>
                                                             <select class="form-control" id="project_order_status" name="project_order_status">
                                                                 <?php
                                                                 $sqlSelectProjectType = "SELECT * FROM QRC_ASSIGN_STATUS;";
@@ -300,7 +300,7 @@ if (empty($_SESSION['username'])) {
                                                         </div>
                                                         <div class="separator"></div>
                                                         <div class="">
-                                                            <label for="wo_order_type">WO. Order Type</label>
+                                                            <label for="wo_order_type">WO. Order Type*:</label>
                                                             <select class="form-control" id="wo_order_type" name="wo_order_type">
                                                                 <option value="ติดตั้ง">ติดตั้ง</option>
                                                                 <option value="แก้ไข">แก้ไข</option>
@@ -310,7 +310,7 @@ if (empty($_SESSION['username'])) {
                                                             <div class="separator"></div>
                                                         </div>
                                                         <div class="">
-                                                            <label for="project_po_no">PO Code. (เลขที่ใบสั่งจ้าง)</label>
+                                                            <label for="project_po_no">PO Code. (เลขที่ใบสั่งจ้าง)*:</label>
                                                             <select class="form-control" id="po_no_no" name="po_no_no">
                                                                 <option value="0"></option>
                                                                 <?php
@@ -324,14 +324,14 @@ if (empty($_SESSION['username'])) {
                                                             <div class="separator"></div>
                                                         </div>
                                                         <div class="">
-                                                            <label for="project_document_no">WO per Unit Price</label>
+                                                            <label for="project_document_no">WO per Unit Price*:</label>
                                                             <div class="form-group input-group">
                                                                 <span class="input-group-addon">฿</span>
                                                                 <input type="text" id="wo_price" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="">
-                                                            <label for="project_plan">% of Unit Price</label>
+                                                            <label for="project_plan">% of Unit Price*:</label>
                                                             <div class="form-group input-group">
                                                                 <span class="input-group-addon">%</span>
                                                                 <input type="text" id="perc_of_po" class="form-control">
