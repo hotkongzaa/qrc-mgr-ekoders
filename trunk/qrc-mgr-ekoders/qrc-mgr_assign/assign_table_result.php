@@ -168,7 +168,7 @@ if (empty($_SESSION['username'])) {
 
                 echo '<ul class = "dropdown-menu dropdown-primary" role = "menu">';
 
-                if ($row['project_status'] == "Complete" || $row['project_status'] == "Cancel" || $row['project_status'] == "Close") {
+                if ($row['project_status'] == "Cancel" || $row['project_status'] == "Close") {
                     
                 } else {
                     echo '<li><a href = "#modal-project-order" class="btn-xs" data-toggle = "modal" onclick=editPO("' . $row['project_code'] . '","' . $row['order_id'] . '")><i class = "fa fa-edit"></i> Edit (แก้ไข)</a></li>';

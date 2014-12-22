@@ -655,11 +655,12 @@ if (empty($_SESSION['username'])) {
                 <!-- END MAIN PAGE CONTENT -->
             </div> 
         </div>
-        <input type="hidden" id="project_po_no_name">
-        <input type="hidden" id="project_oid">
+        <input type="hidden" id="project_po_no_name"/>
+        <input type="hidden" id="project_oid"/>
         <input type="hidden" id="service_name"/>
-        <input type="hidden" id="old_po_no_no"
-               <!-- core JavaScript -->
+        <input type="hidden" id="old_po_no_no"/>
+        <input type="hidden" id="old_status_comming"/>
+        <!-- core JavaScript -->
         <script src="../assets/js/jquery.min.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
         <script src="../assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -797,12 +798,15 @@ if (empty($_SESSION['username'])) {
                                                     getPONo.success(function (respPONO) {
                                                         $("#po_no_no").html(respPONO);
                                                     });
-                                                    if (obj.project_status == "Complete" || obj.project_status == "Cancel" || obj.project_status == "Close") {
+                                                    if (obj.project_status == "Cancel" || obj.project_status == "Close") {
                                                         $("#project_order_status,#wo_order_type,#po_no_no,#perc_of_po,#wo_price,#inspection_order_type_form,#complete_date_form").prop('disabled', true);
                                                     }
-                                                    //Assign to old PO_NO_NO
-                                                    $("#old_po_no_no").val(obj.imgName);
+                                                    if (obj.project_status == "New") {
 
+                                                    }
+                                                    //Assign to old PO_NO_NO
+                                                    $("#old_status_comming").val(obj.project_status);
+                                                    $("#old_po_no_no").val(obj.imgName);
                                                     $("#project_document_no").val(obj.document_no);
                                                     $("#wo_price_2").val(obj.REAL_WO_PRICE);
                                                     $("#project_order_status").val(obj.project_status);
@@ -1175,13 +1179,16 @@ if (empty($_SESSION['username'])) {
                                                                 });
                                                             }
                                                         }
+
                                                     } else if (project_order_status == "Complete") {
-                                                        if ($("#inspection_order_type_form").val() == 0) {
-                                                            alert('กรุณาเลือก ใบตรวจรับงาน');
+                                                        if ($("#old_status_comming").val() == "New") {
+                                                            alert('Please select Other Status(สถานะ)');
                                                         } else if (complete_date == "" || complete_date == null) {
                                                             alert("กรุณาเลือก วันที่เสร็จสิ้น");
                                                         } else if (project_order_remark == "") {
                                                             alert('กรุณาใส่ Remark !');
+                                                        } else if ($("#inspection_order_type_form").val == 0) {
+                                                            alert('กรุณาเลือก ใบตรวจรับงาน');
                                                         } else {
                                                             var inspection_id = $("#inspection_order_type_form").val();
                                                             var jqxhr = $.post("../model/EditProjectOrderForComplete.php?project_code=" + project_code +
@@ -1211,9 +1218,10 @@ if (empty($_SESSION['username'])) {
                                                             });
                                                         }
                                                     } else {
-                                                        if (project_order_remark == "") {
+                                                        if (project_order_status == "Close" && $("#old_status_comming").val() == "New") {
+                                                            alert('Please select Other Status(สถานะ)');
+                                                        } else if (project_order_remark == "") {
                                                             alert('กรุณาใส่ Remark !');
-//                                $().toastmessage('showErrorToast', 'กรุณาใส่ Remark !');
                                                         } else {
                                                             var jqxhr = $.post("../model/EditProjectOrder.php?project_code=" + project_code +
                                                                     "&project_order_status=" + project_order_status +
