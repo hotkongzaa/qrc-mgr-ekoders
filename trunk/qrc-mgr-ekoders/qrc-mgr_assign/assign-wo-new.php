@@ -274,7 +274,7 @@ if (empty($_SESSION['username'])) {
                                                             <div class="separator"></div>
                                                         </div>
                                                         <div >
-                                                            <label for="project_code">Project Code (หมายเลขโครงการ)</label>
+                                                            <label for="project_code">Project Code (หมายเลขโครงการ)*:</label>
                                                             <!-- <input type="text" id="project_code_orderPage" name="project_code" class="col-md-6 form-control" disabled="true" /> -->
                                                             <select class="form-control" id="project_code_orderPage" name="project_code_orderPage">
                                                                 <option value="0"></option>
@@ -380,7 +380,7 @@ if (empty($_SESSION['username'])) {
                                                             </form>
                                                         </div>
                                                         <div >
-                                                            <label for="wo_order_type">WO. Order Type</label>
+                                                            <label for="wo_order_type">WO. Order Type*:</label>
                                                             <select class="form-control" id="wo_order_type" name="wo_order_type">
                                                                 <option value="ติดตั้ง">ติดตั้ง</option>
                                                                 <option value="แก้ไข">แก้ไข</option>
@@ -390,7 +390,7 @@ if (empty($_SESSION['username'])) {
                                                             <div class="separator"></div>
                                                         </div>
                                                         <div >
-                                                            <label for="project_po_no">PO Code. (เลขที่ใบสั่งจ้าง)</label>
+                                                            <label for="project_po_no">PO Code. (เลขที่ใบสั่งจ้าง)*:</label>
 
                                                             <select class="form-control" id="po_no_no" name="po_no_no">
 
@@ -398,14 +398,14 @@ if (empty($_SESSION['username'])) {
                                                             <div class="separator"></div>
                                                         </div>
                                                         <div >
-                                                            <label for="project_document_no">WO per Unit Price</label>
+                                                            <label for="project_document_no">WO per Unit Price*:</label>
                                                             <div class="form-group input-group">
                                                                 <span class="input-group-addon">฿</span>
                                                                 <input type="text" id="wo_price" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div >
-                                                            <label for="project_plan">% of Unit Price</label>
+                                                            <label for="project_plan">% of Unit Price*:</label>
                                                             <div class="form-group input-group">
                                                                 <span class="input-group-addon">%</span>
                                                                 <input type="text" id="perc_of_po" class="form-control">
