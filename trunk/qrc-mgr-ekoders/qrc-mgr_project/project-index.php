@@ -795,11 +795,13 @@ if (empty($_SESSION['username'])) {
                                                             $("#loading_project").load("project_table_result.php?search_condition=search_all", function () {
 
                                                             });
-                                                            $().toastmessage('showSuccessToast', 'ลบข้อมูลเรียบร้อยแล้ว');
+
+                                                            alert("ลบข้อมูลเรียบร้อยแล้ว");
                                                         }
                                                         , 100);
                                                     } else {
-                                                        $().toastmessage('showErrorToast', 'ไม่สามารถลบข้อมูลได้');
+
+                                                        alert("ไม่สามารถลบข้อมูลได้");
                                                     }
                                                 });
                                                 jqxhr.error(function (data) {
