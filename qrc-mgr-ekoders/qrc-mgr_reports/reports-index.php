@@ -246,7 +246,7 @@ if (empty($_SESSION['username'])) {
 
                                     </div>
                                     <div class="row" id="row_html">
-                                        <div class="col-lg-8">
+                                        <div class="col-lg-3">
 
                                             <div class="portlet">
                                                 <div class="portlet-heading dark">
@@ -261,11 +261,32 @@ if (empty($_SESSION['username'])) {
                                                 </div>
                                                 <div id="recent" class="panel-collapse collapse in">
                                                     <div class="portlet-body" class="row">
+                                                        <fieldset>
+                                                            <legend>Configure Date</legend>
+                                                            <div id="project_name_div status">
+                                                                Specific Time: 
+                                                                <select id="date_specific">
+                                                                    <option value="0">Day</option>
+                                                                    <option value="1">Month</option>
+                                                                    <option value="2">Year</option>
+                                                                </select>
+                                                            </div>
+                                                            <br/>
+                                                            <div id="project_name_div status">
+                                                                <input type="text" class="form-control search_date" id="search_date">
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="portlet-footer">
+                                                        <div class="pull-right">
+                                                            <button id="search_project_button" class="btn btn-inverse">Search <i class="fa fa-arrow-right icon-on-right"></i></button>
+                                                        </div>
+                                                        <div class="clearfix"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-9">
 
                                             <div class="portlet">
                                                 <div class="portlet-heading dark">
@@ -397,8 +418,29 @@ if (empty($_SESSION['username'])) {
 
         <script type="text/javascript">
                                         $(document).ready(function () {
-                                            $("#report_loader").load("report_table_result.php", function () {
+                                            var date = new Date();
+                                            var day = date.getDate();
+                                            var month = date.getMonth() + 1;
+                                            var year = date.getFullYear();
 
+                                            var previousdate = new Date();
+                                            previousdate.setDate(date.getDate() - 1);
+                                            var previouseMonth = new Date();
+                                            previouseMonth.setMonth(date.getMonth() - 1);
+                                            $(".search_date").daterangepicker();
+                                            $("#report_loader").load("report_table_result.php");
+
+                                            //Assign one day
+                                            $("#search_date").val((month < 10 ? "0" + month : month) + "/" + (day < 10 ? "0" + day : day) + "/" + year + " - " + (month < 10 ? "0" + month : month) + "/" + (previousdate.getDate() < 10 ? "0" + previousdate.getDate() : previousdate.getDate()) + "/" + year);
+
+                                            $("#date_specific").change(function () {
+                                                if ($(this).val() == 0) {
+                                                    $("#search_date").val((month < 10 ? "0" + month : month) + "/" + (day < 10 ? "0" + day : day) + "/" + year + " - " + (month < 10 ? "0" + month : month) + "/" + (previousdate.getDate() < 10 ? "0" + previousdate.getDate() : previousdate.getDate()) + "/" + year);
+                                                } else if ($(this).val() == 1) {
+                                                    $("#search_date").val("");
+                                                } else if ($(this).val() == 2) {
+                                                    $("#search_date").val("");
+                                                }
                                             });
                                         });
         </script>
