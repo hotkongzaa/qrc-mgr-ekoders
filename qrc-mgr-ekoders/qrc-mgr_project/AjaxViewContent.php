@@ -25,7 +25,7 @@ if (empty($_SESSION['username'])) {
             <div class="col-lg-7">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> PO Detail Panel</h3>
+                        <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Project Detail Panel</h3>
                     </div>
                     <div class="panel-body">
                         <table class="table table-bordered table-hover table-striped">
