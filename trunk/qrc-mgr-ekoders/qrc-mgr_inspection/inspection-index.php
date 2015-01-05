@@ -457,6 +457,7 @@ if (empty($_SESSION['username'])) {
                                             $("#loading_project").load("inspection_table_result.php");
                                             $("#search_project").load("inspection_search_page.php");
                                             $("#create_new_ins_btn").click(function () {
+                                                createOrEditState = "Save";
                                                 $("#loading_ce_form").load("create-edit_form.php", function () {
                                                     $("#create_edit_panel").show("fast");
                                                     $("#create_new_ins_btn").hide("fast");
@@ -607,8 +608,6 @@ if (empty($_SESSION['username'])) {
                                             var jqxhr = $.post("create-edit_form.php?isEdit=Edit");
                                             jqxhr.success(function (cedata) {
                                                 $("#loading_ce_form").html(cedata);
-                                                $("#spinnerCE").hide();
-                                                $('html,body').animate({scrollTop: $('#create_edit_panel').offset().top}, 'slow');
                                             });
                                             jqxhr.error(function (result) {
                                                 $().toastmessage('showWarningToast', "Cannot connect server with: " + result);
@@ -616,7 +615,6 @@ if (empty($_SESSION['username'])) {
                                             var millisecondsToWait = 500;
                                             setTimeout(function () {
                                                 $("#insID").val(ins_id);
-                                                $("#uploadWarning").html("Leave it for no change");
                                                 createOrEditState = "Edit";
                                                 var jqxhr = $.post("../model/GetInspectionByID.php?ins_id=" + ins_id);
                                                 jqxhr.success(function (data) {
@@ -635,8 +633,7 @@ if (empty($_SESSION['username'])) {
                                                         $("#inspection_project_foreman_form").val(obj.project_foreman);
                                                         $("#inspection_project_supervisor_form").val(obj.supervisor_control);
                                                     });
-
-                                                    var jqxhr = $.post("../model/GetPoDocumentByProjectID.php?project_code=" + obj.project_code);
+                                                    var jqxhr = $.post("../model/GetPoDocumentByProjectID.php?project_code=" + obj.project_code + "&isEdit=edit&po_id=" + obj.PO_ID);
                                                     jqxhr.success(function (data2) {
                                                         $("#inspection_document_no_form").html(data2);
                                                         setTimeout(function () {
