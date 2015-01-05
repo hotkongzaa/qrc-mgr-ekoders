@@ -41,6 +41,7 @@ if (empty($_SESSION['username'])) {
                                         . "qpo.PO_HOME_PLAN as PO_HOME_PLAN,"
                                         . "qpo.PO_HOME_PLOT as PO_HOME_PLOT,"
                                         . "qpo.PO_PO_NO as PO_PO_NO,"
+                                        . "qpo.PO_DOCUMENT_NO as PO_DOC_NO,"
                                         . "qpo.PO_ISSUE_DATE as PO_ISSUE_DATE,"
                                         . "qpo.PO_QUANTITY as PO_QUANTITY,"
                                         . "qpo.PO_PLAN_SIZE as PO_PLAN_SIZE,"
@@ -65,6 +66,10 @@ if (empty($_SESSION['username'])) {
                                         <tr>
                                             <td>Inpection ID:</td>
                                             <td><?= $row['INS_ID']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PO Document No:</td>
+                                            <td><?= $row['PO_DOC_NO']; ?></td>
                                         </tr>
                                         <tr>
                                             <td>Project Name (ชื่อโครงการ):</td>
