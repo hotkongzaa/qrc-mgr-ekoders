@@ -1,6 +1,6 @@
 /*!
  * jQuery blockUI plugin
- * Version 2.66.0-2013.10.09
+ * Version 2.70.0-2014.11.23
  * Requires jQuery v1.7 or later
  *
  * Examples at: http://malsup.com/jquery/block/
@@ -13,14 +13,14 @@
  */
 
 ;
-(function() {
+(function () {
     /*jshint eqeqeq:false curly:false latedef:false */
     "use strict";
 
     function setup($) {
         $.fn._fadeIn = $.fn.fadeIn;
 
-        var noOp = $.noop || function() {
+        var noOp = $.noop || function () {
         };
 
         // this bit is to ensure we don't call setExpression when we shouldn't (with extra muscle to handle
@@ -31,15 +31,15 @@
         var setExpr = $.isFunction(document.createElement('div').style.setExpression);
 
         // global $ methods for blocking/unblocking the entire page
-        $.blockUI = function(opts) {
+        $.blockUI = function (opts) {
             install(window, opts);
         };
-        $.unblockUI = function(opts) {
+        $.unblockUI = function (opts) {
             remove(window, opts);
         };
 
         // convenience method for quick growl-like notifications  (http://www.google.com/search?q=growl)
-        $.growlUI = function(title, message, timeout, onClose) {
+        $.growlUI = function (title, message, timeout, onClose) {
             var $m = $('<div class="growlUI"></div>');
             if (title)
                 $m.append('<h1>' + title + '</h1>');
@@ -49,7 +49,7 @@
                 timeout = 3000;
 
             // Added by konapun: Set timeout to 30 seconds if this growl is moused over, like normal toast notifications
-            var callBlock = function(opts) {
+            var callBlock = function (opts) {
                 opts = opts || {};
 
                 $.blockUI({
@@ -66,7 +66,7 @@
 
             callBlock();
             var nonmousedOpacity = $m.css('opacity');
-            $m.mouseover(function() {
+            $m.mouseover(function () {
                 callBlock({
                     fadeIn: 0,
                     timeout: 30000
@@ -75,27 +75,27 @@
                 var displayBlock = $('.blockMsg');
                 displayBlock.stop(); // cancel fadeout if it has started
                 displayBlock.fadeTo(300, 1); // make it easier to read the message by removing transparency
-            }).mouseout(function() {
+            }).mouseout(function () {
                 $('.blockMsg').fadeOut(1000);
             });
             // End konapun additions
         };
 
         // plugin method for blocking element content
-        $.fn.block = function(opts) {
+        $.fn.block = function (opts) {
             if (this[0] === window) {
                 $.blockUI(opts);
                 return this;
             }
             var fullOpts = $.extend({}, $.blockUI.defaults, opts || {});
-            this.each(function() {
+            this.each(function () {
                 var $el = $(this);
                 if (fullOpts.ignoreIfBlocked && $el.data('blockUI.isBlocked'))
                     return;
                 $el.unblock({fadeOut: 0});
             });
 
-            return this.each(function() {
+            return this.each(function () {
                 if ($.css(this, 'position') == 'static') {
                     this.style.position = 'relative';
                     $(this).data('blockUI.static', true);
@@ -106,17 +106,17 @@
         };
 
         // plugin method for unblocking element content
-        $.fn.unblock = function(opts) {
+        $.fn.unblock = function (opts) {
             if (this[0] === window) {
                 $.unblockUI(opts);
                 return this;
             }
-            return this.each(function() {
+            return this.each(function () {
                 remove(this, opts);
             });
         };
 
-        $.blockUI.version = 2.66; // 2nd generation blocking at no extra cost!
+        $.blockUI.version = 2.70; // 2nd generation blocking at no extra cost!
 
         // override these in your code to change the default behavior and style
         $.blockUI.defaults = {
@@ -331,7 +331,7 @@
 
             //$([lyr1[0],lyr2[0],lyr3[0]]).appendTo(full ? 'body' : el);
             var layers = [lyr1, lyr2, lyr3], $par = full ? $('body') : $(el);
-            $.each(layers, function() {
+            $.each(layers, function () {
                 this.appendTo($par);
             });
 
@@ -357,7 +357,7 @@
                 }
 
                 // simulate fixed position
-                $.each(layers, function(i, o) {
+                $.each(layers, function (i, o) {
                     var s = o[0].style;
                     s.position = 'absolute';
                     if (i < 2) {
@@ -414,7 +414,7 @@
                 if (msg)
                     lyr3.show();
                 if (opts.onBlock)
-                    opts.onBlock();
+                    opts.onBlock.bind(lyr3)();
             }
 
             // bind key and mouse events
@@ -431,7 +431,7 @@
 
             if (opts.timeout) {
                 // auto-unblock
-                var to = setTimeout(function() {
+                var to = setTimeout(function () {
                     if (full)
                         $.unblockUI(opts);
                     else
@@ -479,7 +479,7 @@
 
             if (opts.fadeOut) {
                 count = els.length;
-                els.stop().fadeOut(opts.fadeOut, function() {
+                els.stop().fadeOut(opts.fadeOut, function () {
                     if (--count === 0)
                         reset(els, data, opts, el);
                 });
@@ -494,7 +494,7 @@
             if ($el.data('blockUI.isBlocked'))
                 return;
 
-            els.each(function(i, o) {
+            els.each(function (i, o) {
                 // remove via DOM calls so we don't lose event handlers
                 if (this.parentNode)
                     this.parentNode.removeChild(this);
@@ -503,6 +503,7 @@
             if (data && data.el) {
                 data.el.style.display = data.display;
                 data.el.style.position = data.position;
+                data.el.style.cursor = 'default'; // #59
                 if (data.parent)
                     data.parent.appendChild(data.el);
                 $el.removeData('blockUI.history');
@@ -556,7 +557,7 @@
                     var fwd = !e.shiftKey && e.target === els[els.length - 1];
                     var back = e.shiftKey && e.target === els[0];
                     if (fwd || back) {
-                        setTimeout(function() {
+                        setTimeout(function () {
                             focus(back);
                         }, 10);
                         return false;

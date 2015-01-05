@@ -32,6 +32,7 @@ if (empty($_SESSION['username'])) {
 <script src="../assets/js/jquery.quickfit.js"></script>
 <script src="../assets/js/plugins/jqueryui/jquery-ui-1.10.4.full.min.js"></script>
 <script src="../assets/js/plugins/jqueryui/jquery.ui.touch-punch.min.js"></script>
+<script src="../assets/js/plugins/jquery.blockUI.js"></script>
 
 <!-- initial page level scripts for examples -->
 <!--<script src="../assets/js/plugins/footable/footable.init.js"></script>-->
@@ -169,24 +170,44 @@ if (empty($_SESSION['username'])) {
     <script>
         $("#dialog").hide();
         function viewClick(po_id) {
-            var jqxhr = $.post("AjaxViewContent.php?po_id=" + po_id);
-            jqxhr.success(function(data) {
-                $("#dialog_Content").html(data);
-                var millisecondsToWait = 200;
-                setTimeout(function() {
-                    $("#dialog").removeClass("hide").dialog({
-                        height: 600,
-                        width: 600
-                    });
-                }, millisecondsToWait);
-            });
-            jqxhr.error(function() {
-                alert("ไม่สามารถติดต่อกับ Server ได้");
+            $.ajax({
+                url: "AjaxViewContent.php?po_id=" + po_id,
+                type: 'POST',
+                beforeSend: function (xhr) {
+                    $.blockUI({css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: '#fff',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: .5,
+                            color: '#fff'
+                        }, message: '<img src="../images/gears.gif" width="120px" height="120px"/>'});
+                },
+                success: function (data, textStatus, jqXHR) {
+                    $("#dialog_Content").html(data);
+                    var millisecondsToWait = 200;
+                    setTimeout(function () {
+                        $("#dialog").removeClass("hide").dialog({
+                            height: 500,
+                            width: 900
+                        });
+                    }, millisecondsToWait);
+                    setTimeout($.unblockUI, 100);
+                },
+                statusCode: {
+                    404: function () {
+                        alert("page not found");
+                    },
+                    500: function () {
+                        alert("Cannot load page with error");
+                    }
+                }
             });
 
         }
         $(document).tooltip({
-            open: function(event, ui) {
+            open: function (event, ui) {
                 ui.tooltip.css("max-width", "600px");
                 ui.tooltip.css("font-size", "12px");
             },

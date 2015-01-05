@@ -434,7 +434,8 @@ if (empty($_SESSION['username'])) {
 
         <!-- REQUIRE FOR SPEECH COMMANDS -->
         <script src="../assets/js/speech-commands.js"></script>
-        <script src="../assets/js/plugins/gritter/jquery.gritter.min.js"></script>		
+        <script src="../assets/js/plugins/gritter/jquery.gritter.min.js"></script>
+        <script src="../assets/js/plugins/jquery.blockUI.js"></script>		
 
         <!-- initial page level scripts for examples -->
         <script src="../assets/js/plugins/slimscroll/jquery.slimscroll.init.js"></script>
@@ -446,14 +447,34 @@ if (empty($_SESSION['username'])) {
                                         var createOrEditState = "Create";
                                         $(document).ready(function () {
                                             $("#create_edit_panel").hide();
-                                            var jqxhr = $.post("project_table_result.php?search_condition=search_all");
-                                            jqxhr.success(function (data) {
-                                                $("#loading_project").html(data);
-                                                $(".spinner").hide();
+                                            $.ajax({
+                                                url: "project_table_result.php?search_condition=search_all",
+                                                type: 'POST',
+                                                beforeSend: function (xhr) {
+                                                    $.blockUI({css: {
+                                                            border: 'none',
+                                                            padding: '15px',
+                                                            backgroundColor: '#fff',
+                                                            '-webkit-border-radius': '10px',
+                                                            '-moz-border-radius': '10px',
+                                                            opacity: .5,
+                                                            color: '#fff'
+                                                        }, message: '<img src="../images/gears.gif" width="120px" height="120px"/>'});
+                                                },
+                                                success: function (data, textStatus, jqXHR) {
+                                                    $("#loading_project").html(data);
+                                                    setTimeout($.unblockUI, 100);
+                                                },
+                                                statusCode: {
+                                                    404: function () {
+                                                        alert("page not found");
+                                                    },
+                                                    500: function () {
+                                                        alert("Cannot load page with error");
+                                                    }
+                                                }
                                             });
-                                            jqxhr.error(function () {
-                                                alert("Cannot load page");
-                                            });
+
                                             var jqxhr = $.post("project_search_page.php");
                                             jqxhr.success(function (data) {
                                                 $("#search_project").html(data);
@@ -497,26 +518,70 @@ if (empty($_SESSION['username'])) {
                                                         !$.trim(endSearchDate).length &&
                                                         searchLimit == 100) {
 
-                                                    $("#loading_project").load("project_table_result.php?search_condition=search_all", function () {
-
+                                                    $.ajax({
+                                                        url: "project_table_result.php?search_condition=search_all",
+                                                        type: 'POST',
+                                                        beforeSend: function (xhr) {
+                                                            $.blockUI({css: {
+                                                                    border: 'none',
+                                                                    padding: '15px',
+                                                                    backgroundColor: '#fff',
+                                                                    '-webkit-border-radius': '10px',
+                                                                    '-moz-border-radius': '10px',
+                                                                    opacity: .5,
+                                                                    color: '#fff'
+                                                                }, message: '<img src="../images/gears.gif" width="120px" height="120px"/>'});
+                                                        },
+                                                        success: function (data, textStatus, jqXHR) {
+                                                            $("#loading_project").html(data);
+                                                            setTimeout($.unblockUI, 100);
+                                                        },
+                                                        statusCode: {
+                                                            404: function () {
+                                                                alert("page not found");
+                                                            },
+                                                            500: function () {
+                                                                alert("Cannot load page with error");
+                                                            }
+                                                        }
                                                     });
                                                 } else {
                                                     if (startSearchDate != "" && endSearchDate == "") {
-                                                        //$().toastmessage('showWarningToast', "Please enter end date");
                                                         alert("Please enter end date");
-
                                                     }
                                                     else if (startSearchDate == "" && endSearchDate != "") {
-//                            $().toastmessage('showWarningToast', "Please enter start date");
                                                         alert("Please enter start date");
                                                     }
                                                     else {
                                                         var dateAr = endSearchDate.split('-');
                                                         endSearchDate = dateAr[0] + '-' + dateAr[1] + '-' + (parseInt(dateAr[2]) + 1);
-                                                        $("#loading_project").load("project_table_result.php?search_condition=search_criteria&projectCodeSearch=" + projectCodeSearch + "&projectNameSearch=" + projectNameSearch + "&projectTypeSearch=" + projectTypeSearch + "&projectStatusSearch=" + projectStatusSearch + "&projectOwnerSearch=" + projectOwnerSearch + "&projectCustomerSearch=" + projectCustomerSearch + "&startSearchDate=" + startSearchDate + "&endSearchDate=" + endSearchDate + "&searchLimit=" + searchLimit, function () {
-
+                                                        $.ajax({
+                                                            url: "project_table_result.php?search_condition=search_criteria&projectCodeSearch=" + projectCodeSearch + "&projectNameSearch=" + projectNameSearch + "&projectTypeSearch=" + projectTypeSearch + "&projectStatusSearch=" + projectStatusSearch + "&projectOwnerSearch=" + projectOwnerSearch + "&projectCustomerSearch=" + projectCustomerSearch + "&startSearchDate=" + startSearchDate + "&endSearchDate=" + endSearchDate + "&searchLimit=" + searchLimit,
+                                                            type: 'POST',
+                                                            beforeSend: function (xhr) {
+                                                                $.blockUI({css: {
+                                                                        border: 'none',
+                                                                        padding: '15px',
+                                                                        backgroundColor: '#fff',
+                                                                        '-webkit-border-radius': '10px',
+                                                                        '-moz-border-radius': '10px',
+                                                                        opacity: .5,
+                                                                        color: '#fff'
+                                                                    }, message: '<img src="../images/gears.gif" width="120px" height="120px"/>'});
+                                                            },
+                                                            success: function (data, textStatus, jqXHR) {
+                                                                $("#loading_project").html(data);
+                                                                setTimeout($.unblockUI, 100);
+                                                            },
+                                                            statusCode: {
+                                                                404: function () {
+                                                                    alert("page not found");
+                                                                },
+                                                                500: function () {
+                                                                    alert("Cannot load page with error");
+                                                                }
+                                                            }
                                                         });
-
                                                     }
                                                 }
 
@@ -617,7 +682,7 @@ if (empty($_SESSION['username'])) {
                                                                         alert("Cannot connect server with: " + resultFail);
                                                                     });
                                                                 } else {
-                                                                    
+
                                                                     var jqxhr = $.post("../model/EditProject.php" + data + "&isDiffImg=diff");
                                                                     jqxhr.success(function (result) {
                                                                         if (result == 1) {
@@ -699,43 +764,62 @@ if (empty($_SESSION['username'])) {
                                             $("#create_edit_panel").show();
                                             $("#loading_ce_form").load("create-edit_form.php?isEdit=Edit", function () {
                                                 $("#spinnerCE").hide();
-                                                $('html,body').animate({scrollTop: $('#create_edit_panel').offset().top}, 'slow');
                                             });
-                                            var millisecondsToWait = 500;
+                                            var millisecondsToWait = 100;
                                             setTimeout(function () {
-                                                var jqxhr = $.post("../model/GetAllProjectForEdit.php?project_code=" + projectCode);
-                                                jqxhr.success(function (data) {
-                                                    obj = JSON.parse(data);
-                                                    $("#projectCodeShowForEdit").html(obj.project_code);
-                                                    $("#projectCode").hide();
-                                                    $("#project_code").val(obj.project_code);
-                                                    $("#project_name").val(obj.project_name);
-                                                    $("#project_type_select").val(obj.project_type);
-                                                    $("#project_status_select").val(obj.project_status);
-                                                    $("#project_owner_select").val(obj.project_owner);
-                                                    $("#project_customer_select").val(obj.customer_name);
-                                                    $("#project_manager").val(obj.project_manager);
-                                                    $("#project_foreman").val(obj.project_foreman);
-                                                    $("#supervisor_control").val(obj.supervisor_control);
-                                                    $("#team_owner").val(obj.team_owner);
-                                                    $("#qa_inspectors").val(obj.quality_inspectors);
-                                                    $("#project_remark").val(obj.remark);
-                                                    $("#created_date").val(obj.created_date_time);
-                                                    $("#last_update").val(obj.updated_date_time);
-                                                    $("#address_location").val(obj.address_location);
+                                                $.ajax({
+                                                    url: "../model/GetAllProjectForEdit.php?project_code=" + projectCode,
+                                                    type: 'POST',
+                                                    beforeSend: function (xhr) {
+                                                        $.blockUI({css: {
+                                                                border: 'none',
+                                                                padding: '15px',
+                                                                backgroundColor: '#fff',
+                                                                '-webkit-border-radius': '10px',
+                                                                '-moz-border-radius': '10px',
+                                                                opacity: .5,
+                                                                color: '#fff'
+                                                            }, message: '<img src="../images/gears.gif" width="120px" height="120px"/>'});
+                                                    },
+                                                    success: function (data, textStatus, jqXHR) {
+                                                        obj = JSON.parse(data);
+                                                        $("#projectCodeShowForEdit").html(obj.project_code);
+                                                        $("#projectCode").hide();
+                                                        $("#project_code").val(obj.project_code);
+                                                        $("#project_name").val(obj.project_name);
+                                                        $("#project_type_select").val(obj.project_type);
+                                                        $("#project_status_select").val(obj.project_status);
+                                                        $("#project_owner_select").val(obj.project_owner);
+                                                        $("#project_customer_select").val(obj.customer_name);
+                                                        $("#project_manager").val(obj.project_manager);
+                                                        $("#project_foreman").val(obj.project_foreman);
+                                                        $("#supervisor_control").val(obj.supervisor_control);
+                                                        $("#team_owner").val(obj.team_owner);
+                                                        $("#qa_inspectors").val(obj.quality_inspectors);
+                                                        $("#project_remark").val(obj.remark);
+                                                        $("#created_date").val(obj.created_date_time);
+                                                        $("#last_update").val(obj.updated_date_time);
+                                                        $("#address_location").val(obj.address_location);
+                                                        var jqxhr = $.post("../model/GetProjectIMGByID.php?project_code=" + obj.project_code);
+                                                        jqxhr.success(function (imgData) {
+                                                            $("#edit_image").html(imgData);
+                                                        });
+                                                        setTimeout($.unblockUI, 100);
+                                                    },
+                                                    statusCode: {
+                                                        404: function () {
+                                                            alert("page not found");
+                                                        },
+                                                        500: function () {
+                                                            alert("Cannot load page with error");
+                                                        }
+                                                    }
+                                                });
 
-                                                    var jqxhr = $.post("../model/GetProjectIMGByID.php?project_code=" + obj.project_code);
-                                                    jqxhr.success(function (imgData) {
-                                                        $("#edit_image").html(imgData);
-                                                    });
-                                                });
-                                                jqxhr.error(function (data) {
-                                                    window.location.replace("error.php?error_msg=" + data);
-                                                });
                                             }, millisecondsToWait);
                                         }
                                         function delImage(imageID, po_id, img_name) {
-                                            
+
                                             if (confirm("Are you sure?"))
                                             {
                                                 var jqxhr = $.post("../model/DelProjectIMGByID.php?imageID=" + imageID + "&img_name=" + img_name);
