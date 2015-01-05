@@ -26,6 +26,7 @@ if (empty($_SESSION['username'])) {
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="../assets/css/fonts.css">
+        <link rel="stylesheet" href="../assets/css/jquery.toastmessage.css">
         <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css">
 
         <!-- PAGE LEVEL PLUGINS STYLES -->	
@@ -429,6 +430,7 @@ if (empty($_SESSION['username'])) {
         <script src="../assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
 
         <script src="../assets/js/plugins/datatables/datatables.responsive.js"></script>
+        <script src="../assets/js/plugins/jquery.toastmessage.js"></script>
         <!-- Themes Core Scripts -->	
         <script src="../assets/js/main.js"></script>
 
@@ -584,8 +586,6 @@ if (empty($_SESSION['username'])) {
                                                         });
                                                     }
                                                 }
-
-
                                             });
                                             $("#save_create_panel").click(function () {
                                                 if ($("#project_name").val() == "") {
@@ -640,16 +640,40 @@ if (empty($_SESSION['username'])) {
                                                         jqxhr.success(function (reslut) {
                                                             if (reslut == 1) {
                                                                 clearProjectInsertFields();
-                                                                //$('html,body').animate({scrollTop: $('#project_tbl_content').offset().top}, 'slow');
                                                                 $("#create_edit_panel").hide();
                                                                 $(".spinner").show();
-                                                                $("#loading_project").load("project_table_result.php?search_condition=search_all", function () {
-                                                                    $("#create_new_project_btn").show();
+
+                                                                $.ajax({
+                                                                    url: "project_table_result.php?search_condition=search_all",
+                                                                    type: 'POST',
+                                                                    beforeSend: function (xhr) {
+                                                                        $.blockUI({css: {
+                                                                                border: 'none',
+                                                                                padding: '15px',
+                                                                                backgroundColor: '#fff',
+                                                                                '-webkit-border-radius': '10px',
+                                                                                '-moz-border-radius': '10px',
+                                                                                opacity: .5,
+                                                                                color: '#fff'
+                                                                            }, message: '<img src="../images/gears.gif" width="120px" height="120px"/>'});
+                                                                    },
+                                                                    success: function (data, textStatus, jqXHR) {
+                                                                        $("#loading_project").html(data);
+                                                                        $("#create_new_project_btn").show();
+                                                                        alert("บันทึกเรียบร้อยแล้ว");
+                                                                        setTimeout($.unblockUI, 100);
+                                                                    },
+                                                                    statusCode: {
+                                                                        404: function () {
+                                                                            alert("page not found");
+                                                                        },
+                                                                        500: function () {
+                                                                            alert("Cannot load page with error");
+                                                                        }
+                                                                    }
                                                                 });
-                                                                //$().toastmessage('showSuccessToast', 'บันทึกเรียบร้อยแล้ว');
-                                                                alert("บันทึกเรียบร้อยแล้ว");
                                                             } else {
-                                                                //$().toastmessage('showErrorToast', 'ไม่สามารถบันทึกได้');
+                                                                alert("ไม่สามารถบันทึกได้");
                                                             }
                                                         });
                                                         jqxhr.error(function (resultFail) {
@@ -668,13 +692,38 @@ if (empty($_SESSION['username'])) {
                                                                         if (result == 1) {
                                                                             clearProjectInsertFields();
                                                                             $("#create_edit_panel").hide();
-                                                                            $("#loading_project").load("project_table_result.php?search_condition=search_all", function () {
-                                                                                $("#create_new_project_btn").show();
+
+                                                                            $.ajax({
+                                                                                url: "project_table_result.php?search_condition=search_all",
+                                                                                type: 'POST',
+                                                                                beforeSend: function (xhr) {
+                                                                                    $.blockUI({css: {
+                                                                                            border: 'none',
+                                                                                            padding: '15px',
+                                                                                            backgroundColor: '#fff',
+                                                                                            '-webkit-border-radius': '10px',
+                                                                                            '-moz-border-radius': '10px',
+                                                                                            opacity: .5,
+                                                                                            color: '#fff'
+                                                                                        }, message: '<img src="../images/gears.gif" width="120px" height="120px"/>'});
+                                                                                },
+                                                                                success: function (data, textStatus, jqXHR) {
+                                                                                    $("#loading_project").html(data);
+                                                                                    $("#create_new_project_btn").show();
+                                                                                    alert('แก้ไขเรียบร้อยแล้ว');
+                                                                                    createOrEditState = "Create";
+                                                                                    setTimeout($.unblockUI, 100);
+                                                                                },
+                                                                                statusCode: {
+                                                                                    404: function () {
+                                                                                        alert("page not found");
+                                                                                    },
+                                                                                    500: function () {
+                                                                                        alert("Cannot load page with error");
+                                                                                    }
+                                                                                }
                                                                             });
-                                                                            alert('แก้ไขเรียบร้อยแล้ว');
-                                                                            createOrEditState = "Create";
                                                                         } else {
-                                                                            $().toastmessage('showErrorToast', 'ไม่สามารถแก้ไขได้');
                                                                             alert('ไม่สามารถแก้ไขได้');
                                                                         }
                                                                     });
@@ -682,19 +731,42 @@ if (empty($_SESSION['username'])) {
                                                                         alert("Cannot connect server with: " + resultFail);
                                                                     });
                                                                 } else {
-
                                                                     var jqxhr = $.post("../model/EditProject.php" + data + "&isDiffImg=diff");
                                                                     jqxhr.success(function (result) {
                                                                         if (result == 1) {
                                                                             clearProjectInsertFields();
                                                                             $("#create_edit_panel").hide();
-                                                                            $("#loading_project").load("project_table_result.php?search_condition=search_all", function () {
-                                                                                $("#create_new_project_btn").show();
+                                                                            $.ajax({
+                                                                                url: "project_table_result.php?search_condition=search_all",
+                                                                                type: 'POST',
+                                                                                beforeSend: function (xhr) {
+                                                                                    $.blockUI({css: {
+                                                                                            border: 'none',
+                                                                                            padding: '15px',
+                                                                                            backgroundColor: '#fff',
+                                                                                            '-webkit-border-radius': '10px',
+                                                                                            '-moz-border-radius': '10px',
+                                                                                            opacity: .5,
+                                                                                            color: '#fff'
+                                                                                        }, message: '<img src="../images/gears.gif" width="120px" height="120px"/>'});
+                                                                                },
+                                                                                success: function (data, textStatus, jqXHR) {
+                                                                                    $("#loading_project").html(data);
+                                                                                    $("#create_new_project_btn").show();
+                                                                                    alert('แก้ไขเรียบร้อยแล้ว');
+                                                                                    createOrEditState = "Create";
+                                                                                    setTimeout($.unblockUI, 100);
+                                                                                },
+                                                                                statusCode: {
+                                                                                    404: function () {
+                                                                                        alert("page not found");
+                                                                                    },
+                                                                                    500: function () {
+                                                                                        alert("Cannot load page with error");
+                                                                                    }
+                                                                                }
                                                                             });
-                                                                            alert('แก้ไขเรียบร้อยแล้ว');
-                                                                            createOrEditState = "Create";
                                                                         } else {
-                                                                            $().toastmessage('showErrorToast', 'ไม่สามารถแก้ไขได้');
                                                                             alert('ไม่สามารถแก้ไขได้');
                                                                         }
                                                                     });

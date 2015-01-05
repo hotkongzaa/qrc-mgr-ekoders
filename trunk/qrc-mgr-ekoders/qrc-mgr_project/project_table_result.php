@@ -215,7 +215,7 @@ if (empty($_SESSION['username'])) {
         });
         $('.wordrap').quickfit({max: 14, min: 12, truncate: true});
     </script>
-    <div id="dialog" title="Project Detail" class="hide">
+    <div id="dialog" class="hide">
         <div id="dialog_Content"></div>
 
     </div>
