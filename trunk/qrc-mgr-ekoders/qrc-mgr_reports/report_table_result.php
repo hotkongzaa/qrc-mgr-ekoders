@@ -201,7 +201,10 @@ if (empty($_SESSION['username'])) {
 
                     }
                 });
-
+                
+                if(stringTeamCodeBuilder=="on,on"){
+                    stringTeamCodeBuilder = "";
+                }
 
                 if (stringTeamCodeBuilder != "" && stringTeamCodeBuilder != "on,on") {
                     $("#dialog").removeClass("hide").dialog({
