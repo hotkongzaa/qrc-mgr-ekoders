@@ -32,6 +32,7 @@ if (empty($_SESSION['username'])) {
         <link rel="stylesheet" type="text/css" href="assets/css/plugins/gritter/jquery.gritter.css" />	
         <!-- REQUIRE FOR SPEECH COMMANDS -->
         <link rel="stylesheet" type="text/css" href="../assets/css/plugins/gritter/jquery.gritter.css" />
+        <link rel="stylesheet" type="text/css" href="../assets/css/plugins/daterangepicker/daterangepicker-bs3.css" />
 
         <!-- Tc core CSS -->
         <link id="qstyle" rel="stylesheet" href="../assets/css/themes/style.css">	
@@ -246,47 +247,7 @@ if (empty($_SESSION['username'])) {
 
                                     </div>
                                     <div class="row" id="row_html">
-                                        <div class="col-lg-3">
-
-                                            <div class="portlet">
-                                                <div class="portlet-heading dark">
-                                                    <div class="portlet-title">
-                                                        <h4><i class="fa fa-list-ul"></i> Search Criteria</h4>
-                                                    </div>
-                                                    <div class="portlet-widgets">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#recent" class=""><i class="fa fa-chevron-down"></i></a>
-
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                                <div id="recent" class="panel-collapse collapse in">
-                                                    <div class="portlet-body" class="row">
-                                                        <fieldset>
-                                                            <legend>Configure Date</legend>
-                                                            <div id="project_name_div status">
-                                                                Specific Time: 
-                                                                <select id="date_specific">
-                                                                    <option value="0">Day</option>
-                                                                    <option value="1">Month</option>
-                                                                    <option value="2">Year</option>
-                                                                </select>
-                                                            </div>
-                                                            <br/>
-                                                            <div id="project_name_div status">
-                                                                <input type="text" class="form-control search_date" id="search_date">
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="portlet-footer">
-                                                        <div class="pull-right">
-                                                            <button id="search_project_button" class="btn btn-inverse">Search <i class="fa fa-arrow-right icon-on-right"></i></button>
-                                                        </div>
-                                                        <div class="clearfix"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-9">
+                                        <div class="col-lg-12">
 
                                             <div class="portlet">
                                                 <div class="portlet-heading dark">
@@ -294,8 +255,10 @@ if (empty($_SESSION['username'])) {
                                                         <h4><i class="fa fa-list-ul"></i> Team Report (รายงาน)</h4>
                                                     </div>
                                                     <div class="portlet-widgets">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#recent" class=""><i class="fa fa-chevron-down"></i></a>
-
+                                                        <div id="daterange" class="selectbox pull-right" style="cursor: pointer">
+                                                            <i class="fa fa-calendar"></i>
+                                                            <span></span> <b class="caret"></b>
+                                                        </div>
                                                     </div>
                                                     <div class="clearfix"></div>
                                                 </div>
@@ -400,7 +363,6 @@ if (empty($_SESSION['username'])) {
         <script src="../assets/js/plugins/daterangepicker/daterangepicker.js"></script>
         <script src="../assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
         <script src="../assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
-
         <script src="../assets/js/plugins/datatables/datatables.responsive.js"></script>
         <!-- Themes Core Scripts -->	
         <script src="../assets/js/main.js"></script>
@@ -411,37 +373,57 @@ if (empty($_SESSION['username'])) {
 
         <!-- initial page level scripts for examples -->
         <script src="../assets/js/plugins/slimscroll/jquery.slimscroll.init.js"></script>
-        <script src="../assets/js/home-page.init.js"></script>
         <script src="../assets/js/plugins/jquery-sparkline/jquery.sparkline.init.js"></script>
         <!-- qrc-mgr javascript init-->
         <script src="../assets/js/qrc-mgr_configuration.js"></script>
 
         <script type="text/javascript">
                                         $(document).ready(function () {
-                                            var date = new Date();
-                                            var day = date.getDate();
-                                            var month = date.getMonth() + 1;
-                                            var year = date.getFullYear();
-
-                                            var previousdate = new Date();
-                                            previousdate.setDate(date.getDate() - 1);
-                                            var previouseMonth = new Date();
-                                            previouseMonth.setMonth(date.getMonth() - 1);
-                                            $(".search_date").daterangepicker();
                                             $("#report_loader").load("report_table_result.php");
 
-                                            //Assign one day
-                                            $("#search_date").val((month < 10 ? "0" + month : month) + "/" + (day < 10 ? "0" + day : day) + "/" + year + " - " + (month < 10 ? "0" + month : month) + "/" + (previousdate.getDate() < 10 ? "0" + previousdate.getDate() : previousdate.getDate()) + "/" + year);
-
-                                            $("#date_specific").change(function () {
-                                                if ($(this).val() == 0) {
-                                                    $("#search_date").val((month < 10 ? "0" + month : month) + "/" + (day < 10 ? "0" + day : day) + "/" + year + " - " + (month < 10 ? "0" + month : month) + "/" + (previousdate.getDate() < 10 ? "0" + previousdate.getDate() : previousdate.getDate()) + "/" + year);
-                                                } else if ($(this).val() == 1) {
-                                                    $("#search_date").val("");
-                                                } else if ($(this).val() == 2) {
-                                                    $("#search_date").val("");
+                                            $('#daterange').daterangepicker({
+                                                startDate: moment().subtract('days', 29),
+                                                endDate: moment(),
+                                                dateLimit: {
+                                                    days: 60
+                                                },
+                                                showDropdowns: true,
+                                                showWeekNumbers: true,
+                                                timePicker: false,
+                                                timePickerIncrement: 1,
+                                                timePicker12Hour: true,
+                                                ranges: {
+                                                    'Today': [moment(), moment()],
+                                                    'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                                                    'Last 7 Days': [moment().subtract('days', 6), moment()],
+                                                    'Last 30 Days': [moment().subtract('days', 29), moment()],
+                                                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                                                    'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                                                },
+                                                opens: 'left',
+                                                buttonClasses: ['btn btn-primary'],
+                                                applyClass: 'btn-sm btn-inverse',
+                                                cancelClass: 'btn-sm',
+                                                format: 'DD/MM/YYYY',
+                                                separator: ' to ',
+                                                locale: {
+                                                    applyLabel: 'Submit',
+                                                    fromLabel: 'From',
+                                                    toLabel: 'To',
+                                                    customRangeLabel: 'Custom Range',
+                                                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                                                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                                                    firstDay: 1
                                                 }
-                                            });
+                                            },
+                                            function (start, end) {
+                                                console.log(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+                                                $('#daterange span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+                                            }
+                                            );
+                                            //Set the initial state of the picker label
+                                            $('#daterange span').html(moment().subtract('days', 29).format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY'));
+
                                         });
         </script>
     </body>
