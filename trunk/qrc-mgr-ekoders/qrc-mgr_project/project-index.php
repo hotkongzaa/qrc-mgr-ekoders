@@ -496,7 +496,7 @@ if (empty($_SESSION['username'])) {
                                                 jqxhr.success(function (cedata) {
                                                     $("#loading_ce_form").html(cedata);
                                                     $("#create_new_project_btn").hide();
-                                                    $('html,body').animate({scrollTop: $('#create_new_project_btn').offset().top}, 'slow');
+//                                                    $('html,body').animate({scrollTop: $('#create_new_project_btn').offset().top}, 'slow');
                                                 });
                                             });
                                             $("#search_project_button").click(function () {

@@ -238,8 +238,8 @@ if (empty($_SESSION['username'])) {
                     </div><!-- /.row -->
                     <!-- END PAGE HEADING ROW -->					
                     <div class="row">
-                        <div class="col-lg-12">
 
+                        <div class="col-lg-12">
                             <!-- START YOUR CONTENT HERE -->
                             <div class="row">
                                 <div class="col-lg-12 col-sm-12">
@@ -247,18 +247,44 @@ if (empty($_SESSION['username'])) {
 
                                     </div>
                                     <div class="row" id="row_html">
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-3">
+                                            <div class="portlet" id="create_edit_panel">
+                                                <div class="portlet-heading inverse">
+                                                    <div class="portlet-title">
+                                                        <h4><i class="fa fa-bar-chart-o"></i> Search</h4>
+                                                    </div>
+                                                    <div class="portlet-widgets">
 
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#m-charts"><i class="fa fa-chevron-down"></i></a>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div id="m-charts" class="panel-collapse collapse in">
+                                                    <div class="portlet-body">
+                                                        <div class="row">
+                                                            <div id="daterange" class="selectbox" style="cursor: pointer">
+                                                                <i class="fa fa-calendar"></i>
+                                                                <span></span> <b class="caret"></b>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-footer">
+                                                        <div class="pull-right">
+                                                            <button id="search_click"  class="btn btn-primary">Search </button>
+                                                        </div>
+                                                        <div class="pull-left">
+                                                            <button id="reset_click" class="btn ">Reset <i class="fa fa-arrow-cross"></i></button>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
                                             <div class="portlet">
                                                 <div class="portlet-heading dark">
                                                     <div class="portlet-title">
                                                         <h4><i class="fa fa-list-ul"></i> Team Report (รายงาน)</h4>
-                                                    </div>
-                                                    <div class="portlet-widgets">
-                                                        <div id="daterange" class="selectbox pull-right" style="cursor: pointer">
-                                                            <i class="fa fa-calendar"></i>
-                                                            <span></span> <b class="caret"></b>
-                                                        </div>
                                                     </div>
                                                     <div class="clearfix"></div>
                                                 </div>
@@ -348,7 +374,8 @@ if (empty($_SESSION['username'])) {
                 <!-- END MAIN PAGE CONTENT -->
             </div>  
         </div>
-
+        <input type="hidden" id="start_date">
+        <input type="hidden" id="end_date">
 
         <!-- core JavaScript -->
         <script src="../assets/js/jquery.min.js"></script>
@@ -361,26 +388,28 @@ if (empty($_SESSION['username'])) {
         <script src="../assets/js/plugins/jqueryui/jquery.ui.touch-punch.min.js"></script>	
         <script src="../assets/js/plugins/daterangepicker/moment.js"></script>
         <script src="../assets/js/plugins/daterangepicker/daterangepicker.js"></script>
-        <script src="../assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-        <script src="../assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
         <script src="../assets/js/plugins/datatables/datatables.responsive.js"></script>
+        <script src="../assets/js/plugins/jquery.blockUI.js"></script>
+        <script src="../assets/js/highcharts.js"></script>
+        <script src="../assets/js/exporting.js"></script>
+        <script src="../assets/js/data.js"></script>
+
+        <script src="../assets/js/highcharts.js"></script>
+        <script src="../assets/js/exporting.js"></script>
+        <script src="../assets/js/data.js"></script>
         <!-- Themes Core Scripts -->	
         <script src="../assets/js/main.js"></script>
 
         <!-- REQUIRE FOR SPEECH COMMANDS -->
-        <script src="../assets/js/speech-commands.js"></script>
         <script src="../assets/js/plugins/gritter/jquery.gritter.min.js"></script>		
 
         <!-- initial page level scripts for examples -->
         <script src="../assets/js/plugins/slimscroll/jquery.slimscroll.init.js"></script>
-        <script src="../assets/js/plugins/jquery-sparkline/jquery.sparkline.init.js"></script>
         <!-- qrc-mgr javascript init-->
         <script src="../assets/js/qrc-mgr_configuration.js"></script>
 
         <script type="text/javascript">
                                         $(document).ready(function () {
-                                            $("#report_loader").load("report_table_result.php");
-
                                             $('#daterange').daterangepicker({
                                                 startDate: moment().subtract('days', 29),
                                                 endDate: moment(),
@@ -400,7 +429,7 @@ if (empty($_SESSION['username'])) {
                                                     'This Month': [moment().startOf('month'), moment().endOf('month')],
                                                     'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
                                                 },
-                                                opens: 'left',
+                                                opens: 'right',
                                                 buttonClasses: ['btn btn-primary'],
                                                 applyClass: 'btn-sm btn-inverse',
                                                 cancelClass: 'btn-sm',
@@ -417,14 +446,59 @@ if (empty($_SESSION['username'])) {
                                                 }
                                             },
                                             function (start, end) {
-                                                console.log(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
                                                 $('#daterange span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+                                                $("#start_date").val(start.format('YYYY-MM-DD'));
+                                                $("#end_date").val(end.format('YYYY-MM-DD'));
                                             }
                                             );
                                             //Set the initial state of the picker label
                                             $('#daterange span').html(moment().subtract('days', 29).format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY'));
-
+                                            $("#start_date").val(moment().subtract('days', 29).format('YYYY-MM-DD'));
+                                            $("#end_date").val(moment().format('YYYY-MM-DD'));
+                                            $.ajax({
+                                                url: "report_table_result.php?start_date=" + moment().subtract('days', 29).format('YYYY-MM-DD') + "&end_date=" + moment().format('YYYY-MM-DD'),
+                                                type: 'POST',
+                                                beforeSend: function (xhr) {
+                                                    $.blockUI({css: {
+                                                            border: 'none',
+                                                            padding: '15px',
+                                                            backgroundColor: '#fff',
+                                                            '-webkit-border-radius': '10px',
+                                                            '-moz-border-radius': '10px',
+                                                            opacity: .5,
+                                                            color: '#fff'
+                                                        }, message: '<img src="../images/gears.gif" width="120px" height="120px"/>'});
+                                                },
+                                                success: function (data, textStatus, jqXHR) {
+                                                    $("#report_loader").html(data);
+                                                    setTimeout($.unblockUI, 100);
+                                                }
+                                            });
+                                            $("#search_click").click(function () {
+                                                var startDate = $("#start_date").val();
+                                                var endDate = $("#end_date").val();
+                                                $.ajax({
+                                                    url: "report_table_result.php?start_date=" + startDate + "&end_date=" + endDate,
+                                                    type: 'POST',
+                                                    beforeSend: function (xhr) {
+                                                        $.blockUI({css: {
+                                                                border: 'none',
+                                                                padding: '15px',
+                                                                backgroundColor: '#fff',
+                                                                '-webkit-border-radius': '10px',
+                                                                '-moz-border-radius': '10px',
+                                                                opacity: .5,
+                                                                color: '#fff'
+                                                            }, message: '<img src="../images/gears.gif" width="120px" height="120px"/>'});
+                                                    },
+                                                    success: function (data, textStatus, jqXHR) {
+                                                        $("#report_loader").html(data);
+                                                        setTimeout($.unblockUI, 100);
+                                                    }
+                                                });
+                                            });
                                         });
+
         </script>
     </body>
 
