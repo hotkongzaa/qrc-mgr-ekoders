@@ -413,9 +413,6 @@ if (empty($_SESSION['username'])) {
                                             $('#daterange').daterangepicker({
                                                 startDate: moment().subtract('days', 29),
                                                 endDate: moment(),
-                                                dateLimit: {
-                                                    days: 60
-                                                },
                                                 showDropdowns: true,
                                                 showWeekNumbers: true,
                                                 timePicker: false,
