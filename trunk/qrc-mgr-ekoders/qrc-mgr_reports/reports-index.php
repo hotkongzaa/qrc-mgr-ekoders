@@ -497,6 +497,28 @@ if (empty($_SESSION['username'])) {
                                                     }
                                                 });
                                             });
+                                            $("#reset_click").click(function () {
+                                                $.ajax({
+                                                    url: "report_table_result.php?start_date=" + moment().subtract('days', 29).format('YYYY-MM-DD') + "&end_date=" + moment().format('YYYY-MM-DD'),
+                                                    type: 'POST',
+                                                    beforeSend: function (xhr) {
+                                                        $.blockUI({css: {
+                                                                border: 'none',
+                                                                padding: '15px',
+                                                                backgroundColor: '#fff',
+                                                                '-webkit-border-radius': '10px',
+                                                                '-moz-border-radius': '10px',
+                                                                opacity: .5,
+                                                                color: '#fff'
+                                                            }, message: '<img src="../images/gears.gif" width="120px" height="120px"/>'});
+                                                    },
+                                                    success: function (data, textStatus, jqXHR) {
+                                                        $("#report_loader").html(data);
+                                                        $('#daterange span').html(moment().subtract('days', 29).format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY'));
+                                                        setTimeout($.unblockUI, 100);
+                                                    }
+                                                });
+                                            });
                                         });
 
         </script>
