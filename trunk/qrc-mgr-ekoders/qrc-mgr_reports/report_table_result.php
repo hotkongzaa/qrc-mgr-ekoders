@@ -12,6 +12,7 @@ if (empty($_SESSION['username'])) {
         $config = require '../model-db-connection/qrc_conf.properties.php';
         $start_date = $_GET['start_date'];
         $end_date = $_GET['end_date'];
+        $wo_status = $_GET['wo_status'];
     }
 }
 ?>
@@ -41,23 +42,26 @@ if (empty($_SESSION['username'])) {
         </thead>
         <tbody>
             <?php
-            $sqlQuery = "select
-                            qrc_project_order.project_order_id as project_order_id,
-                            qrc_team_builder.tCode as team_code,
-                            qrc_team_builder.tName as team_name,
-                            count(qrc_project_order.project_order_id) as number_of_wo, 
-                            qrc_project_order.plan_size as summary_plan_size,
-                            qrc_project_order.unit_price as average_unit_price,
-                            qrc_project_order.amount as total_of_amount,
-                            qrc_project_order.WO_RETENTION as total_amount_with_deduction,
-                            qrc_project_order.WO_RETENTION as total_number_of_retention,
-                            qrc_assign_order.TEAM_CODE as team_code
-                        from qrc_project_order
-                        left join qrc_assign_order on qrc_project_order.assign_id = qrc_assign_order.ASSIGN_ID
-                        left join qrc_team_builder on qrc_assign_order.TEAM_CODE = qrc_team_builder.tCode
-                        where qrc_project_order.assign_id is not null
-                        and qrc_project_order.created_date_time between '$start_date' and '$end_date'
-                        group by qrc_team_builder.tName";
+            $checkStatus = empty($wo_status) ? "" : "and qrc_project_order.project_status like '$wo_status'";
+            $checkDate = empty($start_date) ? "" : " and qrc_project_order.created_date_time between '$start_date' and '$end_date'";
+            $sqlQuery = "select"
+                    . " qrc_project_order.project_order_id as project_order_id,"
+                    . "qrc_team_builder.tCode as team_code,"
+                    . "qrc_team_builder.tName as team_name,"
+                    . "count(qrc_project_order.project_order_id) as number_of_wo, "
+                    . "qrc_project_order.plan_size as summary_plan_size,"
+                    . "qrc_project_order.unit_price as average_unit_price,"
+                    . "qrc_project_order.amount as total_of_amount,"
+                    . "qrc_project_order.WO_RETENTION as total_amount_with_deduction,"
+                    . "qrc_project_order.WO_RETENTION as total_number_of_retention,"
+                    . "qrc_assign_order.TEAM_CODE as team_code"
+                    . " from qrc_project_order"
+                    . " left join qrc_assign_order on qrc_project_order.assign_id = qrc_assign_order.ASSIGN_ID"
+                    . " left join qrc_team_builder on qrc_assign_order.TEAM_CODE = qrc_team_builder.tCode"
+                    . " where qrc_project_order.assign_id is not null"
+                    . $checkDate
+                    . $checkStatus
+                    . " group by qrc_team_builder.tName;";
             $resultSet = mysql_query($sqlQuery);
             while ($row = mysql_fetch_array($resultSet)) {
                 ?>
@@ -67,11 +71,14 @@ if (empty($_SESSION['username'])) {
                     <td align="center"><?= $row['number_of_wo'] ?></td>
                     <td align="center"><?php
                         $summaryPlanSize = 0;
+                        $checkStatus2 = empty($wo_status) ? "" : "and qpo.project_status like '$wo_status'";
+                        $checkDate2 = empty($start_date) ? "" : " and qpo.created_date_time between '$start_date' and '$end_date'";
                         $sqlGetPlanSizeByWOID = "select plan_size
                                                     from qrc_project_order qpo
                                                     left join qrc_assign_order qao on qpo.assign_id = qao.ASSIGN_ID
                                                     where qao.TEAM_CODE like '" . $row['team_code'] . "'"
-                                . " and qpo.created_date_time between '$start_date' and '$end_date';";
+                                . $checkStatus2
+                                . $checkDate2;
                         $resultSetForPlansize = mysql_query($sqlGetPlanSizeByWOID);
                         while ($rowPlanSize = mysql_fetch_array($resultSetForPlansize)) {
                             $summaryPlanSize += $rowPlanSize['plan_size'];
@@ -81,11 +88,14 @@ if (empty($_SESSION['username'])) {
                         ?></td>
                     <td align="center"><?php
                         $sqlAVGunit = 0;
+                        $checkStatus3 = empty($wo_status) ? "" : "and qpo.project_status like '$wo_status'";
+                        $checkDate3 = empty($start_date) ? "" : " and qpo.created_date_time between '$start_date' and '$end_date'";
                         $sqlGetUnitPrice = "select unit_price as unit_price
                                             from qrc_project_order qpo
                                             left join qrc_assign_order qao on qpo.assign_id = qao.ASSIGN_ID
                                             where qao.TEAM_CODE like '" . $row['team_code'] . "'"
-                                . " and qpo.created_date_time between '$start_date' and '$end_date';";
+                                . $checkStatus3
+                                . $checkDate3;
                         $resultForAVG = mysql_query($sqlGetUnitPrice);
                         while ($rowAVG = mysql_fetch_array($resultForAVG)) {
                             $sqlAVGunit += $rowAVG['unit_price'];
@@ -94,18 +104,22 @@ if (empty($_SESSION['username'])) {
                                             from qrc_project_order qpo  
                                             left join qrc_assign_order qao on qpo.assign_id = qao.ASSIGN_ID
                                             where qao.TEAM_CODE like '" . $row['team_code'] . "'"
-                                . " and qpo.created_date_time between '$start_date' and '$end_date';";
+                                . $checkDate3
+                                . $checkStatus3;
                         $rowTotalRec = mysql_fetch_assoc(mysql_query($sqlGetCount));
                         echo $sqlAVGunit / $rowTotalRec['total'];
                         $sqlAVGunit = 0;
                         ?></td>
                     <td align="center"><?php
                         $totalAVGAmount = 0;
+                        $checkStatus4 = empty($wo_status) ? "" : "and qpo.project_status like '$wo_status'";
+                        $checkDate4 = empty($start_date) ? "" : " and qpo.created_date_time between '$start_date' and '$end_date'";
                         $sqlGetTotalAmount = "select qpo.amount as amount
                                                 from qrc_project_order qpo
                                                 left join qrc_assign_order qao on qpo.assign_id = qao.ASSIGN_ID
                                                 where qao.TEAM_CODE like '" . $row['team_code'] . "'"
-                                . " and qpo.created_date_time between '$start_date' and '$end_date';";
+                                . $checkDate4
+                                . $checkStatus4;
                         $resultForAVGAmount = mysql_query($sqlGetTotalAmount);
                         while ($rowAVGAmount = mysql_fetch_array($resultForAVGAmount)) {
                             $totalAVGAmount += $rowAVGAmount['amount'];
@@ -116,23 +130,27 @@ if (empty($_SESSION['username'])) {
                     <td align="center"><?php
                         $totalAmountWithDeduct = 0;
                         $totalRetention = 0;
-                        $sqlGetTotalAmount2 = "select qpo.amount as amount
-                                                from qrc_project_order qpo
-                                                left join qrc_assign_order qao on qpo.assign_id = qao.ASSIGN_ID
-                                                where qao.TEAM_CODE like '" . $row['team_code'] . "'"
-                                . " and qpo.created_date_time between '$start_date' and '$end_date';";
+                        $checkStatus5 = empty($wo_status) ? "" : "and qpo.project_status like '$wo_status'";
+                        $checkDate5 = empty($start_date) ? "" : " and qpo.created_date_time between '$start_date' and '$end_date'";
+                        $sqlGetTotalAmount2 = "select qpo.amount as amount"
+                                . " from qrc_project_order qpo"
+                                . " left join qrc_assign_order qao on qpo.assign_id = qao.ASSIGN_ID"
+                                . " where qao.TEAM_CODE like '" . $row['team_code'] . "'"
+                                . $checkDate5
+                                . $checkStatus5;
                         $resultForTotalAmount = mysql_query($sqlGetTotalAmount2);
                         while ($rowAVGAmounts = mysql_fetch_array($resultForTotalAmount)) {
                             $totalAmountWithDeduct += $rowAVGAmounts['amount'];
                         }
 
-                        $sqlGetTotalRentention = "select WO_RETENTION as WO_RETENTION
-                                                    from qrc_project_order qpo
-                                                    left join qrc_assign_order qao on qpo.assign_id = qao.ASSIGN_ID
-                                                    where qao.TEAM_CODE like '" . $row['team_code'] . "'
-                                                    and qpo.WO_RETENTION is not null
-                                                    and qpo.WO_RETENTION !=''
-                                                    and qpo.created_date_time between '$start_date' and '$end_date';";
+                        $sqlGetTotalRentention = "select WO_RETENTION as WO_RETENTION"
+                                . " from qrc_project_order qpo"
+                                . " left join qrc_assign_order qao on qpo.assign_id = qao.ASSIGN_ID"
+                                . " where qao.TEAM_CODE like '" . $row['team_code'] . "'"
+                                . " and qpo.WO_RETENTION is not null"
+                                . " and qpo.WO_RETENTION !=''"
+                                . $checkDate5
+                                . $checkStatus5;
 
                         $resultSetTotalRetention = mysql_query($sqlGetTotalRentention);
                         while ($rowTotalRetention = mysql_fetch_array($resultSetTotalRetention)) {
@@ -145,13 +163,17 @@ if (empty($_SESSION['username'])) {
                         $totalRetention = 0;
                         ?></td>
                     <td align="center"><?php
-                        $sqlGetTotalRetention = "select count(*) as total_of_retention
-                                                from qrc_project_order qpo
-                                                left join qrc_assign_order qao on qpo.assign_id = qao.ASSIGN_ID
-                                                where qao.TEAM_CODE like '" . $row['team_code'] . "'
-                                                and qpo.WO_RETENTION is not null
-                                                and qpo.WO_RETENTION !=''
-                                                and qpo.created_date_time between '$start_date' and '$end_date';";
+                        $checkStatus6 = empty($wo_status) ? "" : "and qpo.project_status like '$wo_status'";
+                        $checkDate6 = empty($start_date) ? "" : " and qpo.created_date_time between '$start_date' and '$end_date'";
+                        $sqlGetTotalRetention = "select count(*) as total_of_retention"
+                                . " from qrc_project_order qpo"
+                                . " left join qrc_assign_order qao on qpo.assign_id = qao.ASSIGN_ID"
+                                . " where qao.TEAM_CODE like '" . $row['team_code'] . "'"
+                                . " and qpo.WO_RETENTION is not null"
+                                . " and qpo.WO_RETENTION !=''"
+                                . " and qpo.created_date_time between '$start_date' and '$end_date'"
+                                . $checkDate6
+                                . $checkStatus6;
                         $resultSetTotaoRetention = mysql_query($sqlGetTotalRetention);
                         $rowSet = mysql_fetch_assoc($resultSetTotaoRetention);
                         echo $rowSet['total_of_retention'];

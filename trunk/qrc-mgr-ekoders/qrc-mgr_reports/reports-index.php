@@ -262,9 +262,26 @@ if (empty($_SESSION['username'])) {
                                                 <div id="m-charts" class="panel-collapse collapse in">
                                                     <div class="portlet-body">
                                                         <div class="row">
-                                                            <div id="daterange" class="selectbox" style="cursor: pointer">
-                                                                <i class="fa fa-calendar"></i>
-                                                                <span></span> <b class="caret"></b>
+                                                            <div class="form-group">
+                                                                <label>Search Date (ค้นหาตามวันที่)</label>
+                                                                <div class="input-group" id="daterange">
+                                                                    <input id="show_date" class="form-control" placeholder="search all">
+                                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Search Status (ค้นหาตามสถานะ)</label>
+                                                                <select class="form-control" id="wo_status" name="project_order_status">
+                                                                    <?php
+                                                                    $sqlSelectProjectType = "SELECT * FROM QRC_ASSIGN_STATUS;";
+                                                                    $resultSet = mysql_query($sqlSelectProjectType);
+                                                                    echo '<option value="">--- All ---</option>';
+                                                                    while ($row = mysql_fetch_array($resultSet)) {
+                                                                        echo '<option value="' . $row['A_S_NAME'] . '">' . $row['A_S_NAME'] . '</option>';
+                                                                    }
+                                                                    ?>      
+                                                                </select>
+                                                                <div class="separator"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -443,17 +460,17 @@ if (empty($_SESSION['username'])) {
                                                 }
                                             },
                                             function (start, end) {
-                                                $('#daterange span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+                                                $("#show_date").val(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
                                                 $("#start_date").val(start.format('YYYY-MM-DD'));
                                                 $("#end_date").val(end.format('YYYY-MM-DD'));
                                             }
                                             );
                                             //Set the initial state of the picker label
-                                            $('#daterange span').html(moment().subtract('days', 29).format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY'));
-                                            $("#start_date").val(moment().subtract('days', 29).format('YYYY-MM-DD'));
-                                            $("#end_date").val(moment().format('YYYY-MM-DD'));
+//                                            $("#show_date").val(moment().subtract('days', 29).format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY'));                                           
+//                                            $("#start_date").val(moment().subtract('days', 29).format('YYYY-MM-DD'));
+//                                            $("#end_date").val(moment().format('YYYY-MM-DD'));
                                             $.ajax({
-                                                url: "report_table_result.php?start_date=" + moment().subtract('days', 29).format('YYYY-MM-DD') + "&end_date=" + moment().format('YYYY-MM-DD'),
+                                                url: "report_table_result.php",
                                                 type: 'POST',
                                                 beforeSend: function (xhr) {
                                                     $.blockUI({css: {
@@ -472,10 +489,15 @@ if (empty($_SESSION['username'])) {
                                                 }
                                             });
                                             $("#search_click").click(function () {
-                                                var startDate = $("#start_date").val();
-                                                var endDate = $("#end_date").val();
+                                                var startDate = "";
+                                                var endDate = "";
+                                                if ($("#show_date").val() != "") {
+                                                    startDate = $("#start_date").val();
+                                                    endDate = $("#end_date").val();
+                                                }
+                                                var wo_status = $("#wo_status").val();
                                                 $.ajax({
-                                                    url: "report_table_result.php?start_date=" + startDate + "&end_date=" + endDate,
+                                                    url: "report_table_result.php?start_date=" + startDate + "&end_date=" + endDate + "&wo_status=" + wo_status,
                                                     type: 'POST',
                                                     beforeSend: function (xhr) {
                                                         $.blockUI({css: {
@@ -496,7 +518,7 @@ if (empty($_SESSION['username'])) {
                                             });
                                             $("#reset_click").click(function () {
                                                 $.ajax({
-                                                    url: "report_table_result.php?start_date=" + moment().subtract('days', 29).format('YYYY-MM-DD') + "&end_date=" + moment().format('YYYY-MM-DD'),
+                                                    url: "report_table_result.php",
                                                     type: 'POST',
                                                     beforeSend: function (xhr) {
                                                         $.blockUI({css: {
@@ -511,7 +533,7 @@ if (empty($_SESSION['username'])) {
                                                     },
                                                     success: function (data, textStatus, jqXHR) {
                                                         $("#report_loader").html(data);
-                                                        $('#daterange span').html(moment().subtract('days', 29).format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY'));
+                                                        $("#show_date").val("");
                                                         setTimeout($.unblockUI, 100);
                                                     }
                                                 });
