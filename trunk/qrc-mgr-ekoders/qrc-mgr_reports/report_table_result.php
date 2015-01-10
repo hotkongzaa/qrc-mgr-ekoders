@@ -42,7 +42,7 @@ if (empty($_SESSION['username'])) {
         </thead>
         <tbody>
             <?php
-            $checkStatus = empty($wo_status) ? "" : "and qrc_project_order.project_status like '$wo_status'";
+            $checkStatus = empty($wo_status) ? "" : " and qrc_project_order.project_status like '$wo_status'";
             $checkDate = empty($start_date) ? "" : " and qrc_project_order.created_date_time between '$start_date' and '$end_date'";
             $sqlQuery = "select"
                     . " qrc_project_order.project_order_id as project_order_id,"
@@ -71,7 +71,7 @@ if (empty($_SESSION['username'])) {
                     <td align="center"><?= $row['number_of_wo'] ?></td>
                     <td align="center"><?php
                         $summaryPlanSize = 0;
-                        $checkStatus2 = empty($wo_status) ? "" : "and qpo.project_status like '$wo_status'";
+                        $checkStatus2 = empty($wo_status) ? "" : " and qpo.project_status like '$wo_status'";
                         $checkDate2 = empty($start_date) ? "" : " and qpo.created_date_time between '$start_date' and '$end_date'";
                         $sqlGetPlanSizeByWOID = "select plan_size
                                                     from qrc_project_order qpo
@@ -88,7 +88,7 @@ if (empty($_SESSION['username'])) {
                         ?></td>
                     <td align="center"><?php
                         $sqlAVGunit = 0;
-                        $checkStatus3 = empty($wo_status) ? "" : "and qpo.project_status like '$wo_status'";
+                        $checkStatus3 = empty($wo_status) ? "" : " and qpo.project_status like '$wo_status'";
                         $checkDate3 = empty($start_date) ? "" : " and qpo.created_date_time between '$start_date' and '$end_date'";
                         $sqlGetUnitPrice = "select unit_price as unit_price
                                             from qrc_project_order qpo
@@ -112,7 +112,7 @@ if (empty($_SESSION['username'])) {
                         ?></td>
                     <td align="center"><?php
                         $totalAVGAmount = 0;
-                        $checkStatus4 = empty($wo_status) ? "" : "and qpo.project_status like '$wo_status'";
+                        $checkStatus4 = empty($wo_status) ? "" : " and qpo.project_status like '$wo_status'";
                         $checkDate4 = empty($start_date) ? "" : " and qpo.created_date_time between '$start_date' and '$end_date'";
                         $sqlGetTotalAmount = "select qpo.amount as amount
                                                 from qrc_project_order qpo
@@ -130,7 +130,7 @@ if (empty($_SESSION['username'])) {
                     <td align="center"><?php
                         $totalAmountWithDeduct = 0;
                         $totalRetention = 0;
-                        $checkStatus5 = empty($wo_status) ? "" : "and qpo.project_status like '$wo_status'";
+                        $checkStatus5 = empty($wo_status) ? "" : " and qpo.project_status like '$wo_status'";
                         $checkDate5 = empty($start_date) ? "" : " and qpo.created_date_time between '$start_date' and '$end_date'";
                         $sqlGetTotalAmount2 = "select qpo.amount as amount"
                                 . " from qrc_project_order qpo"
@@ -163,7 +163,7 @@ if (empty($_SESSION['username'])) {
                         $totalRetention = 0;
                         ?></td>
                     <td align="center"><?php
-                        $checkStatus6 = empty($wo_status) ? "" : "and qpo.project_status like '$wo_status'";
+                        $checkStatus6 = empty($wo_status) ? "" : " and qpo.project_status like '$wo_status'";
                         $checkDate6 = empty($start_date) ? "" : " and qpo.created_date_time between '$start_date' and '$end_date'";
                         $sqlGetTotalRetention = "select count(*) as total_of_retention"
                                 . " from qrc_project_order qpo"
