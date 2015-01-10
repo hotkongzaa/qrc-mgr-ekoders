@@ -534,6 +534,7 @@ if (empty($_SESSION['username'])) {
                                                     success: function (data, textStatus, jqXHR) {
                                                         $("#report_loader").html(data);
                                                         $("#show_date").val("");
+                                                        $("#wo_status").val("");
                                                         setTimeout($.unblockUI, 100);
                                                     }
                                                 });
