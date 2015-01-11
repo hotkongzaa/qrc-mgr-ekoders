@@ -31,14 +31,20 @@ $po_retention_reason = $_GET['po_retention_reason'];
 
 $sqlSelectMaxValue = "SELECT count(*) as total FROM QRC_PO";
 $resultSet = mysql_query($sqlSelectMaxValue);
+if (!$resultSet) {
+    $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+    file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+}
 $row = mysql_fetch_assoc($resultSet);
 if ($row['total'] == 0) {
-//    echo '<p class="form-control-static" id="projectCode">PR00001</p>';
-//    echo '<input type="hidden" name="project_code" id="project_code" value="PR00001"/>';
     $strResult = "PO0000001";
 } else {
     $sqlSelectCodeValue = "SELECT PO_ID as code FROM QRC_PO ORDER BY PO_CREATED_DATE_TIME DESC";
     $resultSets = mysql_query($sqlSelectCodeValue);
+    if (!$resultSets) {
+        $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+        file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+    }
     $row = mysql_fetch_assoc($resultSets);
     $prefix = "PO";
     $pieces = explode("PO", $row[code]);
@@ -91,13 +97,19 @@ $sqlInsertIntoMember = "INSERT INTO QRC_PO "
         . "'$po_owner','$po_sender','$issue_date','$order_type','$quantity','$plan_size','$unit_price','$amount',"
         . "'$vat7',NULL,'$project_manager','$projectforeman','$supervisor',NOW(),'$project_remark','$po_name','$po_retention','$po_retention_reason','$po_status');";
 $resultSetss = mysql_query($sqlInsertIntoMember);
-
+if (!$resultSetss) {
+    $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+    file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+}
 $updatePoImg = "UPDATE QRC_PO_IMAGE"
         . " SET TEMP_PO_ID = '$strResult'"
         . " WHERE TEMP_PO_ID IS NULL;";
 
-mysql_query($updatePoImg);
-
+$resultUpdateImage = mysql_query($updatePoImg);
+if (!$resultUpdateImage) {
+    $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+    file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+}
 
 
 if ($resultSetss) {

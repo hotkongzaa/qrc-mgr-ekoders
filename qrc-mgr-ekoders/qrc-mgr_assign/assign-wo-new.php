@@ -283,6 +283,10 @@ if (empty($_SESSION['username'])) {
                                                                 <?php
                                                                 $sqlSelectProjectType = "SELECT * FROM QRC_PROJECT;";
                                                                 $resultSet = mysql_query($sqlSelectProjectType);
+                                                                if (!$resultSet) {
+                                                                    $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                                                                    file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                                                                }
                                                                 while ($row = mysql_fetch_array($resultSet)) {
                                                                     echo '<option value="' . $row['project_code'] . '">' . $row['project_name'] . '</option>';
                                                                 }
@@ -329,6 +333,10 @@ if (empty($_SESSION['username'])) {
                                                                         <?php
                                                                         $sqlSelectProjectType = "SELECT * FROM QRC_TEAM_BUILDER;";
                                                                         $resultSet = mysql_query($sqlSelectProjectType);
+                                                                        if (!$resultSet) {
+                                                                            $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                                                                            file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                                                                        }
                                                                         while ($row = mysql_fetch_array($resultSet)) {
                                                                             echo '<option value="' . $row['tCode'] . '">' . $row['tCode'] . '</option>';
                                                                         }
@@ -367,6 +375,10 @@ if (empty($_SESSION['username'])) {
                                                                         <?php
                                                                         $sqlSelectMemType = "SELECT * FROM QRC_INSPECTION;";
                                                                         $resultSets = mysql_query($sqlSelectMemType);
+                                                                        if (!$resultSets) {
+                                                                            $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                                                                            file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                                                                        }
                                                                         while ($row = mysql_fetch_array($resultSets)) {
                                                                             echo '<option value="' . $row['INS_ID'] . '">' . $row['INS_INSPECTION_NO'] . '</option>';
                                                                         }
@@ -453,7 +465,7 @@ if (empty($_SESSION['username'])) {
                                             <div id="recent" class="panel-collapse collapse in">
                                                 <div class="portlet-body">
                                                     <div >
-                                                        <label for="project_document_no">Document No. (เลขที่)</label>
+                                                        <label for="project_document_no">Ref No. (เลขที่)</label>
                                                         <input type="text" id="project_document_no" name="project_document_no" class="col-md-6 form-control" disabled="true"/>
                                                         <div class="separator"></div>
                                                     </div>
@@ -489,6 +501,10 @@ if (empty($_SESSION['username'])) {
                                                             <?php
                                                             $sqlSelectProjectType = "SELECT * FROM QRC_TYPE_OF_SERVICE;";
                                                             $resultSet = mysql_query($sqlSelectProjectType);
+                                                            if (!$resultSet) {
+                                                                $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                                                                file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                                                            }
                                                             while ($row = mysql_fetch_array($resultSet)) {
                                                                 echo '<option value="' . $row['service_id'] . '">' . $row['service_name'] . '</option>';
                                                             }

@@ -30,6 +30,10 @@ if (empty($_SESSION['username'])) {
                     <?php
                     $sqlSelectMemType = "SELECT * FROM QRC_PROJECT;";
                     $resultSets = mysql_query($sqlSelectMemType);
+                    if (!$resultSets) {
+                        $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                        file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                    }
                     while ($row = mysql_fetch_array($resultSets)) {
                         echo '<option value="' . $row['project_code'] . '">' . $row['project_name'] . '</option>';
                     }
@@ -40,19 +44,11 @@ if (empty($_SESSION['username'])) {
             <td align="left" style="width:250px"><input type="text" class="form-control" id="inspection_project_code_form" name="inspection_project_code_form" disabled="true"></td>
         </tr>
         <tr>
-            <td align="right" style="width:250px">Document No. (เลขที่):</td>
+            <td align="right" style="width:250px">Ref No. (เลขที่)</td>
             <td align="left" style="width:250px">
                 <!-- <input type="text" class="form-control" id="inspection_document_no_form" name="inspection_document_no_form"> -->
                 <select class="form-control" id="inspection_document_no_form" name="inspection_document_no_form">
-                    <!--<option value=""></option>-->
-                    <?php
-//                    $sqlSelectPO = "SELECT * FROM QRC_PO;";
-//                    $resultSetss = mysql_query($sqlSelectPO);
-//                    while ($rowsss = mysql_fetch_array($resultSetss)) {
-//                        echo '<option value="' . $rowsss['PO_ID'] . '">' . $rowsss['PO_DOCUMENT_NO'] . '</option>';
-//                    }
-//                    
-                    ?>
+                    
                 </select>
             </td>
             <td align="right" style="width:250px">Inspection No. (เลขที่ใบตรวจรับงาน):</td>
@@ -70,6 +66,10 @@ if (empty($_SESSION['username'])) {
                     <?php
                     $sqlSelectMemType = "SELECT * FROM QRC_TYPE_OF_SERVICE;";
                     $resultSets = mysql_query($sqlSelectMemType);
+                    if (!$resultSets) {
+                        $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                        file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                    }
                     while ($row = mysql_fetch_array($resultSets)) {
                         echo '<option value="' . $row['service_id'] . '">' . $row['service_name'] . '</option>';
                     }
@@ -115,16 +115,6 @@ if (empty($_SESSION['username'])) {
             <td align="left" colspan="3"><input type="text" class="form-control" id="inspection_remark_form" name="inspection_remark_form"></td>
 
         </tr>
-<!--        <tr>
-            <td align="center" colspan="4">
-
-                <div id="mulitplefileuploader">Upload</div>
-                <div id="status"></div>
-                <span id="uploadWarning" style="color:red"></span>
-                <br/>
-            </td>
-
-        </tr>-->
     </table>
 </form>
 <br/>
@@ -164,12 +154,12 @@ if (empty($_SESSION['username'])) {
 <script>
     var poNo = "";
     var settings;
-    $(document).ready(function() {
+    $(document).ready(function () {
         initialTextBox();
         $(".search_date").datepicker();
         $("#uploadpart").hide();
 //        $("d.fancybox-effects-d").fancybox();
-        $('#po_po_no_form').keyup(function() {
+        $('#po_po_no_form').keyup(function () {
             if ($("#po_po_no_form").val() === "") {
                 $("#uploadpart").hide();
             } else {
@@ -183,17 +173,17 @@ if (empty($_SESSION['username'])) {
             fileName: "myfile",
             allowedTypes: "jpg,png,gif,doc,pdf,zip,xls,xlsx",
             returnType: "json",
-            onSuccess: function(files, data, xhr)
+            onSuccess: function (files, data, xhr)
             {
                 //alert("Upload file: " + data + " complete !!");
             },
             showDelete: true,
-            deleteCallback: function(data, pd)
+            deleteCallback: function (data, pd)
             {
                 for (var i = 0; i < data.length; i++)
                 {
                     $.post("../model/delete_inspection_attach.php", {op: "delete", name: data[i]},
-                    function(resp, textStatus, jqXHR)
+                    function (resp, textStatus, jqXHR)
                     {
                         //alert(resp);
                     });
@@ -204,10 +194,10 @@ if (empty($_SESSION['username'])) {
         };
         var uploadObj = $("#mulitplefileuploader").uploadFile(settings);
 
-        $("#inspection_document_no_form").change(function() {
+        $("#inspection_document_no_form").change(function () {
             var insPOSelect = $(this).val();
             var jqxhr = $.post("../model/GetPoByIDForEdit.php?po_id=" + insPOSelect);
-            jqxhr.success(function(data) {
+            jqxhr.success(function (data) {
                 obj = JSON.parse(data);
                 $("#inspection_home_plan_form").val(obj.PO_HOME_PLAN);
                 $("#inspection_home_plot_form").val(obj.PO_HOME_PLOT);
@@ -216,15 +206,15 @@ if (empty($_SESSION['username'])) {
                 $("#inspection_quantity_form").val(obj.PO_QUANTITY);
                 $("#inspection_plan_size_form").val(obj.PO_PLAN_SIZE);
             });
-            jqxhr.error(function() {
+            jqxhr.error(function () {
                 alert("ไม่สามารถติดต่อกับ Server ได้");
             });
         });
 
-        $("#inspection_project_name_form").change(function() {
+        $("#inspection_project_name_form").change(function () {
             var insProjectSelect = $(this).val();
             var jqxhr = $.post("../model/GetAllProjectForEdit.php?project_code=" + insProjectSelect);
-            jqxhr.success(function(data) {
+            jqxhr.success(function (data) {
                 obj = JSON.parse(data);
                 $("#inspection_project_code_form").val(obj.project_code);
                 $("#inspection_project_manager_form").val(obj.project_manager);
@@ -232,7 +222,7 @@ if (empty($_SESSION['username'])) {
                 $("#inspection_project_supervisor_form").val(obj.supervisor_control);
 
                 var jqxhr = $.post("../model/GetPoDocumentByProjectID.php?project_code=" + insProjectSelect);
-                jqxhr.success(function(data2) {
+                jqxhr.success(function (data2) {
                     $("#inspection_document_no_form").html(data2);
                     if ($("#inspection_document_no_form").val() == 0) {
                         $("#inspection_home_plan_form").val("");
@@ -243,11 +233,11 @@ if (empty($_SESSION['username'])) {
                         $("#inspection_plan_size_form").val("");
                     }
                 });
-                jqxhr.error(function(data2) {
+                jqxhr.error(function (data2) {
                     window.location.replace("error.php?error_msg=" + data2);
                 });
             });
-            jqxhr.error(function() {
+            jqxhr.error(function () {
                 alert("ไม่สามารถติดต่อกับ Server ได้");
             });
         });
