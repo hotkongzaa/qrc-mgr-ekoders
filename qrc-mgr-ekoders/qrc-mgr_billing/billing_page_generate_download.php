@@ -3,6 +3,7 @@
 require '../model-db-connection/config.php';
 include '../model/com.qrc.mgr.model/BillingVO.php';
 include '../model/com.qrc.mgr.utils/ArrayList.php';
+$config = require '../model-db-connection/qrc_conf.properties.php';
 
 $customerId = $_GET['customer_id'];
 $inv_type_eng = $_GET['inv_type'];
@@ -68,7 +69,7 @@ if ($listBillingDto->Size() <= 23) {
     echo '<table>';
     echo '<tr>';
     echo '<td>';
-    echo '<img src = "http://localhost/qrc-mgr-ekoders/images/qrc_logo.JPG">';
+    echo '<img src = "http://localhost/' . $config['root_path'] . '/images/qrc_logo.JPG">';
     echo '</td>';
     echo '<td>';
     echo '<font size = "2" style = "font-weight: bold;">บริษัท ควอลิตี้ รูฟ แอนด์ คอนสตรัคชั่น จำกัด <br/>';
