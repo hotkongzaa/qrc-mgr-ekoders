@@ -18,6 +18,7 @@ if (empty($_SESSION['username'])) {
         $teamCode = $_GET['teamCode'];
         $teamName = $_GET['teamName'];
         $searchLimit = $_GET['searchLimit'];
+        error_reporting(0);
     }
 }
 ?>
@@ -124,6 +125,10 @@ if (empty($_SESSION['username'])) {
                         . $limit;
             }
             $sqlGetAllData = mysql_query($sqlSelectAllProjectRecord);
+            if (!$sqlGetAllData) {
+                $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+            }
             if (mysql_num_rows($sqlGetAllData) >= 1) {
                 while ($row = mysql_fetch_assoc($sqlGetAllData)) {
 
@@ -137,6 +142,10 @@ if (empty($_SESSION['username'])) {
                     $data = $row['quality_inspectors'];
                     $sqlSelectSeletedMembers = "SELECT memName FROM QRC_MEMBERS WHERE memID like '$data';";
                     $sqlGetQI = mysql_query($sqlSelectSeletedMembers);
+                    if (!$sqlGetQI) {
+                        $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                        file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                    }
                     $rows = mysql_fetch_assoc($sqlGetQI);
                     //echo '<td>' . $rows['memName'] . '</td>';
                     //echo '<td>' . $row['address_location'] . '</td>';

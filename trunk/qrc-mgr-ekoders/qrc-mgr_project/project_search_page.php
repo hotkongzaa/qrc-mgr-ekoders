@@ -10,6 +10,7 @@ if (empty($_SESSION['username'])) {
     } else {
         require '../model-db-connection/config.php';
         $config = require '../model-db-connection/qrc_conf.properties.php';
+        error_reporting(0);
     }
 }
 ?>
@@ -26,6 +27,10 @@ if (empty($_SESSION['username'])) {
             <?php
             $sqlSelectProjectType = "SELECT * FROM PROJECT_TYPE;";
             $resultSet = mysql_query($sqlSelectProjectType);
+            if (!$resultSet) {
+                $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+            }
             while ($row = mysql_fetch_array($resultSet)) {
                 echo '<option value="' . $row['project_type_id'] . '">' . $row['project_type_name'] . '</option>';
             }
@@ -38,6 +43,10 @@ if (empty($_SESSION['username'])) {
             <?php
             $sqlSelectProjectType = "SELECT * FROM PROJECT_STATUS;";
             $resultSet = mysql_query($sqlSelectProjectType);
+            if (!$resultSet) {
+                $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+            }
             while ($row = mysql_fetch_array($resultSet)) {
                 echo '<option value="' . $row['project_status_id'] . '">' . $row['project_status_name'] . '</option>';
             }
@@ -50,6 +59,10 @@ if (empty($_SESSION['username'])) {
             <?php
             $sqlSelectProjectType = "SELECT * FROM PROJECT_OWNER;";
             $resultSet = mysql_query($sqlSelectProjectType);
+            if (!$resultSet) {
+                $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+            }
             while ($row = mysql_fetch_array($resultSet)) {
                 echo '<option value="' . $row['project_owner_id'] . '">' . $row['project_owner_name'] . '</option>';
             }
@@ -62,6 +75,10 @@ if (empty($_SESSION['username'])) {
             <?php
             $sqlSelectProjectType = "SELECT * FROM QRC_CUSTOMER_NAME;";
             $resultSet = mysql_query($sqlSelectProjectType);
+            if (!$resultSet) {
+                $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+            }
             while ($row = mysql_fetch_array($resultSet)) {
                 echo '<option value="' . $row['customer_id'] . '">' . $row['customer_name'] . '</option>';
             }
@@ -86,7 +103,7 @@ if (empty($_SESSION['username'])) {
 <script src="../assets/js/plugins/daterangepicker/daterangepicker.js"></script>
 <script src="../assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $(".search_date").datepicker();
     });
 </script>

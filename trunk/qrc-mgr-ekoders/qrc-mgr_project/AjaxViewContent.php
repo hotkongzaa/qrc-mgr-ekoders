@@ -11,6 +11,7 @@ if (empty($_SESSION['username'])) {
         require '../model-db-connection/config.php';
         $config = require '../model-db-connection/qrc_conf.properties.php';
         $proID = $_GET['po_id'];
+        error_reporting(0);
     }
 }
 ?>
@@ -55,6 +56,10 @@ if (empty($_SESSION['username'])) {
                                         . " LIMIT 100;";
 
                                 $sqlGetAllData = mysql_query($sqlSelectAllProjectRecord);
+                                if (!$sqlGetAllData) {
+                                    $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                                    file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                                }
                                 if (mysql_num_rows($sqlGetAllData) >= 1) {
                                     while ($row = mysql_fetch_assoc($sqlGetAllData)) {
                                         ?>
@@ -90,6 +95,12 @@ if (empty($_SESSION['username'])) {
                                                 $data = $row['quality_inspectors'];
                                                 $sqlSelectSeletedMembers = "SELECT memName FROM QRC_MEMBERS WHERE memID like '$data';";
                                                 $sqlGetQI = mysql_query($sqlSelectSeletedMembers);
+                                                if (!$sqlGetQI) {
+                                                    if (!$sqlGetAllData) {
+                                                        $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                                                        file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                                                    }
+                                                }
                                                 $rows = mysql_fetch_assoc($sqlGetQI);
                                                 echo $rows['memName'];
                                                 ?></td>
@@ -121,8 +132,11 @@ if (empty($_SESSION['username'])) {
                                         <?php
                                         $sqlSelectImageByID = "SELECT IMAGE_PATH as IMAGE_PATH FROM qrc_project_image WHERE TEMP_PROJECT_ID LIKE '" . $proID . "'";
                                         $queryGetFilePath = mysql_query($sqlSelectImageByID);
+                                        if (!$queryGetFilePath) {
+                                            $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                                            file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                                        }
                                         $strBuilding = "";
-
                                         while ($rowq = mysql_fetch_assoc($queryGetFilePath)) {
 
                                             $strCheckType = substr($rowq['IMAGE_PATH'], -3);
