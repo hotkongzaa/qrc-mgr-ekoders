@@ -62,12 +62,13 @@ if (empty($_SESSION['username'])) {
                     . $checkDate
                     . $checkStatus
                     . " group by qrc_team_builder.tName;";
+
             $resultSet = mysql_query($sqlQuery);
             while ($row = mysql_fetch_array($resultSet)) {
                 ?>
                 <tr>
                     <td class="col-small center"><label><input type="checkbox" class="tc" value="<?= $row['team_code'] ?>"><span class="labels"></span></label></td>
-                    <th><?= $row['team_name'] ?></th>
+                    <th style="cursor: pointer" onclick="viewTeamDetail('<?= $row['team_code'] ?>', '<?= $start_date ?>', '<?= $end_date ?>', '<?= $wo_status ?>')"><?= $row['team_name'] ?></th>
                     <td align="center"><?= $row['number_of_wo'] ?></td>
                     <td align="center"><?php
                         $summaryPlanSize = 0;
@@ -639,7 +640,43 @@ if (empty($_SESSION['username'])) {
 
             });
         });
+        function viewTeamDetail(teamCode, startDate, endDate, woStatus) {
+            $.ajax({
+                url: "AjaxViewContent.php?startDate=" + startDate + "&endDate=" + endDate + "&woStatus=" + woStatus + "&teamCode=" + teamCode,
+                type: 'POST',
+                beforeSend: function (xhr) {
+                    $.blockUI({css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: '#fff',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: .5,
+                            color: '#fff'
+                        }, message: '<img src="../images/gears.gif" width="120px" height="120px"/>'});
+                },
+                success: function (data, textStatus, jqXHR) {
+                    $("#dialog_Content").html(data);
+                    var millisecondsToWait = 200;
+                    setTimeout(function () {
+                        $("#dialog_table").removeClass("hide").dialog({
+                            height: 600,
+                            width: 900});
+                    }, millisecondsToWait);
+
+                    setTimeout($.unblockUI, 100);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                }
+            });
+
+        }
     </script>
+    <div id="dialog_table" class="hide" title="Team Detail">
+        <div id="dialog_Content"></div>
+
+    </div>
     <div id="dialog" title="Team Report Summary" class="hide">
         <div class="tc-tabs tabs-left"><!-- Nav tabs style 11-->
             <ul class="nav nav-tabs">
