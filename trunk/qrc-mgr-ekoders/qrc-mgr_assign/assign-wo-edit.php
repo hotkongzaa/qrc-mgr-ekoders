@@ -1015,6 +1015,22 @@ if (empty($_SESSION['username'])) {
                                                 } else if ($(this).val() == "Complete") {
                                                     $("#assign_case").hide("fast");
                                                     $("#complete_case").show("fast");
+                                                    var po_id = $("#po_no_no").val();
+                                                    $("#complete_retention_form").attr("disabled", "disabled");
+                                                    $("#complete_retention_reason_form").attr("disabled", "disabled");
+                                                    $.ajax({
+                                                        url: "../model/getPORetention.php?po_id=" + po_id,
+                                                        type: 'POST',
+                                                        success: function (data, textStatus, jqXHR) {
+                                                            obj = JSON.parse(data);
+                                                            if (typeof obj.retention != "undefined") {
+                                                                $("#complete_retention_form").val(obj.retention);
+                                                            }
+                                                            if (typeof obj.retention_reason != "undefined") {
+                                                                $("#complete_retention_reason_form").val(obj.retention_reason);
+                                                            }
+                                                        }
+                                                    });
                                                 } else {
                                                     $("#assign_case").hide("fast");
                                                     $("#complete_case").hide("fast");
