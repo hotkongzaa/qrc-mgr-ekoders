@@ -8,11 +8,8 @@ return array(
     'databasename' => 'osbuilding_db',
     'connection_error_msg' => 'ไม่สามารถเชื่อมต่อฐานข้อมูลได้',
     'msg_encode' => 'SET NAMES utf8',
-    'msg_save_success' => 'บันทึกสำเร็จแล้ว',
-    'msg_delete_success' => 'ลบข้อมูลเรียบร้อย',
-    'msg_edit_success' => 'แก้ไขสำเร็จแล้ว'
+    'root_path'=>'qrc-mgr-ekoders'
 );
-//Production
 //return array(
 //    'username' => 'u214092162_qrc',
 //    'password' => 'qrcadmin',

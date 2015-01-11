@@ -166,20 +166,20 @@ if (empty($_SESSION['username'])) {
                                             $strCheckType = substr($rowq['IMAGE_PATH'], -3);
                                             if ($strCheckType == "pdf") {
                                                 $strBuilding.='<div class="list-group-item"><img src="../images/pdf_icon.png" height="50px"/>' . $rowq['IMAGE_PATH']
-                                                        . '<br/><a href="http://localhost/qrc-mgr-ekoders/images/uploads/' . $rowq['IMAGE_PATH'] . '" target="_blank">Download</a></div>';
+                                                        . '<br/><a href="http://localhost/' . $config['root_path'] . '/images/uploads/' . $rowq['IMAGE_PATH'] . '" target="_blank">Download</a></div>';
                                             } else if ($strCheckType == "doc" || $strCheckType == "docx") {
                                                 $strBuilding.='<div class="list-group-item"><img src="../images/doc_icon.png" height="50px"/>' . $rowq['IMAGE_PATH']
-                                                        . '<br/><a href="http://localhost/qrc-mgr-ekoders/images/uploads/' . $rowq['IMAGE_PATH'] . '" target="_blank">Download</a></div>';
+                                                        . '<br/><a href="http://localhost/' . $config['root_path'] . '/images/uploads/' . $rowq['IMAGE_PATH'] . '" target="_blank">Download</a></div>';
                                             } else if ($strCheckType == "xls" || $strCheckType == "lsx") {
                                                 $strBuilding.='<div class="list-group-item"><img src="../images/xl_icons.png" height="50px"/>' . $rowq['IMAGE_PATH']
-                                                        . '<br/><a href="http://localhost/qrc-mgr-ekoders/images/uploads/' . $rowq['IMAGE_PATH'] . '" target="_blank">Download</a></div>';
+                                                        . '<br/><a href="http://localhost/' . $config['root_path'] . '/images/uploads/' . $rowq['IMAGE_PATH'] . '" target="_blank">Download</a></div>';
                                             } else if ($strCheckType == "jpg" || $strCheckType == "JPG" || $strCheckType == "png" || $strCheckType == "gif") {
                                                 $strBuilding.='<div class="list-group-item"><d class="fancybox-effects-d" href="../images/uploads/' . $rowq['IMAGE_PATH'] . '" title="' . $rowq['IMAGE_PATH'] . '" onlick="changeAttrHref()">'
                                                         . '<img src="../images/uploads/' . $rowq['IMAGE_PATH'] . '" alt="Smiley face" height="100px"></d>'
-                                                        . '<a href="http://localhost/qrc-mgr-ekoders/images/uploads/' . $rowq['IMAGE_PATH'] . '" target="_blank">Download</a></div>';
+                                                        . '<a href="http://localhost/' . $config['root_path'] . '/images/uploads/' . $rowq['IMAGE_PATH'] . '" target="_blank">Download</a></div>';
                                             } else {
                                                 $strBuilding.='<div class="list-group-item"><img src="../images/file_icon.png" height="50px"/>' . $rowq['IMAGE_PATH']
-                                                        . '<br/><a href="http://localhost/qrc-mgr-ekoders/images/uploads/' . $rowq['IMAGE_PATH'] . '" target="_blank">Download</a></div>';
+                                                        . '<br/><a href="http://localhost/' . $config['root_path'] . '/images/uploads/' . $rowq['IMAGE_PATH'] . '" target="_blank">Download</a></div>';
                                             }
                                         }
                                     }
