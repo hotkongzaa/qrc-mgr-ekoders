@@ -164,11 +164,13 @@ if (empty($_SESSION['username'])) {
                         $totalRetention = 0;
                         ?></td>
                     <td align="center"><?php
+                        $amountOfRetention = 0;
                         $checkStatus6 = empty($wo_status) ? "" : " and qpo.project_status like '$wo_status'";
                         $checkDate6 = empty($start_date) ? "" : " and qpo.created_date_time between '$start_date' and '$end_date'";
-                        $sqlGetTotalRetention = "select count(*) as total_of_retention"
+                        $sqlGetTotalRetention = "select po.po_retention  as total_of_retention"
                                 . " from qrc_project_order qpo"
                                 . " left join qrc_assign_order qao on qpo.assign_id = qao.ASSIGN_ID"
+                                . " left join qrc_po po on qpo.image_name = po.po_id"
                                 . " where qao.TEAM_CODE like '" . $row['team_code'] . "'"
                                 . " and qpo.WO_RETENTION is not null"
                                 . " and qpo.WO_RETENTION !=''"
@@ -176,8 +178,10 @@ if (empty($_SESSION['username'])) {
                                 . $checkDate6
                                 . $checkStatus6;
                         $resultSetTotaoRetention = mysql_query($sqlGetTotalRetention);
-                        $rowSet = mysql_fetch_assoc($resultSetTotaoRetention);
-                        echo $rowSet['total_of_retention'];
+                        while ($rowSet = mysql_fetch_assoc($resultSetTotaoRetention)) {
+                            $amountOfRetention += intval($rowSet['total_of_retention']);
+                        }
+                        echo $amountOfRetention;
                         ?></td>
                 </tr>
                 <?php
