@@ -20,6 +20,10 @@ if (empty($_SESSION['username'])) {
             <?php
             $sqlSelectMaxValue = "SELECT count(*) as total FROM QRC_PROJECT";
             $resultSet = mysql_query($sqlSelectMaxValue);
+            if (!$resultSet) {
+                $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+            }
             $row = mysql_fetch_assoc($resultSet);
             if ($row['total'] == 0) {
                 echo '<p class="form-control-static" id="projectCode">PR00001</p>';
@@ -27,6 +31,10 @@ if (empty($_SESSION['username'])) {
             } else {
                 $sqlSelectCodeValue = "SELECT project_code as code FROM QRC_PROJECT ORDER BY CREATED_DATE_TIME DESC";
                 $resultSets = mysql_query($sqlSelectCodeValue);
+                if (!$resultSets) {
+                    $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                    file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                }
                 $row = mysql_fetch_assoc($resultSets);
                 $prefix = "PR";
                 $pieces = explode("PR", $row[code]);
@@ -80,6 +88,10 @@ if (empty($_SESSION['username'])) {
                     <?php
                     $sqlSelectProjectType = "SELECT * FROM PROJECT_TYPE;";
                     $resultSet = mysql_query($sqlSelectProjectType);
+                    if (!$resultSet) {
+                        $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                        file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                    }
                     while ($row = mysql_fetch_array($resultSet)) {
                         echo '<option value="' . $row['project_type_id'] . '">' . $row['project_type_name'] . '</option>';
                     }
@@ -97,6 +109,10 @@ if (empty($_SESSION['username'])) {
                     <?php
                     $sqlSelectProjectType = "SELECT * FROM PROJECT_STATUS;";
                     $resultSet = mysql_query($sqlSelectProjectType);
+                    if (!$resultSet) {
+                        $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                        file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                    }
                     while ($row = mysql_fetch_array($resultSet)) {
                         echo '<option value="' . $row['project_status_id'] . '">' . $row['project_status_name'] . '</option>';
                     }
@@ -116,6 +132,10 @@ if (empty($_SESSION['username'])) {
                     <?php
                     $sqlSelectProjectType = "SELECT * FROM PROJECT_OWNER;";
                     $resultSet = mysql_query($sqlSelectProjectType);
+                    if (!$resultSet) {
+                        $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                        file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                    }
                     while ($row = mysql_fetch_array($resultSet)) {
                         echo '<option value="' . $row['project_owner_id'] . '">' . $row['project_owner_name'] . '</option>';
                     }
@@ -133,6 +153,10 @@ if (empty($_SESSION['username'])) {
                     <?php
                     $sqlSelectProjectType = "SELECT * FROM QRC_CUSTOMER_NAME;";
                     $resultSet = mysql_query($sqlSelectProjectType);
+                    if (!$resultSet) {
+                        $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                        file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                    }
                     while ($row = mysql_fetch_array($resultSet)) {
                         echo '<option value="' . $row['customer_id'] . '">' . $row['customer_name'] . '</option>';
                     }
@@ -167,6 +191,10 @@ if (empty($_SESSION['username'])) {
                 <?php
                 $sqlSelectProjectType = "SELECT * FROM QRC_TEAM_BUILDER;";
                 $resultSet = mysql_query($sqlSelectProjectType);
+                if (!$resultSet) {
+                    $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                    file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                }
                 while ($row = mysql_fetch_array($resultSet)) {
                     echo '<option value="' . $row['tCode'] . '">' . $row['tName'] . '</option>';
                 }
@@ -182,6 +210,10 @@ if (empty($_SESSION['username'])) {
                 <?php
                 $sqlSelectProjectType = "SELECT * FROM QRC_MEMBERS WHERE memRole IN ('60001','60003','60004','60002');";
                 $resultSet = mysql_query($sqlSelectProjectType);
+                if (!$resultSet) {
+                    $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                    file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                }
                 while ($row = mysql_fetch_array($resultSet)) {
                     echo '<option value="' . $row['memID'] . '">' . $row['memName'] . '</option>';
                 }
