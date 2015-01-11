@@ -51,6 +51,7 @@ if (empty($_SESSION['username'])) {
             <th class="center">Plan</th>
             <th class="center">Plot</th>
             <th class="center">Plan Size</th>
+            <th class="center">Retention</th>
             <th class="center"></th>
         </tr>
     </thead>
@@ -75,11 +76,13 @@ if (empty($_SESSION['username'])) {
                         qpo.include_vat as vat,
                         qpo.image_name as imgName,
                         qpo.project_status as project_status,
-                         qp.project_name as project_name,
-                        qpo.remark as project_order_remark
+                        qp.project_name as project_name,
+                        qpo.remark as project_order_remark,
+                        po.PO_RETENTION as po_retention
                         FROM QRC_PROJECT_ORDER qpo
                         LEFT JOIN QRC_TYPE_OF_SERVICE qpot ON qpo.order_type = qpot.service_id
                         LEFT JOIN QRC_PROJECT qp ON qpo.project_code = qp.project_code
+                        LEFT JOIN QRC_PO po ON qpo.image_name = po.PO_ID
                         ORDER BY qpo.created_date_time DESC
                         LIMIT 100;";
         } else {
@@ -115,11 +118,13 @@ if (empty($_SESSION['username'])) {
                         qpo.image_name as imgName,
                         qpo.project_status as project_status,
                         qp.project_name as project_name,
-                        qpo.remark as project_order_remark                        
+                        qpo.remark as project_order_remark,
+                        po.PO_RETENTION as po_retention
                         FROM QRC_PROJECT_ORDER qpo
                         LEFT JOIN QRC_TYPE_OF_SERVICE qpot ON qpo.order_type = qpot.service_id
                         LEFT JOIN QRC_ASSIGN_STATUS qas ON qpo.project_status = qas.A_S_NAME
                         LEFT JOIN QRC_PROJECT qp ON qpo.project_code = qp.project_code
+                        LEFT JOIN QRC_PO po ON qpo.image_name = po.PO_ID
                         WHERE 1=1"
                     . $checkProjectStatus
                     . $checkProjectCode
@@ -158,7 +163,7 @@ if (empty($_SESSION['username'])) {
                 echo '<td class = "center">' . $row['project_plan'] . '</td>';
                 echo '<td class = "center">' . $row['project_plot'] . '</td>';
                 echo '<td class = "center">' . $row['plan_size'] . '</td>';
-
+                echo '<td class = "center">' . $row['po_retention'] . '</td>';
 
 
                 echo '<td>';
@@ -180,6 +185,7 @@ if (empty($_SESSION['username'])) {
                 echo '</ul>';
                 echo '</div>';
                 echo '</td>';
+
                 echo '</tr>';
             }
         }

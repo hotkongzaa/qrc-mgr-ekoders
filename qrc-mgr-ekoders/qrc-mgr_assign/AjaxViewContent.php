@@ -52,14 +52,21 @@ if (empty($_SESSION['username'])) {
                                         . "qpo.inv_rep_pgs_id as inv_rep_pgs_id,"
                                         . "qpo.image_name as imgName,"
                                         . "qpo.project_status as project_status,"
-                                        . "qpo.remark as project_order_remark"
+                                        . "qpo.remark as project_order_remark,"
+                                        . "po.po_retention as po_retention,"
+                                        . "po.po_retention_reason as po_retention_reason"
                                         . " FROM QRC_PROJECT_ORDER qpo"
                                         . " LEFT JOIN QRC_TYPE_OF_SERVICE qpot ON qpo.order_type = qpot.service_id"
                                         . " LEFT JOIN QRC_INVOICE_STATUS qis ON qpo.inv_rep_pgs_status_id = qis.inv_staus_id"
+                                        . " LEFT JOIN QRC_PO po ON qpo.image_name = po.PO_ID"
                                         . " WHERE qpo.project_order_id = '" . $po_id . "'"
                                         . " ORDER BY qpo.created_date_time DESC;";
 
                                 $sqlGetAllData = mysql_query($sqlSelectAllProjectRecord);
+                                if (!$sqlGetAllData) {
+                                    $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                                    file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                                }
                                 if (mysql_num_rows($sqlGetAllData) >= 1) {
                                     while ($row = mysql_fetch_assoc($sqlGetAllData)) {
                                         ?>
@@ -132,12 +139,24 @@ if (empty($_SESSION['username'])) {
                                             <td><?= $row['vat']; ?></td>
                                         </tr>
                                         <tr>
+                                            <td>Retention: </td>
+                                            <td><?= $row['po_retention']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Retention Reason: </td>
+                                            <td><?= $row['po_retention_reason']; ?></td>
+                                        </tr>
+                                        <tr>
                                             <td>Reamrk: </td>
                                             <td><?= $row['project_order_remark']; ?></td>
                                         </tr>
                                         <?php
                                         $sqlSelectImageByID = "SELECT IMAGE_PATH as IMAGE_PATH FROM qrc_po_image WHERE TEMP_PO_ID LIKE '" . $row['po_id'] . "'";
                                         $queryGetFilePath = mysql_query($sqlSelectImageByID);
+                                        if (!$queryGetFilePath) {
+                                            $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                                            file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                                        }
                                         $strBuilding = "";
 
                                         while ($rowq = mysql_fetch_assoc($queryGetFilePath)) {
