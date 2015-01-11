@@ -10,6 +10,7 @@ if (empty($_SESSION['username'])) {
     } else {
         require '../model-db-connection/config.php';
         $config = require '../model-db-connection/qrc_conf.properties.php';
+        error_reporting(0);
     }
 }
 ?>
@@ -29,6 +30,10 @@ if (empty($_SESSION['username'])) {
                 <?php
                 $sqlSelectMemType = "SELECT * FROM QRC_PROJECT;";
                 $resultSets = mysql_query($sqlSelectMemType);
+                if (!$resultSets) {
+                    $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                    file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                }
                 while ($row = mysql_fetch_array($resultSets)) {
                     echo '<option value="' . $row['project_name'] . '">' . $row['project_name'] . '</option>';
                 }
@@ -49,6 +54,10 @@ if (empty($_SESSION['username'])) {
                 <?php
                 $sqlSelectProjectType = "SELECT * FROM QRC_ASSIGN_STATUS;";
                 $resultSet = mysql_query($sqlSelectProjectType);
+                if (!$resultSet) {
+                    $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                    file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                }
                 while ($row = mysql_fetch_array($resultSet)) {
                     echo '<option value="' . $row['A_S_NAME'] . '">' . $row['A_S_NAME'] . '</option>';
                 }
@@ -57,9 +66,70 @@ if (empty($_SESSION['username'])) {
         </td>
     </tr>
     <tr>
-        <td align="right" style="width:250px">Document No. (เลขที่)<span style="color:red">*</span>: </td>
-        <td align="left" style="width:250px">
-            <input type="text" class="form-control required" id="po_document_no_form">
+        <td align="right" style="width:250px">Ref No. (เลขที่)<span style="color:red">*</span>: </td>
+        <td align="left" style="width:250px">           
+            <?php
+            $sqlSelectMaxValue = "SELECT count(*) as total FROM QRC_PO WHERE PO_DOCUMENT_NO LIKE 'REF%'";
+            $resultSet = mysql_query($sqlSelectMaxValue);
+            if (!$resultSet) {
+                $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+            }
+            $row = mysql_fetch_assoc($resultSet);
+            if ($row['total'] == 0) {
+                $strResult = "REF0000001";
+            } else {
+                $sqlSelectCodeValue = "SELECT PO_DOCUMENT_NO as code FROM QRC_PO WHERE PO_DOCUMENT_NO LIKE 'REF%' ORDER BY PO_CREATED_DATE_TIME DESC";
+                $resultSets = mysql_query($sqlSelectCodeValue);
+                if (!$resultSets) {
+                    $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                    file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                }
+                $row = mysql_fetch_assoc($resultSets);
+                $prefix = "REF";
+                $pieces = explode($prefix, $row[code]);
+                if (strlen(intval($pieces[1])) == 1) {
+                    if (intval($pieces[1]) == 9) {
+                        $strResult = $prefix . "00000" . (intval($pieces[1] + 1));
+                    } else {
+                        $strResult = $prefix . "000000" . (intval($pieces[1] + 1));
+                    }
+                } else if (strlen(intval($pieces[1])) == 2) {
+                    if (intval($pieces[1]) == 99) {
+                        $strResult = $prefix . "0000" . (intval($pieces[1] + 1));
+                    } else {
+                        $strResult = $prefix . "00000" . (intval($pieces[1] + 1));
+                    }
+                } else if (strlen(intval($pieces[1])) == 3) {
+                    if (intval($pieces[1]) == 999) {
+                        $strResult = $prefix . "000" . (intval($pieces[1] + 1));
+                    } else {
+                        $strResult = $prefix . "0000" . (intval($pieces[1] + 1));
+                    }
+                } else if (strlen(intval($pieces[1])) == 4) {
+                    if (intval($pieces[1]) == 9999) {
+                        $strResult = $prefix . "00" . (intval($pieces[1] + 1));
+                    } else {
+                        $strResult = $prefix . "000" . (intval($pieces[1] + 1));
+                    }
+                } else if (strlen(intval($pieces[1])) == 5) {
+                    if (intval($pieces[1]) == 99999) {
+                        $strResult = $prefix . "0" . (intval($pieces[1] + 1));
+                    } else {
+                        $strResult = $prefix . "00" . (intval($pieces[1] + 1));
+                    }
+                } else if (strlen(intval($pieces[1])) == 6) {
+                    if (intval($pieces[1]) == 999999) {
+                        $strResult = $prefix . (intval($pieces[1] + 1));
+                    } else {
+                        $strResult = $prefix . "0" . (intval($pieces[1] + 1));
+                    }
+                } else {
+                    $strResult = $prefix . (intval($pieces[1] + 1));
+                }
+            }
+            ?>            
+            <input type="text" class="form-control required" id="po_document_no_form" value="<?= $strResult ?>" disabled="true">
         </td>
         <td align="right" style="width:250px">PO No. (เลขที่ใบสั่งจ้าง)<span style="color:red">*</span>: </td>
         <td align="left" style="width:250px"><input type="text" class="form-control required" id="po_po_no_form"></td>
@@ -92,6 +162,10 @@ if (empty($_SESSION['username'])) {
                 <?php
                 $sqlSelectMemType = "SELECT * FROM QRC_TYPE_OF_SERVICE;";
                 $resultSets = mysql_query($sqlSelectMemType);
+                if (!$resultSets) {
+                    $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
+                    file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
+                }
                 while ($row = mysql_fetch_array($resultSets)) {
                     echo '<option value="' . $row['service_id'] . '">' . $row['service_name'] . '</option>';
                 }
