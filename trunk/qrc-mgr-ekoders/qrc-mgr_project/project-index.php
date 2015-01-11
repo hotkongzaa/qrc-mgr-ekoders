@@ -147,31 +147,6 @@ if (empty($_SESSION['username'])) {
                                     <i class="fa fa-desktop"></i> Project (โครงการ)
                                 </a>
                             </li>
-                            <!-- BEGIN COMPONENTS DROPDOWN -->
-                            <li class="panel">
-                                <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#components">
-                                    <i class="fa fa-bar-chart-o"></i> Builder (ทีมช่าง) <span class="fa arrow"></span>
-                                </a>
-                                <ul class="collapse nav" id="components">
-                                    <li>
-                                        <a href="../qrc-mgr_team/team-index.php">
-                                            <i class="fa fa-angle-double-right"></i> Team (ทีม)
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../qrc-mgr_member/member-index.php">
-                                            <i class="fa fa-angle-double-right"></i> Member (ลูกทีม)
-                                        </a>
-                                    </li>
-                                    <!-- ENDTHREE LEVEL MENU -->
-                                </ul>
-                            </li>
-                            <!-- END COMPONENTS DROPDOWN -->							
-                            <li>
-                                <a href="../qrc-mgr_assign/assign-index.php">
-                                    <i class="fa fa-tasks"></i> Work Order (มอบหมาย)
-                                </a>
-                            </li>
                             <li>
                                 <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#po-inspection">
                                     <i class="fa fa-bar-chart-o"></i> PO / Inspection <span class="fa arrow"></span>
@@ -190,8 +165,29 @@ if (empty($_SESSION['username'])) {
 
                                 </ul>
                             </li>
-                            <!-- BEGIN FORMS DROPDOWN -->
-
+                            <li>
+                                <a href="../qrc-mgr_assign/assign-index.php">
+                                    <i class="fa fa-tasks"></i> Work Order (มอบหมาย)
+                                </a>
+                            </li>
+                            <li class="panel">
+                                <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#components">
+                                    <i class="fa fa-bar-chart-o"></i> Staff (ทีมช่าง) <span class="fa arrow"></span>
+                                </a>
+                                <ul class="collapse nav" id="components">
+                                    <li>
+                                        <a href="../qrc-mgr_team/team-index.php">
+                                            <i class="fa fa-angle-double-right"></i> Team (ทีม)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="../qrc-mgr_member/member-index.php">
+                                            <i class="fa fa-angle-double-right"></i> Member (ลูกทีม)
+                                        </a>
+                                    </li>
+                                    <!-- ENDTHREE LEVEL MENU -->
+                                </ul>
+                            </li>
                             <li class="panel">
                                 <a href="../qrc-mgr_billing/billing-index.php">
                                     <i class="fa fa-edit"></i> Billing (PO/PR/ใบเสร็จ)
