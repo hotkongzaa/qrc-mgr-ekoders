@@ -31,13 +31,14 @@ if (empty($_SESSION['username'])) {
         <thead>
             <tr>
                 <th class="col-small center" data-sort-ignore="true"></th>
-                <th>Team Name</th>
+                <th>Team name</th>
                 <th>No. Of WO</th>
-                <th>Summary Plan Size</th>
-                <th>AVG Unit Price</th>
-                <th>Total Amount</th>
-                <th>Total Amount With Deduct</th>
-                <th>Total Number of Retention</th>
+                <th>Summary plan size</th>
+                <th>AVG unit price</th>
+                <th>Total amount</th>
+                <th>Total amount with deduct</th>
+                <th>Total number of retention</th>
+                <th>Total amount of retention</th>
             </tr>
         </thead>
         <tbody>
@@ -164,9 +165,25 @@ if (empty($_SESSION['username'])) {
                         $totalRetention = 0;
                         ?></td>
                     <td align="center"><?php
-                        $amountOfRetention = 0;
-                        $checkStatus6 = empty($wo_status) ? "" : " and qpo.project_status like '$wo_status'";
+                        $checkStatus6 = empty($wo_status) ? "" : "and qpo.project_status like '$wo_status'";
                         $checkDate6 = empty($start_date) ? "" : " and qpo.created_date_time between '$start_date' and '$end_date'";
+                        $sqlGetTotalRetention = "select count(*) as total_of_retention"
+                                . " from qrc_project_order qpo"
+                                . " left join qrc_assign_order qao on qpo.assign_id = qao.ASSIGN_ID"
+                                . " where qao.TEAM_CODE like '" . $row['team_code'] . "'"
+                                . " and qpo.WO_RETENTION is not null"
+                                . " and qpo.WO_RETENTION !=''"
+                                . " and qpo.created_date_time between '$start_date' and '$end_date'"
+                                . $checkDate6
+                                . $checkStatus6;
+                        $resultSetTotaoRetention = mysql_query($sqlGetTotalRetention);
+                        $rowSet = mysql_fetch_assoc($resultSetTotaoRetention);
+                        echo $rowSet['total_of_retention'];
+                        ?></td>
+                    <td align="center"><?php
+                        $amountOfRetention = 0;
+                        $checkStatus7 = empty($wo_status) ? "" : " and qpo.project_status like '$wo_status'";
+                        $checkDate7 = empty($start_date) ? "" : " and qpo.created_date_time between '$start_date' and '$end_date'";
                         $sqlGetTotalRetention = "select po.po_retention  as total_of_retention"
                                 . " from qrc_project_order qpo"
                                 . " left join qrc_assign_order qao on qpo.assign_id = qao.ASSIGN_ID"
@@ -175,8 +192,8 @@ if (empty($_SESSION['username'])) {
                                 . " and qpo.WO_RETENTION is not null"
                                 . " and qpo.WO_RETENTION !=''"
                                 . " and qpo.created_date_time between '$start_date' and '$end_date'"
-                                . $checkDate6
-                                . $checkStatus6;
+                                . $checkStatus7
+                                . $checkDate7;
                         $resultSetTotaoRetention = mysql_query($sqlGetTotalRetention);
                         while ($rowSet = mysql_fetch_assoc($resultSetTotaoRetention)) {
                             $amountOfRetention += intval($rowSet['total_of_retention']);
@@ -190,7 +207,7 @@ if (empty($_SESSION['username'])) {
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="8">
+                <td colspan="9">
                     <div class="btn-group btn-group-sm pull-left">
                         <button class="btn btn-primary dropdown-toggle hidden-xs" data-toggle="dropdown">
                             with Selected <span class="caret"></span>
