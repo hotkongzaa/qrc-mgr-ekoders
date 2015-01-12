@@ -16,6 +16,7 @@ if (empty($_SESSION['username'])) {
     }
 }
 ?>
+
 <link rel="stylesheet" href="../assets/css/plugins/jqueryui/jquery-ui-1.10.4.full.min.css" />
 <script src="../assets/js/plugins/jqueryui/jquery-ui-1.10.4.full.min.js"></script>
 <script src="../assets/js/plugins/jqueryui/jquery.ui.touch-punch.min.js"></script>
