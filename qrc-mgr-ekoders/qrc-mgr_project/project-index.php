@@ -204,6 +204,11 @@ if (empty($_SESSION['username'])) {
                                     <i class="fa fa-sitemap"></i>Team Report (รายงาน)
                                 </a>
                             </li>
+                            <li class="panel">
+                                <a href="../qrc-mgr_wo_report/wo_reports-index.php" >
+                                    <i class="fa fa-sitemap"></i> WO Report (รายงาน)
+                                </a>
+                            </li>
                         </ul><!-- /.side-nav -->                                              
                     </div><!-- /.navbar-collapse -->
                 </nav><!-- /.navbar-side -->

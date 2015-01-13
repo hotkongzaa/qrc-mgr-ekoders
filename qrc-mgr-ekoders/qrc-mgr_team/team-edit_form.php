@@ -28,13 +28,13 @@ if (empty($_SESSION['username'])) {
             $resultSet = mysql_query($sqlSelectMaxValue);
             $row = mysql_fetch_assoc($resultSet);
             if ($row['total'] == 0) {
-                echo '<input type="text" class="form-control" id="team_code_form" disabled="true" value="B00001"/>';
+                echo '<input type="text" class="form-control" id="team_code_form" disabled="true" value="T00001"/>';
             } else {
                 $sqlSelectCodeValue = "SELECT tCode as code FROM QRC_TEAM_BUILDER ORDER BY CREATED_DATE_TIME DESC";
 
                 $resultSets = mysql_query($sqlSelectCodeValue);
                 $row = mysql_fetch_assoc($resultSets);
-                $prefix = "B";
+                $prefix = "T";
                 $pieces = explode($prefix, $row[code]);
                 if (strlen(intval($pieces[1])) == 1) {
                     if (intval($pieces[1]) == 9) {
