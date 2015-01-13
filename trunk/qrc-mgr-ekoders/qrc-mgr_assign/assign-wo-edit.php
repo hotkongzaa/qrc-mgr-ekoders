@@ -186,7 +186,7 @@ if (empty($_SESSION['username'])) {
                                 </a>
                                 <ul class="collapse nav" id="components">
                                     <li>
-                                        <a href="portlet.html">
+                                        <a href="../qrc-mgr_team/team-index.php">
                                             <i class="fa fa-angle-double-right"></i> Team (ทีม)
                                         </a>
                                     </li>
@@ -476,7 +476,7 @@ if (empty($_SESSION['username'])) {
                                                                     file_put_contents('../logs/QRC_BUILDING_' . date("Y-m-d") . '.log', $log, FILE_APPEND);
                                                                 }
                                                                 while ($row = mysql_fetch_array($resultSet)) {
-                                                                    echo '<option value="' . $row['tCode'] . '">' . $row['tCode'] . '</option>';
+                                                                    echo '<option value="' . $row['tCode'] . '">' . $row['tName'] . ' (' . $row['tCode'] . ')' . '</option>';
                                                                 }
                                                                 ?>      
                                                             </select>
