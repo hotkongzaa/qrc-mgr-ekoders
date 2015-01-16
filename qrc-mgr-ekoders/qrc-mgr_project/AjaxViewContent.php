@@ -130,7 +130,7 @@ if (empty($_SESSION['username'])) {
                                             <td><?= $row['remark']; ?></td>
                                         </tr>
                                         <?php
-                                        $sqlSelectImageByID = "SELECT IMAGE_PATH as IMAGE_PATH FROM qrc_project_image WHERE TEMP_PROJECT_ID LIKE '" . $proID . "'";
+                                        $sqlSelectImageByID = "SELECT IMAGE_PATH as IMAGE_PATH FROM QRC_PROJECT_IMAGE WHERE TEMP_PROJECT_ID LIKE '" . $proID . "'";
                                         $queryGetFilePath = mysql_query($sqlSelectImageByID);
                                         if (!$queryGetFilePath) {
                                             $log = "[" . date("Y-m-d H:i:s") . "] | [ERROR] | DB query exception: " . mysql_error() . PHP_EOL;
