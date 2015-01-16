@@ -18,16 +18,27 @@ class VerifySessionTimeOut {
         
     }
 
-    public function verifySession() {
+    public function initiateTimeOut($username, $permission_id) {
         $_SESSION['expire'] = time() + (10 * 30);
-        $_SESSION['username'] = $row['username'];
-        $_SESSION['permission_id'] = $row['permission_id'];
+        $_SESSION['username'] = $username;
+        $_SESSION['permission_id'] = $permission_id;
     }
 
-    public function updateNewTimeout($newTimeOut) {
+    public function updateNewTimeout($newTimeOut, $username, $permission_id) {
         $_SESSION['expire'] = $newTimeOut + (10 * 30);
-        $_SESSION['username'] = $row['username'];
-        $_SESSION['permission_id'] = $row['permission_id'];
+        $_SESSION['username'] = $username;
+        $_SESSION['permission_id'] = $permission_id;
+        //1=success,0=fail;
+        return 'SUCCESS';
+    }
+
+    public function checkTimeOut($currentTime) {
+        if ($currentTime > $_SESSION['expire']) {
+            session_destroy();
+            return 'TIMEOUT';
+        } else {
+            return 'NOT_TIMEOUT';
+        }
     }
 
 }

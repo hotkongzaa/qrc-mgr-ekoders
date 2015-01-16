@@ -8,7 +8,8 @@ return array(
     'databasename' => 'osbuilding_db',
     'connection_error_msg' => 'ไม่สามารถเชื่อมต่อฐานข้อมูลได้',
     'msg_encode' => 'SET NAMES utf8',
-    'root_path'=>'qrc-mgr-ekoders'
+    'root_path' => 'qrc-mgr-ekoders',
+    'application_timeout' => '30'
 );
 //return array(
 //    'username' => 'u214092162_qrc',

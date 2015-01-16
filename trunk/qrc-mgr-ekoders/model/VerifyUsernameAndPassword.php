@@ -15,7 +15,7 @@ $sqlGetUser = mysql_query($sqlVerifyUser);
 if (mysql_num_rows($sqlGetUser) == 1) {
     $row = mysql_fetch_assoc($sqlGetUser);
     $seso = new VerifySessionTimeOut();
-    $seso->verifySession();
+    $seso->initiateTimeOut($row['username'], $row['permission_id']);
     echo mysql_num_rows($sqlGetUser);
 } else {
     echo "2";

@@ -1,10 +1,11 @@
 <?php
 session_start();
+require '../model/com.qrc.mgr.controller/VerifySessionTimeOut.php';
+$verifySessionTimeOut = new VerifySessionTimeOut();
 if (empty($_SESSION['username'])) {
     echo '<script type="text/javascript">window.location.href="../index.php";</script>';
 } else {
-    $now = time();
-    if ($now > $_SESSION['expire']) {
+    if ($verifySessionTimeOut->checkTimeOut(time()) == "TIMEOUT") {
         session_destroy();
         echo '<script type="text/javascript">var r=confirm("Session expire (30 mins)!"); if(r==true){window.location.href="../index.php";}else{window.location.href="../index.php";}</script>';
     } else {
@@ -490,11 +491,23 @@ if (empty($_SESSION['username'])) {
                                             jqxhr.error(function () {
                                                 alert("Cannot load page");
                                             });
+
+
                                             $("#cancel_form").click(function () {
-                                                $("#alert_inform").hide();
-                                                $("#create_edit_panel").hide();
-                                                $("#loading_ce_form").empty();
-                                                $("#create_new_project_btn").show();
+                                                $.ajax({
+                                                    url: "../model/com.qrc.mgr.controller/UpdateSessionTimeOutCallBack.php",
+                                                    type: "POST",
+                                                    success: function (data, textStatus, jqXHR) {
+                                                        if (data == "SUCCESS") {
+                                                            $("#alert_inform").hide();
+                                                            $("#create_edit_panel").hide();
+                                                            $("#loading_ce_form").empty();
+                                                            $("#create_new_project_btn").show();
+                                                        } else {
+                                                            alert("Cannot Connect to server !!");
+                                                        }
+                                                    }
+                                                });
                                             });
                                             $("#create_new_project_btn").click(function () {
                                                 createOrEditState = "Create";
