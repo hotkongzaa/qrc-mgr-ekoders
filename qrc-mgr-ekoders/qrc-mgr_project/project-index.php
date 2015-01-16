@@ -635,7 +635,7 @@ if (empty($_SESSION['username'])) {
                                                 }
                                                 if ($("#project_customer_select").val() == 0) {
                                                     $("#alert_inform").show();
-                                                    $("#alert_information").html("<br/>- Please enter project owner");
+                                                    $("#alert_information").html("<br/>- Please enter project customer");
                                                 } else {
                                                     $("#alert_inform").hide();
                                                 }
