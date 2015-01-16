@@ -578,63 +578,58 @@ if (empty($_SESSION['username'])) {
                                             });
                                             $("#create_billing").click(function () {
                                                 var data = "";
-                                                if ($("#multi_sel_project_name").val() == null) {
-//                            $().toastmessage('showWarningToast', "Please select at least one project");
-                                                    alert("Please select at least one project");
+                                                $("#create_invoice_press").prop('disabled', false);
+                                                $("#create_receipt_press").prop('disabled', true);
+                                                $("#create_progressive_press").prop('disabled', true);
+
+                                                if ($("#inv_status").val() == "") {
+                                                    //inv_status always open
+                                                    data = "inv_code=" + $("#inv_code").val() + "&" +
+                                                            "customer_id=" + $("#customer_id").val() + "&" +
+                                                            "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
+                                                            "wo_status=" + $("#wo_status").val() + "&" +
+                                                            "order_type_id=" + $("#order_type_id").val() + "&" +
+                                                            "create_type=" + create_type + "&" +
+                                                            "inv_status=44002&" +
+                                                            "create_receive=" + create_receipt + "&" +
+                                                            "create_progressive=" + create_progressive + "&" +
+                                                            "start_date=" + $("#start_date").val() + "&" +
+                                                            "end_date=" + $("#end_date").val() + "&" +
+                                                            "isCreate=" + isCreate;
                                                 } else {
-
-                                                    $("#create_invoice_press").prop('disabled', false);
-                                                    $("#create_receipt_press").prop('disabled', true);
-                                                    $("#create_progressive_press").prop('disabled', true);
-
-                                                    if ($("#inv_status").val() == "") {
-                                                        //inv_status always open
-                                                        data = "inv_code=" + $("#inv_code").val() + "&" +
-                                                                "customer_id=" + $("#customer_id").val() + "&" +
-                                                                "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
-                                                                "wo_status=" + $("#wo_status").val() + "&" +
-                                                                "order_type_id=" + $("#order_type_id").val() + "&" +
-                                                                "create_type=" + create_type + "&" +
-                                                                "inv_status=44002&" +
-                                                                "create_receive=" + create_receipt + "&" +
-                                                                "create_progressive=" + create_progressive + "&" +
-                                                                "start_date=" + $("#start_date").val() + "&" +
-                                                                "end_date=" + $("#end_date").val() + "&" +
-                                                                "isCreate=" + isCreate;
-                                                    } else {
-                                                        data = "inv_code=" + $("#inv_code").val() + "&" +
-                                                                "customer_id=" + $("#customer_id").val() + "&" +
-                                                                "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
-                                                                "wo_status=" + $("#wo_status").val() + "&" +
-                                                                "order_type_id=" + $("#order_type_id").val() + "&" +
-                                                                "create_type=" + create_type + "&" +
-                                                                "inv_status=" + $("#inv_status").val() + "&" +
-                                                                "create_receive=" + create_receipt + "&" +
-                                                                "create_progressive=" + create_progressive + "&" +
-                                                                "start_date=" + $("#start_date").val() + "&" +
-                                                                "end_date=" + $("#end_date").val() + "&" +
-                                                                "isCreate=" + isCreate;
-                                                    }
-                                                    var jqxhr = $.post("../model/com.qrc.mgr.controller/SaveBillingHeader.php?" + data);
-                                                    jqxhr.success(function (resp) {
-                                                        if (resp == 1) {
-                                                            $("#loading_viewedit_table").load("billing_page_generate.php", function () {
-                                                                $("#show_temp_tble").show();
-                                                                $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'slow');
-                                                            });
-                                                        } else if (resp == "") {
-                                                            alert("No Data Found");
-                                                            $("#loading_viewedit_table").empty();
-                                                            $("#show_temp_tble").hide();
-                                                        } else if (resp == "406") {
-                                                            alert("Please select project");
-                                                            $("#loading_viewedit_table").empty();
-                                                            $("#show_temp_tble").hide();
-                                                        } else {
-                                                            alert(resp);
-                                                        }
-                                                    });
+                                                    data = "inv_code=" + $("#inv_code").val() + "&" +
+                                                            "customer_id=" + $("#customer_id").val() + "&" +
+                                                            "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
+                                                            "wo_status=" + $("#wo_status").val() + "&" +
+                                                            "order_type_id=" + $("#order_type_id").val() + "&" +
+                                                            "create_type=" + create_type + "&" +
+                                                            "inv_status=" + $("#inv_status").val() + "&" +
+                                                            "create_receive=" + create_receipt + "&" +
+                                                            "create_progressive=" + create_progressive + "&" +
+                                                            "start_date=" + $("#start_date").val() + "&" +
+                                                            "end_date=" + $("#end_date").val() + "&" +
+                                                            "isCreate=" + isCreate;
                                                 }
+                                                var jqxhr = $.post("../model/com.qrc.mgr.controller/SaveBillingHeader.php?" + data);
+                                                jqxhr.success(function (resp) {
+                                                    if (resp == 1) {
+                                                        $("#loading_viewedit_table").load("billing_page_generate.php", function () {
+                                                            $("#show_temp_tble").show();
+                                                            $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'slow');
+                                                        });
+                                                    } else if (resp == "") {
+                                                        alert("No Data Found");
+                                                        $("#loading_viewedit_table").empty();
+                                                        $("#show_temp_tble").hide();
+                                                    } else if (resp == "406") {
+                                                        alert("Please select project");
+                                                        $("#loading_viewedit_table").empty();
+                                                        $("#show_temp_tble").hide();
+                                                    } else {
+                                                        alert(resp);
+                                                    }
+                                                });
+
 
 
                                             });
