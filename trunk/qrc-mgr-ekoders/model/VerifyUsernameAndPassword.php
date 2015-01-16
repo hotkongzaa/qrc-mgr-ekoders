@@ -2,6 +2,7 @@
 
 session_start();
 require '../model-db-connection/config.php';
+require '../model/com.qrc.mgr.controller/VerifySessionTimeOut.php';
 
 $username = $_GET['username'];
 $password = md5($_GET['password']);
@@ -13,7 +14,8 @@ $sqlVerifyUser = "SELECT qu.username as username, qu.permission_id as permission
 $sqlGetUser = mysql_query($sqlVerifyUser);
 if (mysql_num_rows($sqlGetUser) == 1) {
     $row = mysql_fetch_assoc($sqlGetUser);
-    require 'VerifySessionTimeout.php';
+    $seso = new VerifySessionTimeOut();
+    $seso->verifySession();
     echo mysql_num_rows($sqlGetUser);
 } else {
     echo "2";
