@@ -183,6 +183,7 @@ if (empty($_SESSION['username'])) {
                 url: "AjaxViewContent.php?po_id=" + po_id,
                 type: 'POST',
                 beforeSend: function (xhr) {
+                    updateSessionTimeOutCallBack();
                     $.blockUI({css: {
                             border: 'none',
                             padding: '15px',

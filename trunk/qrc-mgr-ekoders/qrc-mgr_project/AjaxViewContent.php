@@ -191,6 +191,7 @@ if (empty($_SESSION['username'])) {
 </html>
 <script type="text/javascript">
     function OpenInNewTab(url) {
+        updateSessionTimeOutCallBack();
         var win = window.open("../images/uploads/" + url, '_blank');
         win.focus();
     }

@@ -454,6 +454,7 @@ if (empty($_SESSION['username'])) {
         <script type="text/javascript">
                                         var createOrEditState = "Create";
                                         $(document).ready(function () {
+                                            updateSessionTimeOutCallBack();
                                             $("#alert_inform").hide();
                                             $("#create_edit_panel").hide();
                                             $.ajax({
@@ -494,22 +495,15 @@ if (empty($_SESSION['username'])) {
 
 
                                             $("#cancel_form").click(function () {
-                                                $.ajax({
-                                                    url: "../model/com.qrc.mgr.controller/UpdateSessionTimeOutCallBack.php",
-                                                    type: "POST",
-                                                    success: function (data, textStatus, jqXHR) {
-                                                        if (data == "SUCCESS") {
-                                                            $("#alert_inform").hide();
-                                                            $("#create_edit_panel").hide();
-                                                            $("#loading_ce_form").empty();
-                                                            $("#create_new_project_btn").show();
-                                                        } else {
-                                                            alert("Cannot Connect to server !!");
-                                                        }
-                                                    }
-                                                });
+                                                updateSessionTimeOutCallBack();
+                                                $("#alert_inform").hide();
+                                                $("#create_edit_panel").hide();
+                                                $("#loading_ce_form").empty();
+                                                $("#create_new_project_btn").show();
+
                                             });
                                             $("#create_new_project_btn").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 createOrEditState = "Create";
                                                 $("#create_edit_panel").show("fast");
                                                 var jqxhr = $.post("create-edit_form.php");
@@ -519,7 +513,7 @@ if (empty($_SESSION['username'])) {
                                                 });
                                             });
                                             $("#search_project_button").click(function () {
-
+                                                updateSessionTimeOutCallBack();
                                                 var projectCodeSearch = $("#project_code_search").val();
                                                 var projectNameSearch = $("#project_name_search").val();
                                                 var projectTypeSearch = $("#project_type_search").val();
@@ -607,6 +601,7 @@ if (empty($_SESSION['username'])) {
                                                 }
                                             });
                                             $("#save_create_panel").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 if ($("#project_name").val() == "") {
                                                     $("#alert_inform").show();
                                                     $("#alert_information").html("<br/>- Please enter project name");
@@ -805,6 +800,7 @@ if (empty($_SESSION['username'])) {
                                             });
                                         });
                                         function deleteProject(projectCode) {
+                                            updateSessionTimeOutCallBack();
                                             if (confirm("Are you sure?"))
                                             {
                                                 $(".spinner").show();
@@ -834,6 +830,7 @@ if (empty($_SESSION['username'])) {
                                             }
                                         }
                                         function clearProjectInsertFields() {
+                                            updateSessionTimeOutCallBack();
                                             $("#project_code").val("");
                                             $("#project_name").val("");
                                             $("#project_type_select").val("0");
@@ -849,9 +846,11 @@ if (empty($_SESSION['username'])) {
                                             $("#team_owner").val("");
                                         }
                                         function loadProjectOrder(projectCode) {
+                                            updateSessionTimeOutCallBack();
                                             window.location.replace("../qrc-mgr_assign/assign-wo-new.php?project_id=" + projectCode);
                                         }
                                         function editProject(projectCode) {
+                                            updateSessionTimeOutCallBack();
                                             $("#create_new_project_btn").hide();
                                             createOrEditState = "Edit";
                                             $("#create_edit_panel").show();
@@ -912,7 +911,7 @@ if (empty($_SESSION['username'])) {
                                             }, millisecondsToWait);
                                         }
                                         function delImage(imageID, po_id, img_name) {
-
+                                            updateSessionTimeOutCallBack();
                                             if (confirm("Are you sure?"))
                                             {
                                                 var jqxhr = $.post("../model/DelProjectIMGByID.php?imageID=" + imageID + "&img_name=" + img_name);
