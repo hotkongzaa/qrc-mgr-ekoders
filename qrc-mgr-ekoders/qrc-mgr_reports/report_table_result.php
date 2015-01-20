@@ -241,6 +241,7 @@ if (empty($_SESSION['username'])) {
 
             });
             $("#generate_graph").click(function () {
+                updateSessionTimeOutCallBack();
                 var isFirst = true;
                 $('input:checkbox.tc').each(function () {
                     var sThisVal = (this.checked ? $(this).val() : "");
@@ -667,6 +668,7 @@ if (empty($_SESSION['username'])) {
                 url: "AjaxViewContent.php?startDate=" + startDate + "&endDate=" + endDate + "&woStatus=" + woStatus + "&teamCode=" + teamCode,
                 type: 'POST',
                 beforeSend: function (xhr) {
+                    updateSessionTimeOutCallBack();
                     $.blockUI({css: {
                             border: 'none',
                             padding: '15px',

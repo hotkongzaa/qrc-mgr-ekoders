@@ -427,6 +427,7 @@ if (empty($_SESSION['username'])) {
 
         <script type="text/javascript">
                                         $(document).ready(function () {
+                                            updateSessionTimeOutCallBack();
                                             $('#daterange').daterangepicker({
                                                 startDate: moment().subtract('days', 29),
                                                 endDate: moment(),
@@ -500,6 +501,7 @@ if (empty($_SESSION['username'])) {
                                                     url: "report_table_result.php?start_date=" + startDate + "&end_date=" + endDate + "&wo_status=" + wo_status,
                                                     type: 'POST',
                                                     beforeSend: function (xhr) {
+                                                        updateSessionTimeOutCallBack();
                                                         $.blockUI({css: {
                                                                 border: 'none',
                                                                 padding: '15px',
@@ -516,11 +518,12 @@ if (empty($_SESSION['username'])) {
                                                     }
                                                 });
                                             });
-                                            $("#reset_click").click(function () {
+                                            $("#reset_click").click(function () {                                                
                                                 $.ajax({
                                                     url: "report_table_result.php",
                                                     type: 'POST',
                                                     beforeSend: function (xhr) {
+                                                        updateSessionTimeOutCallBack();
                                                         $.blockUI({css: {
                                                                 border: 'none',
                                                                 padding: '15px',
