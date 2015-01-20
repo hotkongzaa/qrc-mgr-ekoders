@@ -710,6 +710,7 @@ if (empty($_SESSION['username'])) {
         <script src="../assets/js/qrc-mgr_configuration.js"></script>
         <script type="text/javascript">
                                         $(document).ready(function () {
+                                            updateSessionTimeOutCallBack();
                                             $(".search_date").datepicker();
                                             $("#assign_detail").hide();
                                             $("#alert_inform").hide();
@@ -901,6 +902,7 @@ if (empty($_SESSION['username'])) {
                                                 });
                                             });
                                             $("#logout_click").click(function () {
+
                                                 var jqxhr = $.post("../model/LogoutDesSession.php");
                                                 jqxhr.success(function (data) {
                                                     alert(data);
@@ -1048,6 +1050,7 @@ if (empty($_SESSION['username'])) {
                                                 }
                                             });
                                             $("#save_wo_form").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 var project_code = $("#project_code_orderPage").val();
                                                 var project_order_status = $("#project_order_status").val();
                                                 var project_home_plan = $("#project_plan").val();

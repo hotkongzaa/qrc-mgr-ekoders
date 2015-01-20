@@ -460,6 +460,7 @@ if (empty($_SESSION['username'])) {
         <script type="text/javascript">
 
                                         $(document).ready(function () {
+                                            updateSessionTimeOutCallBack();
                                             $("#reset_search").click(function () {
                                                 window.location = "assign-index.php";
                                             });
@@ -472,6 +473,7 @@ if (empty($_SESSION['username'])) {
                                                 window.location = "assign-wo-new.php";
                                             });
                                             $("#search_WO_button").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 var projectCode = $("#project_name_search").val();
                                                 var poId = $("#po_id_search").val();
                                                 var woID = $("#wo_status_search").val();
@@ -510,7 +512,7 @@ if (empty($_SESSION['username'])) {
                                             });
                                         });
                                         function deletePO(POID, project_code, imagePath) {
-
+                                            updateSessionTimeOutCallBack();
                                             if (confirm("Are you sure?"))
                                             {
                                                 var jqxhr = $.post("../model/DeleteProjectOrder.php?project_order_code=" + POID + "&imagePath=" + imagePath);

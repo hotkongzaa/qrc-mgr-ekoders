@@ -170,12 +170,15 @@ if (empty($_SESSION['username'])) {
 
         $("#tabs").tabs();
         $("input:radio[name=create_type]").click(function() {
+            updateSessionTimeOutCallBack();
             create_type = $(this).val();
         });
         $("input:radio[name=create_type_rep]").click(function() {
+            updateSessionTimeOutCallBack();
             create_receipt = $(this).val();
         });
         $("input:radio[name=create_type_pgs]").click(function() {
+            updateSessionTimeOutCallBack();
             create_progressive = $(this).val();
         });
         $(".search_date").datepicker();

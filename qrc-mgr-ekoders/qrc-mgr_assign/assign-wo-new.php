@@ -650,7 +650,7 @@ if (empty($_SESSION['username'])) {
         <script src="../assets/js/qrc-mgr_configuration.js"></script>
         <script type="text/javascript">
                                         $(document).ready(function () {
-
+                                            updateSessionTimeOutCallBack();
                                             $("#alert_inform").hide();
                                             $("#left-menu-load").load("../leftmenu-page/index-left-menu.php");
                                             var m_names = new Array("มกราคม", "กุมภาพันธ์", "มีนาคม",
@@ -861,6 +861,7 @@ if (empty($_SESSION['username'])) {
                                             });
                                         });
                                         $("#save_wo_form").click(function () {
+                                            updateSessionTimeOutCallBack();
                                             var project_code = $("#project_code_orderPage").val();
                                             var project_order_status = $("#project_order_status").val();
                                             var project_home_plan = $("#project_plan").val();

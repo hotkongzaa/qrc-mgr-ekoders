@@ -50,5 +50,16 @@ $(document).ready(function () {
             }
         });
     });
-
 });
+function updateSessionTimeOutCallBack() {
+    $.ajax({
+        url: "../model/com.qrc.mgr.controller/UpdateSessionTimeOutCallBack.php",
+        type: "POST",
+        success: function (data, textStatus, jqXHR) {
+            return textStatus;
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            return textStatus;
+        }
+    });
+}

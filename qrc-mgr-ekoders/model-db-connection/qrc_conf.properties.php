@@ -1,15 +1,15 @@
 <?php
 
+$conf = parse_ini_file("configuration.ini");
 /* for local server */
 return array(
-    'username' => 'root',
-    'password' => 'root',
-    'domain' => 'localhost',
-    'databasename' => 'osbuilding_db',
+    'username' => $conf['dataBaseUsername'],
+    'password' => $conf['dataBasePassword'],
+    'domain' => $conf['dataBaseDomain'],
+    'databasename' => $conf['dataBaseName'],
     'connection_error_msg' => 'ไม่สามารถเชื่อมต่อฐานข้อมูลได้',
-    'msg_encode' => 'SET NAMES utf8',
-    'root_path' => 'qrc-mgr-ekoders',
-    'application_timeout' => '30'
+    'msg_encode' => $conf['dataEncodeing'],
+    'root_path' => $conf['applicationRootPath']
 );
 
 

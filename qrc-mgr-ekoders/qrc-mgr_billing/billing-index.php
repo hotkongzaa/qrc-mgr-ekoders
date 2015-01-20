@@ -546,21 +546,25 @@ if (empty($_SESSION['username'])) {
                                         var create_receipt = "";
                                         var create_progressive = "";
                                         $(document).ready(function () {
+                                            updateSessionTimeOutCallBack();
                                             $(".search_date").datepicker();
                                             $("#show_temp_tble").hide();
                                             $("#create_edit_panel").hide();
                                             $("#loading_project").load("billing_table_result.php?search_condition=All");
                                             $("#create_new_billing_btn").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 $("#loading_ce_form").load("create-edit_form.php", function () {
                                                     $("#create_edit_panel").show("fast");
                                                     $("#create_new_billing_btn").hide("fast");
                                                 });
                                             });
                                             $("#close_search_panel").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 $("#create_edit_panel").hide("fast");
                                                 $("#create_new_billing_btn").show("fast");
                                             });
                                             $("#close_viewedit_tbl").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 var jqxhr = $.post("../model/com.qrc.mgr.controller/DeleteInvoiceDetailTemp.php");
                                                 jqxhr.success(function (resp) {
                                                     if (resp == 1) {
@@ -573,10 +577,12 @@ if (empty($_SESSION['username'])) {
 
                                             });
                                             $("#search_button").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 var searchInfo = $("#form_search").serialize();
                                                 $("#loading_project").load("billing_table_result.php?search_condition=Condition&" + searchInfo);
                                             });
                                             $("#create_billing").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 var data = "";
                                                 $("#create_invoice_press").prop('disabled', false);
                                                 $("#create_receipt_press").prop('disabled', true);
@@ -634,6 +640,7 @@ if (empty($_SESSION['username'])) {
 
                                             });
                                             $("#create_invoice_press").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 var over = '<div id="overlay">' +
                                                         '<img id="loading" src="http://bit.ly/pMtW1K">' +
                                                         '</div>';
@@ -692,6 +699,7 @@ if (empty($_SESSION['username'])) {
                                             });
                                         });
                                         function deleteBilling(inv_id) {
+                                            updateSessionTimeOutCallBack();
                                             if (confirm("Are you sure?"))
                                             {
                                                 // blockPage();
@@ -719,6 +727,7 @@ if (empty($_SESSION['username'])) {
                                             }
                                         }
                                         function deleteSubLevel(tempDetailID) {
+                                            updateSessionTimeOutCallBack();
                                             var jqxhr = $.post("../model/com.qrc.mgr.controller/DeleteSubInvoiceService.php?tempDetailId=" + tempDetailID);
                                             jqxhr.success(function (data) {
                                                 if (data == 200) {
@@ -739,6 +748,7 @@ if (empty($_SESSION['username'])) {
                                             });
                                         }
                                         function deleteFirstLevel(tempDetailID) {
+                                            updateSessionTimeOutCallBack();
                                             var jqxhr = $.post("../model/com.qrc.mgr.controller/DeleteFirstInvoiceService.php?tempDetailId=" + tempDetailID);
                                             jqxhr.success(function (data) {
                                                 if (data == 200) {
@@ -756,6 +766,7 @@ if (empty($_SESSION['username'])) {
                                             });
                                         }
                                         function generateBilling(invCode, custId, inv_type) {
+                                            updateSessionTimeOutCallBack();
                                             var check = invCode.split("-")[1].substring(0, 3);
                                             if (check == "INV") {
                                                 var jqxhr = $.post("../model/com.qrc.mgr.controller/SavingToInvoiceDetail.php?inv_code=" + invCode);

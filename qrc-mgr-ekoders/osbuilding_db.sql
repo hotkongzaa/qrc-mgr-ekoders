@@ -16,528 +16,528 @@ Date: 2015-01-11 12:29:41
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `project_owner`
+-- Table structure for 'PROJECT_OWNER'
 -- ----------------------------
-DROP TABLE IF EXISTS `project_owner`;
-CREATE TABLE `project_owner` (
-  `project_owner_id` varchar(10) NOT NULL default '',
-  `project_owner_name` varchar(100) default NULL,
-  PRIMARY KEY  (`project_owner_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'PROJECT_OWNER';
+CREATE TABLE 'PROJECT_OWNER' (
+  'PROJECT_OWNER_id' VARCHAR(10) NOT NULL DEFAULT '',
+  'PROJECT_OWNER_name' VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY  ('PROJECT_OWNER_id')
+) ENGINE=MYISAM DEFAULT CHARSET=UTF8;
 
 -- ----------------------------
--- Records of project_owner
+-- Records of PROJECT_OWNER
 -- ----------------------------
-INSERT INTO `project_owner` VALUES ('20001', 'Sansiri');
-INSERT INTO `project_owner` VALUES ('20002', 'Land & House');
-INSERT INTO `project_owner` VALUES ('20003', 'Quality House');
-INSERT INTO `project_owner` VALUES ('20004', 'Pruksa');
-INSERT INTO `project_owner` VALUES ('20005', 'Individual');
+INSERT INTO 'PROJECT_OWNER' VALUES ('20001', 'Sansiri');
+INSERT INTO 'PROJECT_OWNER' VALUES ('20002', 'Land & House');
+INSERT INTO 'PROJECT_OWNER' VALUES ('20003', 'Quality House');
+INSERT INTO 'PROJECT_OWNER' VALUES ('20004', 'Pruksa');
+INSERT INTO 'PROJECT_OWNER' VALUES ('20005', 'Individual');
 
 -- ----------------------------
--- Table structure for `project_status`
+-- Table structure for 'PROJECT_STATUS'
 -- ----------------------------
-DROP TABLE IF EXISTS `project_status`;
-CREATE TABLE `project_status` (
-  `project_status_id` varchar(10) NOT NULL default '',
-  `project_status_name` varchar(100) default NULL,
-  PRIMARY KEY  (`project_status_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'PROJECT_STATUS';
+CREATE TABLE 'PROJECT_STATUS' (
+  'PROJECT_STATUS_id' VARCHAR(10) NOT NULL DEFAULT '',
+  'PROJECT_STATUS_name' VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY  ('PROJECT_STATUS_id')
+) ENGINE=MYISAM DEFAULT CHARSET=UTF8;
 
 -- ----------------------------
--- Records of project_status
+-- Records of PROJECT_STATUS
 -- ----------------------------
-INSERT INTO `project_status` VALUES ('30001', 'Active');
-INSERT INTO `project_status` VALUES ('30002', 'Close');
+INSERT INTO 'PROJECT_STATUS' VALUES ('30001', 'Active');
+INSERT INTO 'PROJECT_STATUS' VALUES ('30002', 'Close');
 
 -- ----------------------------
--- Table structure for `project_type`
+-- Table structure for 'PROJECT_TYPE'
 -- ----------------------------
-DROP TABLE IF EXISTS `project_type`;
-CREATE TABLE `project_type` (
-  `project_type_id` varchar(10) NOT NULL,
-  `project_type_name` varchar(50) default NULL,
-  PRIMARY KEY  (`project_type_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'PROJECT_TYPE';
+CREATE TABLE 'PROJECT_TYPE' (
+  'PROJECT_TYPE_id' VARCHAR(10) NOT NULL,
+  'PROJECT_TYPE_name' VARCHAR(50) DEFAULT NULL,
+  PRIMARY KEY  ('PROJECT_TYPE_id')
+) ENGINE=MYISAM DEFAULT CHARSET=UTF8;
 
 -- ----------------------------
--- Records of project_type
+-- Records of PROJECT_TYPE
 -- ----------------------------
-INSERT INTO `project_type` VALUES ('10001', 'D (Direct)');
-INSERT INTO `project_type` VALUES ('10002', 'C (Company)');
+INSERT INTO 'PROJECT_TYPE' VALUES ('10001', 'D (Direct)');
+INSERT INTO 'PROJECT_TYPE' VALUES ('10002', 'C (Company)');
 
 -- ----------------------------
--- Table structure for `qrc_assign_order`
+-- Table structure for 'QRC_ASSIGN_ORDER'
 -- ----------------------------
-DROP TABLE IF EXISTS `qrc_assign_order`;
-CREATE TABLE `qrc_assign_order` (
-  `ASSIGN_ID` varchar(100) NOT NULL default '',
-  `WO_ID` varchar(100) default NULL,
-  `PROJECT_ID` varchar(100) default NULL,
-  `TEAM_CODE` varchar(100) default NULL,
-  `ASSIGN_DATE` datetime default NULL,
-  `TARGET_DATE` varchar(100) default NULL,
-  `REMARK` varchar(255) default NULL,
-  PRIMARY KEY  (`ASSIGN_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'QRC_ASSIGN_ORDER';
+CREATE TABLE 'QRC_ASSIGN_ORDER' (
+  'assign_id' VARCHAR(100) NOT NULL DEFAULT '',
+  'wo_id' VARCHAR(100) DEFAULT NULL,
+  'project_id' VARCHAR(100) DEFAULT NULL,
+  'team_code' VARCHAR(100) DEFAULT NULL,
+  'assign_date' DATETIME DEFAULT NULL,
+  'target_date' VARCHAR(100) DEFAULT NULL,
+  'remark' VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY  ('assign_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
 
 -- ----------------------------
--- Table structure for `qrc_assign_status`
+-- Table structure for 'QRC_ASSIGN_STATUS'
 -- ----------------------------
-DROP TABLE IF EXISTS `qrc_assign_status`;
-CREATE TABLE `qrc_assign_status` (
-  `A_S_ID` varchar(100) NOT NULL default '',
-  `A_S_NAME` varchar(100) default NULL,
-  PRIMARY KEY  (`A_S_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'QRC_ASSIGN_STATUS';
+CREATE TABLE 'QRC_ASSIGN_STATUS' (
+  'a_s_id' VARCHAR(100) NOT NULL DEFAULT '',
+  'a_s_name' VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY  ('a_s_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
 
 -- ----------------------------
--- Records of qrc_assign_status
+-- Records of QRC_ASSIGN_STATUS
 -- ----------------------------
-INSERT INTO `qrc_assign_status` VALUES ('80001', 'New');
-INSERT INTO `qrc_assign_status` VALUES ('80002', 'Assign');
-INSERT INTO `qrc_assign_status` VALUES ('80003', 'Pending');
-INSERT INTO `qrc_assign_status` VALUES ('80004', 'Cancel');
-INSERT INTO `qrc_assign_status` VALUES ('80005', 'Complete');
-INSERT INTO `qrc_assign_status` VALUES ('80006', 'Close');
+INSERT INTO 'QRC_ASSIGN_STATUS' VALUES ('80001', 'New');
+INSERT INTO 'QRC_ASSIGN_STATUS' VALUES ('80002', 'Assign');
+INSERT INTO 'QRC_ASSIGN_STATUS' VALUES ('80003', 'Pending');
+INSERT INTO 'QRC_ASSIGN_STATUS' VALUES ('80004', 'Cancel');
+INSERT INTO 'QRC_ASSIGN_STATUS' VALUES ('80005', 'Complete');
+INSERT INTO 'QRC_ASSIGN_STATUS' VALUES ('80006', 'Close');
 
 -- ----------------------------
--- Table structure for `qrc_customer_name`
+-- Table structure for 'QRC_CUSTOMER_NAME'
 -- ----------------------------
-DROP TABLE IF EXISTS `qrc_customer_name`;
-CREATE TABLE `qrc_customer_name` (
-  `customer_id` varchar(10) NOT NULL default '',
-  `customer_name` varchar(100) default NULL,
-  `customer_address` varchar(100) default NULL,
-  `customer_tel` varchar(100) default NULL,
-  `customer_fax` varchar(100) default NULL,
-  PRIMARY KEY  (`customer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'QRC_CUSTOMER_NAME';
+CREATE TABLE 'QRC_CUSTOMER_NAME' (
+  'customer_id' VARCHAR(10) NOT NULL DEFAULT '',
+  'customer_name' VARCHAR(100) DEFAULT NULL,
+  'customer_address' VARCHAR(100) DEFAULT NULL,
+  'customer_tel' VARCHAR(100) DEFAULT NULL,
+  'customer_fax' VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY  ('customer_id')
+) ENGINE=MYISAM DEFAULT CHARSET=UTF8;
 
 -- ----------------------------
--- Table structure for `qrc_inspection`
+-- Table structure for 'QRC_INSPECTION'
 -- ----------------------------
-DROP TABLE IF EXISTS `qrc_inspection`;
-CREATE TABLE `qrc_inspection` (
-  `INS_ID` varchar(100) NOT NULL default '',
-  `INS_PROJECT_CODE` varchar(10) default NULL,
-  `INS_DOCUMENT_NO` varchar(100) default NULL,
-  `INS_INSPECTION_NO` varchar(100) default NULL,
-  `INS_DATE` date default NULL,
-  `INS_ORDER_TYPE` varchar(100) default NULL,
-  `INS_REMARK` varchar(255) default NULL,
-  `INS_IMAGE_PATH` varchar(255) default NULL,
-  `INS_CREATED_DATE_TIME` datetime default NULL,
-  PRIMARY KEY  (`INS_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'QRC_INSPECTION';
+CREATE TABLE 'QRC_INSPECTION' (
+  'ins_id' VARCHAR(100) NOT NULL DEFAULT '',
+  'ins_project_code' VARCHAR(10) DEFAULT NULL,
+  'ins_document_no' VARCHAR(100) DEFAULT NULL,
+  'ins_inspection_no' VARCHAR(100) DEFAULT NULL,
+  'ins_date' DATE DEFAULT NULL,
+  'ins_order_type' VARCHAR(100) DEFAULT NULL,
+  'ins_remark' VARCHAR(255) DEFAULT NULL,
+  'ins_image_path' VARCHAR(255) DEFAULT NULL,
+  'ins_created_date_time' DATETIME DEFAULT NULL,
+  PRIMARY KEY  ('ins_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
 -- ----------------------------
--- Table structure for `qrc_inspection_image`
+-- Table structure for 'QRC_INSPECTION_IMAGE'
 -- ----------------------------
-DROP TABLE IF EXISTS `qrc_inspection_image`;
-CREATE TABLE `qrc_inspection_image` (
-  `IMAGE_ID` varchar(100) NOT NULL default '',
-  `TEMP_INS_ID` varchar(100) default NULL,
-  `IMAGE_PATH` varchar(255) default NULL,
-  PRIMARY KEY  (`IMAGE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'QRC_INSPECTION_IMAGE';
+CREATE TABLE 'QRC_INSPECTION_IMAGE' (
+  'image_id' VARCHAR(100) NOT NULL DEFAULT '',
+  'temp_ins_id' VARCHAR(100) DEFAULT NULL,
+  'image_path' VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY  ('image_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
 
 -- ----------------------------
--- Records of qrc_inspection_image
--- ----------------------------
-
--- ----------------------------
--- Table structure for `qrc_invoice`
--- ----------------------------
-DROP TABLE IF EXISTS `qrc_invoice`;
-CREATE TABLE `qrc_invoice` (
-  `inv_id` varchar(100) NOT NULL default '',
-  `customer_id` varchar(100) default NULL,
-  `project_id` varchar(100) default NULL,
-  `wo_status_id` varchar(100) default NULL,
-  `order_type` varchar(100) default NULL,
-  `create_type` varchar(100) default NULL,
-  `invoice_status` varchar(100) default NULL,
-  `create_receipt` varchar(100) default NULL,
-  `create_progressive` varchar(100) default NULL,
-  `create_date_time` datetime default NULL,
-  PRIMARY KEY  (`inv_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of qrc_invoice
+-- Records of QRC_INSPECTION_IMAGE
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `qrc_invoice_detail`
+-- Table structure for 'QRC_INVOICE'
 -- ----------------------------
-DROP TABLE IF EXISTS `qrc_invoice_detail`;
-CREATE TABLE `qrc_invoice_detail` (
-  `detail_id` varchar(100) NOT NULL,
-  `detail_description` varchar(100) default NULL,
-  `detail_quantity` varchar(100) default NULL,
-  `detail_unit` varchar(100) default NULL,
-  `detail_price_per_unit` varchar(100) default NULL,
-  `detail_amount_baht` varchar(100) default NULL,
-  `detail_type` varchar(100) default NULL,
-  `ref_invoice_id` varchar(100) default NULL,
-  `ref_po_project` varchar(100) default NULL,
-  `ref_project_order_id` varchar(100) default NULL,
-  `ref_invoice_main_id` varchar(100) default NULL,
-  `create_date_time` datetime default NULL,
-  PRIMARY KEY  (`detail_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'QRC_INVOICE';
+CREATE TABLE 'QRC_INVOICE' (
+  'inv_id' VARCHAR(100) NOT NULL DEFAULT '',
+  'customer_id' VARCHAR(100) DEFAULT NULL,
+  'project_id' VARCHAR(100) DEFAULT NULL,
+  'wo_status_id' VARCHAR(100) DEFAULT NULL,
+  'order_type' VARCHAR(100) DEFAULT NULL,
+  'create_type' VARCHAR(100) DEFAULT NULL,
+  'invoice_status' VARCHAR(100) DEFAULT NULL,
+  'create_receipt' VARCHAR(100) DEFAULT NULL,
+  'create_progressive' VARCHAR(100) DEFAULT NULL,
+  'create_date_time' DATETIME DEFAULT NULL,
+  PRIMARY KEY  ('inv_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
 
 -- ----------------------------
--- Records of qrc_invoice_detail
--- ----------------------------
-
--- ----------------------------
--- Table structure for `qrc_invoice_detail_tmp`
--- ----------------------------
-DROP TABLE IF EXISTS `qrc_invoice_detail_tmp`;
-CREATE TABLE `qrc_invoice_detail_tmp` (
-  `detail_id` varchar(100) NOT NULL,
-  `detail_description` varchar(100) default NULL,
-  `detail_quantity` varchar(100) default NULL,
-  `detail_unit` varchar(100) default NULL,
-  `detail_price_per_unit` varchar(100) default NULL,
-  `detail_amount_baht` varchar(100) default NULL,
-  `detail_type` varchar(100) default NULL,
-  `ref_invoice_id` varchar(100) default NULL,
-  `ref_po_project` varchar(100) default NULL,
-  `ref_project_order_id` varchar(100) default NULL,
-  `ref_invoice_main_id` varchar(100) default NULL,
-  `create_date_time` datetime default NULL,
-  PRIMARY KEY  (`detail_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for `qrc_invoice_status`
--- ----------------------------
-DROP TABLE IF EXISTS `qrc_invoice_status`;
-CREATE TABLE `qrc_invoice_status` (
-  `inv_staus_id` varchar(100) NOT NULL default '',
-  `inv_staus_name` varchar(100) default NULL,
-  PRIMARY KEY  (`inv_staus_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of qrc_invoice_status
--- ----------------------------
-INSERT INTO `qrc_invoice_status` VALUES ('44001', 'New');
-INSERT INTO `qrc_invoice_status` VALUES ('44002', 'Open');
-INSERT INTO `qrc_invoice_status` VALUES ('44003', 'Pending');
-INSERT INTO `qrc_invoice_status` VALUES ('44004', 'In progress');
-INSERT INTO `qrc_invoice_status` VALUES ('44005', 'Closed');
-
--- ----------------------------
--- Table structure for `qrc_members`
--- ----------------------------
-DROP TABLE IF EXISTS `qrc_members`;
-CREATE TABLE `qrc_members` (
-  `memID` varchar(10) NOT NULL default '',
-  `memName` varchar(255) default NULL,
-  `memRole` varchar(10) default NULL,
-  `memTCode` varchar(10) default NULL,
-  `memTName` varchar(200) default NULL,
-  `memTel` varchar(50) default NULL,
-  `memSkill` varchar(255) default NULL,
-  `memEmail` varchar(100) default NULL,
-  `memRemark` varchar(255) default NULL,
-  `created_date_time` varchar(255) default NULL,
-  PRIMARY KEY  (`memID`),
-  KEY `MemberTCode` (`memTCode`),
-  KEY `MemberMemRole` (`memRole`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
--- ----------------------------
--- Table structure for `qrc_member_role`
--- ----------------------------
-DROP TABLE IF EXISTS `qrc_member_role`;
-CREATE TABLE `qrc_member_role` (
-  `role_id` varchar(10) NOT NULL default '',
-  `role_name` varchar(100) default NULL,
-  PRIMARY KEY  (`role_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of qrc_member_role
--- ----------------------------
-INSERT INTO `qrc_member_role` VALUES ('60001', 'Quality Inspector');
-INSERT INTO `qrc_member_role` VALUES ('60002', 'Quality Controller');
-INSERT INTO `qrc_member_role` VALUES ('60003', 'Team Manager');
-INSERT INTO `qrc_member_role` VALUES ('60004', 'Team Leader');
-INSERT INTO `qrc_member_role` VALUES ('60005', 'Supervisor');
-INSERT INTO `qrc_member_role` VALUES ('60006', 'Builder');
-
--- ----------------------------
--- Table structure for `qrc_pgs_detail`
--- ----------------------------
-DROP TABLE IF EXISTS `qrc_pgs_detail`;
-CREATE TABLE `qrc_pgs_detail` (
-  `PGS_ID` varchar(100) NOT NULL,
-  `PGS_description` varchar(100) default NULL,
-  `PGS_quantity` varchar(100) default NULL,
-  `PGS_unit` varchar(100) default NULL,
-  `PGS_price_per_unit` varchar(100) default NULL,
-  `PGS_amount_baht` varchar(100) default NULL,
-  `PGS_type` varchar(100) default NULL,
-  `ref_invoice_id` varchar(100) default NULL,
-  `ref_po_project` varchar(100) default NULL,
-  `ref_project_order_id` varchar(100) default NULL,
-  `ref_invoice_main_id` varchar(100) default NULL,
-  `create_date_time` datetime default NULL,
-  PRIMARY KEY  (`PGS_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
--- ----------------------------
--- Table structure for `qrc_po`
--- ----------------------------
-DROP TABLE IF EXISTS `qrc_po`;
-CREATE TABLE `qrc_po` (
-  `PO_ID` varchar(100) NOT NULL default '',
-  `PO_PROJECT_NAME` varchar(100) default NULL,
-  `PO_PROJECT_CODE` varchar(10) default NULL,
-  `PO_DOCUMENT_NO` varchar(100) default NULL,
-  `PO_PO_NO` varchar(100) default NULL,
-  `PO_HOME_PLAN` varchar(100) default NULL,
-  `PO_HOME_PLOT` varchar(100) default NULL,
-  `PO_OWNER` varchar(100) default NULL,
-  `PO_SENDER` varchar(100) default NULL,
-  `PO_ISSUE_DATE` date default NULL,
-  `PO_ORDER_TYPE_ID` varchar(10) default NULL,
-  `PO_QUANTITY` varchar(100) default NULL,
-  `PO_PLAN_SIZE` varchar(100) default NULL,
-  `PO_UNIT_PRICE` varchar(100) default NULL,
-  `PO_AMOUNT` varchar(100) default NULL,
-  `PO_VAT` varchar(100) default NULL,
-  `PO_FILE_PATH` varchar(200) default NULL,
-  `PO_PROJECT_MANAGER_ID` varchar(100) default NULL,
-  `PO_PROJECT_FOREMAN_ID` varchar(100) default NULL,
-  `PO_SUPERVISOR_ID` varchar(100) default NULL,
-  `PO_CREATED_DATE_TIME` datetime default NULL,
-  `PO_REMARK` varchar(255) default NULL,
-  `PO_NAME` varchar(255) default NULL,
-  `PO_RETENTION` varchar(255) default NULL,
-  `PO_RETENTION_REASON` varchar(255) default NULL,
-  `PO_STATUS` varchar(100) default NULL,
-  PRIMARY KEY  (`PO_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
--- ----------------------------
--- Table structure for `qrc_po_image`
--- ----------------------------
-DROP TABLE IF EXISTS `qrc_po_image`;
-CREATE TABLE `qrc_po_image` (
-  `IMAGE_ID` varchar(100) NOT NULL default '',
-  `TEMP_PO_ID` varchar(100) default NULL,
-  `IMAGE_PATH` varchar(255) default NULL,
-  PRIMARY KEY  (`IMAGE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
--- ----------------------------
--- Table structure for `qrc_project`
--- ----------------------------
-DROP TABLE IF EXISTS `qrc_project`;
-CREATE TABLE `qrc_project` (
-  `project_code` varchar(20) NOT NULL default '',
-  `project_name` varchar(100) default NULL,
-  `project_status` varchar(10) default NULL,
-  `project_owner` varchar(100) default NULL,
-  `project_type` varchar(10) default NULL,
-  `customer_id` varchar(10) default NULL,
-  `project_manager` varchar(100) default NULL,
-  `project_foreman` varchar(250) default NULL,
-  `supervisor_control` varchar(250) default NULL,
-  `team_owner` varchar(10) default NULL,
-  `quality_inspectors` varchar(100) default NULL,
-  `address_location` varchar(255) default NULL,
-  `created_date_time` varchar(100) default NULL,
-  `project_remark` varchar(250) default NULL,
-  `updated_date_time` varchar(100) default NULL,
-  PRIMARY KEY  (`project_code`),
-  KEY `customer_id` (`customer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for `qrc_project_image`
--- ----------------------------
-DROP TABLE IF EXISTS `qrc_project_image`;
-CREATE TABLE `qrc_project_image` (
-  `IMAGE_ID` varchar(100) NOT NULL default '',
-  `TEMP_PROJECT_ID` varchar(100) default NULL,
-  `IMAGE_PATH` varchar(255) default NULL,
-  PRIMARY KEY  (`IMAGE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for `qrc_project_order`
--- ----------------------------
-DROP TABLE IF EXISTS `qrc_project_order`;
-CREATE TABLE `qrc_project_order` (
-  `project_order_id` varchar(100) NOT NULL default '',
-  `project_order_name` varchar(100) default NULL,
-  `project_code` varchar(10) default NULL,
-  `project_order_plan` varchar(100) default NULL,
-  `project_order_plot` varchar(100) default NULL,
-  `document_no` varchar(100) default NULL,
-  `po_no` varchar(100) default NULL,
-  `po_owner` varchar(100) default NULL,
-  `po_sender` varchar(100) default NULL,
-  `created_date_time` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `order_type` varchar(10) default NULL,
-  `plan_size` varchar(50) default NULL,
-  `unit_price` varchar(50) default NULL,
-  `amount` varchar(50) default NULL,
-  `include_vat` varchar(50) default NULL,
-  `image_name` varchar(250) default NULL,
-  `project_status` varchar(50) default NULL,
-  `updated_date_time` varchar(100) default NULL,
-  `remark` varchar(255) default NULL,
-  `assign_id` varchar(100) default NULL,
-  `po_inspection_id` varchar(100) default NULL,
-  `INV_REP_PGS_ID` varchar(100) default NULL,
-  `INV_REP_PGS_STATUS_ID` varchar(100) default NULL,
-  `WO_ORDER_TYPE` varchar(100) default NULL,
-  `WO_PRICE` varchar(100) default NULL,
-  `WO_PERC_OF_PO` varchar(100) default NULL,
-  `WO_RETENTION` varchar(100) default NULL,
-  `WO_RETENTION_REASON` varchar(255) default NULL,
-  `COMPLETE_DATE` varchar(100) default NULL,
-  `REAL_WO_PRICE` varchar(100) default NULL,
-  PRIMARY KEY  (`project_order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for `qrc_project_order_type`
--- ----------------------------
-DROP TABLE IF EXISTS `qrc_project_order_type`;
-CREATE TABLE `qrc_project_order_type` (
-  `order_type_id` varchar(20) NOT NULL default '',
-  `order_type_name` varchar(100) default NULL,
-  PRIMARY KEY  (`order_type_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of qrc_project_order_type
--- ----------------------------
-INSERT INTO `qrc_project_order_type` VALUES ('7001', 'โครงหลังคา');
-INSERT INTO `qrc_project_order_type` VALUES ('7002', 'เชิงชาย');
-INSERT INTO `qrc_project_order_type` VALUES ('7003', 'มุงหลังคา');
-INSERT INTO `qrc_project_order_type` VALUES ('7004', 'อะเส');
-
--- ----------------------------
--- Table structure for `qrc_receipt`
--- ----------------------------
-DROP TABLE IF EXISTS `qrc_receipt`;
-CREATE TABLE `qrc_receipt` (
-  `inv_id` varchar(100) NOT NULL default '',
-  `customer_id` varchar(100) default NULL,
-  `project_id` varchar(100) default NULL,
-  `wo_status_id` varchar(100) default NULL,
-  `order_type` varchar(100) default NULL,
-  `create_type` varchar(100) default NULL,
-  `invoice_status` varchar(100) default NULL,
-  `create_receipt` varchar(100) default NULL,
-  `create_progressive` varchar(100) default NULL,
-  `create_date_time` datetime default NULL,
-  PRIMARY KEY  (`inv_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of qrc_receipt
+-- Records of QRC_INVOICE
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `qrc_skill_attr`
+-- Table structure for 'QRC_INVOICE_DETAIL'
 -- ----------------------------
-DROP TABLE IF EXISTS `qrc_skill_attr`;
-CREATE TABLE `qrc_skill_attr` (
-  `ATTR_ID` varchar(100) NOT NULL default '',
-  `M_T_REF_ID` varchar(10) default NULL,
-  `SKILL_ID` varchar(100) default NULL,
-  PRIMARY KEY  (`ATTR_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'QRC_INVOICE_DETAIL';
+CREATE TABLE 'QRC_INVOICE_DETAIL' (
+  'detail_id' VARCHAR(100) NOT NULL,
+  'detail_description' VARCHAR(100) DEFAULT NULL,
+  'detail_quantity' VARCHAR(100) DEFAULT NULL,
+  'detail_unit' VARCHAR(100) DEFAULT NULL,
+  'detail_price_per_unit' VARCHAR(100) DEFAULT NULL,
+  'detail_amount_baht' VARCHAR(100) DEFAULT NULL,
+  'detail_type' VARCHAR(100) DEFAULT NULL,
+  'ref_invoice_id' VARCHAR(100) DEFAULT NULL,
+  'ref_po_project' VARCHAR(100) DEFAULT NULL,
+  'ref_project_order_id' VARCHAR(100) DEFAULT NULL,
+  'ref_invoice_main_id' VARCHAR(100) DEFAULT NULL,
+  'create_date_time' DATETIME DEFAULT NULL,
+  PRIMARY KEY  ('detail_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
 
 -- ----------------------------
--- Table structure for `qrc_team_builder`
+-- Records of QRC_INVOICE_DETAIL
 -- ----------------------------
-DROP TABLE IF EXISTS `qrc_team_builder`;
-CREATE TABLE `qrc_team_builder` (
-  `tCode` varchar(10) NOT NULL default '',
-  `tName` varchar(200) default NULL,
-  `tLead_memid` varchar(10) default NULL,
-  `tType` varchar(10) default NULL,
-  `tManager_memid` varchar(10) default NULL,
-  `tSkill` varchar(255) default NULL,
-  `tRemark` varchar(255) default NULL,
-  `created_date_time` varchar(255) default NULL,
-  PRIMARY KEY  (`tCode`),
-  KEY `MemberTLead_memid` (`tLead_memid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for `qrc_team_mapping`
+-- Table structure for 'QRC_INVOICE_DETAIL_TMP'
 -- ----------------------------
-DROP TABLE IF EXISTS `qrc_team_mapping`;
-CREATE TABLE `qrc_team_mapping` (
-  `ID` varchar(100) NOT NULL default '',
-  `TEAM_ID` varchar(100) default NULL,
-  `MEMBER_ID` varchar(100) default NULL,
-  `MAPPING_DATE` varchar(100) default NULL,
-  PRIMARY KEY  (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'QRC_INVOICE_DETAIL_TMP';
+CREATE TABLE 'QRC_INVOICE_DETAIL_TMP' (
+  'detail_id' VARCHAR(100) NOT NULL,
+  'detail_description' VARCHAR(100) DEFAULT NULL,
+  'detail_quantity' VARCHAR(100) DEFAULT NULL,
+  'detail_unit' VARCHAR(100) DEFAULT NULL,
+  'detail_price_per_unit' VARCHAR(100) DEFAULT NULL,
+  'detail_amount_baht' VARCHAR(100) DEFAULT NULL,
+  'detail_type' VARCHAR(100) DEFAULT NULL,
+  'ref_invoice_id' VARCHAR(100) DEFAULT NULL,
+  'ref_po_project' VARCHAR(100) DEFAULT NULL,
+  'ref_project_order_id' VARCHAR(100) DEFAULT NULL,
+  'ref_invoice_main_id' VARCHAR(100) DEFAULT NULL,
+  'create_date_time' DATETIME DEFAULT NULL,
+  PRIMARY KEY  ('detail_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
 
 -- ----------------------------
--- Table structure for `qrc_type_of_service`
+-- Table structure for 'QRC_INVOICE_STATUS'
 -- ----------------------------
-DROP TABLE IF EXISTS `qrc_type_of_service`;
-CREATE TABLE `qrc_type_of_service` (
-  `service_id` varchar(50) NOT NULL,
-  `service_name` varchar(100) default NULL,
-  PRIMARY KEY  (`service_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'QRC_INVOICE_STATUS';
+CREATE TABLE 'QRC_INVOICE_STATUS' (
+  'inv_staus_id' VARCHAR(100) NOT NULL DEFAULT '',
+  'inv_staus_name' VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY  ('inv_staus_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
 
 -- ----------------------------
--- Records of qrc_type_of_service
+-- Records of QRC_INVOICE_STATUS
 -- ----------------------------
-INSERT INTO `qrc_type_of_service` VALUES ('50001', 'โครงหลังคา');
-INSERT INTO `qrc_type_of_service` VALUES ('50002', 'อะเส');
-INSERT INTO `qrc_type_of_service` VALUES ('50003', 'เชิงชาย');
-INSERT INTO `qrc_type_of_service` VALUES ('50004', 'หลังคา');
+INSERT INTO 'QRC_INVOICE_STATUS' VALUES ('44001', 'New');
+INSERT INTO 'QRC_INVOICE_STATUS' VALUES ('44002', 'Open');
+INSERT INTO 'QRC_INVOICE_STATUS' VALUES ('44003', 'Pending');
+INSERT INTO 'QRC_INVOICE_STATUS' VALUES ('44004', 'In progress');
+INSERT INTO 'QRC_INVOICE_STATUS' VALUES ('44005', 'Closed');
 
 -- ----------------------------
--- Table structure for `qrc_users`
+-- Table structure for 'QRC_MEMBERS'
 -- ----------------------------
-DROP TABLE IF EXISTS `qrc_users`;
-CREATE TABLE `qrc_users` (
-  `id` varchar(10) NOT NULL,
-  `username` varchar(30) default NULL,
-  `password` varchar(255) default NULL,
-  `fName` varchar(50) default NULL,
-  `lName` varchar(50) default NULL,
-  `email` varchar(100) default NULL,
-  `gender` varchar(10) default NULL,
-  `age` varchar(10) default NULL,
-  `dob` date default NULL,
-  `permission_id` varchar(10) default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `permission_id` (`permission_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'QRC_MEMBERS';
+CREATE TABLE 'QRC_MEMBERS' (
+  'memid' VARCHAR(10) NOT NULL DEFAULT '',
+  'memname' VARCHAR(255) DEFAULT NULL,
+  'memrole' VARCHAR(10) DEFAULT NULL,
+  'memtcode' VARCHAR(10) DEFAULT NULL,
+  'memtname' VARCHAR(200) DEFAULT NULL,
+  'memtel' VARCHAR(50) DEFAULT NULL,
+  'memskill' VARCHAR(255) DEFAULT NULL,
+  'mememail' VARCHAR(100) DEFAULT NULL,
+  'memremark' VARCHAR(255) DEFAULT NULL,
+  'created_date_time' VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY  ('memid'),
+  KEY 'membertcode' ('memtcode'),
+  KEY 'membermemrole' ('memrole')
+) ENGINE=MYISAM DEFAULT CHARSET=UTF8;
+-- ----------------------------
+-- Table structure for 'QRC_MEMBER_ROLE'
+-- ----------------------------
+DROP TABLE IF EXISTS 'QRC_MEMBER_ROLE';
+CREATE TABLE 'QRC_MEMBER_ROLE' (
+  'role_id' VARCHAR(10) NOT NULL DEFAULT '',
+  'role_name' VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY  ('role_id')
+) ENGINE=MYISAM DEFAULT CHARSET=UTF8;
 
 -- ----------------------------
--- Records of qrc_users
+-- Records of QRC_MEMBER_ROLE
 -- ----------------------------
-INSERT INTO `qrc_users` VALUES ('1', 'administrator', '21232f297a57a5a743894a0e4a801fc3', 'AdministratorFName', 'AdministratorLName', 'mail@mail.com', 'male', '55', '2014-04-30', '999999');
+INSERT INTO 'QRC_MEMBER_ROLE' VALUES ('60001', 'Quality Inspector');
+INSERT INTO 'QRC_MEMBER_ROLE' VALUES ('60002', 'Quality Controller');
+INSERT INTO 'QRC_MEMBER_ROLE' VALUES ('60003', 'Team Manager');
+INSERT INTO 'QRC_MEMBER_ROLE' VALUES ('60004', 'Team Leader');
+INSERT INTO 'QRC_MEMBER_ROLE' VALUES ('60005', 'Supervisor');
+INSERT INTO 'QRC_MEMBER_ROLE' VALUES ('60006', 'Builder');
 
 -- ----------------------------
--- Table structure for `qrc_user_permission`
+-- Table structure for 'QRC_PGS_DETAIL'
 -- ----------------------------
-DROP TABLE IF EXISTS `qrc_user_permission`;
-CREATE TABLE `qrc_user_permission` (
-  `permission_id` varchar(10) NOT NULL default '',
-  `permission_name` varchar(50) default NULL,
-  PRIMARY KEY  (`permission_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS 'QRC_PGS_DETAIL';
+CREATE TABLE 'QRC_PGS_DETAIL' (
+  'pgs_id' VARCHAR(100) NOT NULL,
+  'pgs_description' VARCHAR(100) DEFAULT NULL,
+  'pgs_quantity' VARCHAR(100) DEFAULT NULL,
+  'pgs_unit' VARCHAR(100) DEFAULT NULL,
+  'pgs_price_per_unit' VARCHAR(100) DEFAULT NULL,
+  'pgs_amount_baht' VARCHAR(100) DEFAULT NULL,
+  'pgs_type' VARCHAR(100) DEFAULT NULL,
+  'ref_invoice_id' VARCHAR(100) DEFAULT NULL,
+  'ref_po_project' VARCHAR(100) DEFAULT NULL,
+  'ref_project_order_id' VARCHAR(100) DEFAULT NULL,
+  'ref_invoice_main_id' VARCHAR(100) DEFAULT NULL,
+  'create_date_time' DATETIME DEFAULT NULL,
+  PRIMARY KEY  ('pgs_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+-- ----------------------------
+-- Table structure for 'QRC_PO'
+-- ----------------------------
+DROP TABLE IF EXISTS 'QRC_PO';
+CREATE TABLE 'QRC_PO' (
+  'po_id' VARCHAR(100) NOT NULL DEFAULT '',
+  'po_project_name' VARCHAR(100) DEFAULT NULL,
+  'po_project_code' VARCHAR(10) DEFAULT NULL,
+  'po_document_no' VARCHAR(100) DEFAULT NULL,
+  'po_po_no' VARCHAR(100) DEFAULT NULL,
+  'po_home_plan' VARCHAR(100) DEFAULT NULL,
+  'po_home_plot' VARCHAR(100) DEFAULT NULL,
+  'po_owner' VARCHAR(100) DEFAULT NULL,
+  'po_sender' VARCHAR(100) DEFAULT NULL,
+  'po_issue_date' DATE DEFAULT NULL,
+  'po_order_type_id' VARCHAR(10) DEFAULT NULL,
+  'po_quantity' VARCHAR(100) DEFAULT NULL,
+  'po_plan_size' VARCHAR(100) DEFAULT NULL,
+  'po_unit_price' VARCHAR(100) DEFAULT NULL,
+  'po_amount' VARCHAR(100) DEFAULT NULL,
+  'po_vat' VARCHAR(100) DEFAULT NULL,
+  'po_file_path' VARCHAR(200) DEFAULT NULL,
+  'po_project_manager_id' VARCHAR(100) DEFAULT NULL,
+  'po_project_foreman_id' VARCHAR(100) DEFAULT NULL,
+  'po_supervisor_id' VARCHAR(100) DEFAULT NULL,
+  'po_created_date_time' DATETIME DEFAULT NULL,
+  'po_remark' VARCHAR(255) DEFAULT NULL,
+  'po_name' VARCHAR(255) DEFAULT NULL,
+  'po_retention' VARCHAR(255) DEFAULT NULL,
+  'po_retention_reason' VARCHAR(255) DEFAULT NULL,
+  'po_status' VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY  ('po_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+-- ----------------------------
+-- Table structure for 'QRC_PO_IMAGE'
+-- ----------------------------
+DROP TABLE IF EXISTS 'QRC_PO_IMAGE';
+CREATE TABLE 'QRC_PO_IMAGE' (
+  'image_id' VARCHAR(100) NOT NULL DEFAULT '',
+  'temp_po_id' VARCHAR(100) DEFAULT NULL,
+  'image_path' VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY  ('image_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+-- ----------------------------
+-- Table structure for 'QRC_PROJECT'
+-- ----------------------------
+DROP TABLE IF EXISTS 'QRC_PROJECT';
+CREATE TABLE 'QRC_PROJECT' (
+  'project_code' VARCHAR(20) NOT NULL DEFAULT '',
+  'project_name' VARCHAR(100) DEFAULT NULL,
+  'PROJECT_STATUS' VARCHAR(10) DEFAULT NULL,
+  'PROJECT_OWNER' VARCHAR(100) DEFAULT NULL,
+  'PROJECT_TYPE' VARCHAR(10) DEFAULT NULL,
+  'customer_id' VARCHAR(10) DEFAULT NULL,
+  'project_manager' VARCHAR(100) DEFAULT NULL,
+  'project_foreman' VARCHAR(250) DEFAULT NULL,
+  'supervisor_control' VARCHAR(250) DEFAULT NULL,
+  'team_owner' VARCHAR(10) DEFAULT NULL,
+  'quality_inspectors' VARCHAR(100) DEFAULT NULL,
+  'address_location' VARCHAR(255) DEFAULT NULL,
+  'created_date_time' VARCHAR(100) DEFAULT NULL,
+  'project_remark' VARCHAR(250) DEFAULT NULL,
+  'updated_date_time' VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY  ('project_code'),
+  KEY 'customer_id' ('customer_id')
+) ENGINE=MYISAM DEFAULT CHARSET=UTF8;
 
 -- ----------------------------
--- Records of qrc_user_permission
+-- Table structure for 'QRC_PROJECT_image'
 -- ----------------------------
-INSERT INTO `qrc_user_permission` VALUES ('999999', 'Administrator');
-INSERT INTO `qrc_user_permission` VALUES ('111111', 'User Owner');
+DROP TABLE IF EXISTS 'QRC_PROJECT_IMAGE';
+CREATE TABLE 'QRC_PROJECT_IMAGE' (
+  'image_id' VARCHAR(100) NOT NULL DEFAULT '',
+  'temp_project_id' VARCHAR(100) DEFAULT NULL,
+  'image_path' VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY  ('image_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+
+-- ----------------------------
+-- Table structure for 'QRC_PROJECT_order'
+-- ----------------------------
+DROP TABLE IF EXISTS 'QRC_PROJECT_ORDER';
+CREATE TABLE 'QRC_PROJECT_ORDER' (
+  'project_order_id' VARCHAR(100) NOT NULL DEFAULT '',
+  'project_order_name' VARCHAR(100) DEFAULT NULL,
+  'project_code' VARCHAR(10) DEFAULT NULL,
+  'project_order_plan' VARCHAR(100) DEFAULT NULL,
+  'project_order_plot' VARCHAR(100) DEFAULT NULL,
+  'document_no' VARCHAR(100) DEFAULT NULL,
+  'po_no' VARCHAR(100) DEFAULT NULL,
+  'po_owner' VARCHAR(100) DEFAULT NULL,
+  'po_sender' VARCHAR(100) DEFAULT NULL,
+  'created_date_time' TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  'order_type' VARCHAR(10) DEFAULT NULL,
+  'plan_size' VARCHAR(50) DEFAULT NULL,
+  'unit_price' VARCHAR(50) DEFAULT NULL,
+  'amount' VARCHAR(50) DEFAULT NULL,
+  'include_vat' VARCHAR(50) DEFAULT NULL,
+  'image_name' VARCHAR(250) DEFAULT NULL,
+  'PROJECT_STATUS' VARCHAR(50) DEFAULT NULL,
+  'updated_date_time' VARCHAR(100) DEFAULT NULL,
+  'remark' VARCHAR(255) DEFAULT NULL,
+  'assign_id' VARCHAR(100) DEFAULT NULL,
+  'po_inspection_id' VARCHAR(100) DEFAULT NULL,
+  'inv_rep_pgs_id' VARCHAR(100) DEFAULT NULL,
+  'inv_rep_pgs_status_id' VARCHAR(100) DEFAULT NULL,
+  'wo_order_type' VARCHAR(100) DEFAULT NULL,
+  'wo_price' VARCHAR(100) DEFAULT NULL,
+  'wo_perc_of_po' VARCHAR(100) DEFAULT NULL,
+  'wo_retention' VARCHAR(100) DEFAULT NULL,
+  'wo_retention_reason' VARCHAR(255) DEFAULT NULL,
+  'complete_date' VARCHAR(100) DEFAULT NULL,
+  'real_wo_price' VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY  ('project_order_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+
+-- ----------------------------
+-- Table structure for 'QRC_PROJECT_order_type'
+-- ----------------------------
+DROP TABLE IF EXISTS 'QRC_PROJECT_ORDER_TYPE';
+CREATE TABLE 'QRC_PROJECT_ORDER_TYPE' (
+  'order_type_id' VARCHAR(20) NOT NULL DEFAULT '',
+  'order_type_name' VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY  ('order_type_id')
+) ENGINE=MYISAM DEFAULT CHARSET=UTF8;
+
+-- ----------------------------
+-- Records of QRC_PROJECT_order_type
+-- ----------------------------
+INSERT INTO 'QRC_PROJECT_ORDER_TYPE' VALUES ('7001', '�?�?ร�?หลั�?�?า');
+INSERT INTO 'QRC_PROJECT_ORDER_TYPE' VALUES ('7002', 'เ�?ิ�?�?าย');
+INSERT INTO 'QRC_PROJECT_ORDER_TYPE' VALUES ('7003', 'มุ�?หลั�?�?า');
+INSERT INTO 'QRC_PROJECT_ORDER_TYPE' VALUES ('7004', 'อะเส');
+
+-- ----------------------------
+-- Table structure for 'QRC_RECEIPT'
+-- ----------------------------
+DROP TABLE IF EXISTS 'QRC_RECEIPT';
+CREATE TABLE 'QRC_RECEIPT' (
+  'inv_id' VARCHAR(100) NOT NULL DEFAULT '',
+  'customer_id' VARCHAR(100) DEFAULT NULL,
+  'project_id' VARCHAR(100) DEFAULT NULL,
+  'wo_status_id' VARCHAR(100) DEFAULT NULL,
+  'order_type' VARCHAR(100) DEFAULT NULL,
+  'create_type' VARCHAR(100) DEFAULT NULL,
+  'invoice_status' VARCHAR(100) DEFAULT NULL,
+  'create_receipt' VARCHAR(100) DEFAULT NULL,
+  'create_progressive' VARCHAR(100) DEFAULT NULL,
+  'create_date_time' DATETIME DEFAULT NULL,
+  PRIMARY KEY  ('inv_id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+
+-- ----------------------------
+-- Records of QRC_RECEIPT
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for 'QRC_SKILL_ATTR'
+-- ----------------------------
+DROP TABLE IF EXISTS 'QRC_SKILL_ATTR';
+CREATE TABLE 'QRC_SKILL_ATTR' (
+  'attr_id' VARCHAR(100) NOT NULL DEFAULT '',
+  'm_t_ref_id' VARCHAR(10) DEFAULT NULL,
+  'skill_id' VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY  ('attr_id')
+) ENGINE=MYISAM DEFAULT CHARSET=UTF8;
+
+-- ----------------------------
+-- Table structure for 'QRC_TEAM_BUILDER'
+-- ----------------------------
+DROP TABLE IF EXISTS 'QRC_TEAM_BUILDER';
+CREATE TABLE 'QRC_TEAM_BUILDER' (
+  'tcode' VARCHAR(10) NOT NULL DEFAULT '',
+  'tname' VARCHAR(200) DEFAULT NULL,
+  'tlead_memid' VARCHAR(10) DEFAULT NULL,
+  'ttype' VARCHAR(10) DEFAULT NULL,
+  'tmanager_memid' VARCHAR(10) DEFAULT NULL,
+  'tskill' VARCHAR(255) DEFAULT NULL,
+  'tremark' VARCHAR(255) DEFAULT NULL,
+  'created_date_time' VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY  ('tcode'),
+  KEY 'membertlead_memid' ('tlead_memid')
+) ENGINE=MYISAM DEFAULT CHARSET=UTF8;
+
+-- ----------------------------
+-- Table structure for 'QRC_TEAM_MAPPING'
+-- ----------------------------
+DROP TABLE IF EXISTS 'QRC_TEAM_MAPPING';
+CREATE TABLE 'QRC_TEAM_MAPPING' (
+  'id' VARCHAR(100) NOT NULL DEFAULT '',
+  'team_id' VARCHAR(100) DEFAULT NULL,
+  'member_id' VARCHAR(100) DEFAULT NULL,
+  'mapping_date' VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY  ('id')
+) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+
+-- ----------------------------
+-- Table structure for 'QRC_TYPE_OF_SERVICE'
+-- ----------------------------
+DROP TABLE IF EXISTS 'QRC_TYPE_OF_SERVICE';
+CREATE TABLE 'QRC_TYPE_OF_SERVICE' (
+  'service_id' VARCHAR(50) NOT NULL,
+  'service_name' VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY  ('service_id')
+) ENGINE=MYISAM DEFAULT CHARSET=UTF8;
+
+-- ----------------------------
+-- Records of QRC_TYPE_OF_SERVICE
+-- ----------------------------
+INSERT INTO 'QRC_TYPE_OF_SERVICE' VALUES ('50001', '�?�?ร�?หลั�?�?า');
+INSERT INTO 'QRC_TYPE_OF_SERVICE' VALUES ('50002', 'อะเส');
+INSERT INTO 'QRC_TYPE_OF_SERVICE' VALUES ('50003', 'เ�?ิ�?�?าย');
+INSERT INTO 'QRC_TYPE_OF_SERVICE' VALUES ('50004', 'หลั�?�?า');
+
+-- ----------------------------
+-- Table structure for 'QRC_USERS'
+-- ----------------------------
+DROP TABLE IF EXISTS 'QRC_USERS';
+CREATE TABLE 'QRC_USERS' (
+  'id' VARCHAR(10) NOT NULL,
+  'username' VARCHAR(30) DEFAULT NULL,
+  'password' VARCHAR(255) DEFAULT NULL,
+  'fname' VARCHAR(50) DEFAULT NULL,
+  'lname' VARCHAR(50) DEFAULT NULL,
+  'email' VARCHAR(100) DEFAULT NULL,
+  'gender' VARCHAR(10) DEFAULT NULL,
+  'age' VARCHAR(10) DEFAULT NULL,
+  'dob' DATE DEFAULT NULL,
+  'permission_id' VARCHAR(10) DEFAULT NULL,
+  PRIMARY KEY  ('id'),
+  KEY 'permission_id' ('permission_id')
+) ENGINE=MYISAM DEFAULT CHARSET=UTF8;
+
+-- ----------------------------
+-- Records of QRC_USERS
+-- ----------------------------
+INSERT INTO 'QRC_USERS' VALUES ('1', 'administrator', '21232f297a57a5a743894a0e4a801fc3', 'AdministratorFName', 'AdministratorLName', 'mail@mail.com', 'male', '55', '2014-04-30', '999999');
+
+-- ----------------------------
+-- Table structure for 'QRC_USER_PERMISSION'
+-- ----------------------------
+DROP TABLE IF EXISTS 'QRC_USER_PERMISSION';
+CREATE TABLE 'QRC_USER_PERMISSION' (
+  'permission_id' VARCHAR(10) NOT NULL DEFAULT '',
+  'permission_name' VARCHAR(50) DEFAULT NULL,
+  PRIMARY KEY  ('permission_id')
+) ENGINE=MYISAM DEFAULT CHARSET=UTF8;
+
+-- ----------------------------
+-- Records of QRC_USER_PERMISSION
+-- ----------------------------
+INSERT INTO 'QRC_USER_PERMISSION' VALUES ('999999', 'Administrator');
+INSERT INTO 'QRC_USER_PERMISSION' VALUES ('111111', 'User Owner');

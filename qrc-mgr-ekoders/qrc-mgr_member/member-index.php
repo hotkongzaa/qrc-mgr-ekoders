@@ -490,6 +490,7 @@ if (empty($_SESSION['username'])) {
         <script type="text/javascript">
                                         var createOrEditState = "Create";
                                         $(document).ready(function () {
+                                            updateSessionTimeOutCallBack();
                                             $("#select3_2").select2({
                                                 placeholder: "Select a Services",
                                                 allowClear: true
@@ -498,18 +499,20 @@ if (empty($_SESSION['username'])) {
                                             $("#create_edit_panel").hide();
                                             $("#loading_project").load("member_table_result.php?searchCondition=search_all");
                                             $("#create_new_member_btn").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 $("#loading_ce_form").load("member-edit_form.php?mID=new", function () {
                                                     $("#create_edit_panel").show("fast");
                                                     $("#create_new_member_btn").hide();
                                                 });
                                             });
                                             $("#cancel_form").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 $("#loading_ce_form").empty();
                                                 $("#create_new_member_btn").show();
                                                 $("#create_edit_panel").hide("fast");
                                             });
                                             $("#save_create_panel").click(function () {
-
+                                                updateSessionTimeOutCallBack();
                                                 var memId = $("#member_id_form").val();
                                                 var memName = $("#member_name_form").val();
                                                 var memRole = $("#member_role_form").val();
@@ -522,10 +525,8 @@ if (empty($_SESSION['username'])) {
 
                                                 if (createOrEditState == "Edit") {
                                                     if (remark_inform == "") {
-//                            $().toastmessage('showWarningToast', "กรุณาระบุ Remark");
                                                         alert("กรุณาระบุ Remark");
                                                     } else if ($("#member_skill_form").val() == null) {
-//                            $().toastmessage('showWarningToast', "กรุณาระบุ ความสามารถของวมาชิก");
                                                         alert("กรุณาระบุ ความสามารถของวมาชิก");
                                                     } else {
                                                         if (memberSkill == null || memberSkill == "") {
@@ -538,14 +539,11 @@ if (empty($_SESSION['username'])) {
                                                                         $("#create_edit_panel").hide();
                                                                         $("#loading_ce_form").empty();
                                                                         $("#create_new_member_btn").show();
-//                                            $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
                                                                         createOrEditState = "Create";
                                                                     });
-//                                        $().toastmessage('showSuccessToast', 'แกไขข้อมูลทีมเรียบร้อยแล้ว');
                                                                     alert('แกไขข้อมูลทีมเรียบร้อยแล้ว');
 
                                                                 } else {
-//                                        $().toastmessage('showWarningToast', "ไม่สามารถแก้ไขข้อมูลทีมได้");
                                                                     alert("ไม่สามารถแก้ไขข้อมูลทีมได้");
                                                                 }
                                                             });
@@ -558,14 +556,11 @@ if (empty($_SESSION['username'])) {
                                                                         $("#create_edit_panel").hide();
                                                                         $("#loading_ce_form").empty();
                                                                         $("#create_new_member_btn").show();
-//                                            $('html,body').animate({scrollTop: $('#loading_project').offset().top}, 'slow');
                                                                         createOrEditState = "Create";
                                                                     });
-//                                        $().toastmessage('showSuccessToast', 'แกไขข้อมูลทีมเรียบร้อยแล้ว');
                                                                     alert('แกไขข้อมูลทีมเรียบร้อยแล้ว');
 
                                                                 } else {
-//                                        $().toastmessage('showWarningToast', "ไม่สามารถแก้ไขข้อมูลทีมได้");
                                                                     alert("ไม่สามารถแก้ไขข้อมูลทีมได้");
                                                                 }
                                                             });
@@ -574,10 +569,8 @@ if (empty($_SESSION['username'])) {
                                                     }
                                                 } else {
                                                     if (memName == "" || memName == null) {
-//                            $().toastmessage('showWarningToast', "กรุณาระบุ ชื่อของสมาชิก");
                                                         alert("กรุณาระบุ ชื่อของสมาชิก");
                                                     } else if ($("#member_skill_form").val() == null) {
-//                            $().toastmessage('showWarningToast', "กรุณาระบุ ความสามารถของวมาชิก");
                                                         alert("กรุณาระบุ ความสามารถของวมาชิก");
                                                     } else {
                                                         var jqxhr = $.post("../model/SavingMember.php?memId=" + memId + "&memName=" + memName + "&memRole=" + memRole + "&memberSkill=" + memberSkill + "&teamCode=" + teamCode + "&teamName=" + teamName + "&tel=" + tel + "&email=" + email + "&remark=" + remark_inform);
@@ -603,6 +596,7 @@ if (empty($_SESSION['username'])) {
                                                 }
                                             });
                                             $("#search_member_button").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 var member_id = $("#member_id").val();
                                                 var member_name = $("#member_name").val();
                                                 var role = $("#role").val();
@@ -630,6 +624,7 @@ if (empty($_SESSION['username'])) {
                                             });
                                         });
                                         function editMember(memID) {
+                                            updateSessionTimeOutCallBack();
                                             $("#create_edit_panel").show();
                                             $("#spinnerCE").show();
                                             var jqxhr = $.post("member-edit_form.php?mID=" + memID);
@@ -662,6 +657,7 @@ if (empty($_SESSION['username'])) {
                                             }, millisecondsToWait);
                                         }
                                         function deleteMember(memID) {
+                                            updateSessionTimeOutCallBack();
                                             if (confirm("Are you sure?"))
                                             {
                                                 // blockPage();
