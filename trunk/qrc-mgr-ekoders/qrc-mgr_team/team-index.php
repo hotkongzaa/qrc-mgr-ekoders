@@ -510,6 +510,7 @@ if (empty($_SESSION['username'])) {
         <script type="text/javascript">
                                         var createOrEditStateTeam = "Create";
                                         $(document).ready(function () {
+                                            updateSessionTimeOutCallBack();
                                             $("#alert_inform").hide();
                                             $("#alert_information").html();
                                             $("#select2_2").select2({
@@ -526,6 +527,7 @@ if (empty($_SESSION['username'])) {
                                                 createOrEditStateTeam = "Create";
                                             });
                                             $("#cancel_form").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 $("#alert_inform").hide();
                                                 $("#alert_information").html("");
                                                 $("#loading_ce_form").empty();
@@ -534,6 +536,7 @@ if (empty($_SESSION['username'])) {
                                                 createOrEditStateTeam = "Create";
                                             });
                                             $("#save_create_panel").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 var teamCode = $("#team_code_form").val();
                                                 var teamName = $("#team_name_form").val();
                                                 var teamLeadId = $("#team_lead_form").val();
@@ -650,6 +653,7 @@ if (empty($_SESSION['username'])) {
                                                 }
                                             });
                                             $("#search_team_button").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 var teamCode = $("#team_code_search").val();
                                                 var teamName = $("#team_name_search").val();
                                                 var teamLead = $("#team_lead_search").val();
@@ -680,7 +684,7 @@ if (empty($_SESSION['username'])) {
                                             });
                                         });
                                         function deleteTeam(tID, memID) {
-
+                                            updateSessionTimeOutCallBack();
 
                                             if (confirm("Are you sure?"))
                                             {
@@ -709,6 +713,7 @@ if (empty($_SESSION['username'])) {
 
                                         }
                                         function editTeam(tID, amount) {
+                                            updateSessionTimeOutCallBack();
                                             $("#create_edit_panel").show();
                                             $("#spinnerCE").show();
                                             var jqxhr = $.post("team-edit_form.php?mID=" + tID);
