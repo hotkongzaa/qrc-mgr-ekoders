@@ -19,13 +19,15 @@ class VerifySessionTimeOut {
     }
 
     public function initiateTimeOut($username, $permission_id) {
-        $_SESSION['expire'] = time() + (60 * 30);
+        $conf = parse_ini_file('../model-db-connection/configuration.ini');
+        $_SESSION['expire'] = time() + (60 * is_numeric($conf['applicationTimeOut']) ? intval($conf['applicationTimeOut']) : 30);
         $_SESSION['username'] = $username;
         $_SESSION['permission_id'] = $permission_id;
     }
 
     public function updateNewTimeout($newTimeOut, $username, $permission_id) {
-        $_SESSION['expire'] = $newTimeOut + (60 * 30);
+        $conf = parse_ini_file('../../model-db-connection/configuration.ini');
+        $_SESSION['expire'] = time() + (60 * is_numeric($conf['applicationTimeOut']) ? intval($conf['applicationTimeOut']) : 30);
         $_SESSION['username'] = $username;
         $_SESSION['permission_id'] = $permission_id;
         //1=success,0=fail;

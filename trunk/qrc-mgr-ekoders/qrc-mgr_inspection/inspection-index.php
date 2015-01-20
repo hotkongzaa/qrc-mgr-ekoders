@@ -452,11 +452,13 @@ if (empty($_SESSION['username'])) {
         <script type="text/javascript">
                                         var createOrEditState = "Save";
                                         $(document).ready(function () {
+                                            updateSessionTimeOutCallBack();
                                             $(".search_date").datepicker();
                                             $("#create_edit_panel").hide();
                                             $("#loading_project").load("inspection_table_result.php");
                                             $("#search_project").load("inspection_search_page.php");
                                             $("#create_new_ins_btn").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 createOrEditState = "Save";
                                                 $("#loading_ce_form").load("create-edit_form.php", function () {
                                                     $("#create_edit_panel").show("fast");
@@ -464,14 +466,17 @@ if (empty($_SESSION['username'])) {
                                                 });
                                             });
                                             $("#reset_search").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 $("#search_project").load("inspection_search_page.php");
                                                 $("#loading_project").load("inspection_table_result.php");
                                             });
                                             $("#cancel_form").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 $("#create_edit_panel").hide("fast");
                                                 $("#create_new_ins_btn").show("fast");
                                             });
                                             $("#search_ins_button").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 var ins_project_name = $("#inspection_project_name_search").val();
                                                 var ins_document_no = $("#inspection_document_no_search").val();
                                                 var ins_ins_no = $("#inspection_no_search").val();
@@ -500,6 +505,7 @@ if (empty($_SESSION['username'])) {
                                                 }
                                             });
                                             $("#save_create_panel").click(function () {
+                                                updateSessionTimeOutCallBack();
                                                 if ($("#inspection_project_name_form").val() == "") {
 //                        $().toastmessage('showWarningToast', "Please select Project name (ชื่อโครงการ)");
                                                     alert("Please select Project name (ชื่อโครงการ)");
@@ -567,6 +573,7 @@ if (empty($_SESSION['username'])) {
                                         });
 
                                         function deleteInspection(INS_ID) {
+                                            updateSessionTimeOutCallBack();
                                             if (confirm("Are you sure?"))
                                             {
                                                 // blockPage();
@@ -602,6 +609,7 @@ if (empty($_SESSION['username'])) {
                                             }
                                         }
                                         function editInspection(ins_id) {
+                                            updateSessionTimeOutCallBack();
                                             $("#create_new_ins_btn").hide("fast");
                                             $("#create_edit_panel").show();
                                             $("#spinnerCE").show();
@@ -667,6 +675,7 @@ if (empty($_SESSION['username'])) {
                                             }, millisecondsToWait);
                                         }
                                         function delImage(imageID, po_id, img_name) {
+                                            updateSessionTimeOutCallBack();
                                             if (confirm("Are you sure?"))
                                             {
                                                 var jqxhr = $.post("../model/DelINSImageByID.php?imageID=" + imageID + "&img_name=" + img_name);

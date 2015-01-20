@@ -162,6 +162,7 @@ if (empty($_SESSION['username'])) {
     <script>
         $("#dialog").hide();
         function viewClick(po_id) {
+            updateSessionTimeOutCallBack();
             var jqxhr = $.post("AjaxViewContent.php?po_id=" + po_id);
             jqxhr.success(function(data) {
                 $("#dialog_Content").html(data);

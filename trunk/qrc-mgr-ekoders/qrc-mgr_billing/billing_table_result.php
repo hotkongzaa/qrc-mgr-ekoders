@@ -68,7 +68,7 @@ if (empty($_SESSION['username'])) {
                         . $checkCustomer
                         . $checkDate
                         . $checkInvStatus
-                        . " ORDER BY create_date_time DESC;";                
+                        . " ORDER BY create_date_time DESC;";
             } else {
                 $sqlSelectAllProjectRecord = "select *"
                         . " from QRC_INVOICE qi"
@@ -122,6 +122,7 @@ if (empty($_SESSION['username'])) {
             $.fn.editable.defaults.mode = 'inline';
         });
         function editTable(inv_id) {
+            updateSessionTimeOutCallBack();
             $("#" + inv_id).editable({
                 value: 2,
                 source: [
@@ -135,7 +136,7 @@ if (empty($_SESSION['username'])) {
             });
         }
         function viewClick(invId, custId, create_receipt) {
-
+            updateSessionTimeOutCallBack();
             var jqxhr = $.post("AjaxViewContent.php?inv_id=" + invId + "&customer_id=" + custId + "&create_receipt=" + create_receipt);
             jqxhr.success(function (data) {
                 $("#dialog_Content").html(data);
