@@ -163,19 +163,19 @@ for ($sub = 0; $sub < $listBillingDto->Size(); $sub++) {
     echo '<td align = "center" width = "50px">&nbsp;';
     echo '</td>';
     echo '<td colspan = "3" align = "left" width = "50px" style = "background-color: #d8e4bc;font-weight: bold;" ><font size = "1">จำนวนเงินรวมทั้งสิ้น</font></td>';
-    echo '<td align = "right" width = "90px" style = "font-weight: bold;"><font size = "1">' . $totalAmountResult . '</font></td>';
+    echo '<td align = "right" width = "90px" style = "font-weight: bold;"><font size = "1">' . number_format($totalAmountResult, 2, '.', '') . '</font></td>';
     echo '</tr>';
     echo '<tr>';
     echo '<td align = "center" width = "50px">&nbsp;';
     echo '</td>';
     echo '<td colspan = "3" align = "left" width = "50px" style = "background-color: #d8e4bc;font-weight: bold;" ><font size = "1">ภาษีมูลค่าเพิ่ม 7%</font></td>';
-    echo '<td align = "right" width = "90px" style = "font-weight: bold;"><font size = "1">' . $vatCalculation . '</font></td>';
+    echo '<td align = "right" width = "90px" style = "font-weight: bold;"><font size = "1">' . number_format($vatCalculation, 2, '.', '') . '</font></td>';
     echo '</tr>';
     echo '<tr>';
     echo '<td align = "center" width = "50px">&nbsp;';
     echo '</td>';
     echo '<td colspan = "3" align = "left" width = "50px" style = "background-color: #d8e4bc;font-weight: bold;" ><font size = "1">รวมเงินสุทธิ</font></td>';
-    echo '<td align = "right" width = "90px" ><font size = "1" style = "font-weight: bold;">' . $totalExpense . '</font></td>';
+    echo '<td align = "right" width = "90px" ><font size = "1" style = "font-weight: bold;">' . number_format($totalExpense, 2, '.', '') . '</font></td>';
     echo '</tr>';
     echo '</table>';
     echo '</td>';
@@ -238,7 +238,7 @@ for ($sub = 0; $sub < $listBillingDto->Size(); $sub++) {
     echo '</td>';
     echo '</tr>';
     echo '</table>';
-    echo '<br/><br/><br/><br/><br/><br/>';
+    echo '<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';
 }
 echo '</div>';
 echo '</body>';

@@ -584,15 +584,11 @@ if (empty($_SESSION['username'])) {
                                             $("#create_billing").click(function () {
                                                 updateSessionTimeOutCallBack();
                                                 var data = "";
-                                                $("#create_invoice_press").prop('disabled', false);
-                                                $("#create_receipt_press").prop('disabled', true);
-                                                $("#create_progressive_press").prop('disabled', true);
-
+                                                var multiProjectCode = $("#multi_sel_project_name").val() == null ? "" : $("#multi_sel_project_name").val();
                                                 if ($("#inv_status").val() == "") {
-                                                    //inv_status always open
                                                     data = "inv_code=" + $("#inv_code").val() + "&" +
                                                             "customer_id=" + $("#customer_id").val() + "&" +
-                                                            "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
+                                                            "multi_sel_project_name=" + multiProjectCode + "&" +
                                                             "wo_status=" + $("#wo_status").val() + "&" +
                                                             "order_type_id=" + $("#order_type_id").val() + "&" +
                                                             "create_type=" + create_type + "&" +
@@ -605,7 +601,7 @@ if (empty($_SESSION['username'])) {
                                                 } else {
                                                     data = "inv_code=" + $("#inv_code").val() + "&" +
                                                             "customer_id=" + $("#customer_id").val() + "&" +
-                                                            "multi_sel_project_name=" + $("#multi_sel_project_name").val() + "&" +
+                                                            "multi_sel_project_name=" + multiProjectCode + "&" +
                                                             "wo_status=" + $("#wo_status").val() + "&" +
                                                             "order_type_id=" + $("#order_type_id").val() + "&" +
                                                             "create_type=" + create_type + "&" +
@@ -616,45 +612,41 @@ if (empty($_SESSION['username'])) {
                                                             "end_date=" + $("#end_date").val() + "&" +
                                                             "isCreate=" + isCreate;
                                                 }
-                                                var jqxhr = $.post("../model/com.qrc.mgr.controller/SaveBillingHeader.php?" + data);
-                                                jqxhr.success(function (resp) {
-                                                    if (resp == 1) {
-                                                        $("#loading_viewedit_table").load("billing_page_generate.php", function () {
-                                                            $("#show_temp_tble").show();
-                                                            $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'slow');
-                                                        });
-                                                    } else if (resp == "") {
-                                                        alert("No Data Found");
-                                                        $("#loading_viewedit_table").empty();
-                                                        $("#show_temp_tble").hide();
-                                                    } else if (resp == "406") {
-                                                        alert("Please select project");
-                                                        $("#loading_viewedit_table").empty();
-                                                        $("#show_temp_tble").hide();
-                                                    } else {
-                                                        alert(resp);
-                                                    }
-                                                });
-
-
+                                                if ($("#customer_id").val() == "") {
+                                                    alert("Please select customer name (ชื่อลูกค้า)");
+                                                } else {
+                                                    var jqxhr = $.post("../model/com.qrc.mgr.controller/SaveBillingHeader.php?" + data);
+                                                    jqxhr.success(function (resp) {
+                                                        if (resp == 1) {
+                                                            $("#loading_viewedit_table").load("billing_page_generate.php", function () {
+                                                                $("#show_temp_tble").show();
+                                                                $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'slow');
+                                                            });
+                                                        } else if (resp == "") {
+                                                            alert("No Data Found");
+                                                            $("#loading_viewedit_table").empty();
+                                                            $("#show_temp_tble").hide();
+                                                        } else if (resp == "406") {
+                                                            alert("Please select project");
+                                                            $("#loading_viewedit_table").empty();
+                                                            $("#show_temp_tble").hide();
+                                                        } else {
+                                                            alert(resp);
+                                                        }
+                                                    });
+                                                }
 
                                             });
                                             $("#create_invoice_press").click(function () {
                                                 updateSessionTimeOutCallBack();
-                                                var over = '<div id="overlay">' +
-                                                        '<img id="loading" src="http://bit.ly/pMtW1K">' +
-                                                        '</div>';
+                                                var over = '<div id="overlay">' + '<img id="loading" src="http://bit.ly/pMtW1K">' + '</div>';
                                                 $(over).appendTo('body');
                                                 $('html,body').animate({scrollTop: $('#overlay').offset().top}, 'slow');
-//                    $("html, body").animate({scrollTop: 0}, "slow");
                                                 var data = "";
                                                 if (statusNa == 1) {
                                                     var jqxhr = $.post("../model/com.qrc.mgr.controller/VerifyNumberOfRow.php");
                                                     jqxhr.success(function (responseCheck) {
                                                         if (responseCheck == "200") {
-                                                            var custId = $("#customer_id").val();
-                                                            var inv_type = $("input[name=create_type]:checked").val();
-                                                            var inv_code = $("#inv_code").val();
                                                             if ($("#inv_status").val() == "") {
                                                                 data = "inv_code=" + $("#inv_code").val() + "&" +
                                                                         "customer_id=" + $("#customer_id").val() + "&" +
@@ -684,7 +676,6 @@ if (empty($_SESSION['username'])) {
                                                                         $("#show_temp_tble").hide();
                                                                         $("#create_new_billing_btn").show("fast");
                                                                         $('#overlay').remove();
-                                                                        //window.location = 'billing_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + inv_code;
                                                                         window.location = "billing-index.php";
                                                                     });
                                                                 } else {
@@ -772,23 +763,17 @@ if (empty($_SESSION['username'])) {
                                                 var jqxhr = $.post("../model/com.qrc.mgr.controller/SavingToInvoiceDetail.php?inv_code=" + invCode);
                                                 jqxhr.success(function (respInv) {
                                                     if (respInv == 0) {
-//                            if (confirm("This invoice has been generated, Continue to generate this invoice?") == true) {
                                                         window.location = 'billing_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + invCode;
-//                            }
                                                     }
                                                 });
 
                                             }
                                             if (check == "REP") {
-//                    if (confirm("This receipt has been generated, Continue to generate this receipt?") == true) {
                                                 window.location = 'receipt_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + invCode;
-//                    }
                                             }
                                         }
                                         function generateProgressive(invCode, custId, inv_type) {
-//                if (confirm("This progressive has been generated, Continue to generate this progressive?") == true) {
                                             window.location = 'pgs_page_generate_download.php?customer_id=' + custId + "&inv_type=" + inv_type + "&inv_code=" + invCode;
-//                }
                                         }
         </script>
     </body>

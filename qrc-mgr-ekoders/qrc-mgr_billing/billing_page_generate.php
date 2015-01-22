@@ -37,25 +37,24 @@ if (empty($_SESSION['username'])) {
                 <tr>
                     <td colspan="3">
                         <table width="100%" border="1" class="inner-tbl">
-                            <tr style="background-color: #d8e4bc;">
-                                <td align="center" width="50px"><font size="1" style="font-weight: bold;">ลำดับที่<br/>ITEM</font></td>
-                                <td align="center" ><font size="1" style="font-weight: bold;">รายการสินค้า/บริการ<br/>DESCRIPTION</font></td>
-                                <td align="center" width="50px"><font size="1" style="font-weight: bold;">จำนวน<br/>QUANTITY</font></td>
-                                <td align="center" width="50px"><font size="1" style="font-weight: bold;">หน่วย<br/>UNIT</font></td>
-                                <td align="center" width="69px"><font size="1" style="font-weight: bold;">ราคา/หน่วย<br/>PRICE/UNIT</font></td>
-                                <td align="center" width="90px"><font size="1" style="font-weight: bold;">จำนวนเงิน/บาท<br/>AMOUNT/BAHT</font></td>
+                            <tr style="background-color: #585858;">
+                                <td align="center" width="50px"><font size="1" style="font-weight: bold; color: #ffffff;">ลำดับที่<br/>ITEM</font></td>
+                                <td align="center" ><font size="1" style="font-weight: bold; color: #ffffff;">รายการสินค้า/บริการ<br/>DESCRIPTION</font></td>
+                                <td align="center" width="50px"><font size="1" style="font-weight: bold; color: #ffffff;">จำนวน<br/>QUANTITY</font></td>
+                                <td align="center" width="50px"><font size="1" style="font-weight: bold; color: #ffffff;">หน่วย<br/>UNIT</font></td>
+                                <td align="center" width="69px"><font size="1" style="font-weight: bold; color: #ffffff;">ราคา/หน่วย<br/>PRICE/UNIT</font></td>
+                                <td align="center" width="90px"><font size="1" style="font-weight: bold; color: #ffffff;">จำนวนเงิน/บาท<br/>AMOUNT/BAHT</font></td>
 
                             </tr>
-                            <!--Header-->
                             <?php
-                            $sqlSelectProject = "SELECT * FROM QRC_INVOICE_DETAIL_TMP WHERE detail_type like 'PR' order by create_date_time asc;";
+                            $sqlSelectProject = "SELECT * FROM QRC_INVOICE_DETAIL_TMP WHERE detail_type like 'PR' and detail_id in (select ref_po_project from QRC_INVOICE_DETAIL_TMP where detail_type like 'PO' ) order by create_date_time asc;";
                             $sqlQuery = mysql_query($sqlSelectProject);
                             $rowCount = 1;
                             $totalAmountResult = 0;
                             while ($rowProject = mysql_fetch_array($sqlQuery)) {
                                 echo '<tr>';
                                 echo '<td align="center" width="50px"><font size="1" style="font-weight: bold;">' . $rowCount . '</font></td>';
-                                echo '<td align="left" ><font size="1" style="font-weight: bold;">' . $rowProject['detail_description'] . '</font></td>';
+                                echo '<td align="left" ><font size="1" style="font-weight: bold; ">' . $rowProject['detail_description'] . '</font></td>';
                                 echo '<td align="center" width="50px"><font size="1"></font></td>';
                                 echo '<td align="center" width="50px"><font size="1"></font></td>';
                                 echo '<td align="right" width="90px"><font size="1"></font></td>';
@@ -86,17 +85,17 @@ if (empty($_SESSION['username'])) {
                             <!--Footer-->
                             <tr>
                                 <td align="center" width="50px">&nbsp;</td>
-                                <td colspan="4" align="left" width="50px" style="background-color: #d8e4bc;font-weight: bold;" ><font size="1">จำนวนเงินรวมทั้งสิ้น (Sub Total)</font></td>
-                                <td align="right" width="90px" style="font-weight: bold;"><font size="1"><?php echo number_format($totalAmountResult, 2, '.', ''); ?></font></td>
+                                <td colspan="4" align="left" width="50px" style="background-color: #585858;font-weight: bold;" ><font size="1" style="font-weight: bold; color: #ffffff;">จำนวนเงินรวมทั้งสิ้น (Sub Total)</font></td>
+                                <td align="right" width="90px" style="font-weight: bold;"><font size="1" ><?php echo number_format($totalAmountResult, 2, '.', ''); ?></font></td>
                             </tr>
                             <tr>
                                 <td align="center" width="50px">&nbsp;</td>
-                                <td colspan="4" align="left" width="50px" style="background-color: #d8e4bc;font-weight: bold;" ><font size="1">ภาษีมูลค่าเพิ่ม 7% (VALUE ADD TAX)</font></td>
+                                <td colspan="4" align="left" width="50px" style="background-color: #585858;font-weight: bold;" ><font size="1" style="font-weight: bold; color: #ffffff;">ภาษีมูลค่าเพิ่ม 7% (VALUE ADD TAX)</font></td>
                                 <td align="right" width="90px" style="font-weight: bold;"><font size="1"><?php echo number_format($vatCalculation, 2, '.', ''); ?></font></td>
                             </tr>  
                             <tr>
                                 <td align="center" width="50px">&nbsp;</td>
-                                <td colspan="4" align="left" width="50px" style="background-color: #d8e4bc;font-weight: bold;" ><font size="1">รวมเงินสุทธิ (GRAND TOTAL)</font></td>
+                                <td colspan="4" align="left" width="50px" style="background-color: #585858;font-weight: bold;" ><font size="1" style="font-weight: bold; color: #ffffff;">รวมเงินสุทธิ (GRAND TOTAL)</font></td>
                                 <td align="right" width="90px" ><font size="1" style="font-weight: bold;"><?php echo number_format($totalExpense, 2, '.', ''); ?></font></td>
                             </tr>  
                         </table>

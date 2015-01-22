@@ -132,7 +132,6 @@ if ($listBillingDto->Size() <= 24) {
 
     for ($sub = 0; $sub < $listBillingDto->Size(); $sub++) {
         $dataSub = $listBillingDto->GetObj($sub);
-
         if ($dataSub->getDetail_Type() == "PO") {
             echo '<tr>';
             echo '<td align = "center" width = "50px"><font size = "1">' . $rowCount . '</font></td>';
@@ -142,11 +141,9 @@ if ($listBillingDto->Size() <= 24) {
             echo '<td align = "right" width = "90px"><font size = "1">' . number_format($dataSub->getDetail_amount_baht(), 2, '.', '') . '</font></td>';
             echo '</tr>';
             $totalAmountResult +=$dataSub->getDetail_amount_baht();
+            $rowCount++;
         }
-        $rowCount++;
     }
-
-
     $vatCalculation = ($totalAmountResult * 7) / 100;
     $totalExpense = $totalAmountResult + $vatCalculation;
     for ($i = 0; $i < 24 - $listBillingDto->Size(); $i++) {
@@ -164,22 +161,22 @@ if ($listBillingDto->Size() <= 24) {
     echo '</td>';
     echo '<td></td>';
     echo '<td colspan = "2" align = "left" width = "50px" style = "background-color: #d8e4bc;font-weight: bold;" ><font size = "1">จำนวนเงินรวมทั้งสิ้น</font></td>';
-    echo '<td align = "right" width = "90px" style = "font-weight: bold;"><font size = "1">' . $totalAmountResult . '</font></td>';
+    echo '<td align = "right" width = "90px" style = "font-weight: bold;"><font size = "1">' . number_format($totalAmountResult, 2, '.', '') . '</font></td>';
     echo '</tr>';
     echo '<tr>';
     echo '<td align = "center" width = "50px">&nbsp;';
     echo '</td>';
     echo '<td></td>';
     echo '<td colspan = "2" align = "left" width = "50px" style = "background-color: #d8e4bc;font-weight: bold;" ><font size = "1">ภาษีมูลค่าเพิ่ม (7%)</font></td>';
-    echo '<td align = "right" width = "90px" style = "font-weight: bold;"><font size = "1">' . $vatCalculation . '</font></td>';
+    echo '<td align = "right" width = "90px" style = "font-weight: bold;"><font size = "1">' . number_format($vatCalculation, 2, '.', '') . '</font></td>';
     echo '</tr>';
     echo '<tr>';
     echo '<td align = "center" style = "background-color: #d8e4bc;" width = "50px"><font size = "1" style = "font-weight: bold;">จำนวนเงิน</font>';
     echo '</td>';
     $toThai = new ConvertNumberToWordsInThai();
-    echo '<td style = "background-color: #d8e4bc;font-weight: bold;"><font size = "1" style = "font-weight: bold;">' . $toThai->numtothai("10700") . '</font></td>';
+    echo '<td style = "background-color: #d8e4bc;font-weight: bold;"><font size = "1" style = "font-weight: bold;">' . $toThai->numtothai(number_format($totalExpense, 2, '.', '')) . '</font></td>';
     echo '<td colspan = "2" align = "left" width = "50px" style = "background-color: #d8e4bc;font-weight: bold;" ><font size = "1">รวมเงินสุทธิ</font></td>';
-    echo '<td align = "right" width = "90px" ><font size = "1" style = "font-weight: bold;">' . $totalExpense . '</font></td>';
+    echo '<td align = "right" width = "90px" ><font size = "1" style = "font-weight: bold;">' . number_format($totalExpense, 2, '.', '') . '</font></td>';
     echo '</tr>';
     echo '</table>';
     echo '</td>';
