@@ -100,7 +100,7 @@ if (empty($_SESSION['username'])) {
             </td>
         </tr>
         <tr>
-            <td align="right" style="width:250px">Project Name (ชื่อโครงการ) *:</td>
+            <td align="right" style="width:250px">Project Name (ชื่อโครงการ) :</td>
             <td align="left" colspan="3">
                 <select title="Basic example"  style="width:300px" multiple class="form-control" id="multi_sel_project_name" name="multi_sel_project_name" size="5">                
                 </select>
@@ -166,18 +166,18 @@ if (empty($_SESSION['username'])) {
 <script src="../assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script src="../assets/js/plugins/select2/select2.min.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         $("#tabs").tabs();
-        $("input:radio[name=create_type]").click(function() {
+        $("input:radio[name=create_type]").click(function () {
             updateSessionTimeOutCallBack();
             create_type = $(this).val();
         });
-        $("input:radio[name=create_type_rep]").click(function() {
+        $("input:radio[name=create_type_rep]").click(function () {
             updateSessionTimeOutCallBack();
             create_receipt = $(this).val();
         });
-        $("input:radio[name=create_type_pgs]").click(function() {
+        $("input:radio[name=create_type_pgs]").click(function () {
             updateSessionTimeOutCallBack();
             create_progressive = $(this).val();
         });
@@ -190,36 +190,36 @@ if (empty($_SESSION['username'])) {
             placeholder: "Select a Option",
             allowClear: true
         });
-        $("#customer_id").change(function() {
+        $("#customer_id").change(function () {
             var cusID = $(this).val();
             var jqxhr = $.post("../model/GetProjectNameByCustomerID.php?cusID=" + cusID);
-            jqxhr.success(function(data2) {
+            jqxhr.success(function (data2) {
                 $("#multi_sel_project_name").html(data2).select2({
                     placeholder: "Select a Option",
                     allowClear: true
                 });
             });
-            jqxhr.error(function(data2) {
+            jqxhr.error(function (data2) {
                 window.location.replace("error.php?error_msg=" + data2);
             });
         });
-        $("#customer_id_rep").change(function() {
+        $("#customer_id_rep").change(function () {
             var cusID = $(this).val();
             var jqxhr = $.post("../model/GetProjectNameByCustomerID.php?cusID=" + cusID);
-            jqxhr.success(function(data2) {
+            jqxhr.success(function (data2) {
                 $("#multi_sel_project_name_rep").html(data2).multiselect("refresh");
             });
-            jqxhr.error(function(data2) {
+            jqxhr.error(function (data2) {
                 window.location.replace("error.php?error_msg=" + data2);
             });
         });
-        $("#customer_id_pgs").change(function() {
+        $("#customer_id_pgs").change(function () {
             var cusID = $(this).val();
             var jqxhr = $.post("../model/GetProjectNameByCustomerID.php?cusID=" + cusID);
-            jqxhr.success(function(data2) {
+            jqxhr.success(function (data2) {
                 $("#multi_sel_project_name_pgs").html(data2).multiselect("refresh");
             });
-            jqxhr.error(function(data2) {
+            jqxhr.error(function (data2) {
                 window.location.replace("error.php?error_msg=" + data2);
             });
         });

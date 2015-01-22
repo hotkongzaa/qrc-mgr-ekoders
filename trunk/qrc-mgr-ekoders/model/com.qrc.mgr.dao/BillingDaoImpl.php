@@ -28,28 +28,35 @@ class BillingDaoImpl implements BillingDao {
         if ($resultClean['isClean'] > 0) {
             $this->deleteInvoiceDetailTable();
         }
-        if ($setProjectCode != "null" || $setProjectCode != "") {
+        if (!empty($setProjectCode)) {
             $projects = explode(",", $setProjectCode);
-            
-            for ($i = 0; $i < count($projects); $i++) {
-//                $checkEmptySub = $this->getPreBillingForCheckByCondition($start_date, $end_date, $projects[$i], $wo_status, $customer_id, $order_type_id);
-//                if ($checkEmptySub->Size() == 0) {
-////                    $this->status = "403";
-//                } else {
-                    $selAndInINVDetail = "select project_name as project_name from QRC_PROJECT WHERE PROJECT_CODE LIKE '" . $projects[$i] . "'";
-                    $getSet = mysql_query($selAndInINVDetail);
-                    $resultGetSet = mysql_fetch_assoc($getSet);
-                    $sqlInsertDetailWithProject = "INSERT INTO QRC_INVOICE_DETAIL_TMP (detail_id,detail_description,detail_quantity,detail_unit,detail_price_per_unit,detail_amount_baht,detail_type,ref_invoice_id,create_date_time) values ("
-                            . "'" . md5(date('m/d/Y h:i:s a', time()) . $i) . "','" . $resultGetSet['project_name'] . "',NULL,NULL,NULL,NULL,'PR',NULL,NOW());";
-                    mysql_query($sqlInsertDetailWithProject);
-                    $this->insertSubProject($start_date, $end_date, $projects[$i], $wo_status, $customer_id, $order_type_id, $i);
 
-                    $this->status = "1";
-//                }
+            for ($i = 0; $i < count($projects); $i++) {
+                $selAndInINVDetail = "select project_name as project_name from QRC_PROJECT WHERE PROJECT_CODE LIKE '" . $projects[$i] . "'";
+                $getSet = mysql_query($selAndInINVDetail);
+                $resultGetSet = mysql_fetch_assoc($getSet);
+                $sqlInsertDetailWithProject = "INSERT INTO QRC_INVOICE_DETAIL_TMP (detail_id,detail_description,detail_quantity,detail_unit,detail_price_per_unit,detail_amount_baht,detail_type,ref_invoice_id,create_date_time) values ("
+                        . "'" . md5(date('m/d/Y h:i:s a', time()) . $i) . "','" . $resultGetSet['project_name'] . "',NULL,NULL,NULL,NULL,'PR',NULL,NOW());";
+                mysql_query($sqlInsertDetailWithProject);
+                $this->insertSubProject($start_date, $end_date, $projects[$i], $wo_status, $customer_id, $order_type_id, $i);
+
+                $this->status = "1";
             }
             return $this->status;
         } else {
-            return "503: Not found project code";
+            $ss = 0;
+            $sqlGetAllProject = "SELECT project_name as project_name,project_code as project_code from QRC_PROJECT;";
+            $sqlQuery = mysql_query($sqlGetAllProject);
+            while ($projectNameSet = mysql_fetch_array($sqlQuery)) {
+                $sqlInsertDetailWithProject = "INSERT INTO QRC_INVOICE_DETAIL_TMP (detail_id,detail_description,detail_quantity,detail_unit,detail_price_per_unit,detail_amount_baht,detail_type,ref_invoice_id,create_date_time) values ("
+                        . "'" . md5(date('m/d/Y h:i:s a', time()) . $ss) . "','" . $projectNameSet['project_name'] . "',NULL,NULL,NULL,NULL,'PR',NULL,NOW());";
+                mysql_query($sqlInsertDetailWithProject);
+                $this->insertSubProject($start_date, $end_date, $projectNameSet['project_code'], $wo_status, $customer_id, $order_type_id, $ss);
+
+                $this->status = "1";
+                $ss++;
+            }
+            return $this->status;
         }
     }
 

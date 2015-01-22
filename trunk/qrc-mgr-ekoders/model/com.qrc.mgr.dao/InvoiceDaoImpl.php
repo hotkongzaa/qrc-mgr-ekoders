@@ -135,7 +135,7 @@ class InvoiceDaoImpl implements InvoiceDao {
         $query = mysql_query($sqlCoutRow);
         $result = mysql_fetch_assoc($query);
         if ($result['rows'] > 23) {
-            return "ไม่สามารถสร้างใบเสร็จได้ จำนวนบรรทัดเกินที่กำหนด (23)";
+            return "ไม่สามารถสร้างใบเสร็จได้ จำนวนบรรทัดเกินที่กำหนด (24)";
         } else {
             return 200;
         }
