@@ -86,11 +86,11 @@ if (empty($_SESSION['username'])) {
                             <!--Speech Icon-->
                             <li class="dropdown user-box">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img class="img-circle" src="../assets/images/user.jpg" alt=""> <span class="user-info"> <?= $_SESSION['username']; ?></span> <b class="caret"></b>
+                                    <img class="img-circle" src="../images/uploads/<?= $_SESSION['IMAGE_URL'] ?>" alt=""> <span class="user-info"> <?= $_SESSION['username']; ?></span> <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu dropdown-user">
                                     <li>
-                                        <a href="profile.html">
+                                        <a href="../qrc-mgr_profile/profile.php">
                                             <i class="fa fa-user"></i> My Profile
                                         </a>
                                     </li>

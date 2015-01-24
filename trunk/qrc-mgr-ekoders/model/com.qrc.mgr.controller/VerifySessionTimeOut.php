@@ -18,11 +18,12 @@ class VerifySessionTimeOut {
         
     }
 
-    public function initiateTimeOut($username, $permission_id) {
+    public function initiateTimeOut($username, $permission_id, $imgUrl) {
         $conf = parse_ini_file('../model-db-connection/configuration.ini');
         $_SESSION['expire'] = time() + (60 * $conf['applicationTimeOut']);
         $_SESSION['username'] = $username;
         $_SESSION['permission_id'] = $permission_id;
+        $_SESSION['IMAGE_URL'] = $imgUrl;
     }
 
     public function updateNewTimeout($username, $permission_id) {
