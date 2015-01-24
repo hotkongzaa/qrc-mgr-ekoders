@@ -248,72 +248,8 @@ if (empty($_SESSION['username'])) {
                                     <div class="row" id="upper_menu">
 
                                     </div>
-                                    <button type="button" class="btn btn-primary" id="create_new_billing_btn"><i class="fa fa-bar-chart-o"></i> Create Billing</button>
+                                    <!--<button type="button" class="btn btn-primary" id="create_new_billing_btn"><i class="fa fa-bar-chart-o"></i> Create Billing</button>-->
                                     <!-- Server Info Charts .morris -->
-                                    <div class="row" >
-                                        <div class="col-lg-9">
-                                            <div class="portlet" id="create_edit_panel">
-                                                <div class="portlet-heading inverse">
-                                                    <div class="portlet-title">
-                                                        <h4><i class="fa fa-bar-chart-o"></i> Generate Billing</h4>
-                                                    </div>
-                                                    <div class="portlet-widgets">
-
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#m-charts"><i class="fa fa-chevron-down"></i></a>
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                                <div id="m-charts" class="panel-collapse collapse in">
-                                                    <div class="portlet-body">
-                                                        <div class="row" id="loading_ce_form">
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="portlet-footer">
-                                                        <div class="pull-right">
-                                                            <button id="create_billing"  class="btn btn-primary">Generate </button>
-                                                        </div>
-                                                        <div class="pull-left">
-                                                            <button id="close_search_panel" class="btn ">Close (ปิด) <i class="fa fa-arrow-cross"></i></button>
-                                                        </div>
-                                                        <div class="clearfix"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-9">
-                                            <div class="portlet" id="show_temp_tble">
-                                                <div class="portlet-heading inverse">
-                                                    <div class="portlet-title">
-                                                        <h4><i class="fa fa-bar-chart-o"></i> View/Edit Invoice</h4>
-                                                    </div>
-                                                    <div class="portlet-widgets">
-
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#m-charts"><i class="fa fa-chevron-down"></i></a>
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                                <div id="m-charts" class="panel-collapse collapse in">
-                                                    <div class="portlet-body">
-                                                        <div class="row" id="loading_viewedit_table">
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="portlet-footer">
-                                                        <div class="pull-right">
-                                                            <button type="button" class="btn btn-primary " style="width: 150px" data-toggle="dropdown" id="create_invoice_press">Download Invoice</button>
-                                                        </div>
-                                                        <div class="pull-left">
-                                                            <button type="button" id="close_viewedit_tbl" class="btn btn-default" style="width: 100px" data-toggle="dropdown">Close (ปิด)</button>
-                                                        </div>
-                                                        <div class="clearfix"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
                                     <!-- End Server Info Charts .morris -->
                                     <div class="row" id="row_html">
                                         <div class="col-lg-3">
@@ -321,9 +257,6 @@ if (empty($_SESSION['username'])) {
                                                 <div class="portlet-heading inverse">
                                                     <div class="portlet-title">
                                                         <h4><i class="glyphicon glyphicon-sort-by-attributes"></i> Search..</h4>
-                                                    </div>
-                                                    <div class="portlet-widgets">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#jq-spark" class=""><i class="fa fa-chevron-down"></i></a>
                                                     </div>
                                                     <div class="clearfix"></div>
                                                 </div>
@@ -376,7 +309,7 @@ if (empty($_SESSION['username'])) {
                                                     </div>
                                                     <div class="portlet-footer">
                                                         <div class="pull-right">
-                                                            <button id="search_button" class="btn btn-inverse">Search <i class="fa fa-arrow-right icon-on-right"></i></button>
+                                                            <button id="search_button" class="btn btn-primary">Search <i class="fa fa-arrow-right icon-on-right"></i></button>
                                                         </div>
                                                         <div class="clearfix"></div>
                                                     </div>
@@ -384,14 +317,73 @@ if (empty($_SESSION['username'])) {
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
+                                            <div class="portlet" id="create_edit_panel">
+                                                <div class="portlet-heading inverse">
+                                                    <div class="portlet-title">
+                                                        <h4><i class="fa fa-bar-chart-o"></i> Generate Billing</h4>
+                                                    </div>
+                                                    <div class="portlet-widgets">
+
+                                                        <a href="#" class="close_search_panel"><i class="fa fa-times text-danger"></i></a>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div id="m-charts" class="panel-collapse collapse in">
+                                                    <div class="portlet-body">
+                                                        <div class="row" id="loading_ce_form">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-footer">
+                                                        <div class="pull-right">
+                                                            <button id="create_billing"  class="btn btn-primary">Generate </button>
+                                                        </div>
+                                                        <div class="pull-left">
+                                                            <button class="btn close_search_panel">Close (ปิด) <i class="fa fa-arrow-cross"></i></button>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet" id="show_temp_tble">
+                                                <div class="portlet-heading inverse">
+                                                    <div class="portlet-title">
+                                                        <h4><i class="fa fa-bar-chart-o"></i> View/Edit Invoice</h4>
+                                                    </div>
+                                                    <div class="portlet-widgets">
+
+                                                        <a href="#" class="close_viewedit_tbl"><i class="fa fa-times text-danger"></i></a>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div id="m-charts" class="panel-collapse collapse in">
+                                                    <div class="portlet-body">
+                                                        <div class="row" id="loading_viewedit_table">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-footer">
+                                                        <div class="pull-right">
+                                                            <button type="button" class="btn btn-primary " style="width: 150px" data-toggle="dropdown" id="create_invoice_press">Download Invoice</button>
+                                                        </div>
+                                                        <div class="pull-left">
+                                                            <button type="button" class="btn btn-default close_viewedit_tbl" style="width: 100px" data-toggle="dropdown">Close (ปิด)</button>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="portlet">
-                                                <div class="portlet-heading dark">
+                                                <div class="portlet-heading inverse">
                                                     <div class="portlet-title">
                                                         <h4><i class="fa fa-list-ul"></i> All Generate Billing</h4>
                                                     </div>
                                                     <div class="portlet-widgets">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#recent" class=""><i class="fa fa-chevron-down"></i></a>
-
+                                                        <a href="#" id="create_new_billing_btn" title="Create New Billing"><i class="fa fa-plus-circle"></i></a>
+                                                        <span class="divider"></span>                                                        
+                                                        <span class="divider"></span>
+                                                        <a href="#"><i class="fa fa-times text-danger"></i></a>
                                                     </div>
                                                     <div class="clearfix"></div>
                                                 </div>
@@ -509,15 +501,13 @@ if (empty($_SESSION['username'])) {
 
         <!-- REQUIRE FOR SPEECH COMMANDS -->
         <script src="../assets/js/speech-commands.js"></script>
-        <!--<script src="../assets/js/plugins/gritter/jquery.gritter.min.js"></script>-->		
-
         <!-- initial page level scripts for examples -->
         <script src="../assets/js/plugins/slimscroll/jquery.slimscroll.init.js"></script>
         <script src="../assets/js/home-page.init.js"></script>
         <script src="../assets/js/plugins/jquery-sparkline/jquery.sparkline.init.js"></script>
         <!-- qrc-mgr javascript init-->
         <script src="../assets/js/qrc-mgr_configuration.js"></script>
-        <!--<script src="../assets/js/jquery.blockUI.js"></script>-->
+
         <style type="text/css">
             #overlay {
                 position: absolute;
@@ -553,23 +543,30 @@ if (empty($_SESSION['username'])) {
                                             $("#loading_project").load("billing_table_result.php?search_condition=All");
                                             $("#create_new_billing_btn").click(function () {
                                                 updateSessionTimeOutCallBack();
-                                                $("#loading_ce_form").load("create-edit_form.php", function () {
-                                                    $("#create_edit_panel").show("fast");
-                                                    $("#create_new_billing_btn").hide("fast");
+                                                $.ajax({
+                                                    url: "create-edit_form.php",
+                                                    type: 'POST',
+                                                    success: function (data, textStatus, jqXHR) {
+                                                        $("#loading_ce_form").html(data);
+                                                        $("#create_edit_panel").show("fast");
+                                                        $("#create_new_billing_btn").hide("fast");
+                                                        setTimeout($.unblockUI, 100);
+                                                    }
                                                 });
                                             });
-                                            $("#close_search_panel").click(function () {
+                                            $(".close_search_panel").click(function () {
                                                 updateSessionTimeOutCallBack();
                                                 $("#create_edit_panel").hide("fast");
                                                 $("#create_new_billing_btn").show("fast");
                                             });
-                                            $("#close_viewedit_tbl").click(function () {
+                                            $(".close_viewedit_tbl").click(function () {
                                                 updateSessionTimeOutCallBack();
                                                 var jqxhr = $.post("../model/com.qrc.mgr.controller/DeleteInvoiceDetailTemp.php");
                                                 jqxhr.success(function (resp) {
                                                     if (resp == 1) {
                                                         $("#loading_viewedit_table").empty();
                                                         $("#show_temp_tble").hide();
+                                                        $('html,body').animate({scrollTop: $("html").offset().top}, 'slow');
                                                     } else {
                                                         alert(resp + "");
                                                     }
@@ -620,7 +617,7 @@ if (empty($_SESSION['username'])) {
                                                         if (resp == 1) {
                                                             $("#loading_viewedit_table").load("billing_page_generate.php", function () {
                                                                 $("#show_temp_tble").show();
-                                                                $('html,body').animate({scrollTop: $('#loading_viewedit_table').offset().top}, 'slow');
+                                                                $('html,body').animate({scrollTop: $("#loading_ce_form").offset().top}, 'slow');
                                                             });
                                                         } else if (resp == "") {
                                                             alert("No Data Found");
