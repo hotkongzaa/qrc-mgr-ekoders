@@ -50,6 +50,9 @@ $(document).ready(function () {
             }
         });
     });
+    $("#profile_Page").click(function () {
+        window.location.assign("../qrc-mgr_profile/profile.php");
+    });
 });
 function updateSessionTimeOutCallBack() {
     $.ajax({

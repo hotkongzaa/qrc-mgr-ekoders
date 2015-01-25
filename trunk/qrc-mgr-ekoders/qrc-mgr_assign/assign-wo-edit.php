@@ -97,7 +97,7 @@ if (empty($_SESSION['username'])) {
                                 </a>
                                 <ul class="dropdown-menu dropdown-user">
                                     <li>
-                                        <a href="profile.html">
+                                        <a href="#" id="profile_Page">
                                             <i class="fa fa-user"></i> My Profile
                                         </a>
                                     </li>

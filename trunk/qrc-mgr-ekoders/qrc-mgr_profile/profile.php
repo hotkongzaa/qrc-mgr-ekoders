@@ -164,7 +164,7 @@ if (empty($_SESSION['username'])) {
                             <!-- END Navigation category -->
 
                             <li>
-                                <a class="active" href="../qrc-mgr_project/project-index.php">
+                                <a href="../qrc-mgr_project/project-index.php">
                                     <i class="fa fa-desktop"></i> Project (โครงการ)
                                 </a>
                             </li>
@@ -325,10 +325,8 @@ if (empty($_SESSION['username'])) {
                                                 <img src="../images/uploads/<?= $userVO->getImgUrl() ?>" class="img-responsive"  alt="">
                                             </a>
                                         </div>
-                                        <p class="text-center">
-                                            <button type="button" class="btn btn-facebook btn-xs" data-placement="top" data-rel="tooltip" title="Visit My Facebook" role="button"><i class="fa fa-facebook icon-only"></i></button>
-                                            <button type="button" class="btn btn-twitter btn-xs" data-placement="top" data-rel="tooltip" title="Visit My Twitter" role="button"><i class="fa fa-twitter icon-only"></i></button>
-                                            <button type="button" class="btn btn-googleplus btn-xs" role="button" data-placement="top" data-rel="tooltip" title="Google +"><i class="fa fa-google-plus icon-only"></i></button>
+                                        <input type="file" name="fileToUpload" id="fileToUpload">
+                                        <button type="button" class="btn btn-file" id="uploadImage">Upload Image</button>
                                         </p>
                                     </div>
                                 </div>
@@ -461,7 +459,7 @@ if (empty($_SESSION['username'])) {
                                                         <div class="col-sm-3">
                                                             <input type="text" class="form-control" value="<?= $userVO->getPhonenumber() ?>">
                                                         </div>
-                                                    </div>												
+                                                    </div>
                                                     <div class="form-actions">
                                                         <div class="form-group">
                                                             <div class="col-sm-offset-3 col-sm-9">
@@ -523,9 +521,31 @@ if (empty($_SESSION['username'])) {
         <!-- initial page level scripts for examples -->
         <script src="../assets/js/plugins/slimscroll/jquery.slimscroll.init.js"></script>
         <script src="../assets/js/qrc-mgr_configuration.js"></script>
+        <script type="text/javascript" src="../assets/js/jquery.uploadfile.js"></script>
+        <link rel="stylesheet" type="text/css" href="../assets/css/uploadfile.css" media="screen" />
         <script type="text/javascript">
                                             $(document).ready(function () {
-                                                // password checkbox function
+                                                $("#uploadImage").on('click', function () {
+                                                    var file_data = $('#fileToUpload').prop('files')[0];
+                                                    var form_data = new FormData();
+                                                    form_data.append('file', file_data);
+                                                    $.ajax({
+                                                        url: '../model/com.qrc.mgr.controller/UploadProfileImage.php?userID=' + "<?= $row['id'] ?>",
+                                                        dataType: 'text',
+                                                        cache: false,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        data: form_data,
+                                                        type: 'post',
+                                                        success: function (php_script_response) {
+                                                            if (php_script_response == 200) {
+                                                                window.location = "profile.php";
+                                                            } else {
+                                                                alert(php_script_response);
+                                                            }
+                                                        }
+                                                    });
+                                                });
                                                 $(":checkbox").click(function (event) {
                                                     if ($(this).is(":checked"))
                                                         $(".myPassword").show();
