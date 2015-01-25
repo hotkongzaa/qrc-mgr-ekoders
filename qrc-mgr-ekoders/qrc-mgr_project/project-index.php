@@ -90,7 +90,7 @@ if (empty($_SESSION['username'])) {
                                 </a>
                                 <ul class="dropdown-menu dropdown-user">
                                     <li>
-                                        <a href="../qrc-mgr_profile/profile.php">
+                                        <a href="#" id="profile_Page">
                                             <i class="fa fa-user"></i> My Profile
                                         </a>
                                     </li>
